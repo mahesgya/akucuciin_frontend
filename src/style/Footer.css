@@ -1,0 +1,141 @@
+#Footer {
+  background-color: #1e2746;
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  margin-top: 50px;
+  padding-top: 50px;
+}
+
+#Footer p,
+h2,
+h4,
+h3 {
+  margin: 0;
+}
+
+.Follow {
+  display: flex;
+  justify-content: center;
+  column-gap: 500px;
+  background-color: #687eff;
+  position: absolute;
+  top: -20px;
+  padding: 20px 80px;
+  margin: 0 50px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.Follow-A {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.Follow-A h2 {
+  color: var(--Pure-White, #fff);
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.96px;
+  text-transform: capitalize;
+}
+
+.Follow-A p {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 25px;
+  letter-spacing: -0.54px;
+}
+
+.Follow-B {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 30px;
+}
+
+.Follow-B a {
+  background-color: #fff;
+  color: #687eff;
+  padding: 10px 40px;
+}
+
+.Footer-B {
+  margin: 80px 100px;
+  display: flex;
+  justify-content: space-around;
+  column-gap: 40px;
+}
+
+.Footer-B1 {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Footer-B1 p {
+  text-align: justify;
+}
+
+.Footer-Biru {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  column-gap: 20px;
+}
+
+.Footer-B2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.Footer-B2 h4 {
+  color: #fff;
+  font-family: "Work Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.div-line {
+  width: 63px;
+  height: 1px;
+  background-color: #fff;
+}
+
+.logo-Footer {
+  width: 200px;
+}
+
+.Footer-B p {
+  color: #bcbcbc;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.Footer-Pelengkap {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.Footer-Pelengkap a {
+  color: #bcbcbc;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.Footer-Akhir {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
