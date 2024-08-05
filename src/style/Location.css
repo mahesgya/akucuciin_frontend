@@ -1,0 +1,608 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.Location-Top {
+  height: 150px;
+  width: 100%;
+  background-color: #687eff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Location-TopR {
+  display: flex;
+  align-items: center;
+}
+
+.h4TopR {
+  color: #fff;
+  font-family: "Work Sans";
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 46px;
+  padding-right: 20px;
+}
+
+.h4TopL {
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 0.1px;
+  margin: 0 30px;
+  color: #fff;
+  font-family: Poppins;
+}
+
+.h1TopL {
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  margin: 0 30px;
+  color: #fff;
+  font-family: Poppins;
+}
+
+.Location-Container {
+  background-color: #f5f5f5;
+}
+
+.Location-Box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 0 50px 0;
+}
+
+.divbox {
+  margin: 35px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.divboxA {
+  padding: 0 10px 10px 30px;
+}
+
+.boximg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.divbox img {
+  height: 220px;
+  width: 386px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.divbox img {
+  padding: 10px;
+  object-fit: cover;
+}
+
+
+.divbox h3,
+p,
+h4 {
+  margin: 0;
+}
+
+.h3box {
+  color: #687eff;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+}
+
+.pbox {
+  color: var(--Grey-Dark-900, #293032);
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.1px;
+}
+
+.h4box {
+  color: #f00;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+
+.Dragdown{
+  padding-left: 100px;
+}
+
+@media screen and (max-width: 769px) {
+  .Location-Top {
+    height: 100px;
+    width: 100%;
+    background-color: #687eff;
+  }
+  
+  
+  .h4TopR {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 15px;
+    padding-right: 10px;
+  }
+  
+  .h4TopL {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1px;
+    margin: 0 10px;
+  }
+  
+  .h1TopL {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    margin: 0 10px;
+  }
+  
+  .Location-Box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 10px 0 20px 0;
+    
+  }
+  
+  .locationLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    flex-direction: row;
+    align-self: center;
+  }
+
+  .divbox {
+    margin: 15px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    align-self: center;
+    max-width: 261px;
+  }
+  
+  .divboxA {
+    padding: 0 10px 10px 15px;
+  }
+  
+  .divbox img {
+    height: 120px;
+    width: 220px;
+  }
+  
+  .divbox img {
+    padding: 10px;
+  }
+  
+  .divbox h3,
+  p,
+  h4 {
+    margin: 0;
+  }
+  
+  .h3box {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+  }
+  
+  .pbox {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.1px;
+  }
+  
+  .h4box {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .Location-Top {
+    height: 80px;
+    width: 100%;
+    background-color: #687eff;
+  }
+  
+  
+  .h4TopR {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 15px;
+    padding-right: 10px;
+  }
+  
+  .h4TopL {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.1px;
+    margin: 0 10px;
+  }
+  
+  .h1TopL {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    margin: 0 10px;
+  }
+  
+  
+  .Location-Box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 10px 0 20px 0;
+    
+  }
+  
+  .divbox {
+    margin: 15px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+  
+  .divboxA {
+    padding: 0 10px 10px 15px;
+  }
+  
+  .divbox img {
+    height: 70px;
+    width: 126px;
+  }
+  
+  .divbox img {
+    padding: 10px;
+  }
+  
+  .divbox h3,
+  p,
+  h4 {
+    margin: 0;
+  }
+  
+  .h3box {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+  }
+  
+  .pbox {
+    font-size: 8px;
+    font-weight: 400;
+    letter-spacing: 0.1px;
+  }
+  
+  .h4box {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .Location-Top {
+    height: 120px;
+    width: 100%;
+    background-color: #687eff;
+  }
+  
+  
+  .h4TopR {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 15px;
+    padding-right: 10px;
+  }
+  
+  .h4TopL {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.1px;
+    margin: 0 10px;
+  }
+  
+  .h1TopL {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    margin: 0 10px;
+  }
+  
+  
+  .Location-Box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+   
+    padding: 10px 0 20px 0;
+  }
+  
+  .divbox {
+    margin: 15px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    max-width: 358px;
+  }
+  
+  .divboxA {
+    padding: 0 10px 10px 15px;
+  }
+  
+  .divbox img {
+    height: 150px;
+    width: 290px;
+  }
+  
+  .divbox img {
+    padding: 10px;
+  }
+  
+  .divbox h3,
+  p,
+  h4 {
+    margin: 0;
+  }
+  
+  .h3box {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+  }
+  
+  .pbox {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1px;
+  }
+  
+  .h4box {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+  }
+
+  .locationLink{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    flex-direction: row;
+    align-self: center;
+  }
+}
+
+@media screen and (min-width: 1020px) {
+  .Dragdown{
+    margin: 0;
+  }
+  
+  .Location-Top {
+    height: 140px;
+    width: 100%;
+    background-color: #687eff;
+  }
+  
+  
+  .h4TopR {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 15px;
+    padding-right: 10px;
+  }
+  
+  .h4TopL {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.1px;
+    margin: 0 10px;
+  }
+  
+  .h1TopL {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    margin: 0 10px;
+  }
+  
+  
+  .Location-Box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 10px 0 20px 0;
+  }
+  
+  .divbox {
+    margin: 15px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    max-width: 358px;
+  }
+  
+  .divboxA {
+    padding: 0 10px 10px 15px;
+  }
+  
+  .divbox img {
+    height: 150px;
+    width: 290px;
+  }
+  
+  .divbox img {
+    padding: 10px;
+  }
+  
+  .divbox h3,
+  p,
+  h4 {
+    margin: 0;
+  }
+  
+  .h3box {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+  }
+  
+  .pbox {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.1px;
+  }
+  
+  .h4box {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+  }
+
+  .locationLink{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    flex-direction: row;
+    align-self: center;
+  }
+}
+
+@media screen and (min-width:1400px){
+  .locationLink{
+    max-width: 10000px;
+  }
+  .Location-Top {
+    height: 160px;
+    width: 100%;
+    background-color: #687eff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .Location-TopR {
+    display: flex;
+    align-items: center;
+  }
+  
+  .h4TopR {
+    color: #fff;
+    font-family: "Work Sans";
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 46px;
+    padding-right: 20px;
+  }
+  
+  .h4TopL {
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 0.1px;
+    margin: 0 30px;
+    color: #fff;
+    font-family: Poppins;
+  }
+  
+  .h1TopL {
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    margin: 0 30px;
+    color: #fff;
+    font-family: Poppins;
+  }
+  
+  .Location-Container {
+    background-color: #f5f5f5;
+  }
+  
+  .Location-Box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 0 50px 0;
+  }
+  
+  .divbox {
+    margin: 35px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    max-width: 100000px;
+  }
+  
+  .divboxA {
+    padding: 0 10px 10px 30px;
+  }
+  
+  .boximg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .divbox img {
+    height: 220px;
+    width: 386px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+  }
+  
+  .divbox img {
+    padding: 10px;
+  }
+  
+  .divbox h3,
+  p,
+  h4 {
+    margin: 0;
+  }
+  
+  .h3box {
+    color: #687eff;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+  }
+  
+  .pbox {
+    color: var(--Grey-Dark-900, #293032);
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1px;
+  }
+  
+  .h4box {
+    color: #f00;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+  }
+}

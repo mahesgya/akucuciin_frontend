@@ -1,0 +1,23 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+
+
+
+
+
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELOW IPALLOWID:lwtbXhODjt
+allow from 103.10.105.156
+# DO NOT REMOVE THIS LINE AND THE LINES ABOVE lwtbXhODjt:IPALLOWID
+
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELOW IPALLOWID:qIDp2eg6r6
+allow from 103.10.105.158
+# DO NOT REMOVE THIS LINE AND THE LINES ABOVE qIDp2eg6r6:IPALLOWID
+

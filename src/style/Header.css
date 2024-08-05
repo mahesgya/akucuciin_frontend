@@ -1,12 +1,22 @@
 #Header {
-  padding: 15px 30px;
+  padding: 35px 45px;
   display: flex;
   align-items: center;
-  justify-content:space-between;
+  justify-content: space-between;
   flex-direction: row;
   z-index: 99999;
 }
 
+button{
+  border: none;
+  background-color: #f5f5f5;
+  color: #f5f5f5;
+}
+
+     
+.navbarli{
+  background: none;
+}
 
 .container {
   display: flex;
@@ -14,7 +24,6 @@
   justify-content: center;
   flex-direction: row;
   column-gap: 200px;
-
 }
 
 .nav-img {
@@ -39,18 +48,18 @@ a {
   position: relative;
 }
 
-#navbar li a{
+#navbar li a {
   text-decoration: none;
   color: var(--Dark-Gray, #555);
   text-transform: uppercase;
   font-weight: 500;
 }
 
-.navbardiv a{
+.navbardiv a {
   color: #ffff;
 }
 
-.navbardiv1 a{
+.navbardiv1 a {
   color: #000;
 }
 
@@ -82,12 +91,21 @@ a {
 }
 
 .signin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5px;
   border-radius: 50px;
   background: #687eff;
   color: #ffff;
   padding: 15px 35px;
   margin: 0 15px;
   font-weight: 600;
+}
+
+.IoSearch {
+  width: 30px;
+  height: 30px;
 }
 
 .signup {
@@ -99,25 +117,79 @@ a {
   font-weight: 600;
 }
 
+.divCloseBtn {
+  display: none;
+}
+
+.imgHome {
+  display: none;
+}
+
 @media screen and (max-width: 769px) {
+  #Header {
+    padding: 15px 25px;
+    z-index: 99999;
+  }
+
+  .nav-img {
+    width: 140px;
+  }
+
   .menu {
     display: flex;
+    top: 15px;
+    right: 25px;
+    width: 35px;
+    height: 30px;
+  }
+
+  .menu span {
+    height: 0.3rem;
+    width: 90%;
+    background-color: #687eff;
+    border-radius: 0.2rem;
   }
 
   #navbar {
     display: none;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 0.25rem;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-left: 1px solid #ddd;
+    transform: translateX(0);
+    animation: slideIn 0.3s ease;
+    -webkit-animation: slideIn 0.3s ease;
   }
 
   #navbar.open {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    row-gap: 27px;
     padding: 0;
     margin-top: 2px;
+    transform: translateX(0);
+    animation: slideIn 0.3s forwards;
+  }
+
+  #navbar.open > li {
+    text-align: left;
+  }
+
+  @keyframes slideIn {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
   }
 
   .nav-Login {
@@ -129,20 +201,35 @@ a {
     text-align: center;
     padding: 0;
     margin-left: 0;
+    display: flex;
+    flex-direction: row;
+    padding-left: 15px;
   }
 
   #navbar li a {
     margin: 0.2rem 0.5rem;
     text-align: center;
-    font-size: 20px;
+    font-size: 14px;
   }
- 
+
+  .liHome {
+    padding-top: 20px;
+  }
 
   .signin {
-    border-radius: 50px;
+    border-radius: 10px;
     font-size: 12px;
-    padding: 5px 15px;
+    padding: 7px 18px;
     font-weight: 600;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+  }
+
+  .IoSearch {
+    width: 15px;
+    height: 15px;
   }
 
   .signup {
@@ -151,14 +238,201 @@ a {
     border-radius: 50px;
     font-weight: 600;
   }
+
+  .divCloseBtn {
+    display: flex;
+    align-items: center;
+  }
+
+  .logoAkucuciin2 {
+    padding: 5px;
+    width: 40px;
+    height: 30px;
+  }
+
+  .imgHome {
+    display: flex;
+    width: 20px;
+    height: 20px;
+  }
+
+  .close-btn {
+    border: none;
+    background-color: white;
+    width: 40px;
+    height: 30px;
+    position: absolute;
+    right: 3px;
+    padding-top: 3px;
+  }
+
+  .navLine {
+    background-color: #687eff;
+    height: 2px;
+    width: 180px;
+    align-self: center;
+    position: absolute;
+    top: 35px;
+  }
+
+  .navbardiv {
+    align-self: center;
+  }
 }
 
 @media screen and (max-width: 576px) {
+  .closeX{
+    color:#687eff;
+  }
+  #Header {
+    padding: 15px 25px;
+    z-index: 99999;
+  }
+
+  .nav-img {
+    width: 120px;
+  }
+
+  .menu {
+    display: flex;
+    top: 18px;
+    right: 20px;
+    width: 27px;
+    height: 20px;
+  }
+
+  .menu span {
+    height: 0.2rem;
+    width: 90%;
+    background-color: #687eff;
+    border-radius: 0.2rem;
+  }
+
+  #navbar {
+    display: none;
+    flex-direction: column;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 170px;
+    height: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-left: 1px solid #ddd;
+    transform: translateX(0);
+    animation: slideIn 0.3s ease;
+  }
+
+  #navbar.open {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    row-gap: 23px;
+    padding: 0;
+    margin-top: 2px;
+    transform: translateX(0);
+    animation: slideIn 0.3s forwards;
+  }
+
+  #navbar.open > li {
+    text-align: left;
+  }
+
+  @keyframes slideIn {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .nav-Login {
+    width: 100%;
+  }
+
+  #navbar li {
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    margin-left: 0;
+    display: flex;
+    flex-direction: row;
+    padding-left: 15px;
+  }
+
+  #navbar li a {
+    margin: 0.2rem 0.5rem;
+    text-align: center;
+    font-size: 14px;
+  }
+
   .signin {
     border-radius: 50px;
-    font-size: 10px;
-    padding: 4px 12px;
+    font-size: 12px;
+    padding: 5px 15px;
     font-weight: 600;
+  }
+
+  .IoSearch {
+    width: 10px;
+    height: 10px;
+  }
+
+  .signup {
+    font-size: 12px;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-weight: 600;
+  }
+
+  .divCloseBtn {
+    display: flex;
+    align-items: center;
+  }
+
+  .logoAkucuciin2 {
+    padding: 5px;
+    width: 40px;
+    height: 30px;
+  }
+
+  .imgHome {
+    display: flex;
+    width: 20px;
+    height: 20px;
+  }
+
+  .close-btn {
+    border: none;
+    background-color: white;
+    width: 40px;
+    height: 30px;
+    position: absolute;
+    right: 3px;
+    padding-top: 3px;
+  }
+
+  .navLine {
+    background-color: #687eff;
+    height: 2px;
+    width: 150px;
+    align-self: center;
+    position: absolute;
+    top: 35px;
+  }
+
+  .signin {
+    border-radius: 10px;
+    font-size: 10px;
+    padding: 6px 13px;
+    font-weight: 600;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
   }
 
   .signup {
@@ -170,11 +444,61 @@ a {
 }
 
 @media screen and (min-width: 769px) {
+  #Header {
+    padding: 25px 30px;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    column-gap: 150px;
+  }
+
+  .nav-img {
+    width: 190px;
+  }
+
+  #navbar {
+    row-gap: 1vh;
+  }
+
+  #navbar li {
+    row-gap: 1em;
+    padding: 0 10px;
+  }
+
+  #navbar li a {
+    text-decoration: none;
+    color: var(--Dark-Gray, #555);
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 15px;
+  }
+
+  .navbardiv a {
+    color: #ffff;
+  }
+
+  .navbardiv1 a {
+    color: #000;
+  }
+
+  .nav-Login {
+    column-gap: 20px;
+  }
+
   .signin {
     border-radius: 50px;
     font-size: 14px;
     padding: 7px 18px;
     font-weight: 600;
+  }
+
+  .IoSearch {
+    width: 20px;
+    height: 20px;
   }
 
   .signup {
@@ -186,11 +510,49 @@ a {
 }
 
 @media screen and (min-width: 920px) {
+  #Header {
+    padding: 30px 35px;
+  }
+
+  .container {
+    column-gap: 170px;
+  }
+
+  .nav-img {
+    width: 220px;
+  }
+
+  #navbar {
+    row-gap: 1vh;
+  }
+
+  #navbar li {
+    row-gap: 1em;
+    padding: 0 10px;
+  }
+
+  #navbar li a {
+    text-decoration: none;
+    color: var(--Dark-Gray, #555);
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  .nav-Login {
+    column-gap: 20px;
+  }
+
   .signin {
     border-radius: 50px;
     font-size: 20px;
     padding: 9px 18px;
     font-weight: 600;
+  }
+
+  .IoSearch {
+    width: 25px;
+    height: 25px;
   }
 
   .signup {
@@ -201,7 +563,40 @@ a {
   }
 }
 
-@media screen and (min-width: 1270px) {
+@media screen and (min-width: 1230px) {
+  #Header {
+    padding: 35px 45px;
+  }
+
+  .container {
+    column-gap: 200px;
+  }
+
+  .nav-img {
+    width: 250px;
+  }
+
+  #navbar {
+    row-gap: 2vh;
+  }
+
+  #navbar li {
+    row-gap: 2em;
+    padding: 0 20px;
+  }
+
+  #navbar li a {
+    text-decoration: none;
+    color: var(--Dark-Gray, #555);
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 21px;
+  }
+
+  .nav-Login {
+    column-gap: 30px;
+  }
+
   .signin {
     border-radius: 50px;
     background: #687eff;
@@ -209,7 +604,12 @@ a {
     padding: 15px 35px;
     font-weight: 600;
   }
-  
+
+  .IoSearch {
+    width: 30px;
+    height: 30px;
+  }
+
   .signup {
     color: #292929;
     background: #dedede;

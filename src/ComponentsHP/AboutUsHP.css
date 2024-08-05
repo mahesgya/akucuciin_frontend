@@ -1,0 +1,63 @@
+@media screen and (max-width: 769px) {
+}
+
+@media screen and (max-width: 576px) {
+  .AboutUsHP {
+    width: 100%;
+  }
+
+  .container-aboutHP {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    row-gap: 10px;
+    margin: 20px 0;
+    height: 650px;
+    width: 100%;
+  }
+
+  .aboutus-h4HP{
+    margin-top: 10px;
+    color: var(--Akucuciin, #687EFF);
+    font-family: "Work Sans";
+    font-size: 14.087px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 1.409px;
+    text-transform: uppercase;
+  }
+  
+  .cepatdanmudahHP {
+    color: #555;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 5px 30px;
+  }
+  
+  .cepatdanmudahHP span {
+    color: #687eff;
+    font-size: 20px;
+    font-weight: 700;
+   
+  }
+  
+  .p-aboutusHP{
+    margin: 10px ;
+    color: #292929;
+    text-align: center;
+    font-family: "Work Sans";
+    text-align: justify;
+    font-size: 12.5px;
+    font-weight: 400;
+    line-height: 16px;
+    padding: 5px 20px;
+  }
+ 
+  .mesincuci2HP{
+    padding: 10px;
+  }
+}

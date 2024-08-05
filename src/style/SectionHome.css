@@ -127,6 +127,7 @@ h3 {
   }
 
   .platform {
+ 
     font-size: 12px;
     font-weight: 400;
     line-height: 15px;
@@ -189,6 +190,7 @@ h3 {
   }
 
   .platform {
+    display: none;
     font-size: 10px;
     font-weight: 400;
     line-height: 12px;

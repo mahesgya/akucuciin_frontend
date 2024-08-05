@@ -1,1 +1,21 @@
 
+@media screen and (min-width: 576px) {
+    .appHP {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 576px) {
+    .homeHP {
+        display: flex;
+    }
+    
+    .navbarHP{
+        display: flex;
+    }
+     .AppLaptop{
+        display: none;
+     }
+
+}

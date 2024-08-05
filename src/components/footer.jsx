@@ -1,34 +1,35 @@
 import React from "react";
 import "../style/Footer.css";
+import { forwardRef } from "react";
 
-function Footer() {
+function Footer({text},Footerref) {
   return (
-    <footer id="Footer">
+    <footer id="Footer" ref={Footerref}>
       <div className="Follow">
         <div className="Follow-A">
           <h2>Follow To Our Instagram</h2>
           <p>Follow Our Instagram to Get Latest News and Updates</p>
         </div>
-        <div className="Follow-B">
-          <a href="">Follow</a>
+        <a href='https://www.instagram.com/akucuciin.id/'className="Follow-B">
+          <a href="https://www.instagram.com/akucuciin.id/">Follow</a>
           <img src="Images/Instagram.png" alt="" />
-        </div>
+        </a>
       </div>
       <div className="Footer-B">
         <div className="Footer-B1">
           <img src="Images/LogoAkucuciin.png" alt="" className="logo-Footer" />
           <p>Platform digital yang dirancang khusus untuk memudahkan kehidupan mahasiswa dalam mencari dan menggunakan jasa laundry agar lebih praktis</p>
           <div className="Footer-Biru">
-            <a href="">
+            <a href="https://www.instagram.com/akucuciin.id/">
               <img src="Images/Facebook.png" alt="" />
             </a>
-            <a href="">
+            <a href="https://www.instagram.com/akucuciin.id/">
               <img src="Images/Twitter.png" alt="" />
             </a>
-            <a href="">
+            <a href="https://www.instagram.com/akucuciin.id/">
               <img src="Images/LinkedIn.png" alt="" />
             </a>
-            <a href="">
+            <a href="https://www.instagram.com/akucuciin.id/">
               <img src="Images/Instagram2.png" alt="" />
             </a>
           </div>
@@ -53,18 +54,18 @@ function Footer() {
           <div className="Footer-Pelengkap">
             <h4>Contact</h4>
             <div className="div-line"></div>
-            <div className="Footer-Akhir">
+            <a href="https://wa.me/62881025991660"className="Footer-Akhir">
               <img src="Images/telfon.png" alt="" />
-              <p>(+021) 254 4458 187</p>
-            </div>
-            <div className="Footer-Akhir">
+              <p className="emailFot">(+62)881-0259-91660</p>
+            </a>
+            <a className="Footer-Akhir" href="mailto:akucuciin.bisnis@gmail.com">
               <img src="Images/email.png" alt="" />
-              <p>akucuciin.bisnis@gmail.com</p>
-            </div>
-            <div className="Footer-Akhir">
-              <img src="Images/lokasi.png" alt="" />
-              <p>Bogor, Jawa Barat, Indonesia</p>
-            </div>
+              <p className="emailFot">akucuciin.bisnis@gmail.com</p>
+            </a>
+            <a href="https://maps.app.goo.gl/1koXGXfQnZy2ji3S8" className="Footer-Akhir">
+              <img src="Images/Lokasi.png" alt="" />
+              <p className="emailFot">Bogor, Jawa Barat, Indonesia</p>
+            </a>
           </div>
         </div>
       </div>
@@ -73,4 +74,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default forwardRef(Footer);

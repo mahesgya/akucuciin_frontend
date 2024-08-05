@@ -1,0 +1,78 @@
+@media screen and (max-width: 769px) {
+  
+}
+
+@media screen and (max-width: 576px) {
+  .HomeHP{
+        width: 100%;
+    }
+    
+  .container-homeHP {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 20px;
+    margin: 20px 0;
+    height: 600px;
+    width: 100%;
+  }
+
+  .LogoHomeHP {
+    margin-top: 20px;
+    
+    width: 200px;
+  }
+
+  .gasempetHP {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 25px;
+    color: var(--Dark-Gray, #555);
+    font-family: "Work Sans";
+    font-style: normal;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .gasempetHP span {
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 25px;
+    color: var(--Akucuciin, #687eff);
+    font-family: "Work Sans";
+    font-weight: 700;
+  }
+
+  .mesincuciHP {
+    width: 320px;
+  }
+
+  .highlyHP{
+    color: var(--Black-Color, #292929);
+    font-family: "Work Sans";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 10px 0;
+  }
+
+  .section-login{
+    margin: 10px 0;
+  }
+
+  .signinHP {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5px;
+    border-radius: 50px;
+    background: #687eff;
+    color: #ffff;
+    padding: 10px 15px;
+    margin: 0 15px;
+    font-weight: 600;
+  }
+  
+}
