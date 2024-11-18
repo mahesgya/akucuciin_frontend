@@ -18,7 +18,7 @@ button{
   background: none;
 }
 
-.container {
+.container2 {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,7 +96,7 @@ a {
   justify-content: center;
   column-gap: 5px;
   border-radius: 50px;
-  background: #687eff;
+  background: #06D001;
   color: #ffff;
   padding: 15px 35px;
   margin: 0 15px;
@@ -221,10 +221,6 @@ a {
     font-size: 12px;
     padding: 7px 18px;
     font-weight: 600;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
   }
 
   .IoSearch {
@@ -429,10 +425,6 @@ a {
     font-size: 10px;
     padding: 6px 13px;
     font-weight: 600;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
   }
 
   .signup {
@@ -599,7 +591,6 @@ a {
 
   .signin {
     border-radius: 50px;
-    background: #687eff;
     color: #ffff;
     padding: 15px 35px;
     font-weight: 600;

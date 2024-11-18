@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState , useEffect,useRef } from "react";
 import "../style/Header.css";
-import { useRef } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
-import { IoSearchCircle } from "react-icons/io5";
+import axios from "axios";
 import Footer from "./footer";
 import SectionHome from "./SectionHome";
 import AboutUs from "./aboutUs";
@@ -11,6 +10,60 @@ import AboutUs from "./aboutUs";
 import OurServices from "./ourServices";
 
 const Header = () => {
+  const [error, setError] = useState(null);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const accessToken = sessionStorage.getItem("accessToken");
+
+    if (accessToken) {
+      axios
+        .get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer`, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then((response) => {
+          setIsLoggedIn(true);
+        })
+        .catch((error) => {
+          setIsLoggedIn(false);
+          setError("");
+        })
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    
+    const refreshToken = sessionStorage.getItem("refreshToken");
+
+    if (refreshToken) {
+      axios
+        .post(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/logout`, {
+          refresh_token: refreshToken,
+        })
+        .then((response) => {
+          setError(null);
+          sessionStorage.removeItem("accessToken");
+          sessionStorage.removeItem("refreshToken");
+          delete axios.defaults.headers.common["Authorization"];
+          setIsLoggedIn(false);
+          window.location.reload()
+        })
+        .catch((error) => {
+          console.error("Logout gagal:", error);
+          setError("Gagal logout");
+        });
+    } else {
+      sessionStorage.removeItem("accessToken");
+      sessionStorage.removeItem("refreshToken");
+      delete axios.defaults.headers.common["Authorization"];
+      setIsLoggedIn(false);
+    }
+  };
+
   const Aboutusref = useRef(null);
   const Homeref = useRef(null);
   const Ourserviceref = useRef(null);
@@ -33,7 +86,7 @@ const Header = () => {
   return (
     <div>
       <header id="Header">
-        <div className="container">
+        <div className="container2">
           <img src="Images/LogoAkucuciin.png" alt="" className="nav-img" />
         </div>
 
@@ -78,18 +131,32 @@ const Header = () => {
               </button>
             </li>
             <div className="navbardiv">
-              <a className="signin">
-                <NavLink to="/location">Search Laundry</NavLink>
-                <IoSearchCircle className="IoSearch" />
-              </a>
+              {isLoggedIn ? (
+                <button onClick={handleLogout} className="shadow-md font-sans w-[100px]  md:w-[130px] lg:w-[160px]  bg-red-500 text-white font-semibold px-1 py-2 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                  Log Out
+                </button>
+              ) : (
+                <div className="space-x-3 ml-1">
+                  <NavLink to="/login">
+                    <button href="" className="shadow-md font-sans w-[4rem] bg-blue-500 text-white font-semibold p-3  rounded-[20px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 md:w-[5rem] lg:w-[7rem]">
+                      Login
+                    </button>
+                  </NavLink>
+                  <NavLink to="/register">
+                    <button className="align-center shadow-md font-sans w-[4rem] bg-gray-de text-gray-52 font-semibold p-3 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-gray-de focus:ring-offset-2 md:w-[5rem] lg:w-[7rem]">
+                      Register
+                    </button>
+                  </NavLink>
+                </div>
+              )}
             </div>
           </ul>
         </div>
       </header>
-      <SectionHome  ref={Homeref}/>
+      <SectionHome ref={Homeref} />
       <AboutUs ref={Aboutusref} />
-      <OurServices ref={Ourserviceref}/>
-      <Footer ref={Footerref}/>
+      <OurServices ref={Ourserviceref} />
+      <Footer ref={Footerref} />
     </div>
   );
 };

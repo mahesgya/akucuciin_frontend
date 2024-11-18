@@ -1,6 +1,5 @@
 import React from "react";
 import "./ServicesHP.css";
-import { Link } from "react-router-dom";
 import NavbarHP from "./NavbarHP";
 
 function OurServicesHP() {

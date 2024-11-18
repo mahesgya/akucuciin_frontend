@@ -1,6 +1,5 @@
 import React from "react";
 import "../style/AboutUs.css";
-import { Link } from "react-router-dom";
 import { forwardRef } from "react";
 
 function AboutUs({text},Aboutsuref) {

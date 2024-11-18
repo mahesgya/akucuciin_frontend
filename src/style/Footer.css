@@ -24,10 +24,6 @@ h3 {
   padding: 20px 80px;
   margin: 0 50px;
   border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
 }
 
 .Follow-A {
@@ -140,26 +136,14 @@ h3 {
 
 @media screen and (max-width: 769px) {
   .Follow {
-    display: flex;
-    justify-content: center;
     column-gap: 50px;
     background-color: #687eff;
-    position: absolute;
     top: -20px;
     padding: 10px 40px;
     margin: 0 20px;
     border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
   }
 
-  .Follow-A {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-  }
 
   .Follow-A h2 {
     color: var(--Pure-White, #fff);
@@ -177,9 +161,6 @@ h3 {
   }
 
   .Follow-B {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     column-gap: 10px;
   }
 
@@ -196,15 +177,11 @@ h3 {
 
   .Footer-B {
     margin: 20px 30px;
-    display: flex;
-    justify-content: space-around;
     column-gap: 20px;
   }
 
   .Footer-B1 {
     width: 200px;
-    display: flex;
-    flex-direction: column;
   }
 
   .Footer-B1 p {
@@ -213,10 +190,6 @@ h3 {
 
   .Footer-Biru {
     margin-top: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: center;
     column-gap: 20px;
   }
 
@@ -232,11 +205,8 @@ h3 {
 
   .Footer-B2 h4 {
     color: #fff;
-    font-family: "Work Sans";
     font-size: 14px;
-    font-style: normal;
     font-weight: 600;
-    line-height: normal;
   }
 
   .div-line {
@@ -291,10 +261,6 @@ h3 {
     padding: 10px 20px;
     margin: 0 20px;
     border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
   }
 
   .Follow-A h2 {
@@ -599,11 +565,8 @@ h3 {
 
 @media screen and (min-width: 1270px) {
   .Follow {
-    display: flex;
-    justify-content: center;
     column-gap: 400px;
     background-color: #687eff;
-    position: absolute;
     top: -20px;
     padding: 20px 80px;
     margin: 0 50px;

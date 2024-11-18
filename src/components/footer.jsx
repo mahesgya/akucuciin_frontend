@@ -46,15 +46,15 @@ function Footer({text},Footerref) {
           <div className="Footer-Pelengkap">
             <h4>Useful Links</h4>
             <div className="div-line"></div>
-            <a>Home Page</a>
-            <a>About Us Page</a>
-            <a>Service Page</a>
-            <a>Contact Us</a>
+            <a href="">Home Page</a>
+            <a href="">About Us Page</a>
+            <a href="">Service Page</a>
+            <a href="">Contact Us</a>
           </div>
           <div className="Footer-Pelengkap">
             <h4>Contact</h4>
             <div className="div-line"></div>
-            <a href="https://wa.me/62881025991660"className="Footer-Akhir">
+            <a href="https://wa.me/6285810211200"className="Footer-Akhir">
               <img src="Images/telfon.png" alt="" />
               <p className="emailFot">(+62)881-0259-91660</p>
             </a>

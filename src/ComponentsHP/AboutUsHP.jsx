@@ -1,6 +1,5 @@
 import React from "react";
 import "../style/AboutUs.css";
-import { Link } from "react-router-dom";
 import NavbarHP from "./NavbarHP";
 import "./AboutUsHP.css";
 

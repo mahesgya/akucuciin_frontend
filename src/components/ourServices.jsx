@@ -1,7 +1,7 @@
 import React from 'react'
 import "../style/OurServices.css";
-import { Link } from "react-router-dom";
 import { forwardRef } from 'react';
+
 function OurServices({text},Ourserviceref) {
   return (
     <div id='OurServices' ref={Ourserviceref} >
