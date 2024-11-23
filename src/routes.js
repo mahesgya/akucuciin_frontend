@@ -64,10 +64,10 @@ const Routess = [
         element: <OrderSuccess/>,
     },
     {
-        path:"/reset-email",
+        path:"/reset-password-email",
         element: <ResetPassEmailPage/>
     },{
-        path:"/reset-password",
+        path:"/reset-password/:email/:reset_password_token",
         element:<ResetPassPage/>
     }
 ]
