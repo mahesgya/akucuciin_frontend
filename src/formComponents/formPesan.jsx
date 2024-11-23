@@ -12,6 +12,7 @@ function FormPemesanan() {
   const [formError, setFormError] = useState("");
   const laundry_content = ["Pakaian", "Sprei Kecil (80x80 - 140x140)", "Sprei Besar (160x160 - 200x200)", "Selimut", "Jas"];
   const laundry_type = ["Biasa 3 Hari", "Express 1 Hari"];
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -44,7 +45,8 @@ function FormPemesanan() {
     e.preventDefault();
 
     const accessToken = sessionStorage.getItem("accessToken");
-
+    const refreshToken = sessionStorage.getItem("refreshToken");
+    
     if (!accessToken) {
       alert("Anda harus login terlebih dahulu.");
       return;
@@ -78,9 +80,21 @@ function FormPemesanan() {
           console.log("Form submitted successfully", response.data);
           navigate("/order-success")
         })
-        .catch((error) => {
-          console.error("Error submitting form", error.response?.data || error);
-          alert("Terjadi kesalahan, silakan coba lagi.");
+        .catch(() => {
+          setError("");
+          axios.put(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/auth`,{
+            refresh_token : refreshToken, 
+          })
+          .then((response)=>{
+            setError("")
+            const {accessToken, refreshToken} = response.data.data;
+            sessionStorage.setItem("accessToken", accessToken)
+            sessionStorage.setItem("refreshToken", refreshToken);
+            navigate("/form-pemesanan");
+          })
+          .catch((error) => {
+            navigate("/login");
+          });
         });
     }
   };

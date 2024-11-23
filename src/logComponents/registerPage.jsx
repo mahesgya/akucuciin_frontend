@@ -47,9 +47,7 @@ function RegisterPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     
-
     if (formData.password !== formData.confirm_password) {
       alert("Password dan konfirmasi password harus sama.");
       return;

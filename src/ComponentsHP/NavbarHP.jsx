@@ -7,10 +7,6 @@ import "../style/Header.css";
 const NavbarHP = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [error, setError] = useState(null);
-
-
-
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {

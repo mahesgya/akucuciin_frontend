@@ -11,6 +11,8 @@ import VerifyFailedInvalid from "./verify/verifyFailedInvalid"
 import VerifyFailedActivated from "./verify/verifyFailedActivated"
 import Verify from "./verify/verify"
 import OrderSuccess from "./formComponents/orderSuccess"
+import ResetPassEmailPage from "./logComponents/resetPassEmailPage"
+import ResetPassPage from "./logComponents/resetPassPage"
 
 const Routess = [
     {
@@ -61,6 +63,13 @@ const Routess = [
         path:"/order-success",
         element: <OrderSuccess/>,
     },
+    {
+        path:"/reset-email",
+        element: <ResetPassEmailPage/>
+    },{
+        path:"/reset-password",
+        element:<ResetPassPage/>
+    }
 ]
 
 export default Routess

@@ -5,6 +5,7 @@ module.exports = {
     "./src/ComponentsHP/***.jsx",
     "./src/verify/***.jsx",
     "./src/formComponents/***.jsx",
+    
   ],
   theme: {
     extend: {
