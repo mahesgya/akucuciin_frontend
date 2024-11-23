@@ -63,31 +63,39 @@ function LoginPage() {
         <h1 className="font-bold text-[30px] font-poppins text-center">LOGIN</h1>
         <h4 className="font-sans font-base font-[8px] text-gray55 text-center">Silahkan Masukan Email dan Password Anda</h4>
 
-        <form onSubmit={handleSubmit} className="space-y-6 flex flex-col align-center justify-center items-center">
-          <div className="flex flex-row space-x-1 font-sans bg-birumuda p-[10px] py-[10px] rounded-lg w-[20rem]">
-            <img src="/images/emailReg2.png" alt="" className="w-[25px]" />
-            <input value={formData.email} onChange={handleChange} required type="email" name="email" placeholder="Email" className="w-full font-sans focus:outline-none bg-birumuda focus:border-b-2" />
-          </div>
-          <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-birumuda p-[10px] rounded-lg w-[20rem] ">
-            <img src="/images/passwordReg.png" alt="" className="w-[25px]" />
-            <input value={formData.password} onChange={handleChange} required type={showPassword ? "text" : "password"} name="password" placeholder="Password" className="w-full font-sans bg-birumuda focus:outline-none focus:border-b-2" />
-            <button type="button" onClick={togglePasswordVisibility} className="h-[10px] flex justify-center align-center">
-              {showPassword ? <img src="/images/invisible.png" className="w-[25px]" alt="" /> : <img src="/images/visible.png" className="w-[25px]" alt="" />}
-            </button>
-          </div>
-          {error && (
-            <div className="text-red-500 font-sans text-center">
-              {Array.isArray(error) ? (
-                <ul>
-                  {error.map((errMsg, index) => (
-                    <li key={index}>{errMsg}</li>
-                  ))}
-                </ul>
-              ) : (
-                <p>{error}</p>
-              )}
+        <form onSubmit={handleSubmit} className="space-y-3 flex flex-col align-center justify-center items-center">
+          <div className="space-y-6">
+            <div className="flex flex-row space-x-1 font-sans bg-birumuda p-[10px] py-[10px] rounded-lg w-[20rem]">
+              <img src="/images/emailReg2.png" alt="" className="w-[25px]" />
+              <input value={formData.email} onChange={handleChange} required type="email" name="email" placeholder="Email" className="w-full font-sans focus:outline-none bg-birumuda focus:border-b-2" />
             </div>
-          )}
+            <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-birumuda p-[10px] rounded-lg w-[20rem] ">
+              <img src="/images/passwordReg.png" alt="" className="w-[25px]" />
+              <input value={formData.password} onChange={handleChange} required type={showPassword ? "text" : "password"} name="password" placeholder="Password" className="w-full font-sans bg-birumuda focus:outline-none focus:border-b-2" />
+              <button type="button" onClick={togglePasswordVisibility} className="h-[10px] flex justify-center align-center">
+                {showPassword ? <img src="/images/invisible.png" className="w-[25px]" alt="" /> : <img src="/images/visible.png" className="w-[25px]" alt="" />}
+              </button>
+            </div>
+          </div>
+          <div className="pl-[8px] space-y-3 flex flex-col self-start">
+            <Link to="/reset-email" className="font-sans text-blue-500">
+              Forget Password?
+            </Link>
+            {error && (
+              <div className="text-red-500 font-sans text-center">
+                {Array.isArray(error) ? (
+                  <ul>
+                    {error.map((errMsg, index) => (
+                      <li key={index}>{errMsg}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>{error}</p>
+                )}
+              </div>
+            )}
+          </div>
+
           <button
             type="submit"
             disabled={loading}

@@ -111,7 +111,7 @@ function RegisterPage() {
             />
           </div>
           <div className="flex flex-row space-x-1 font-sans bg-birumuda p-[10px] py-[10px] rounded-lg w-[20rem]">
-            <img src="Images/akunReg.png" alt="" className="w-[25px]" />
+            <img src="Images/address.png" alt="" className="w-[25px]" />
             <input required type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Alamat" className="w-full font-sans bg-birumuda text-gray-700 focus:shadow-none focus:outline-none focus:border-b-2" />
           </div>
           <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-birumuda px-[10px] py-[10px] rounded-lg w-[20rem]">
