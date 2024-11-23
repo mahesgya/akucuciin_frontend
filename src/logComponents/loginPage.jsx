@@ -5,6 +5,7 @@ import axios from "axios";
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -27,6 +28,7 @@ function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     console.log("Form submitted:", formData);
     axios
@@ -44,11 +46,13 @@ function LoginPage() {
         });
 
         setError("");
+        setLoading(false);
         navigate("/");
       })
       .catch((err) => {
         console.error("Error:", err);
         setError("Email dan Password Anda Tidak Cocok");
+        setLoading(false);
       });
   };
 
@@ -59,8 +63,8 @@ function LoginPage() {
         <h1 className="font-bold text-[30px] font-poppins text-center">LOGIN</h1>
         <h4 className="font-sans font-base font-[8px] text-gray55 text-center">Silahkan Masukan Email dan Password Anda</h4>
 
-        <form onSubmit={handleSubmit} className="space-y-4 flex flex-col align-center justify-center items-center">
-          <div className=" flex flex-row space-x-1 font-sans bg-birumuda p-[10px] py-[10px] rounded-lg w-[20rem]">
+        <form onSubmit={handleSubmit} className="space-y-6 flex flex-col align-center justify-center items-center">
+          <div className="flex flex-row space-x-1 font-sans bg-birumuda p-[10px] py-[10px] rounded-lg w-[20rem]">
             <img src="/images/emailReg2.png" alt="" className="w-[25px]" />
             <input value={formData.email} onChange={handleChange} required type="email" name="email" placeholder="Email" className="w-full font-sans focus:outline-none bg-birumuda focus:border-b-2" />
           </div>
@@ -71,11 +75,8 @@ function LoginPage() {
               {showPassword ? <img src="/images/invisible.png" className="w-[25px]" alt="" /> : <img src="/images/visible.png" className="w-[25px]" alt="" />}
             </button>
           </div>
-          <div className="pl-[8px] flex flex-col self-start  justify-start">
-            <Link to="/reset-email" className="text-bold text-blue-500 text-[14px]">Forget Password?</Link>
-          </div>
           {error && (
-            <div className="my-3 text-red-500 font-sans text-center">
+            <div className="text-red-500 font-sans text-center">
               {Array.isArray(error) ? (
                 <ul>
                   {error.map((errMsg, index) => (
@@ -87,8 +88,14 @@ function LoginPage() {
               )}
             </div>
           )}
-          <button type="submit" className="shadow-md font-sans w-[10rem] bg-blue-500 text-white font-semibold py-4 px-4 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-            Login
+          <button
+            type="submit"
+            disabled={loading}
+            className={`shadow-md font-sans w-[10rem] ${
+              loading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-blue-500 text-white"
+            } text-white font-semibold py-4 px-4 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+          >
+            {loading ? "Loading..." : "Login"}
           </button>
         </form>
 
