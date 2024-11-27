@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function ResetPassPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -8,6 +9,7 @@ function ResetPassPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [message2, setMessage2] = useState(false)
 
   const { email, reset_password_token } = useParams();
   const navigate = useNavigate();
@@ -35,11 +37,8 @@ function ResetPassPage() {
           confirm_password: confirmPassword,
         }
       );
+      setMessage2(true);
 
-      setMessage(
-        "Password berhasil diubah. Anda akan diarahkan ke halaman login."
-      );
-      setTimeout(() => navigate("/login"), 2000);
     } catch (error) {
       if (error.response) {
         console.log(error.response);
@@ -63,7 +62,7 @@ function ResetPassPage() {
             className="space-y-4 flex flex-col align-center justify-center items-center"
           >
             <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-birumuda px-[10px] py-[10px] rounded-lg w-[20rem]">
-              <img src="/images/passwordReg.png" alt="" className="w-[25px]" />
+              <img src="/Images/passwordReg.png" alt="" className="w-[25px]" />
               <input
                 required
                 type={showPassword ? "text" : "password"}
@@ -80,13 +79,13 @@ function ResetPassPage() {
               >
                 {showPassword ? (
                   <img
-                    src="/images/invisible.png"
+                    src="/Images/invisible.png"
                     className="w-[25px]"
                     alt=""
                   />
                 ) : (
                   <img
-                    src="/images/visible.png"
+                    src="/Images/visible.png"
                     className="w-[25px]"
                     alt=""
                   />
@@ -94,7 +93,7 @@ function ResetPassPage() {
               </button>
             </div>
             <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-birumuda px-[10px] py-[10px] rounded-lg w-[20rem]">
-              <img src="/images/passwordReg.png" alt="" className="w-[25px]" />
+              <img src="/Images/passwordReg.png" alt="" className="w-[25px]" />
               <input
                 required
                 type={showPassword2 ? "text" : "password"}
@@ -110,9 +109,9 @@ function ResetPassPage() {
                 className="h-[10px] flex justify-center align-center"
               >
                 {showPassword2 ? (
-                  <img src="/images/invisible.png" className="w-[25px]" alt="" />
+                  <img src="/Images/invisible.png" className="w-[25px]" alt="" />
                 ) : (
-                  <img src="/images/visible.png" className="w-[25px]" alt="" />
+                  <img src="/Images/visible.png" className="w-[25px]" alt="" />
                 )}
               </button>
             </div>
@@ -123,8 +122,16 @@ function ResetPassPage() {
               Submit
             </button>
           </form>
-          {message && <p className="text-red-500">{message}</p>}{" "}
-          {/* Tampilkan pesan */}
+          {message2 && (
+            <div className="modal fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+              <div className="flex flex-col items-center justify-center bg-white p-5 rounded-lg shadow-lg w-[90%] max-w-md">
+                <p className="text-gray-600 text-center">Password anda berhasil diubah</p>
+                <Link className="self-center mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg " to="/">
+                  Login
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

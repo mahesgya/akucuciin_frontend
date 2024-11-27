@@ -73,9 +73,11 @@ function HomeHP() {
 
   return (
     <div id="HomeHP">
+      {isLoggedIn && (<a href="/me" className="absolute top-4 left-4"><img src="Images/profile.png" className="w-[2.2em]"></img></a>)}
       <NavbarHP />
       <section id="SectionHomeHP">
         <div className="container-homeHP">
+          
           <img src="Images/LogoAkucuciin.png" alt="" className="LogoHomeHP" />
           <h2 className="gasempetHP">
             Ga Sempet Nyuci? <br /> sini <span>Aku Cuciin</span>
@@ -114,6 +116,9 @@ function HomeHP() {
           <h4 className="highlyHP">HIGHLY PROFESSIONAL CLEANING</h4>
         </div>
       </section>
+      <a className="fixed right-4 bottom-4 bg-blue rounded-lg " href="https://wa.me/6285810211200">
+        <img src="Images/waicon.png" className="w-[60px] h-[60px]"/>
+      </a>
     </div>
   );
 }

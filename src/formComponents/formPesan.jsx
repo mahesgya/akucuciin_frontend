@@ -103,6 +103,9 @@ function FormPemesanan() {
 
   return (
     <div className=" flex flex-col items-center justify-center mx-[0.5em] my-[2em] flex flex-col items-center justify-center space-y-4">
+      <a href="/">
+        <img src="Images/backbiru.png" className="fixed top-8 left-5"></img>
+      </a>
       <img src="Images/LogoAkucuciin.png" alt="logo" className="w-[9rem]" />
       <h1 className="font-bold text-[30px] font-poppins text-center">
         FORM PEMESANAN

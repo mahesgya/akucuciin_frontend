@@ -5,14 +5,14 @@ import OurServicesHP from "./ComponentsHP/ServicesHP"
 import LoginPage from "./logComponents/loginPage"
 import RegisterPage from "./logComponents/registerPage"
 import FormPemesanan from "./formComponents/formPesan"
-import VerifySuccess from "./verify/verifySuccess"
 import VerifyFailed from "./verify/verifyFailed"
 import VerifyFailedInvalid from "./verify/verifyFailedInvalid"
 import VerifyFailedActivated from "./verify/verifyFailedActivated"
-import Verify from "./verify/verify"
 import OrderSuccess from "./formComponents/orderSuccess"
 import ResetPassEmailPage from "./logComponents/resetPassEmailPage"
 import ResetPassPage from "./logComponents/resetPassPage"
+import ProfilePage from "./components/ProfilePage"
+import VerifySuccess from "./verify/verifySuccess"
 
 const Routess = [
     {
@@ -36,16 +36,12 @@ const Routess = [
         element: <RegisterPage/>,
     },
     {
-        path:"/verify",
-        element: <Verify/>,
+        path:"/verify/error",
+        element: <VerifyFailed/>,
     },
     {
         path:"/verify/success",
         element: <VerifySuccess/>,
-    },
-    {
-        path:"/verify/error",
-        element: <VerifyFailed/>,
     },
     {
         path:"/verify/error-invalid",
@@ -69,6 +65,10 @@ const Routess = [
     },{
         path:"/reset-password/:email/:reset_password_token",
         element:<ResetPassPage/>
+    },
+    {
+        path:"/me",
+        element:<ProfilePage/>
     }
 ]
 

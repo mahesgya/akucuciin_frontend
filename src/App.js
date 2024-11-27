@@ -32,7 +32,7 @@ const App = () => {
       }
     };
     fetchCustomerData();
-    const intervalId = setInterval(fetchCustomerData, 9000); 
+    const intervalId = setInterval(fetchCustomerData, 900000); 
     return () => clearInterval(intervalId);
   }, []);
 
@@ -45,6 +45,7 @@ const App = () => {
       <div className="AppLaptop">
         <Header />     
       </div>
+      
     </div>
   );
 };

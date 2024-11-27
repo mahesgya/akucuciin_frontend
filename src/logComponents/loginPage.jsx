@@ -54,14 +54,17 @@ function LoginPage() {
       })
       .catch((err) => {
         console.error("Error:", err);
-        setError("Email dan Password Anda Tidak Cocok");
+        setError(err.response.data.errors);
         setLoading(false);
       });
   };
 
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-start mx-[0.5em] mt-[3em] space-y-8">
-      <img src="/images/LogoAkucuciin.png" alt="logo" className="w-[9rem]" />
+      <a href="/">
+        <img src="Images/backbiru.png" className="fixed top-8 left-5"></img>
+      </a>
+      <img src="Images/LogoAkucuciin.png" alt="logo" className="w-[9rem]" />
       <div className="flex flex-col items-center justify-center space-y-5">
         <h1 className="font-bold text-[30px] font-poppins text-center">
           LOGIN
@@ -76,7 +79,7 @@ function LoginPage() {
         >
           <div className="space-y-6">
             <div className="flex flex-row space-x-1 font-sans bg-birumuda p-[10px] py-[10px] rounded-lg w-[20rem]">
-              <img src="/images/emailReg2.png" alt="" className="w-[25px]" />
+              <img src="Images/emailReg2.png" alt="" className="w-[25px]" />
               <input
                 value={formData.email}
                 onChange={handleChange}
@@ -88,7 +91,7 @@ function LoginPage() {
               />
             </div>
             <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-birumuda p-[10px] rounded-lg w-[20rem] ">
-              <img src="/images/passwordReg.png" alt="" className="w-[25px]" />
+              <img src="Images/passwordReg.png" alt="" className="w-[25px]" />
               <input
                 value={formData.password}
                 onChange={handleChange}
@@ -105,12 +108,12 @@ function LoginPage() {
               >
                 {showPassword ? (
                   <img
-                    src="/images/invisible.png"
+                    src="Images/invisible.png"
                     className="w-[25px]"
                     alt=""
                   />
                 ) : (
-                  <img src="/images/visible.png" className="w-[25px]" alt="" />
+                  <img src="Images/visible.png" className="w-[25px]" alt="" />
                 )}
               </button>
             </div>

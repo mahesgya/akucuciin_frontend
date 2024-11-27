@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { validateCustomer } from "../validator/customerValidator";
+import VerifyModal from "../verify/verifyModal";
 
 function RegisterPage() {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(true);
+  const [aktivasi, setAktivasi] = useState("");
+  const [verify, setVerify] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [formData, setFormData] = useState({
     email: "",
@@ -47,7 +52,7 @@ function RegisterPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (formData.password !== formData.confirm_password) {
       alert("Password dan konfirmasi password harus sama.");
       return;
@@ -70,18 +75,22 @@ function RegisterPage() {
             address: "",
             telephone: "",
           });
-
-          navigate("/verify");
+          setVerify(true)                
         })
         .catch((err) => {
           console.error("Error:", err);
           alert(err.response.data.errors);
+          setErrorMessage(err.response.data.errors);
+          setVerify(false);
         });
     }
   };
 
   return (
-    <div className="register-form h-screen w-screen flex flex-col items-center justify-center mx-[0.5em] mt-[2em] space-y-1">
+    <div className="register-form h-screen w-screen flex flex-col items-center justify-center mt-[15px] mb-[20px] space-y-1">
+      <a href="/">
+        <img src="Images/backbiru.png" className="fixed top-8 left-5"></img>
+      </a>
       <img src="Images/LogoAkucuciin.png" alt="logo" className="w-[9rem]" />
       <div className="flex flex-col items-center justify-center space-y-4">
         <h1 className="font-bold text-[30px] font-poppins text-center">REGISTER</h1>
@@ -154,6 +163,9 @@ function RegisterPage() {
             Daftar
           </button>
         </form>
+
+        {verify && <VerifyModal onClose={() => setVerify(false)} />}
+
         <div className="space-y-3 w-full flex align-center items-center flex-col justify-center ">
           <div className="flex flex-row items-center justify-center space-x-2 w-full m-[10px]">
             <div className="flex-grow h-[2px] w-[20%] bg-gray-200"></div>

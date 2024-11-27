@@ -1,4 +1,4 @@
-import React, { useState , useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../style/Header.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
@@ -6,7 +6,7 @@ import axios from "axios";
 import Footer from "./footer";
 import SectionHome from "./SectionHome";
 import AboutUs from "./aboutUs";
-
+import { Link } from "react-router-dom";
 import OurServices from "./ourServices";
 
 const Header = () => {
@@ -28,7 +28,7 @@ const Header = () => {
         .catch((error) => {
           setIsLoggedIn(false);
           setError("");
-        })
+        });
     } else {
       setIsLoggedIn(false);
     }
@@ -36,7 +36,7 @@ const Header = () => {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    
+
     const refreshToken = sessionStorage.getItem("refreshToken");
 
     if (refreshToken) {
@@ -50,7 +50,7 @@ const Header = () => {
           sessionStorage.removeItem("refreshToken");
           delete axios.defaults.headers.common["Authorization"];
           setIsLoggedIn(false);
-          window.location.reload()
+          window.location.reload();
         })
         .catch((error) => {
           console.error("Logout gagal:", error);
@@ -109,32 +109,33 @@ const Header = () => {
             <li className="liHome">
               <img src="Images/Home.png" alt="" className="imgHome" />
               <button className="navbarli" onClick={handleClick2}>
-                <NavLink to="/">Home</NavLink>
+                <NavLink  className="navbarlix" to="/">Home</NavLink>
               </button>
             </li>
             <li>
               <img src="Images/About.png" alt="" className="imgHome" />
               <button className="navbarli" onClick={handleClick}>
-                <NavLink to="/">About Us</NavLink>
+                <NavLink className="navbarlix" to="/">About Us</NavLink>
               </button>
             </li>
             <li>
               <img src="Images/Services.png" alt="" className="imgHome" />
               <button className="navbarli" onClick={handleClick3}>
-                <NavLink to="/">Services</NavLink>
+                <NavLink className="navbarlix" to="/">Services</NavLink>
               </button>
             </li>
             <li>
               <img src="Images/Contact.png" alt="" className="imgHome" />
               <button className="navbarli" onClick={handleClick4}>
-                <NavLink to="/">Contact</NavLink>
+                <NavLink className="navbarlix" to="/">Contact</NavLink>
               </button>
             </li>
             <div className="navbardiv">
               {isLoggedIn ? (
-                <button onClick={handleLogout} className="shadow-md font-sans w-[100px]  md:w-[130px] lg:w-[160px]  bg-red-500 text-white font-semibold px-1 py-2 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-                  Log Out
-                </button>
+                
+                 <a href="/me" className="">
+                 <img src="Images/profile.png" className="w-[4em] pl-4"></img>
+               </a>
               ) : (
                 <div className="space-x-3 ml-1">
                   <NavLink to="/login">
@@ -150,6 +151,7 @@ const Header = () => {
                 </div>
               )}
             </div>
+            
           </ul>
         </div>
       </header>
@@ -157,6 +159,9 @@ const Header = () => {
       <AboutUs ref={Aboutusref} />
       <OurServices ref={Ourserviceref} />
       <Footer ref={Footerref} />
+      <a className="fixed right-4 bottom-4 bg-blue rounded-lg " href="https://wa.me/6285810211200">
+        <img src="Images/waicon.png" className="w-[80px] h-[80px]" />
+      </a>
     </div>
   );
 };
