@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -12,7 +12,6 @@ function ResetPassPage() {
   const [message2, setMessage2] = useState(false)
 
   const { email, reset_password_token } = useParams();
-  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -122,6 +121,7 @@ function ResetPassPage() {
               Submit
             </button>
           </form>
+          {message && <p className="font-sans text-red-500 text-sm">{message}</p>}
           {message2 && (
             <div className="modal fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
               <div className="flex flex-col items-center justify-center bg-white p-5 rounded-lg shadow-lg w-[90%] max-w-md">

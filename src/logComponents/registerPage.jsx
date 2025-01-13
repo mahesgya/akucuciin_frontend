@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { validateCustomer } from "../validator/customerValidator";
 import VerifyModal from "../verify/verifyModal";
@@ -8,10 +8,8 @@ function RegisterPage() {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(true);
-  const [aktivasi, setAktivasi] = useState("");
-  const [verify, setVerify] = useState(false)
-  const [errorMessage, setErrorMessage] = useState("");
+  const [verify, setVerify] = useState(false);
+  const [errorPassword, setErrorPassword] = useState("");
 
   const [formData, setFormData] = useState({
     email: "",
@@ -21,8 +19,6 @@ function RegisterPage() {
     address: "",
     telephone: "",
   });
-
-  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -34,6 +30,7 @@ function RegisterPage() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setFormData({
       ...formData,
       [name]: value,
@@ -41,11 +38,11 @@ function RegisterPage() {
 
     if (name === "confirm_password" || name === "password") {
       if (name === "confirm_password" && value !== formData.password) {
-        setError("Password dan konfirmasi password tidak cocok");
+        setErrorPassword("Password dan konfirmasi password tidak cocok");
       } else if (name === "password" && formData.confirm_password && formData.confirm_password !== value) {
-        setError("Password dan konfirmasi password tidak cocok");
+        setErrorPassword("Password dan konfirmasi password tidak cocok");
       } else {
-        setError("");
+        setErrorPassword("");
       }
     }
   };
@@ -75,12 +72,12 @@ function RegisterPage() {
             address: "",
             telephone: "",
           });
-          setVerify(true)                
+          setVerify(true);
         })
         .catch((err) => {
           console.error("Error:", err);
           alert(err.response.data.errors);
-          setErrorMessage(err.response.data.errors);
+          setError(err.response.data.errors);
           setVerify(false);
         });
     }
@@ -89,7 +86,7 @@ function RegisterPage() {
   return (
     <div className="register-form h-screen w-screen flex flex-col items-center justify-center mt-[15px] mb-[20px] space-y-1">
       <a href="/">
-        <img src="Images/backbiru.png" className="fixed top-8 left-5"></img>
+        <img alt="backbiru" src="Images/backbiru.png" className="fixed top-8 left-5"></img>
       </a>
       <img src="Images/LogoAkucuciin.png" alt="logo" className="w-[9rem]" />
       <div className="flex flex-col items-center justify-center space-y-4">
@@ -153,12 +150,17 @@ function RegisterPage() {
               {showPassword2 ? <img src="Images/invisible.png" className="w-[25px]" alt=""></img> : <img src="Images/visible.png" className="w-[25px]" alt=""></img>}
             </button>
           </div>
-          {error.name && <p className="font-sans text-red-500 text-sm">{error.name}</p>}
-          {error.email && <p className="font-sans text-red-500 text-sm">{error.email}</p>}
-          {error.telephone && <p className="font-sans text-red-500 text-sm">{error.telephone}</p>}
-          {error.address && <p className="font-sans text-red-500 text-sm">{error.address}</p>}
-          {error.password && <p className="font-sans text-red-500 text-sm">{error.password}</p>}
-          {error.confirm_password && <p className="font-sans text-red-500 text-sm">{error.confirm_password}</p>}
+
+          {Object.keys(error).map((key) =>
+            error[key] ? (
+              <p key={key} className="font-sans text-red-500 text-sm">
+                {error[key]}
+              </p>
+            ) : null
+          )}
+
+          {errorPassword && <p className="font-sans text-red-500 text-sm">{errorPassword}</p>}
+
           <button type="submit" className="shadow-md font-sans w-[10rem] bg-blue-500 text-white font-semibold p-3  rounded-[20px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
             Daftar
           </button>

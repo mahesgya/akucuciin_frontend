@@ -1,5 +1,5 @@
 import React from "react";
-import "./ServicesHP.css";
+import "../style/ServicesHP.css";
 import NavbarHP from "./NavbarHP";
 
 function OurServicesHP() {

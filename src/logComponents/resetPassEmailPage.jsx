@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -9,7 +9,6 @@ function ResetPassEmailPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [message2, setMessage2] = useState(false);
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

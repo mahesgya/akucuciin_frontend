@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setLogin } from "../redux/authSlicer";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -6,17 +8,17 @@ function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
+  
 
-  const navigate = useNavigate();
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,6 +45,8 @@ function LoginPage() {
         sessionStorage.setItem("accessToken", accessToken);
         sessionStorage.setItem("refreshToken", refreshToken);
 
+        dispatch(setLogin({ accessToken, refreshToken }));
+        
         setFormData({
           email: "",
           password: "",
@@ -62,7 +66,7 @@ function LoginPage() {
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-start mx-[0.5em] mt-[3em] space-y-8">
       <a href="/">
-        <img src="Images/backbiru.png" className="fixed top-8 left-5"></img>
+        <img alt="backbiru" src="Images/backbiru.png" className="fixed top-8 left-5"></img>
       </a>
       <img src="Images/LogoAkucuciin.png" alt="logo" className="w-[9rem]" />
       <div className="flex flex-col items-center justify-center space-y-5">

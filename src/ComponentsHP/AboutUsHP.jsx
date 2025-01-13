@@ -1,13 +1,13 @@
 import React from "react";
 import "../style/AboutUs.css";
 import NavbarHP from "./NavbarHP";
-import "./AboutUsHP.css";
+import "../style/AboutUsHP.css";
 
 function AboutUsHP() {
   return (
     <div>
       <section id="AboutUsHP  ">
-        <NavbarHP/>
+        <NavbarHP />
         <div className="container-aboutHP">
           <h4 className="aboutus-h4HP">About Us</h4>
           <h2 className="cepatdanmudahHP">
@@ -19,7 +19,6 @@ function AboutUsHP() {
           </p>
           <img src="Images/About UsHP.png" alt="" className="mesincuci2HP" />
         </div>
-       
       </section>
     </div>
   );

@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 
 const ProfilePage = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+
   const [profile, setProfile] = useState({
     name: "",
     telephone: "",
@@ -15,6 +14,7 @@ const ProfilePage = () => {
   });
 
   const [isEditing, setIsEditing] = useState(false);
+
   const [editProfile, setEditProfile] = useState({ ...profile });
 
   const handleLogout = (e) => {
@@ -32,7 +32,6 @@ const ProfilePage = () => {
           sessionStorage.removeItem("accessToken");
           sessionStorage.removeItem("refreshToken");
           delete axios.defaults.headers.common["Authorization"];
-          setIsLoggedIn(false);
           navigate("/");
         })
         .catch((error) => {
@@ -43,12 +42,11 @@ const ProfilePage = () => {
       sessionStorage.removeItem("accessToken");
       sessionStorage.removeItem("refreshToken");
       delete axios.defaults.headers.common["Authorization"];
-      setIsLoggedIn(false);
-      navigate("/")
+      navigate("/");
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const accessToken = sessionStorage.getItem("accessToken");
     if (accessToken) {
       axios
@@ -96,7 +94,6 @@ const ProfilePage = () => {
           const updatedProfile = { ...prevProfile, ...editProfile };
           return updatedProfile;
         });
-
         setEditProfile({ ...editProfile });
         setIsEditing(false);
         console.log("Profile updated:", editProfile);
@@ -109,11 +106,11 @@ const ProfilePage = () => {
   return (
     <div className="h-screen max-w-lg mx-auto p-6 bg-white rounded-lg ">
       <a href="/">
-        <img src="Images/backbiru.png" className="fixed top-8 left-5"></img>
+        <img alt="backbiru" src="Images/backbiru.png" className="fixed top-8 left-5"></img>
       </a>
       <div className="flex justify-between flex-col space-y-6 items-center mb-6">
         <h2 className="font-quick text-2xl font-semibold">PROFILE</h2>
-        <img src="Images/profile.png" className="w-[8em]"></img>
+        <img alt="profile" src="Images/profile.png" className="w-[8em]"></img>
         <button onClick={() => setIsEditing(true)} className="text-blue-500 bg-white  font-quick hover:underline">
           Change profile
         </button>
@@ -162,6 +159,11 @@ const ProfilePage = () => {
           )}
         </div>
       </form>
+      {error && (
+        <p className="error-message text-center" style={{ color: "red" }}>
+          {error}
+        </p>
+      )}
       <div className="flex flex-col items center justify-center">
         <button
           onClick={handleLogout}

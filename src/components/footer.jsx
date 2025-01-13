@@ -2,7 +2,7 @@ import React from "react";
 import "../style/Footer.css";
 import { forwardRef } from "react";
 
-function Footer({text},Footerref) {
+function Footer({ text }, Footerref) {
   return (
     <footer id="Footer" ref={Footerref}>
       <div className="Follow">
@@ -10,7 +10,7 @@ function Footer({text},Footerref) {
           <h2>Follow To Our Instagram</h2>
           <p>Follow Our Instagram to Get Latest News and Updates</p>
         </div>
-        <a href='https://www.instagram.com/akucuciin.id/'className="Follow-B">
+        <a href="https://www.instagram.com/akucuciin.id/" className="Follow-B">
           <a href="https://www.instagram.com/akucuciin.id/">Follow</a>
           <img src="Images/Instagram.png" alt="" />
         </a>
@@ -46,15 +46,15 @@ function Footer({text},Footerref) {
           <div className="Footer-Pelengkap">
             <h4>Useful Links</h4>
             <div className="div-line"></div>
-            <a href="">Home Page</a>
-            <a href="">About Us Page</a>
-            <a href="">Service Page</a>
-            <a href="">Contact Us</a>
+            <a href="/">Home Page</a>
+            <a href="/">About Us Page</a>
+            <a href="/">Service Page</a>
+            <a href="/">Contact Us</a>
           </div>
           <div className="Footer-Pelengkap">
             <h4>Contact</h4>
             <div className="div-line"></div>
-            <a href="https://wa.me/6285810211200"className="Footer-Akhir">
+            <a href="https://wa.me/6285810211200" className="Footer-Akhir">
               <img src="Images/telfon.png" alt="" />
               <p className="emailFot">(+62)881-0259-91660</p>
             </a>
@@ -69,7 +69,6 @@ function Footer({text},Footerref) {
           </div>
         </div>
       </div>
-      
     </footer>
   );
 }

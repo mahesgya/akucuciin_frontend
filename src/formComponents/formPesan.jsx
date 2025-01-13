@@ -4,13 +4,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import idLocale from "date-fns/locale/id";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { addDays } from "date-fns";
+
 function FormPemesanan() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedLaundryContent, setSelectedLaundryContent] = useState([]);
   const [selectedLaundryType, setSelectedLaundryType] = useState(null);
   const [pickup_date, setPickUpDate] = useState(null);
   const [formError, setFormError] = useState("");
+
   const laundry_content = [
     "Pakaian",
     "Sprei Kecil (80x80 - 140x140)",
@@ -18,6 +19,7 @@ function FormPemesanan() {
     "Selimut",
     "Jas",
   ];
+  
   const laundry_type = ["Biasa 3 Hari", "Express 1 Hari"];
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -104,7 +106,7 @@ function FormPemesanan() {
   return (
     <div className=" flex flex-col items-center justify-center mx-[0.5em] my-[2em] flex flex-col items-center justify-center space-y-4">
       <a href="/">
-        <img src="Images/backbiru.png" className="fixed top-8 left-5"></img>
+        <img alt="backbiru" src="Images/backbiru.png" className="fixed top-8 left-5"></img>
       </a>
       <img src="Images/LogoAkucuciin.png" alt="logo" className="w-[9rem]" />
       <h1 className="font-bold text-[30px] font-poppins text-center">

@@ -1,6 +1,6 @@
 import Header from "./components/header";
 import "./App.css";
-import HomeHP from "./ComponentsHP/HomeHp";
+import HomeHP from "./componentsHP/HomeHp";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
