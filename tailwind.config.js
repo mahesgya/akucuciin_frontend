@@ -1,12 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/logComponents/***.jsx", 
-    "./src/components/***.jsx",
-    "./src/ComponentsHP/***.jsx",
-    "./src/verify/***.jsx",
-    "./src/formComponents/***.jsx",
-    
-  ],
+  content: [
+    "./src/components/**/*.{js,jsx,ts,tsx}",
+    "./src/pages/**/*.{js,jsx,ts,tsx}",
+],
+
   theme: {
     extend: {
       colors: {

@@ -4,8 +4,9 @@ import "./index.css";
 import Routess from "./routes";
 import ScrollToTop from "./ScrollToTop";
 import { BrowserRouter, useRoutes } from "react-router-dom";
-import store from "./redux/store";
+import { store, persistor } from "./redux/store"; 
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -17,8 +18,10 @@ function AppRoutes() {
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <ScrollToTop />
-      <AppRoutes />
+      <PersistGate loading={null} persistor={persistor}>
+        <ScrollToTop />
+        <AppRoutes />
+      </PersistGate>
     </Provider>
   </BrowserRouter>
 );

@@ -9,11 +9,10 @@ const postCustomerSchema = Joi.object({
       "string.empty": "Email tidak boleh kosong.",
     }),
   password: Joi.string()
-    .pattern(new RegExp(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,255}$/))
-
+    .pattern(new RegExp(/^.{8,255}$/))
     .required()
     .messages({
-      "string.pattern.base": "Password harus mengandung minimal satu huruf besar, satu angka, dan panjang minimal 8 karakter.",
+      "string.pattern.base": "Password minimal 8 karakter.",
       "string.empty": "Password tidak boleh kosong.",
     }),
   confirm_password: Joi.any().valid(Joi.ref("password")).required().messages({
