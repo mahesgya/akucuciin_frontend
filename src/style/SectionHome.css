@@ -4,6 +4,16 @@ body {
   padding: 0;
 }
 
+.btn-confirm {
+  background-color: #3085d6;
+  color: white;
+}
+
+.btn-cancel {
+  background-color: #aaa;
+  color: black;
+}
+
 #SectionHome {
   display: flex;
   align-items: center;

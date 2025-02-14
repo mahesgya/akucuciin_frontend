@@ -257,7 +257,7 @@ a {
     width: 40px;
     height: 30px;
     position: absolute;
-    right: 3px;
+    top: 5px;
     padding-top: 3px;
   }
 
@@ -403,10 +403,10 @@ a {
   .close-btn {
     border: none;
     background-color: white;
-    width: 40px;
+    width: 25px;
     height: 30px;
     position: absolute;
-    right: 3px;
+    right: 0;
     padding-top: 3px;
   }
 

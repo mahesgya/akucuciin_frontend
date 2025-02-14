@@ -17,8 +17,8 @@
 
 #OurServices > h4 {
   color: #687eff;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 30px;
+  font-weight: 700;
   letter-spacing: 1.8px;
 }
 
@@ -142,7 +142,7 @@
   }
   
   #OurServices > h4 {
-    font-size: 16px;
+    font-size: 24px;
     font-weight: 500;
     letter-spacing: 1.8px;
   }
@@ -228,7 +228,7 @@
   }
   
   #OurServices > h4 {
-    font-size: 10px;
+    font-size: 16px;
     font-weight: 500;
     letter-spacing: 1.8px;
   }
@@ -314,7 +314,7 @@
   }
   
   #OurServices > h4 {
-    font-size: 16px;
+    font-size: 24px;
     font-weight: 500;
     letter-spacing: 1.8px;
   }
@@ -399,7 +399,7 @@
   }
   
   #OurServices > h4 {
-    font-size: 16px;
+    font-size: 30px;
     font-weight: 500;
     letter-spacing: 1.8px;
   }
@@ -493,8 +493,9 @@
   
   #OurServices > h4 {
     color: #687eff;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 30px;
+    margin-bottom: 5px;
+    font-weight: 700;
     letter-spacing: 1.8px;
   }
   

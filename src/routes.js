@@ -1,26 +1,28 @@
 import React from "react";
 import App from "./App";
 
-import AboutUsHP from "./pages/mobile_pages/AboutUsHP";
-import OurServicesHP from "./pages/mobile_pages/ServicesHP";
+import AboutUsHP from "./pages/about/index.hp";
+import OurServicesHP from "./pages/service/index.hp"
 
-import LoginPage from "./components/auth_components/loginPage";
-import RegisterPage from "./components/auth_components/registerPage";
-import ResetPassEmailPage from "./components/auth_components/resetPassEmailPage";
-import ResetPassPage from "./components/auth_components/resetPassPage";
 
-import FormPemesanan from "./components/form_components/formPesan";
+import Login from "./pages/login";
+import Register from "./pages/register"
+import RequestResetPassword from "./pages/req_reset_pass"
+import ResetPassword from "./pages/reset_pass"
 
-import VerifyFailed from "./components/verify_components/verifyFailed";
-import VerifyFailedInvalid from "./components/verify_components/verifyFailedInvalid";
-import VerifyFailedActivated from "./components/verify_components/verifyFailedActivated";
-import VerifySuccess from "./components/verify_components/verifySuccess";
+import OrderForm from "./pages/order_form";
 
-import ProfilePage from "./pages/desktop_pages/ProfilePage";
+import VerifyFailed from "./components/verify/verify.failed";
+import VerifyFailedInvalid from "./components/verify/verfiy.failed.invalid"
+import VerifyFailedActivated from "./components/verify/verify.failed.activated"
+import VerifySuccess from "./components/verify/verify.success"
 
-import LaundryCity from "./components/laundry_components/laundryCity";
-import LaundryListCity from "./components/laundry_components/laundryListCity";
-import LaundryListId from "./components/laundry_components/laundryId";
+import Profile from "./pages/profile";
+
+import ListCity from "./pages/city";
+import LaundryList from "./pages/laundry";
+import LaundryDetail from "./pages/laundry_detail";
+import Order from "./pages/order";
 
 const Routess = [
   {
@@ -37,11 +39,11 @@ const Routess = [
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: <Login/>,
   },
   {
     path: "/register",
-    element: <RegisterPage />,
+    element: <Register />,
   },
   {
     path: "/verify/error",
@@ -61,31 +63,35 @@ const Routess = [
   },
   {
     path: "/reset-password-email",
-    element: <ResetPassEmailPage />,
+    element: <RequestResetPassword />,
   },
   {
     path: "/reset-password/:email/:reset_password_token",
-    element: <ResetPassPage />,
+    element: <ResetPassword />,
   },
   {
     path: "/me",
-    element: <ProfilePage />,
+    element: <Profile />,
+  },
+  {
+    path: "/order",
+    element: <Order />,
   },
   {
     path: "/laundry",
-    element: <LaundryCity />,
+    element: <ListCity/>,
   },
   {
     path: "/laundry/:city",
-    element: <LaundryListCity />,
+    element: <LaundryList />,
   },
   {
     path: "/laundry/:city/:idlaundry",
-    element: <LaundryListId />,
+    element: <LaundryDetail />,
   },
   {
     path: "/laundry/:city/:idlaundry/pesan/:idpaket",
-    element: <FormPemesanan />,
+    element: <OrderForm />,
   },
 ];
 

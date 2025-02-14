@@ -1,6 +1,7 @@
-import Header from "./components/layout_components/header";
+import Navbar from "./components/navbar/index";
+import HomeHP from "./pages/home/index.hp";
 import "./App.css";
-import HomeHP from "./pages/mobile_pages/HomeHp";
+
 
 const App = () => {
   return (
@@ -10,7 +11,7 @@ const App = () => {
       </div>
 
       <div className="AppLaptop">
-        <Header />
+        <Navbar />
       </div>
     </div>
   );

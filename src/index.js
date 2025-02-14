@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import Routess from "./routes";
-import ScrollToTop from "./ScrollToTop";
+import ScrollToTop from "./scroll.top"
+
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import { store, persistor } from "./redux/store"; 
 import { Provider } from "react-redux";
