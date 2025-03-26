@@ -8,8 +8,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { checkAuth } from "../../redux/auth.slicer";
 import { motion } from "framer-motion";
-import { FaShoppingCart } from "react-icons/fa";
-
 import Swal from "sweetalert2";
 
 function HomeHP() {

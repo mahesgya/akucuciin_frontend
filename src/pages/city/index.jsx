@@ -46,36 +46,62 @@ const ListCity = () => {
   }
 
   return (
-    <div className="h-screen flex flex-row items-start justify-center lg:items-center">
-      <img src="/Images/woman.png" alt="" className="hidden h-screen md:block md:w-[40%] object-fit" />
-
-      <section className="relative flex flex-col items-center justify-center md:w-[60%]">
-        <button onClick={handleBack} className="bg-white fixed lg:absolute top-8 left-5">
-          <img alt="backbiru" src="/Images/backbiru.png"></img>
+    <div className="relative h-[100dvh] flex flex-row items-start justify-center  ">
+      <section className="min-w-[90vw] relative overflow-hidden flex flex-row items-center justify-center">
+        <button onClick={handleBack} className="bg-white absolute top-8 left-5">
+          <img alt="backbiru" src="/Images/backbiru.png" />
         </button>
-        <div className="flex flex-col items-center justify-center">
-          <img src="/Images/LogoAkucuciin.png" alt="" className="pt-4 w-[200px] text-center" />
-          <h2 className="pt-4 font-bold font-quick text-[20px]">CARI MITRA UNGGULAN ANDA</h2>
-          <h2 className="font-normal text-center font-quick text-[14px] pb-14">Silahkan pilih wilayah anda</h2>
 
-          <div className="flex items-start justify-start flex-col w-full p-6 bg-white rounded-lg h-[60%]">
+        <div className="flex flex-col items-center justify-center ">
+          <img src="/Images/LogoAkucuciin.png" alt="" className="my-6 w-[200px] text-center md:w-[250px] lg:w-[300px]" />
+          <h2 className="font-bold font-quick text-xl md:text-3xl lg:text-4xl">CARI MITRA UNGGULAN ANDA</h2>
+          <h2 className="text-center font-quick pb-8 text-base md:text-lg lg:text-xl">Silahkan pilih wilayah anda</h2>
+
+          <div className="flex items-start justify-start flex-col w-full p-6 bg-white rounded-lg max-h-[50vh] overflow-y-auto">
             {Object.entries(regions).map(([city, areas]) => (
-              <div key={city} className="mb-5">
-                <button onClick={() => handleNext(city)} className="w-[20em] text-left text-gray-900 font-semibold py-3 px-5 rounded-lg transition duration-300 focus:outline-none">
+              <div key={city} className="mb-4 min-w-[90vw] flex justify-center">
+                <button
+                  onClick={() => handleNext(city)}
+                  className="min-w-[90vw] font-quick text-left text-gray-900 font-semibold py-3 px-5 rounded-lg transition duration-300 focus:outline-none
+                 bg-gray-100 shadow-md hover:shadow-lg active:shadow-sm
+                 border border-gray-300 hover:border-gray-400
+                 hover:-translate-y-0.5 active:translate-y-0 md:text-xl lg:text-2xl"
+                >
                   {city}
                 </button>
               </div>
             ))}
-            <button className="mb-5 w-[20em] text-left text-gray-900 font-semibold py-3 px-5 rounded-lg transition duration-300 focus:outline-none">Bandung</button>
-            <button className="mb-5 w-[20em] text-left text-gray-900 font-semibold py-3 px-5 rounded-lg transition duration-300 focus:outline-none">Jakarta</button>
-            <button className="mb-5 w-[20em] text-left text-gray-900 font-semibold py-3 px-5 rounded-lg transition duration-300 focus:outline-none">Semarang</button>
-          </div>
-
-          <div className="pt-4 items-center justify-center flex flex-col space-y-3">
-            <h4 className="highlyHP">HIGHLY PROFESSIONAL CLEANING</h4>
+            <button
+              className="min-w-[90vw] font-quick text-left text-gray-900 font-semibold py-3 px-5 rounded-lg transition duration-300 focus:outline-none
+                 bg-gray-100 shadow-md hover:shadow-lg active:shadow-sm
+                 border border-gray-300 hover:border-gray-400
+                 hover:-translate-y-0.5 active:translate-y-0 mb-4 md:text-xl lg:text-2xl"
+            >
+              Bandung
+            </button>
+            <button
+              className="min-w-[90vw] font-quick text-left text-gray-900 font-semibold py-3 px-5 rounded-lg transition duration-300 focus:outline-none
+                 bg-gray-100 shadow-md hover:shadow-lg active:shadow-sm
+                 border border-gray-300 hover:border-gray-400
+                 hover:-translate-y-0.5 active:translate-y-0 mb-4 md:text-xl lg:text-2xl"
+            >
+              Jakarta
+            </button>
+            <button
+              className="min-w-[90vw] font-quick text-left text-gray-900 font-semibold py-3 px-5 rounded-lg transition duration-300 focus:outline-none
+                 bg-gray-100 shadow-md hover:shadow-lg active:shadow-sm
+                 border border-gray-300 hover:border-gray-400
+                 hover:-translate-y-0.5 active:translate-y-0 mb-4 md:text-xl lg:text-2xl"
+            >
+              Semarang
+            </button>
           </div>
         </div>
+
       </section>
+      <div className="text-center absolute bottom-4 pt-4 items-center justify-center flex flex-col space-y-3 text-base md:text-lg lg:text-xl">
+        <h4 className="highlyHP">HIGHLY PROFESSIONAL CLEANING</h4>
+      </div>
     </div>
   );
 };

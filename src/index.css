@@ -10,3 +10,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.react-datepicker-wrapper {
+  width: 100% !important;
+}
+.react-datepicker__input-container input {
+  width: 100% !important;
+}
+
+input:-webkit-autofill {
+  background-color: transparent !important;
+  transition: background-color 5000s ease-in-out 0s;
+}

@@ -39,13 +39,9 @@ const customerServices = {
   },
   orderLaundry: async (accessToken, formData) => {
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_BACKEND_URL}/api/order`,
-        formData,
-        {
-          headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
-        }
-      );
+      const response = await axios.post(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/order`, formData, {
+        headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+      });
 
       await Swal.fire({
         icon: "success",
@@ -71,13 +67,9 @@ const customerServices = {
   },
   postReferral: async (accessToken, formData) => {
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/referral_code`,
-        formData,
-        {
-          headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
-        }
-      );
+      const response = await axios.post(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/referral_code`, formData, {
+        headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+      });
 
       await Swal.fire({
         icon: "success",
@@ -102,12 +94,9 @@ const customerServices = {
   },
   getOrderLaundry: async (accessToken) => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/orders`,
-        {
-          headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
-        }
-      );
+      const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/orders`, {
+        headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+      });
 
       return response.data;
     } catch (error) {
@@ -123,16 +112,13 @@ const customerServices = {
   },
   cancelOrder: async (accessToken, orderId) => {
     try {
-      const response = await axios.delete(
-        `${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/order/${orderId}`,
-        {
-          headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
-        }
-      );
+      const response = await axios.delete(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/order/${orderId}`, {
+        headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+      });
 
       await Swal.fire({
         icon: "success",
-        title: "Berhasil", 
+        title: "Berhasil",
         text: "Order Berhasil Di Batalkan.",
         confirmButtonText: "OK",
         confirmButtonColor: "#3085d6",
@@ -150,7 +136,38 @@ const customerServices = {
         showCloseButton: true,
       });
     }
-  }
+  },
+  postReview: async (accessToken, orderId, rating, review) => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/order/${orderId}/review `,
+        { rating, review },
+        {
+          headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+        }
+      );
+
+      await Swal.fire({
+        icon: "success",
+        title: "Berhasil",
+        text: "Ulasan Berhasil Di Kirim.",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#3085d6",
+        showCloseButton: true,
+      });
+
+      return response.data;
+    } catch (error) {
+      await Swal.fire({
+        icon: "error",
+        title: "Gagal Mengirim Ulasan.",
+        text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
+        confirmButtonText: "Coba Lagi",
+        confirmButtonColor: "#d33",
+        showCloseButton: true,
+      });
+    }
+  },
 };
 
 export default customerServices;

@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout, checkAuth } from "../../redux/auth.slicer";
 
-import axios from "axios";
-
 import Cookies from "js-cookie";
 import authController from "../../controller/auth.controller";
 import customerController from "../../controller/customer.controller";
@@ -51,7 +49,6 @@ const Profile = () => {
       Cookies.remove("accessToken");
       Cookies.remove("refreshToken");
       dispatch(setLogout());
-      delete axios.defaults.headers.common["Authorization"];
       navigate("/");
     }
   };
@@ -92,7 +89,7 @@ const Profile = () => {
       <img src="/Images/woman.png" alt="" className="hidden h-screen lg:block lg:w-[40%] object-fit " />
       <div className="h-screen p-6 bg-white rounded-lg md:justify-center md:mt-0 md:mx-0 md:w-[60%]">
         <a href="/">
-          <img alt="backbiru" src="Images/backbiru.png" className="fixed top-8 left-5 lg:relative "></img>
+          <img alt="backbiru" src="/Images/backbiru.png" className="fixed top-8 left-5 lg:relative "></img>
         </a>
         <div className="flex justify-between flex-col space-y-6 items-center mb-6">
           <h2 className="font-quick text-2xl font-semibold">PROFILE</h2>

@@ -16,6 +16,7 @@ import VerifyFailed from "./components/verify/verify.failed";
 import VerifyFailedInvalid from "./components/verify/verfiy.failed.invalid"
 import VerifyFailedActivated from "./components/verify/verify.failed.activated"
 import VerifySuccess from "./components/verify/verify.success"
+import EmailVerificationPage from "./pages/verif_email/verif.email";
 
 import Profile from "./pages/profile";
 
@@ -44,6 +45,10 @@ const Routess = [
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/register/:email",
+    element: <EmailVerificationPage />,
   },
   {
     path: "/verify/error",

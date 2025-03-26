@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import authController from "../../controller/auth.controller";
-
+import { useNavigate } from "react-router-dom";
 function Register() {
-  const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [errorPassword, setErrorPassword] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const [formData, setFormData] = useState({
     email: "",
@@ -16,6 +16,8 @@ function Register() {
     address: "",
     telephone: "",
   });
+
+  const navigate = useNavigate()
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -54,15 +56,15 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await authController.handleRegister(formData, setFormData, setError);
+    await authController.handleRegister(formData, setFormData, setLoading, navigate);
   };
 
   return (
     <div className="min-h-screen w-screen flex flex-row items-center justify-center">
       <img src="/Images/woman.png" alt="" className="hidden h-screen lg:block lg:w-[40%] object-fit" />
-      <div className="register-form h-screen w-screen flex flex-col items-center justify-center mt-[15px] mb-[20px] lg:mt-0 lg:mb-0 space-y-1 lg:w-[60%]">
+      <div className="register-form relative -screen w-screen flex flex-col items-center justify-center mt-[15px] mb-[20px] lg:mt-0 lg:mb-0 space-y-1 lg:w-[60%]">
         <a href="/">
-          <img alt="backbiru" src="Images/backbiru.png" className="fixed top-8 left-5"></img>
+          <img alt="backbiru" src="Images/backbiru.png" className="fixed top-8 left-5 lg:absolute"></img>
         </a>
         <img src="Images/LogoAkucuciin.png" alt="logo" className="w-[9rem] lg:w-[15rem]" />
         <div className="flex flex-col items-center justify-center space-y-4">
@@ -142,10 +144,11 @@ function Register() {
               </div>
             </div>
             <p className="font-sans text-blue-500 text-sm py-1">Password Minimal 8 Karakter</p>
+            
             {errorPassword && <p className="font-sans text-red-500 text-sm py-2">{errorPassword}</p>}
 
-            <button type="submit" className="shadow-md font-sans w-[10rem] bg-blue-500 text-white font-semibold p-3  rounded-[20px]  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-              Daftar
+            <button type="submit" className={`shadow-md font-sans w-[10rem] font-semibold p-3 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${loading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "text-white bg-blue-500"}`}>
+              {loading ? "Loading..." : "Daftar"}
             </button>
           </form>
 

@@ -2,46 +2,54 @@ import authService from "../services/auth.services";
 import { checkAuth, setLogin, setLogout } from "../redux/auth.slicer";
 import { validateCustomer } from "../validator/customer.validator";
 import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const authController = {
-  handleLogin: async (formData, dispatch, navigate, setFormData, setError, setLoading) => {
+  handleLogin: async (formData, dispatch, navigate, setFormData, setLoading) => {
     setLoading(true);
     try {
       const data = await authService.loginUser(formData);
-
       const { accessToken, refreshToken } = data.data;
 
-      Cookies.set("accessToken", accessToken, {
-        secure: true,
-        sameSite: "none",
-        expires: 1,
-      });
+      Cookies.set("accessToken", accessToken, { secure: true, sameSite: "none", expires: 1 });
       Cookies.set("refreshToken", refreshToken, { secure: true, sameSite: "none", expires: 7 });
 
       dispatch(setLogin({ accessToken, refreshToken }));
-
       await dispatch(checkAuth());
 
       setFormData({ email: "", password: "" });
-      setError("");
       navigate("/");
     } catch (error) {
-      setError(error);
+      await Swal.fire({
+        icon: "error",
+        title: "Login Gagal",
+        text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
+        confirmButtonText: "Coba Lagi",
+        confirmButtonColor: "#d33",
+        showCloseButton: true,
+      });
     } finally {
       setLoading(false);
     }
   },
 
-  handleRegister: async (formData, setFormData, setError) => {
+  handleRegister: async (formData, setFormData, setLoading, navigate) => {
+    setLoading(true);
     if (formData.password !== formData.confirm_password) {
-      alert("Password dan konfirmasi password harus sama.");
+      await Swal.fire({
+        icon: "error",
+        title: "Registrasi Gagal",
+        text: "Password dan confirm password tidak sama.",
+        confirmButtonText: "Coba Lagi",
+        confirmButtonColor: "#d33",
+        showCloseButton: true,
+      });
       return;
     }
 
     const validationErrors = validateCustomer(formData);
-    setError(validationErrors || {});
 
     if (!validationErrors) {
       try {
@@ -54,8 +62,18 @@ const authController = {
           address: "",
           telephone: "",
         });
+        navigate(`/register/${formData.email}`)
       } catch (error) {
-        setError(error);
+        await Swal.fire({
+          icon: "error",
+          title: "Registrasi Gagal",
+          text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
+          confirmButtonText: "Coba Lagi",
+          confirmButtonColor: "#d33",
+          showCloseButton: true,
+        });
+      } finally {
+        setLoading(false);
       }
     }
   },
@@ -68,11 +86,11 @@ const authController = {
       dispatch(setLogout());
       navigate("/");
     } catch (error) {
-      console.error("Logout gagal:", error);
       dispatch(setLogout());
       setError("Gagal logout");
     }
   },
+
   resetPasswordEmail: async (email, setIsLoading) => {
     try {
       setIsLoading(true);
@@ -84,9 +102,10 @@ const authController = {
       setIsLoading(false);
     }
   },
+
   ResetPassPage: async (email, reset_password_token, password, confirmPassword, setError, setLoading) => {
+    setLoading(true);
     try {
-      setLoading(true);
       if (password !== confirmPassword) {
         alert("Password dan konfirmasi password harus sama.");
         return;

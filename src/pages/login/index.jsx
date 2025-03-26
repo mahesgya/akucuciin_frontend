@@ -6,7 +6,6 @@ import authController from "../../controller/auth.controller";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -32,15 +31,15 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await authController.handleLogin(formData, dispatch, navigate, setFormData, setError, setLoading);
+    await authController.handleLogin(formData, dispatch, navigate, setFormData, setLoading);
   };
 
   return (
-    <div className="h-screen w-screen flex flex-row items-start justify-center md:items-center">
+    <div className="h-[100dvh] w-screen flex flex-row items-center justify-center md:items-center">
       <img src="/Images/woman.png" alt="" className="hidden h-screen md:block md:w-[40%] object-fit" />
       <div className="relative max-h-screen w-screen mx-0.5 flex flex-col items-center justify-center space-y-8 md:my-0 md:mx-0 lg:w-[60%]">
         <a href="/">
-          <img alt="backbiru" src="Images/backbiru.png" className="absolute top-8 left-5"></img>
+          <img alt="backbiru" src="/Images/backbiru.png" className="absolute top-8 left-5"></img>
         </a>
         <img src="Images/LogoAkucuciin.png" alt="logo" className="w-[200px] lg:w-[15rem]" />
         <div className="flex flex-col items-center justify-center space-y-4">
