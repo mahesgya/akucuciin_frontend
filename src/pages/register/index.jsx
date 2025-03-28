@@ -64,9 +64,9 @@ function Register() {
       <img src="/Images/woman.png" alt="" className="hidden h-screen lg:block lg:w-[40%] object-fit" />
       <div className="register-form relative -screen w-screen flex flex-col items-center justify-center mt-[15px] mb-[20px] lg:mt-0 lg:mb-0 space-y-1 lg:w-[60%]">
         <a href="/">
-          <img alt="backbiru" src="Images/backbiru.png" className="fixed top-8 left-5 lg:absolute"></img>
+          <img alt="backbiru" src="Images/backbiru.png" className="absolute top-8 left-5"></img>
         </a>
-        <img src="Images/LogoAkucuciin.png" alt="logo" className="w-[9rem] lg:w-[15rem]" />
+        <img src="Images/LogoAkucuciin.png" alt="logo" className="w-[200px] lg:w-[15rem]" />
         <div className="flex flex-col items-center justify-center space-y-4">
           <h1 className="font-bold text-[30px] font-poppins text-center">REGISTER</h1>
           <h4 className="font-sans font-base font-[8px] text-gray55 text-center">Silahkan Isi Data Diri Anda</h4>

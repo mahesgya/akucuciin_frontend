@@ -75,7 +75,7 @@ function HomeHP() {
   }
 
   return (
-    <div id="HomeHP">
+    <div className="min-w-[100%] min-h-[100dvh] flex-col flex items-center justify-center">
       {isLoggedIn && (
         <a href="/me" className="absolute top-4 left-4">
           <img alt="profile" src="Images/profile.png" className="w-[2.2em]"></img>

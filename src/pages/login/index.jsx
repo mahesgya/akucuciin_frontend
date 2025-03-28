@@ -35,9 +35,9 @@ function Login() {
   };
 
   return (
-    <div className="h-[100dvh] w-screen flex flex-row items-center justify-center md:items-center">
+    <div className="min-h-[100dvh] w-screen flex flex-row items-center justify-center md:items-center">
       <img src="/Images/woman.png" alt="" className="hidden h-screen md:block md:w-[40%] object-fit" />
-      <div className="relative max-h-screen w-screen mx-0.5 flex flex-col items-center justify-center space-y-8 md:my-0 md:mx-0 lg:w-[60%]">
+      <div className="relative min-h-[100dvh] w-screen mx-0.5 flex flex-col items-center justify-center space-y-8 md:my-0 md:mx-0 lg:w-[60%]">
         <a href="/">
           <img alt="backbiru" src="/Images/backbiru.png" className="absolute top-8 left-5"></img>
         </a>
