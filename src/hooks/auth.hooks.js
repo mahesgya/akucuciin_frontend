@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const authHooks = {
   authValidation: async ( setIsLoggedIn, setProfileData, setError, setLoading, accessToken) => {
     if (accessToken) {

@@ -1,4 +1,3 @@
-import React from "react";
 import App from "./App";
 
 import AboutUsHP from "./pages/about/index.hp";
@@ -19,7 +18,6 @@ import EmailVerificationPage from "./pages/verif_email/verif.email";
 
 import Profile from "./pages/profile";
 
-import ListCity from "./pages/city";
 import LaundryList from "./pages/laundry";
 import LaundryDetail from "./pages/laundry_detail";
 import Order from "./pages/order";

@@ -17,8 +17,6 @@ const FotoCarousel = ( {img} ) => {
       { breakpoint: 640, settings: { slidesToShow: 1 } },
     ],
   };
-  
-
 
   return (
     <div className="w-screen h-[240px] relative z-10 lg:h-[300px]">

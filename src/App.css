@@ -1,9 +1,7 @@
-
 @media screen and (min-width: 576px) {
     .appHP {
         display: none;
     }
-
 }
 
 @media screen and (max-width: 576px) {
@@ -13,8 +11,8 @@
     .navbarHP{
         display: flex;
     }
-     .AppLaptop{
+    .AppLaptop{
         display: none;
-     }
+    }
 
 }
