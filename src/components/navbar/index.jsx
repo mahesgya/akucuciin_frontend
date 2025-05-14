@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { motion } from "framer-motion";

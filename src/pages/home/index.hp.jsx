@@ -1,4 +1,3 @@
-import React from "react";
 import "../../style/HomeHP.css";
 import NavbarHP from "../../components/navbar/index.hp";
 import CloseModal from "../../components/modal/close.modal";

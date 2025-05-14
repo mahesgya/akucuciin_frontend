@@ -1,5 +1,3 @@
-import React from "react";
-
 const LaundryCard = ({ id, name, address, description, image, area }) => {
   return (
     <div key={id} className="max-w-[300px] px-2 flex items-center justify-center flex-col">

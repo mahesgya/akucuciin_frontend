@@ -1,4 +1,3 @@
-import React from "react";
 import "../../style/ServicesHP.css";
 import NavbarHP from "../../components/navbar/index.hp";
 

@@ -1,4 +1,3 @@
-import React from "react";
 import "../../style/AboutUs.css";
 import { forwardRef } from "react";
 

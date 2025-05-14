@@ -1,4 +1,3 @@
-import React from "react";
 import NavbarHP from "../../components/navbar/index.hp"
 
 import "../../style/AboutUs.css";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import{ useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -11,14 +11,11 @@ import Swal from "sweetalert2";
 
 function OrderForm() {
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedLaundryContent, setSelectedLaundryContent] = useState([]);
   const [pickupDate, setPickupDate] = useState(null);
   const [formError, setFormError] = useState("");
   const { idlaundry, idpaket } = useParams();
   const { accessToken } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-
-  const laundryContentOptions = ["Pakaian", "Sprei", "Selimut", "Jas", "Boneka", "Tas", "Sepatu", "Lainnya"];
 
   const [formData, setFormData] = useState({
     laundry_partner_id: idlaundry,
@@ -34,11 +31,6 @@ function OrderForm() {
     pickup_date: "",
   });
 
-  const handleCheckboxChange = (item) => {
-    const updatedItems = selectedLaundryContent.includes(item) ? selectedLaundryContent.filter((selected) => selected !== item) : [...selectedLaundryContent, item];
-    setSelectedLaundryContent(updatedItems);
-    setFormData((prevData) => ({ ...prevData, content: updatedItems.join(", ") }));
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import "../../style/Header.css";

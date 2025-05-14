@@ -1,4 +1,3 @@
-import React from "react";
 import "../../style/Footer.css";
 import { forwardRef } from "react";
 

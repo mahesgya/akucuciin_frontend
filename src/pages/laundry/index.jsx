@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import laundryServices from "../../services/laundry.service";
-import Swal from "sweetalert2";
 
 const LaundryList = () => {
   const [loading, setLoading] = useState(false);
@@ -31,7 +30,7 @@ const LaundryList = () => {
     navigate("/laundry");
   };
 
-  const handleKunjungi = (activeLaundry, laundryName) => {
+  const handleKunjungi = (activeLaundry) => {
     navigate(`/laundry/${city}/${activeLaundry}`);
   };
 
@@ -53,7 +52,7 @@ const LaundryList = () => {
           <img src="/Images/LogoAkucuciin.png" alt="" className="my-6 w-[200px] text-center md:w-[250px] lg:w-[300px]" />
           <div className="space-y-4 w-[90vw]">
             {data.map((laundry) => (
-              <button key={laundry.id} onClick={() => handleKunjungi(laundry.id, laundry.name)} className="w-full text-left min-w-[90vw]">
+              <button key={laundry.id} onClick={() => handleKunjungi(laundry.id)} className="w-full text-left min-w-[90vw]">
                 <div className="min-h-[130px] flex items-center bg-white/80 border border-gray-200 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 ease-in-out backdrop-blur-lg">
                   <img src={`${process.env.REACT_APP_BASE_BACKEND_URL}/static/${laundry.image.filepath}`} alt={laundry.name} className="w-32 h-32 object-cover rounded-l-xl md:w-[300px] md:h-[180px] lg:w-[400px] lg:h-[225px]" />
                   <div className="p-4 flex flex-col items-start justify-start flex-1 gap-1">
@@ -67,9 +66,6 @@ const LaundryList = () => {
           </div>
         </div>
       </section>
-      <div className="text-center absolute bottom-4 items-center justify-center flex flex-col space-y-3 text-base md:text-lg lg:hidden">
-        <h4 className="highlyHP">HIGHLY PROFESSIONAL CLEANING</h4>
-      </div>
     </div>
   );
 };

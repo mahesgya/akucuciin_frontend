@@ -1,5 +1,3 @@
-import React from "react";
-
 import "../../style/SectionHome.css";
 
 import { IoSearchCircle } from "react-icons/io5";
@@ -29,10 +27,6 @@ function Home({ text }, Homeref) {
 
     return () => clearInterval(interval);
   }, [dispatch]);
-
-  const closeOrder = async (e) => {
-    setCloseModal(true);
-  };
 
   const handlePesan = async () => {
     if (accessToken) {
