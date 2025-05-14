@@ -35,7 +35,7 @@ const LaundryDetail = () => {
   }, [city, idlaundry]);
 
   const handleBack = () => {
-    navigate(`/laundry/${city}`);
+    navigate(`/laundry`);
   };
 
   const handleDetail = () => {
@@ -43,7 +43,7 @@ const LaundryDetail = () => {
   };
 
   const handlePesan = (activePaket) => {
-    navigate(`/laundry/${city}/${idlaundry}/pesan/${activePaket}`);
+    navigate(`/laundry/${idlaundry}/pesan/${activePaket}`);
   };
 
   if (loading) {

@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import laundryServices from "../../services/laundry.service";
 
 const LaundryList = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState([]);
-  const { city } = useParams();
+  const  city  = "bogor";
 
   const navigate = useNavigate();
 
@@ -27,11 +27,11 @@ const LaundryList = () => {
   }, [city]);
 
   const handleBack = () => {
-    navigate("/laundry");
+    navigate("/");
   };
 
   const handleKunjungi = (activeLaundry) => {
-    navigate(`/laundry/${city}/${activeLaundry}`);
+    navigate(`/laundry/${activeLaundry}`);
   };
 
   if (loading) {

@@ -4,7 +4,6 @@ import App from "./App";
 import AboutUsHP from "./pages/about/index.hp";
 import OurServicesHP from "./pages/service/index.hp"
 
-
 import Login from "./pages/login";
 import Register from "./pages/register"
 import RequestResetPassword from "./pages/req_reset_pass"
@@ -84,18 +83,14 @@ const Routess = [
   },
   {
     path: "/laundry",
-    element: <ListCity/>,
-  },
-  {
-    path: "/laundry/:city",
     element: <LaundryList />,
   },
   {
-    path: "/laundry/:city/:idlaundry",
+    path: "/laundry/:idlaundry",
     element: <LaundryDetail />,
   },
   {
-    path: "/laundry/:city/:idlaundry/pesan/:idpaket",
+    path: "/laundry/:idlaundry/pesan/:idpaket",
     element: <OrderForm />,
   },
 ];
