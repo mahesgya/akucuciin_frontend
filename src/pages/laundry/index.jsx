@@ -32,17 +32,7 @@ const LaundryList = () => {
   };
 
   const handleKunjungi = (activeLaundry, laundryName) => {
-    if(laundryName == "Vibes Laundry"){
-      navigate(`/laundry/${city}/${activeLaundry}`);
-    }else{
-      Swal.fire({
-        icon : "error",
-        title: "Maaf Laundry Sedang Tutup.",
-        confirmButtonText: "Oke",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      })
-    }
+    navigate(`/laundry/${city}/${activeLaundry}`);
   };
 
   if (loading) {
@@ -76,7 +66,6 @@ const LaundryList = () => {
             ))}
           </div>
         </div>
-
       </section>
       <div className="text-center absolute bottom-4 items-center justify-center flex flex-col space-y-3 text-base md:text-lg lg:hidden">
         <h4 className="highlyHP">HIGHLY PROFESSIONAL CLEANING</h4>

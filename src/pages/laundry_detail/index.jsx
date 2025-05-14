@@ -66,27 +66,30 @@ const LaundryDetail = () => {
                 <p className="font-quick text-[12px] pb-3 text-gray-500 md:text-[16px] italic">{data.area}</p>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                {data.packages.map((item) => (
-                  <div
-                    key={item.id}
-                    onClick={() => handlePesan(item.id)}
-                    className="flex items-center justify-between bg-white shadow-md border border-gray-200 rounded-lg p-4 transition-all duration-200 hover:shadow-lg hover:scale-105 cursor-pointer w-full max-w-[500px]"
-                  >
-                    <div className="w-1/2 flex flex-col gap-2 text-left">
-                      {item.features.map((fitur, index) => (
-                        <p key={index} className="font-quick font-semibold text-xs text-gray-600 flex items-center">
-                          <BiCheck className="mr-2 text-blue-500 text-lg" /> {fitur}
-                        </p>
-                      ))}
-                    </div>
+                {data.packages
+                  ?.slice() 
+                  .sort((a, b) => Number(a.price_text) - Number(b.price_text))
+                  .map((item) => (
+                    <div
+                      key={item.id}
+                      onClick={() => handlePesan(item.id)}
+                      className="flex items-center justify-between bg-white shadow-md border border-gray-200 rounded-lg p-4 transition-all duration-200 hover:shadow-lg hover:scale-105 cursor-pointer w-full max-w-[500px]"
+                    >
+                      <div className="w-1/2 flex flex-col gap-2 text-left">
+                        {item.features.map((fitur, index) => (
+                          <p key={index} className="font-quick font-semibold text-xs text-gray-600 flex items-center">
+                            <BiCheck className="mr-2 text-blue-500 text-lg" /> {fitur}
+                          </p>
+                        ))}
+                      </div>
 
-                    <div className="w-1/2 px-4 flex flex-col items-center text-right">
-                      <h3 className="font-quick text-sm font-bold text-gray-800">{item.name}</h3>
-                      <span className="font-quick text-lg font-bold text-[#687eff] mt-1">Rp {Number(item.price_text).toLocaleString("id-ID")}</span>
-                      <p className="font-quick text-xs font-semibold text-gray-500 mt-2 text-justify hyphens-auto">{item.description}</p>
+                      <div className="w-1/2 px-4 flex flex-col items-center text-right">
+                        <h3 className="font-quick text-sm font-bold text-gray-800">{item.name}</h3>
+                        <span className="font-quick text-lg font-bold text-[#687eff] mt-1">Rp {Number(item.price_text).toLocaleString("id-ID")}</span>
+                        <p className="font-quick text-xs font-semibold text-gray-500 mt-2 text-justify hyphens-auto">{item.description}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
           ) : (
