@@ -111,7 +111,7 @@ function OrderForm() {
         </div>
 
         <div className="w-full">
-          <h4 className="font-quick font-semibold text-left text-gray-700 mb-2 text-lg md:text-xl">Tanggal Penjemputan</h4>
+          <h4 className="font-quick font-semibold text-left text-gray-700 mb-2 text-lg md:text-xl">Tanggal Penjemputan Baju Kotor</h4>
           <DatePicker
             required
             selected={pickupDate}

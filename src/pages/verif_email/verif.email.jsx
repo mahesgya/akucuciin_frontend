@@ -53,7 +53,7 @@ const EmailVerificationPage = () => {
           <p className="font-quick text-gray-600 text-center py-2 ">
             Kami telah mengirim email verifikasi ke: <strong>{email}</strong>
           </p>
-          <p className="font-quick text-sm text-gray-500">Silakan cek email dan klik link verifikasinya.</p>
+          <p className="font-quick text-sm text-gray-500">Silakan cek email dan <strong>cek spam</strong> lalu klik link verifikasinya.</p>
 
           <button onClick={resendVerificationEmail} className={`font-quick mt-4 px-4 py-2 text-white rounded-lg ${timer > 0 ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500"}`} disabled={timer > 0}>
             {timer > 0 ? `Kirim ulang dalam ${timer}s` : "Kirim Ulang Email Verifikasi"}
