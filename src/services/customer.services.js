@@ -97,7 +97,7 @@ const customerServices = {
       const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/orders`, {
         headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
       });
-
+      console.log(response.data)
       return response.data;
     } catch (error) {
       await Swal.fire({
@@ -168,6 +168,32 @@ const customerServices = {
       });
     }
   },
+  orderPayment: async (accessToken, orderId) => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/order/${orderId}/pay`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+        }
+      );  
+
+      const paymentUrl = (response.data.data.url);
+      window.location.href = paymentUrl
+
+      return response.data;
+    } catch (error) {
+      console.error(error)
+      console.log(error)
+      await Swal.fire({
+        icon: "error",
+        title: "Gagal Mendapatkan link pembayaran.",
+        text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
+        confirmButtonText: "Coba Lagi",
+        confirmButtonColor: "#d33",
+        showCloseButton: true,
+      });
+    }
+  }
 };
 
 export default customerServices;

@@ -57,6 +57,24 @@ const Order = () => {
     }
   };
 
+  const handlePayment = async (id) => {
+    const confirmed = await Swal.fire({
+      icon: "warning",
+      title: "Anda akan di arahkan ke laman pembayaran?",
+      showCancelButton: true,
+      confirmButtonText: "Yakin",
+      cancelButtonText: "Batal",
+      customClass: {
+        confirmButton: "btn-confirm",
+        cancelButton: "btn-cancel",
+      },
+    });
+
+    if (confirmed.isConfirmed) {
+      await customerServices.orderPayment(accessToken, id);
+    }
+  };
+
   const handleReview = async (orderId) => {
     let ratingValue = 0;
 
@@ -130,8 +148,12 @@ const Order = () => {
       </button>
       <div className="overflow-x-auto scrollbar-hide">
         <div className="flex space-x-3 mb-4 whitespace-nowrap">
-          {["all", "pending", "penjemputan", "pencucian", "selesai", "batal", "kesalahan"].map((status) => (
-            <button key={status} className={`font-quick px-4 py-2 rounded-lg font-semibold transition ${filter === status ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700 hover:bg-gray-300"}`} onClick={() => handleFilterChange(status)}>
+          {["all", "pending", "penjemputan", "pencucian", "pengantaran", "selesai", "batal", "kesalahan"].map((status) => (
+            <button
+              key={status}
+              className={`font-quick px-4 py-2 rounded-lg font-semibold transition ${filter === status ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700 hover:bg-gray-300"}`}
+              onClick={() => handleFilterChange(status)}
+            >
               {status === "all" ? "Semua" : status.charAt(0).toUpperCase() + status.slice(1)}
             </button>
           ))}
@@ -151,13 +173,13 @@ const Order = () => {
               <div>
                 <h3 className="font-quick text-lg font-bold">{order.laundry_partner.name}</h3>
                 <p className="font-quick text-gray-600 text-sm">
-                  Total: <span className="font-quick font-semibold text-gray-900">Rp {order.price}</span>
+                  Total: <span className="font-quick font-semibold text-gray-900">Rp {order.price_after}</span>
                 </p>
                 <p className="font-quick text-gray-600 text-sm">
                   Berat: <span className="font-quick font-semibold text-gray-900">{order.weight} kg</span>
                 </p>
                 <p className="font-quick text-gray-600 text-sm">
-                Pembayaran: <span className={`font-quick font-bold ${order.status_payment === "sudah bayar" ? "text-[#10b981]" : "text-[#ef4444]"}`}>{order.status_payment}</span>
+                  Pembayaran: <span className={`font-quick font-bold ${order.status_payment === "sudah bayar" ? "text-[#10b981]" : "text-[#ef4444]"}`}>{order.status_payment}</span>
                 </p>
                 <p className="font-quick text-gray-600 text-sm">
                   Tanggal:{" "}
@@ -175,7 +197,7 @@ const Order = () => {
                     </p>
                     <div className="flex flex-row items-center">
                       <p className="font-quick text-gray-600 text-sm pr-2">Rating: </p>
-                      <ReactStars count={5} value={order.rating || 0} size={20} edit={false} activeColor="#ffd700"  />
+                      <ReactStars count={5} value={order.rating || 0} size={20} edit={false} activeColor="#ffd700" />
                     </div>
                   </div>
                 )}
@@ -207,12 +229,17 @@ const Order = () => {
                   </button>
                 )}
 
-                {(order.status === "selesai" && !order.review) && (
+                {order.status === "selesai" && !order.review && (
                   <button onClick={() => handleReview(order.id)} className="font-quick absolute top-10 left-6 px-3 py-1 text-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
                     Review
                   </button>
                 )}
 
+                {order.payment_link !== null && order.status_payment === "belum bayar" && (
+                  <button onClick={() => handlePayment(order.id)} className="font-quick absolute top-10 left-6 px-3 py-1 text-sm bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+                    Bayar
+                  </button>
+                )}
               </div>
             </div>
           ))
