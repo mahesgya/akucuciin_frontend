@@ -37,8 +37,9 @@ const customerServices = {
       });
     }
   },
-  orderLaundry: async (accessToken, formData) => {
+  orderLaundry: async (accessToken, formData, setIsLoading, navigate) => {
     try {
+      setIsLoading(true);
       const response = await axios.post(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/order`, formData, {
         headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
       });
@@ -49,10 +50,10 @@ const customerServices = {
         text: "Pesanan Anda Sudah Terkirim.",
         confirmButtonText: "OK",
         confirmButtonColor: "#3085d6",
-        showCloseButton: true,
-        footer: '<a href="/" style="color: #3085d6; font-weight: bold;">Kembali ke Beranda</a>',
+        showCloseButton: true
       });
 
+      navigate("/")
       return response.data;
     } catch (error) {
       await Swal.fire({
@@ -63,6 +64,8 @@ const customerServices = {
         confirmButtonColor: "#d33",
         showCloseButton: true,
       });
+    }finally{
+      setIsLoading(false);
     }
   },
   postReferral: async (accessToken, formData) => {
@@ -97,7 +100,6 @@ const customerServices = {
       const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/orders`, {
         headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
       });
-      console.log(response.data)
       return response.data;
     } catch (error) {
       await Swal.fire({
@@ -177,13 +179,14 @@ const customerServices = {
         }
       );  
 
+      console.log(response.data.data)
+
       const paymentUrl = (response.data.data.url);
-      window.location.href = paymentUrl
+      window.location.href = paymentUrl 
 
       return response.data;
+
     } catch (error) {
-      console.error(error)
-      console.log(error)
       await Swal.fire({
         icon: "error",
         title: "Gagal Mendapatkan link pembayaran.",

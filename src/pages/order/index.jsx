@@ -133,6 +133,7 @@ const Order = () => {
 
     if (formValues) {
       await customerServices.postReview(accessToken, orderId, formValues.rating, formValues.review);
+      window.location.reload();
     }
   };
 

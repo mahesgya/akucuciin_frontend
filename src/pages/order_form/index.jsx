@@ -1,6 +1,10 @@
-import{ useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -10,6 +14,8 @@ import customerServices from "../../services/customer.services";
 import Swal from "sweetalert2";
 
 function OrderForm() {
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
   const [isLoading, setIsLoading] = useState(false);
   const [pickupDate, setPickupDate] = useState(null);
   const [formError, setFormError] = useState("");
@@ -26,11 +32,10 @@ function OrderForm() {
     weight: 0,
     price: 0,
     referral_code: "",
-    coupon_code : "",
+    coupon_code: "",
     note: "",
     pickup_date: "",
   });
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,6 +57,8 @@ function OrderForm() {
       return;
     }
 
+    const pickup_date = dayjs(pickupDate).tz("Asia/Jakarta").format("DD-MM-YYYY");
+
     const updatedFormData = {
       laundry_partner_id: formData.laundry_partner_id,
       package_id: formData.package_id,
@@ -63,18 +70,10 @@ function OrderForm() {
       referral_code: formData.referral_code,
       coupon_code: formData.coupon_code,
       note: formData.note,
-      pickup_date: pickupDate.toISOString().split("T")[0],
+      pickup_date: pickup_date,
     };
 
-    setIsLoading(true);
-    try {
-      await customerServices.orderLaundry(accessToken, updatedFormData);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-      navigate("/");
-    }
+    await customerServices.orderLaundry(accessToken, updatedFormData, setIsLoading, navigate);
   };
 
   const handleBack = () => {
@@ -91,7 +90,6 @@ function OrderForm() {
       <h4 className="font-quick text-gray-600 text-center text-sm md:text-base lg:text-lg">Silahkan isi kolom-kolom di bawah dengan benar.</h4>
 
       <form onSubmit={handleSubmit} className="space-y-4 flex flex-col items-center bg-white p-6 min-w-[90vw] max-w-md mx-auto ">
-
         <div className="w-full">
           <h4 className="font-quick font-semibold text-left text-gray-700 mb-2 text-lg md:text-xl">Link Google Maps Anda</h4>
           <input
@@ -120,7 +118,7 @@ function OrderForm() {
             locale={idLocale}
             placeholderText="Pilih Tanggal Penjemputan..."
             minDate={new Date()}
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
             className="w-full font-quick rounded-lg p-2 bg-gray-100 text-gray-700 focus:outline-none focus:border-b-2 text-base md:text-lg"
           />
         </div>
@@ -149,14 +147,22 @@ function OrderForm() {
 
         <div className="w-full">
           <h4 className="font-quick font-semibold text-left text-gray-700 mb-2 text-lg md:text-xl">Catatan (Opsional)</h4>
-          <input value={formData.note} onChange={(e) => setFormData({ ...formData, note: e.target.value })} type="text" placeholder="Ex: Jangan Pakai Pemutih" className="font-quick rounded-lg p-2 w-full bg-gray-100 text-gray-700 focus:outline-none focus:border-b-2 text-base md:text-lg" />
+          <input
+            value={formData.note}
+            onChange={(e) => setFormData({ ...formData, note: e.target.value })}
+            type="text"
+            placeholder="Ex: Jangan Pakai Pemutih"
+            className="font-quick rounded-lg p-2 w-full bg-gray-100 text-gray-700 focus:outline-none focus:border-b-2 text-base md:text-lg"
+          />
         </div>
 
         {formError && <p className="text-red-500 text-center">{formError}</p>}
         <button
           type="submit"
           disabled={isLoading}
-          className={`shadow-md w-56 font-quick font-base md:text-lg  ${isLoading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-green-500 text-white"} font-semibold p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2`}
+          className={`shadow-md w-56 font-quick font-base md:text-lg  ${
+            isLoading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-green-500 text-white"
+          } font-semibold p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2`}
         >
           {isLoading ? "Loading..." : "Kirim Pesanan"}
         </button>

@@ -2,11 +2,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import authController from "../../controller/auth.controller";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [errorPassword, setErrorPassword] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -17,7 +19,7 @@ function Register() {
     telephone: "",
   });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -56,7 +58,18 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await authController.handleRegister(formData, setFormData, setLoading, navigate);
+    if (formData.password.length >= 8 && formData.confirm_password.length >= 8) {
+      await authController.handleRegister(formData, setFormData, setLoading, navigate);
+    } else {
+      await Swal.fire({
+        icon: "error",
+        title: "Registrasi Gagal",
+        text: "Password atau confirm password minimal 8 karakter.",
+        confirmButtonText: "Coba Lagi",
+        confirmButtonColor: "#d33",
+        showCloseButton: true,
+      });
+    }
   };
 
   return (
@@ -144,10 +157,15 @@ function Register() {
               </div>
             </div>
             <p className="font-sans text-blue-500 text-sm py-1">Password Minimal 8 Karakter</p>
-            
+
             {errorPassword && <p className="font-sans text-red-500 text-sm py-2">{errorPassword}</p>}
 
-            <button type="submit" className={`shadow-md font-sans w-[10rem] font-semibold p-3 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${loading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "text-white bg-blue-500"}`}>
+            <button
+              type="submit"
+              className={`shadow-md font-sans w-[10rem] font-semibold p-3 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                loading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "text-white bg-blue-500"
+              }`}
+            >
               {loading ? "Loading..." : "Daftar"}
             </button>
           </form>
