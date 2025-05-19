@@ -22,6 +22,7 @@ import LaundryList from "./pages/laundry";
 import LaundryDetail from "./pages/laundry_detail";
 import Order from "./pages/order";
 import GoogleOauthRedirect from "./pages/oauth";
+import PrivacyPolicy from "./pages/privacy_policy";
 
 const Routess = [
   {
@@ -95,6 +96,10 @@ const Routess = [
   {
     path: "/googleoauthsuccess",
     element: <GoogleOauthRedirect />,
+  },
+  {
+    path: "/privacy-policy",
+    element: <PrivacyPolicy />,
   },
 ];
 
