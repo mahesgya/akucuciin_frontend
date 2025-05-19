@@ -114,7 +114,7 @@ function HomeHP() {
               <div className="space-y-3">
                 <div className="flex flex-col space-y-3">
                   <NavLink to="/login">
-                    <button className="shadow-md font-sans w-[170px] bg-blue-500 text-white font-semibold p-3  rounded-[20px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 md:w-[5rem] lg:w-[7rem]">Login</button>
+                    <button className="shadow-md font-sans w-[170px] bg-[#687eff] text-white font-semibold p-3  rounded-[20px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 md:w-[5rem] lg:w-[7rem]">Login</button>
                   </NavLink>
                 </div>
                 <div className="flex flex-col space-y-3">
