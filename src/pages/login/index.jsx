@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import authController from "../../controller/auth.controller";
+import authService from "../../services/auth.services";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -34,6 +35,11 @@ function Login() {
     await authController.handleLogin(formData, dispatch, navigate, setFormData, setLoading);
   };
 
+  const handleOauth = async (e) => {
+    e.preventDefault();
+    await authService.handleOauth(navigate);
+  }
+
   return (
     <div className="min-h-[100dvh] w-screen flex flex-row items-center justify-center md:items-center">
       <img src="/Images/woman.png" alt="" className="hidden h-screen md:block md:w-[40%] object-fit" />
@@ -46,7 +52,7 @@ function Login() {
           <h1 className="font-bold text-[25px] font-poppins text-center lg:text-[32px]">LOGIN</h1>
           <h4 className="font-sans font-base text-gray55 text-center lg:text-[20px]">Silahkan Masukan Email dan Password Anda</h4>
 
-          <form onSubmit={handleSubmit} className="space-y-3 flex flex-col align-center justify-center items-center">
+          <form onSubmit={handleSubmit} className="space-y-5 flex flex-col align-center justify-center items-center">
             <div className="space-y-5 lg:space-y-6">
               <div className="flex flex-row space-x-1 font-sans bg-birumuda p-[8px] rounded-lg w-[20rem]">
                 <img src="Images/emailReg2.png" alt="" className="w-[25px]" />
@@ -70,7 +76,7 @@ function Login() {
               </div>
             </div>
             <div className="pl-[8px] space-y-3 flex flex-col self-start">
-              <Link to="/reset-password-email" className="font-sans text-blue-500">
+              <Link to="/reset-password-email" className="font-sans text-[#687eff]">
                 Lupa password?
               </Link>
             </div>
@@ -78,28 +84,30 @@ function Login() {
             <button
               type="submit"
               disabled={loading}
-              className={`shadow-md font-sans w-[10rem] ${
-                loading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-blue-500 text-white"
-              } text-white font-semibold p-3 rounded-[20px] lg:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+              className={`shadow-md font-sans w-[20rem] ${
+                loading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-[#687eff] text-white"
+              } text-white font-semibold p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
             >
               {loading ? "Loading..." : "Login"}
             </button>
           </form>
 
-          <div className="space-y-5 w-full flex align-center items-center flex-col justify-center">
-            <div className="flex flex-row items-center justify-center space-x-2 w-full">
-              <div className="flex-grow h-[2px] w-[20%] bg-gray-200"></div>
-              <p className="font-sans text-gray-500 text-center text-sm">Belum Punya Akun?</p>
-              <div className="flex-grow h-[2px] w-[20%] bg-gray-200"></div>
-            </div>
-            <Link to="/register">
-              <button className="align-center shadow-md font-sans w-[10rem] bg-gray-de text-gray-52 font-semibold p-3 rounded-[20px] lg:p-4 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" type="button">
-                Daftar
-              </button>
-            </Link>
+          <div className="border border-0.2 border-gray-500/30 shadow-sm rounded-[10px] space-y-5 w-full flex align-center items-center flex-col justify-center">
+            <button
+              onClick={handleOauth}
+              className="flex justify-center items-center font-sans w-[20rem] bg-white p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-0.2 focus:ring-gray-500/30 focus:ring-offset-0.2"
+            >
+              <img src="Images/google.png" className="w-6 h-6" alt="Google Icon" />
+              <p className="ml-2 font-sans text-gray-500 text-center text-sm">Sign in with Google</p>
+            </button>
           </div>
         </div>
-        <h3 className="pt-10 text-[14px] font-sans text-gray55">HIGHLY PROFESSIONAL CLEANING</h3>
+        <p className="font-sans text-gray-500 text-center text-sm">
+          Belum Punya Akun? {"  "}
+          <Link to="/register">
+            <button className="font-sans bg-white text-[#687eff] font-normal "> Sign Up</button>
+          </Link>
+        </p>
       </div>
     </div>
   );
