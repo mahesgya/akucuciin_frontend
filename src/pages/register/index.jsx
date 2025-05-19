@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import authController from "../../controller/auth.controller";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import authService from "../../services/auth.services";
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -71,6 +72,12 @@ function Register() {
       });
     }
   };
+
+  const handleOauth = async (e) => {
+    e.preventDefault();
+    await authService.handleOauth();
+  }
+
 
   return (
     <div className="min-h-screen w-screen flex flex-row items-center justify-center">
@@ -156,34 +163,37 @@ function Register() {
                 </div>
               </div>
             </div>
-            <p className="font-sans text-blue-500 text-sm py-1">Password Minimal 8 Karakter</p>
+            <p className="my-1 font-sans text-[#687eff] text-sm py-1">Notes: Password minimal 8 karakter</p>
 
             {errorPassword && <p className="font-sans text-red-500 text-sm py-2">{errorPassword}</p>}
 
             <button
               type="submit"
-              className={`shadow-md font-sans w-[10rem] font-semibold p-3 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-                loading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "text-white bg-blue-500"
-              }`}
+              disabled={loading}
+              className={`shadow-md font-sans w-[20rem] ${
+                loading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-[#687eff] text-white"
+              } text-white font-semibold p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
             >
               {loading ? "Loading..." : "Daftar"}
             </button>
           </form>
 
-          <div className="space-y-3 w-full flex align-center items-center flex-col justify-center ">
-            <div className="flex flex-row items-center justify-center space-x-2 w-full m-[10px]">
-              <div className="flex-grow h-[2px] w-[20%] bg-gray-200"></div>
-              <p className="font-sans text-gray-500 text-center text-sm">Sudah Punya Akun?</p>
-              <div className="flex-grow h-[2px] w-[20%]  bg-gray-200"></div>
-            </div>
-            <Link to="/login">
-              <button className="align-center shadow-md font-sans w-[10rem] bg-gray-de text-gray-52 font-semibold p-3 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-gray-de focus:ring-offset-2" type="button">
-                Login
-              </button>
-            </Link>
+          <div className="border border-0.2 border-gray-500/30 shadow-sm rounded-[10px] space-y-5 w-full flex align-center items-center flex-col justify-center">
+            <button
+              onClick={handleOauth}
+              className="flex justify-center items-center font-sans w-[20rem] bg-white p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-0.2 focus:ring-gray-500/30 focus:ring-offset-0.2"
+            >
+              <img src="Images/google.png" className="w-6 h-6" alt="Google Icon" />
+              <p className="ml-2 font-sans text-gray-500 text-center text-sm">Sign in with Google</p>
+            </button>
           </div>
         </div>
-        <h3 className="pt-10 text-[14px] font-sans text-gray55">HIGHLY PROFESSIONAL CLEANING</h3>
+         <p className="font-sans text-gray-500 text-center text-sm">
+          Sudah punya akun? {"  "}
+          <Link to="/login">
+            <button className="font-sans bg-white text-[#687eff] font-normal ">Sign In</button>
+          </Link>
+        </p>
       </div>
     </div>
   );
