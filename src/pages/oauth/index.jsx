@@ -14,9 +14,6 @@ const GoogleOauthRedirect = () => {
       const accessToken = searchParams.get("accessToken");
       const refreshToken = searchParams.get("refreshToken");
 
-      console.log(accessToken);
-      console.log(refreshToken);
-
       if (accessToken && refreshToken) {
         Cookies.set("accessToken", accessToken, {
           secure: false,
