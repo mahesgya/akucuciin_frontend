@@ -21,6 +21,7 @@ import Profile from "./pages/profile";
 import LaundryList from "./pages/laundry";
 import LaundryDetail from "./pages/laundry_detail";
 import Order from "./pages/order";
+import GoogleOauthRedirect from "./pages/oauth"
 
 const Routess = [
   {
@@ -90,6 +91,10 @@ const Routess = [
   {
     path: "/laundry/:idlaundry/pesan/:idpaket",
     element: <OrderForm />,
+  },
+  {
+    path: "/googleoauthsuccess?accessToken=testaccess?refreshToken=testrefresh",
+    element: <GoogleOauthRedirect />,
   },
 ];
 
