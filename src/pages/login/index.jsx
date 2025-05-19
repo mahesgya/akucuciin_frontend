@@ -70,8 +70,8 @@ function Login() {
                   className="w-full font-sans bg-birumuda focus:outline-none focus:border-b-2"
                 />
 
-                <button type="button" onClick={togglePasswordVisibility} className="h-[10px] flex justify-center align-center">
-                  {showPassword ? <img src="Images/invisible.png" className="w-[25px]" alt="" /> : <img src="Images/visible.png" className="w-[25px]" alt="" />}
+                <button type="button" onClick={togglePasswordVisibility} className=" flex justify-center align-center">
+                  {showPassword ? <img src="Images/invisible.png" className="w-[25px] h-[10px]" alt="" /> : <img src="Images/visible.png" className="w-[25px] h-[10px]" alt="" />}
                 </button>
               </div>
             </div>

@@ -142,8 +142,8 @@ function Register() {
                     placeholder="Password"
                     className="w-full font-sans bg-birumuda text-gray-700 focus:outline-none focus:border-b-2"
                   />
-                  <button type="button" onClick={togglePasswordVisibility} className="h-[10px] flex justify-center align-center">
-                    {showPassword ? <img src="Images/invisible.png" className="w-[25px]" alt=""></img> : <img src="Images/visible.png" className="w-[25px]" alt=""></img>}
+                  <button type="button" onClick={togglePasswordVisibility} className="flex justify-center align-center">
+                    {showPassword ? <img src="Images/invisible.png" className="w-[25px] h-[10px]" alt=""></img> : <img src="Images/visible.png" className="w-[25px] h-[10px]" alt=""></img>}
                   </button>
                 </div>
                 <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-birumuda px-[10px] py-[10px] rounded-lg w-[20rem]">
@@ -157,8 +157,8 @@ function Register() {
                     placeholder="Masukkan Password Kembali"
                     className="w-full font-sans bg-birumuda text-gray-700  focus:outline-none focus:border-b-2"
                   />
-                  <button type="button" onClick={togglePasswordVisibility2} className="h-[10px] flex justify-center align-center">
-                    {showPassword2 ? <img src="Images/invisible.png" className="w-[25px]" alt=""></img> : <img src="Images/visible.png" className="w-[25px]" alt=""></img>}
+                  <button type="button" onClick={togglePasswordVisibility2} className=" flex justify-center align-center">
+                    {showPassword2 ? <img src="Images/invisible.png" className="w-[25px] h-[10px]" alt=""></img> : <img src="Images/visible.png" className="w-[25px] h-[10px]" alt=""></img>}
                   </button>
                 </div>
               </div>
