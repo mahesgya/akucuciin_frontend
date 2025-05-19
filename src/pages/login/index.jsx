@@ -54,11 +54,11 @@ function Login() {
 
           <form onSubmit={handleSubmit} className="space-y-5 flex flex-col align-center justify-center items-center">
             <div className="space-y-5 lg:space-y-6">
-              <div className="flex flex-row space-x-1 font-sans bg-birumuda p-[8px] rounded-lg w-[20rem]">
+              <div className="flex flex-row space-x-1 font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm rounded-[10px] p-[8px] rounded-lg w-[20rem]">
                 <img src="Images/emailReg2.png" alt="" className="w-[25px]" />
-                <input value={formData.email} onChange={handleChange} required type="email" name="email" placeholder="Email" className="w-full font-sans focus:outline-none bg-birumuda focus:border-b-2" />
+                <input value={formData.email} onChange={handleChange} required type="email" name="email" placeholder="Email" className="w-full bg-white font-sans focus:outline-none focus:border-b-2" />
               </div>
-              <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-birumuda p-[10px] rounded-lg w-[20rem] ">
+              <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm p-[10px] rounded-lg w-[20rem] ">
                 <img src="Images/passwordReg.png" alt="" className="w-[25px]" />
                 <input
                   value={formData.password}
@@ -67,7 +67,7 @@ function Login() {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Password"
-                  className="w-full font-sans bg-birumuda focus:outline-none focus:border-b-2"
+                  className="w-full font-sans bg-white focus:outline-none focus:border-b-2"
                 />
 
                 <button type="button" onClick={togglePasswordVisibility} className=" flex justify-center align-center">

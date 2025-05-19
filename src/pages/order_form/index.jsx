@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { setProfileData } from "../../redux/auth.slicer";
+import { useDispatch } from "react-redux";
 
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -16,11 +18,21 @@ import Swal from "sweetalert2";
 function OrderForm() {
   dayjs.extend(utc);
   dayjs.extend(timezone);
+
+  const { profileData, accessToken } = useSelector((state) => state.auth);
+  const [profile, setProfile] = useState({
+    name: profileData.data.name,
+    telephone: profileData.data.telephone,
+    address: profileData.data.address,
+  });
+
+  const dispatch = useDispatch();
+
   const [isLoading, setIsLoading] = useState(false);
   const [pickupDate, setPickupDate] = useState(null);
+
   const [formError, setFormError] = useState("");
   const { idlaundry, idpaket } = useParams();
-  const { accessToken } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -73,7 +85,27 @@ function OrderForm() {
       pickup_date: pickup_date,
     };
 
+    profile.telephone = transformPhoneNumber(profile.telephone);
+
+    await customerServices.changeProfile(profile, accessToken);
     await customerServices.orderLaundry(accessToken, updatedFormData, setIsLoading, navigate);
+    await dispatch(setProfileData(profile));
+  };
+
+  const transformPhoneNumber = (phone) => {
+    if (!phone) return "";
+
+    let cleaned = phone.replace(/\D/g, "");
+
+    if (cleaned.startsWith("0")) {
+      cleaned = "62" + cleaned.substring(1);
+    }
+
+    if (!cleaned.startsWith("62")) {
+      cleaned = "62" + cleaned;
+    }
+
+    return cleaned;
   };
 
   const handleBack = () => {
@@ -89,27 +121,55 @@ function OrderForm() {
       <h1 className="font-bold font-quick text-center text-2xl md:text-3xl lg:text-4xl">FORM PEMESANAN</h1>
       <h4 className="font-quick text-gray-600 text-center text-sm md:text-base lg:text-lg">Silahkan isi kolom-kolom di bawah dengan benar.</h4>
 
-      <form onSubmit={handleSubmit} className="space-y-4 flex flex-col items-center bg-white p-6 min-w-[90vw] max-w-md mx-auto ">
+      <form onSubmit={handleSubmit} className="space-y-4 flex flex-col items-center bg-white py-3 px-6 min-w-[90vw] max-w-md mx-auto ">
+        {(profileData.data.telephone === null || profileData.data.address === null) && (
+          <>
+            <div className="w-full">
+              <h4 className="font-quick font-semibold text-left text-gray-700 mb-1 text-md md:text-xl">Nomor Telephone</h4>
+              <input
+                required
+                value={profile.telephone}
+                onChange={(e) => setProfile({ ...profile, telephone: e.target.value })}
+                type="number"
+                placeholder="Ex: 62858491234"
+                className="font-quick rounded-lg p-2 w-full bg-white border border-0.2 border-gray-500/30 shadow-sm text-gray-700 focus:outline-none focus:border-b-2 text-base md:text-lg"
+              />
+            </div>
+
+            <div className="w-full">
+              <h4 className="font-quick font-semibold text-left text-gray-700 mb-1 text-md md:text-xl">Alamat Lengkap</h4>
+              <input
+                required
+                value={profile.address}
+                onChange={(e) => setProfile({ ...profile, address: e.target.value })}
+                type="text"
+                placeholder="Ex: Dramaga Cantik, Cluster Pinnacle Blok H.28"
+                className="font-quick rounded-lg p-2 w-full bg-white border border-0.2 border-gray-500/30 shadow-sm text-gray-700 focus:outline-none focus:border-b-2 text-base md:text-lg"
+              />
+            </div>
+          </>
+        )}
+
         <div className="w-full">
-          <h4 className="font-quick font-semibold text-left text-gray-700 mb-2 text-lg md:text-xl">Link Google Maps Anda</h4>
+          <h4 className="font-quick font-semibold text-left text-gray-700 mb-1 text-md md:text-xl">Link Google Maps Anda</h4>
           <input
             required
             value={formData.maps_pinpoint}
             onChange={(e) => setFormData({ ...formData, maps_pinpoint: e.target.value })}
             type="text"
             placeholder="Ex: https://www.google.com/maps"
-            className="font-quick rounded-lg p-2 w-full bg-gray-100 text-gray-700 focus:outline-none focus:border-b-2 text-base md:text-lg"
+            className="font-quick rounded-lg p-2 w-full bg-white border border-0.2 border-gray-500/30 shadow-sm text-gray-700 focus:outline-none focus:border-b-2 text-base md:text-lg"
           />
           <div className="flex flex-row space-x-1 items-center justify-start">
             <img src="/Images/gmaps.png" alt="" className="w-[20px] h-[20px]" />
-            <a target="_blank" href="https://www.google.com/maps" className="font-quick font-normal text-blue-500 mb-2 mt-2 text-base md:text-lg" rel="noopener noreferrer">
+            <a target="_blank" href="https://www.google.com/maps" className="font-quick font-normal text-blue-500 mb-1 mt-2 text-sm md:text-base" rel="noopener noreferrer">
               Google Maps
             </a>
           </div>
         </div>
 
         <div className="w-full">
-          <h4 className="font-quick font-semibold text-left text-gray-700 mb-2 text-lg md:text-xl">Tanggal Penjemputan Baju Kotor</h4>
+          <h4 className="font-quick font-semibold text-left text-gray-700 mb-1 text-md md:text-xl">Tanggal Penjemputan Baju Kotor</h4>
           <DatePicker
             required
             selected={pickupDate}
@@ -119,40 +179,40 @@ function OrderForm() {
             placeholderText="Pilih Tanggal Penjemputan..."
             minDate={new Date()}
             style={{ width: "100%" }}
-            className="w-full font-quick rounded-lg p-2 bg-gray-100 text-gray-700 focus:outline-none focus:border-b-2 text-base md:text-lg"
+            className="w-full font-quick rounded-lg p-2 bg-white border border-0.2 border-gray-500/30 shadow-sm text-gray-700 focus:outline-none focus:border-b-2 text-base md:text-lg"
           />
         </div>
 
         <div className="w-full">
-          <h4 className="font-quick font-semibold text-left text-gray-700 mb-2 text-lg md:text-xl">Kode Referral (Jika Ada)</h4>
+          <h4 className="font-quick font-semibold text-left text-gray-700 mb-1 text-md md:text-xl">Kode Referral (Jika Ada)</h4>
           <input
             value={formData.referral_code}
             onChange={(e) => setFormData({ ...formData, referral_code: e.target.value })}
             type="text"
             placeholder="Ex: REF12345"
-            className="font-quick rounded-lg p-2 w-full bg-gray-100 text-gray-700 focus:outline-none focus:border-b-2 text-base md:text-lg"
+            className="font-quick rounded-lg p-2 w-full bg-white border border-0.2 border-gray-500/30 shadow-sm text-gray-700 focus:outline-none focus:border-b-2 text-base md:text-lg"
           />
         </div>
 
         <div className="w-full">
-          <h4 className="font-quick font-semibold text-left text-gray-700 mb-2 text-lg md:text-xl">Voucher Diskon (Jika Ada)</h4>
+          <h4 className="font-quick font-semibold text-left text-gray-700 mb-1 text-md md:text-xl">Voucher Diskon (Jika Ada)</h4>
           <input
             value={formData.coupon_code}
             onChange={(e) => setFormData({ ...formData, coupon_code: e.target.value })}
             type="text"
             placeholder="Ex: DISKON12"
-            className="font-quick rounded-lg p-2 w-full bg-gray-100 text-gray-700 focus:outline-none focus:border-b-2 text-base md:text-lg"
+            className="font-quick rounded-lg p-2 w-full bg-white border border-0.2 border-gray-500/30 shadow-sm text-gray-700 focus:outline-none focus:border-b-2 text-base md:text-lg"
           />
         </div>
 
         <div className="w-full">
-          <h4 className="font-quick font-semibold text-left text-gray-700 mb-2 text-lg md:text-xl">Catatan (Opsional)</h4>
+          <h4 className="font-quick font-semibold text-left text-gray-700 mb-1 text-md md:text-xl">Catatan (Opsional)</h4>
           <input
             value={formData.note}
             onChange={(e) => setFormData({ ...formData, note: e.target.value })}
             type="text"
             placeholder="Ex: Jangan Pakai Pemutih"
-            className="font-quick rounded-lg p-2 w-full bg-gray-100 text-gray-700 focus:outline-none focus:border-b-2 text-base md:text-lg"
+            className="font-quick rounded-lg p-2 w-full bg-white border border-0.2 border-gray-500/30 shadow-sm text-gray-700 focus:outline-none focus:border-b-2 text-base md:text-lg"
           />
         </div>
 
@@ -160,7 +220,7 @@ function OrderForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className={`shadow-md w-56 font-quick font-base md:text-lg  ${
+          className={`shadow-md w-56 font-quick mt-[20px] font-base md:text-lg  ${
             isLoading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-green-500 text-white"
           } font-semibold p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2`}
         >

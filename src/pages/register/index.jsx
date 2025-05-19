@@ -94,17 +94,17 @@ function Register() {
           <form onSubmit={handleSubmit} className="flex flex-col align-center justify-center items-center ">
             <div className="flex flex-col align-center justify-center items-center lg:flex-row lg:pb-4 lg:space-x-3">
               <div className="pb-4 space-y-4 flex flex-col align-center justify-center items-center lg:pb-0">
-                <div className="flex flex-row space-x-1 font-sans bg-birumuda p-[10px] py-[10px] rounded-lg w-[20rem]">
+                <div className="flex flex-row space-x-1 font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm p-[10px] py-[10px] rounded-lg w-[20rem]">
                   <img src="Images/akunReg.png" alt="" className="w-[25px]" />
-                  <input required type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Nama" className="w-full font-sans bg-birumuda text-gray-700 focus:shadow-none focus:outline-none focus:border-b-2" />
+                  <input required type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Nama" className="w-full font-sans bg-white text-gray-700 focus:shadow-none focus:outline-none focus:border-b-2" />
                 </div>
 
-                <div className="flex flex-row space-x-1 font-sans bg-birumuda p-[10px] py-[10px] rounded-lg w-[20rem]">
+                <div className="flex flex-row space-x-1 font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm p-[10px] py-[10px] rounded-lg w-[20rem]">
                   <img src="Images/emailReg2.png" alt="" className="w-[25px]" />
-                  <input required type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" className="w-full font-sans bg-birumuda text-gray-700 focus:shadow-none focus:outline-none focus:border-b-2" />
+                  <input required type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" className="w-full font-sans bg-white text-gray-700 focus:shadow-none focus:outline-none focus:border-b-2" />
                 </div>
 
-                <div className="flex flex-row space-x-1 font-sans bg-birumuda p-[10px] rounded-lg w-[20rem]">
+                <div className="flex flex-row space-x-1 font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm p-[10px] rounded-lg w-[20rem]">
                   <img src="Images/callReg.png" alt="" className="w-[25px]" />
                   <span className="text-gray-700 font-sans flex items-center">+</span>
                   <input
@@ -114,12 +114,12 @@ function Register() {
                     value={formData.telephone}
                     onChange={handleChange}
                     placeholder="Nomor Whatsapp"
-                    className="w-full font-sans bg-birumuda text-gray-700 focus:shadow-none focus:outline-none focus:border-b-2"
+                    className="w-full font-sans bg-white text-gray-700 focus:shadow-none focus:outline-none focus:border-b-2"
                   />
                 </div>
               </div>
               <div className="pb-2 space-y-4 flex flex-col align-center justify-center items-center lg:pb-0">
-                <div className="flex flex-row space-x-1 font-sans bg-birumuda p-[10px] py-[10px] rounded-lg w-[20rem]">
+                <div className="flex flex-row space-x-1 font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm p-[10px] py-[10px] rounded-lg w-[20rem]">
                   <img src="Images/address.png" alt="" className="w-[25px]" />
                   <input
                     required
@@ -128,10 +128,10 @@ function Register() {
                     value={formData.address}
                     onChange={handleChange}
                     placeholder="Alamat"
-                    className="w-full font-sans bg-birumuda text-gray-700 focus:shadow-none focus:outline-none focus:border-b-2"
+                    className="w-full font-sans bg-white text-gray-700 focus:shadow-none focus:outline-none focus:border-b-2"
                   />
                 </div>
-                <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-birumuda px-[10px] py-[10px] rounded-lg w-[20rem]">
+                <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm px-[10px] py-[10px] rounded-lg w-[20rem]">
                   <img src="Images/passwordReg.png" alt="" className="w-[25px]" />
                   <input
                     required
@@ -140,13 +140,13 @@ function Register() {
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Password"
-                    className="w-full font-sans bg-birumuda text-gray-700 focus:outline-none focus:border-b-2"
+                    className="w-full font-sans bg-white text-gray-700 focus:outline-none focus:border-b-2"
                   />
                   <button type="button" onClick={togglePasswordVisibility} className="flex justify-center align-center">
                     {showPassword ? <img src="Images/invisible.png" className="w-[25px] h-[25px]" alt=""></img> : <img src="Images/visible.png" className="w-[25px] h-[25px]" alt=""></img>}
                   </button>
                 </div>
-                <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-birumuda px-[10px] py-[10px] rounded-lg w-[20rem]">
+                <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm px-[10px] py-[10px] rounded-lg w-[20rem]">
                   <img src="Images/passwordReg.png" alt="" className="w-[25px]" />
                   <input
                     required
@@ -155,7 +155,7 @@ function Register() {
                     value={formData.confirm_password}
                     onChange={handleChange}
                     placeholder="Masukkan Password Kembali"
-                    className="w-full font-sans bg-birumuda text-gray-700  focus:outline-none focus:border-b-2"
+                    className="w-full font-sans bg-white text-gray-700  focus:outline-none focus:border-b-2"
                   />
                   <button type="button" onClick={togglePasswordVisibility2} className=" flex justify-center align-center">
                     {showPassword2 ? <img src="Images/invisible.png" className="w-[25px] h-[25px]" alt=""></img> : <img src="Images/visible.png" className="w-[25px] h-[25px]" alt=""></img>}
@@ -184,7 +184,7 @@ function Register() {
               className="flex justify-center items-center font-sans w-[20rem] bg-white p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-0.2 focus:ring-gray-500/30 focus:ring-offset-0.2"
             >
               <img src="Images/google.png" className="w-6 h-6" alt="Google Icon" />
-              <p className="ml-2 font-sans text-gray-500 text-center text-sm">Sign in with Google</p>
+              <p className="ml-2 font-sans text-gray-500 text-center text-sm">Sign Up with Google</p>
             </button>
           </div>
         </div>

@@ -1,9 +1,10 @@
-import React from "react";
-
 const PrivacyPolicy = () => {
   return (
     <div className="w-full font-sans">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 text-gray-800">
+        <a href="/">
+          <img alt="backbiru" src="/Images/backbiru.png" className="mb-4"></img>
+        </a>
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">📄 Privacy Policy</h1>
         <p className="text-xs sm:text-sm text-gray-500 mb-6 sm:mb-8">Effective Date: 19 March 2025</p>
         
