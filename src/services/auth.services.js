@@ -21,6 +21,20 @@ const authService = {
       throw error;
     }
   },
+  handleOauth: async () => {
+    try {
+      window.location.href = `${BASE_URL}/api/customer/login/google-auth`
+    } catch (error) {
+      await Swal.fire({
+        icon: "error",
+        title: "Gagal melakukan Auth menggunakan google.",
+        text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
+        confirmButtonText: "Coba Lagi",
+        confirmButtonColor: "#d33",
+        showCloseButton: true,
+      });
+    }
+  },
   logoutUser: async (refreshToken, dispatch) => {
     dispatch(setLoading(true));
     try {
@@ -96,7 +110,7 @@ const authService = {
   },
   resendEmail: async (email) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_BACKEND_URL}/resend-verification-email`, {email});
+      const response = await axios.post(`${process.env.REACT_APP_BASE_BACKEND_URL}/resend-verification-email`, { email });
       await Swal.fire({
         icon: "success",
         title: "Success",
@@ -106,7 +120,7 @@ const authService = {
         showCloseButton: true,
       });
 
-      return response.data; 
+      return response.data;
     } catch (error) {
       await Swal.fire({
         icon: "error",
