@@ -12,7 +12,6 @@ import Swal from "sweetalert2";
 function HomeHP() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
   const [closeModal, setCloseModal] = useState(false);
 
   const { profileData, isLoggedIn, isLoading, accessToken } = useSelector((state) => state.auth);
@@ -27,9 +26,6 @@ function HomeHP() {
     return () => clearInterval(interval);
   }, [dispatch]);
 
-  const closeOrder = async (e) => {
-    setCloseModal(true);
-  };
 
   const handlePesan = async () => {
     try {
@@ -96,7 +92,6 @@ function HomeHP() {
           ) : (
             <p></p>
           )}
-          {error && <p className="error-message text-center text-red-500">{error}</p>}
           <div className="section-login flex flex-col space-y-3">
             {isLoggedIn ? (
               <div className="flex flex-col space-y-3">

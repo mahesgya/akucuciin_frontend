@@ -24,7 +24,6 @@ const LaundryDetail = () => {
         setData(response.data);
         setImg(responseImg.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
         setError(error);
       } finally {
         setLoading(false);

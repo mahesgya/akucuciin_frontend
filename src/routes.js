@@ -1,19 +1,19 @@
 import App from "./App";
 
 import AboutUsHP from "./pages/about/index.hp";
-import OurServicesHP from "./pages/service/index.hp"
+import OurServicesHP from "./pages/service/index.hp";
 
 import Login from "./pages/login";
-import Register from "./pages/register"
-import RequestResetPassword from "./pages/req_reset_pass"
-import ResetPassword from "./pages/reset_pass"
+import Register from "./pages/register";
+import RequestResetPassword from "./pages/req_reset_pass";
+import ResetPassword from "./pages/reset_pass";
 
 import OrderForm from "./pages/order_form";
 
 import VerifyFailed from "./components/verify/verify.failed";
-import VerifyFailedInvalid from "./components/verify/verfiy.failed.invalid"
-import VerifyFailedActivated from "./components/verify/verify.failed.activated"
-import VerifySuccess from "./components/verify/verify.success"
+import VerifyFailedInvalid from "./components/verify/verfiy.failed.invalid";
+import VerifyFailedActivated from "./components/verify/verify.failed.activated";
+import VerifySuccess from "./components/verify/verify.success";
 import EmailVerificationPage from "./pages/verif_email/verif.email";
 
 import Profile from "./pages/profile";
@@ -21,7 +21,7 @@ import Profile from "./pages/profile";
 import LaundryList from "./pages/laundry";
 import LaundryDetail from "./pages/laundry_detail";
 import Order from "./pages/order";
-import GoogleOauthRedirect from "./pages/oauth"
+import GoogleOauthRedirect from "./pages/oauth";
 
 const Routess = [
   {
@@ -38,7 +38,7 @@ const Routess = [
   },
   {
     path: "/login",
-    element: <Login/>,
+    element: <Login />,
   },
   {
     path: "/register",
@@ -93,7 +93,7 @@ const Routess = [
     element: <OrderForm />,
   },
   {
-    path: "/googleoauthsuccess?accessToken=testaccess?refreshToken=testrefresh",
+    path: "/googleoauthsuccess",
     element: <GoogleOauthRedirect />,
   },
 ];

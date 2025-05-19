@@ -63,7 +63,7 @@ function ResetPassword() {
                 className="w-full font-sans bg-birumuda text-gray-700 focus:outline-none focus:border-b-2"
               />
               <button type="button" onClick={togglePasswordVisibility2} className="flex justify-center align-center">
-                {showPassword2 ? <img src="/Images/invisible.png" className="w-[25px] h-[10px]" alt="" /> : <img src="/Images/visible.png" className="w-[25px] h-[10px]" alt="" />}
+                {showPassword2 ? <img src="/Images/invisible.png" className="w-[25px] h-[25px]" alt="" /> : <img src="/Images/visible.png" className="w-[25px] h-[25px]" alt="" />}
               </button>
             </div>
             <button

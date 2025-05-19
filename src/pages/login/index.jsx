@@ -71,7 +71,7 @@ function Login() {
                 />
 
                 <button type="button" onClick={togglePasswordVisibility} className=" flex justify-center align-center">
-                  {showPassword ? <img src="Images/invisible.png" className="w-[25px] h-[10px]" alt="" /> : <img src="Images/visible.png" className="w-[25px] h-[10px]" alt="" />}
+                  {showPassword ? <img src="Images/invisible.png" className="w-[25px] h-[25px]" alt="" /> : <img src="Images/visible.png" className="w-[25px] h-[25px]" alt="" />}
                 </button>
               </div>
             </div>

@@ -11,7 +11,6 @@ import Swal from "sweetalert2";
 import CloseModal from "../../components/modal/close.modal";
 
 function Home({ text }, Homeref) {
-  const [error, setError] = useState(null);
   const [closeModal, setCloseModal] = useState(false);
   const { profileData, isLoggedIn, isLoading, accessToken } = useSelector((state) => state.auth);
 
@@ -96,12 +95,6 @@ function Home({ text }, Homeref) {
               </button>
             )}
           </div>
-
-          {error && (
-            <p className="error-message" style={{ color: "red" }}>
-              {error}
-            </p>
-          )}
 
           <h4 className="trusted">TRUSTED PARTNERS</h4>
           <h2 className="high">AND HIGH QUALITY</h2>
