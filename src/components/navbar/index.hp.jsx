@@ -47,6 +47,12 @@ const NavbarHP = () => {
               <a href="https://www.instagram.com/akucuciin.id/">Contact</a>
             </a>
           </li>
+          <li>
+            <img src="Images/privacy.png" alt="" className="imgHome" />
+            <a href="/privacy-policy" className="navbarli">
+              <NavLink to="/privacy-policy">Privacy</NavLink>
+            </a>
+          </li>
         </ul>
       </div>
     </header>

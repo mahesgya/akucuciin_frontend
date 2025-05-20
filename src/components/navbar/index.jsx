@@ -93,6 +93,14 @@ const Navbar = () => {
                 </NavLink>
               </button>
             </li>
+            <li>
+              <img src="Images/privacy.png" alt="" className="imgHome" />
+              <button className="navbarli">
+                <NavLink className="navbarlix" to="/privacy-policy">
+                  Privacy
+                </NavLink>
+              </button>
+            </li>
             <div className="navbardiv">
               {isLoggedIn ? (
                 <a href="/me" className="">
