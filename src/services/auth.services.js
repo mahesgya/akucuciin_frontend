@@ -41,24 +41,23 @@ const AuthServices = {
       errorSwal(error.response?.data?.errors);
     }
   },
-  logoutUser: async (refreshToken, dispatch, navigate) => {
-    dispatch(setLoading(true));
+  logoutUser: async (refreshToken, dispatch, setLoading, navigate) => {
     try {
+      setLoading(true);
       const response = axios.post(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/logout`, {
         refresh_token: refreshToken,
       });
 
       Cookies.remove("accessToken");
       Cookies.remove("refreshToken");
+      navigate("/")
       await dispatch(setLogout());
-      navigate("/");
-
       return response.data;
     } catch (error) {
       await dispatch(setLogout());
       errorSwal(error.response?.data?.errors);
     } finally {
-      dispatch(setLoading(false));
+      setLoading(false);
     }
   },
   resetPasswordEmail: async (email) => {
@@ -84,7 +83,7 @@ const AuthServices = {
   },
   resetPassPage: async (email, reset_password_token, password, confirmPassword, setLoading) => {
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await axios.put(`${process.env.REACT_APP_BASE_BACKEND_URL}/request-reset-password/customer/${email}/${reset_password_token}`, {
         password,
         confirm_password: confirmPassword,
@@ -100,8 +99,8 @@ const AuthServices = {
       return response.data;
     } catch (error) {
       errorSwal(error.response?.data?.errors);
-    }finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   },
   resendEmail: async (email) => {

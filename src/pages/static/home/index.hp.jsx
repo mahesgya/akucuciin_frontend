@@ -1,13 +1,13 @@
-import "../../style/HomeHP.css";
-import NavbarHP from "../../components/navbar/index.hp";
+import "../../../style/HomeHP.css";
+import NavbarHP from "../../../components/navbar/index.hp";
 
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import LoadingUtils from "../../utils/loading.utils";
-import { errorSwal } from "../../utils/alert.utils";
-import CustomerServices from "../../services/customer.services";
+import LoadingUtils from "../../../utils/loading.utils";
+import { errorSwal } from "../../../utils/alert.utils";
+import CustomerServices from "../../../services/customer.services";
 
 const HomeHP = () => {
   const dispatch = useDispatch();

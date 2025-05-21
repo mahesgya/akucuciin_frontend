@@ -1,4 +1,4 @@
-import "../../style/OurServices.css";
+import "../../../style/OurServices.css";
 import { forwardRef } from "react";
 
 function OurServices({ text }, Ourserviceref) {

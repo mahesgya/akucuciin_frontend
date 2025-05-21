@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 
-import { setLogout } from "../../redux/auth.slicer";
+import { setLogout, setLoading } from "../../redux/auth.slicer";
 import customerServices from "../../services/customer.services";
 import CustomerServices from "../../services/customer.services";
 
@@ -16,7 +16,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { profileData, refreshToken, accessToken, isLoading } = useSelector((state) => state.auth);
-  
+
   const [isEditing, setIsEditing] = useState(false);
   const [inputReferral, setInputReferral] = useState(false);
   const [profile, setProfile] = useState({
@@ -44,16 +44,15 @@ const Profile = () => {
 
   const handleLogout = async () => {
     if (refreshToken) {
-      await AuthServices.logoutUser(refreshToken, dispatch, navigate);
+      await AuthServices.logoutUser(refreshToken, dispatch, setLoading, navigate);
     } else {
       Cookies.remove("accessToken");
       Cookies.remove("refreshToken");
       dispatch(setLogout());
-      navigate("/");
     }
   };
 
-  const handleChangeProfile = handleChange(setEditProfile)
+  const handleChangeProfile = handleChange(setEditProfile);
   const handleChangeReferral = handleChange(setReferralCode);
 
   const handleSubmitReferral = async (e) => {
@@ -66,16 +65,16 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    editProfile.telephone = transformPhoneNumber(editProfile.telephone)
+
+    editProfile.telephone = transformPhoneNumber(editProfile.telephone);
 
     if (accessToken) {
       await CustomerServices.changeProfile(editProfile, accessToken, dispatch, setProfile, setEditProfile, setIsEditing);
     }
   };
 
-  if(isLoading){
-    return <LoadingUtils/>
+  if (isLoading) {
+    return <LoadingUtils />;
   }
 
   return (
@@ -112,7 +111,13 @@ const Profile = () => {
             <div>
               <label className="font-quick block text-sm font-bold text-gray-700">Phone</label>
               {isEditing ? (
-                <input type="text" name="telephone" value={editProfile.telephone} onChange={handleChangeProfile} className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input
+                  type="text"
+                  name="telephone"
+                  value={editProfile.telephone}
+                  onChange={handleChangeProfile}
+                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               ) : (
                 <p className="font-quick mt-1 text-gray-900">{profile.telephone}</p>
               )}
@@ -139,7 +144,13 @@ const Profile = () => {
                   <button onClick={handleInputReferral} className="mt-2 ml-3  px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition">
                     Batal
                   </button>
-                  <input type="text" name="referral_code" value={referralCode.referral_code} onChange={handleChangeReferral}  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></input>
+                  <input
+                    type="text"
+                    name="referral_code"
+                    value={referralCode.referral_code}
+                    onChange={handleChangeReferral}
+                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  ></input>
                 </div>
               ) : (
                 <button onClick={handleInputReferral} className="mt-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition">

@@ -1,28 +1,28 @@
 import App from "./App";
 
-import AboutUsHP from "./pages/about/index.hp";
-import OurServicesHP from "./pages/service/index.hp";
+import AboutUsHP from "./pages/static/about/index.hp";
+import OurServicesHP from "./pages/static/service/index.hp";
 
-import Login from "./pages/login";
-import Register from "./pages/register";
-import RequestResetPassword from "./pages/req_reset_pass";
-import ResetPassword from "./pages/reset_pass";
+import Login from "./pages/auth/login";
+import Register from "./pages/auth/register";
+import RequestResetPassword from "./pages/auth/request.reset.password";
+import ResetPassword from "./pages/auth/reset.pass";
+import EmailVerificationPage from "./pages/auth/verif.email";
+import GoogleOauthRedirect from "./pages/auth/google.oauth";
 
-import OrderForm from "./pages/order_form";
+import OrderForm from "./pages/user/order.form";
 
 import VerifyFailed from "./components/verify/verify.failed";
 import VerifyFailedInvalid from "./components/verify/verfiy.failed.invalid";
 import VerifyFailedActivated from "./components/verify/verify.failed.activated";
 import VerifySuccess from "./components/verify/verify.success";
-import EmailVerificationPage from "./pages/verif_email/verif.email";
 
-import Profile from "./pages/profile";
+import Profile from "./pages/user/profile";
 
-import LaundryList from "./pages/laundry";
-import LaundryDetail from "./pages/laundry_detail";
-import Order from "./pages/order";
-import GoogleOauthRedirect from "./pages/oauth";
-import PrivacyPolicy from "./pages/privacy_policy";
+import LaundryList from "./pages/laundry/laundry";
+import LaundryDetail from "./pages/laundry/laundry.detail";
+import Order from "./pages/user/order";
+import PrivacyPolicy from "./pages/static/privacy_policy";
 
 const Routess = [
   {

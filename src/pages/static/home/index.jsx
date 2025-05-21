@@ -1,14 +1,14 @@
-import "../../style/SectionHome.css";
+import "../../../style/SectionHome.css";
 
 import { IoSearchCircle } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
 import { useEffect, useState, forwardRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import CustomerServices from "../../services/customer.services";
-import { errorSwal } from "../../utils/alert.utils";
-import CloseModal from "../../components/modal/close.modal";
-import LoadingUtils from "../../utils/loading.utils";
+import CustomerServices from "../../../services/customer.services";
+import { errorSwal } from "../../../utils/alert.utils";
+import CloseModal from "../../../components/modal/close.modal";
+import LoadingUtils from "../../../utils/loading.utils";
 
 const Home = ({ text }, Homeref) => {
   const [closeModal, setCloseModal] = useState(false);
@@ -45,7 +45,7 @@ const Home = ({ text }, Homeref) => {
   };
 
   if (isLoading) {
-    return <LoadingUtils/>;
+    return <LoadingUtils />;
   }
 
   return (
@@ -88,6 +88,6 @@ const Home = ({ text }, Homeref) => {
       {closeModal && <CloseModal onClose={() => setCloseModal(false)} />}
     </div>
   );
-}
+};
 
 export default forwardRef(Home);
