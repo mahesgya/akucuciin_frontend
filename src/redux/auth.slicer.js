@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import Cookies from "js-cookie";
 
 const initialState = {
   isLoggedIn: false,
@@ -44,41 +42,3 @@ const authSlice = createSlice({
 export const { setLogin, setLogout, setProfileData, setIsLoggedIn, setLoading } = authSlice.actions;
 
 export default authSlice.reducer;
-
-export const checkAuth = () => async (dispatch, getState) => {
-  const { accessToken, refreshToken } = getState().auth;
-
-  if (!accessToken) {
-    dispatch(setLogout());
-    return;
-  }
-
-  try {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-
-    dispatch(setProfileData(response.data));
-  } catch (error) {
-    try {
-      const refreshResponse = await axios.put(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/auth`, {
-        refresh_token: refreshToken,
-      });
-
-      const { accessToken: newAccessToken, refreshToken: newRefreshToken } = refreshResponse.data.data;
-
-      Cookies.set("accessToken", newAccessToken, {
-        secure: true,
-        sameSite: "none",
-        expires: 1,
-      });
-      Cookies.set("refreshToken", newRefreshToken, { secure: true, sameSite: "none", expires: 7 });
-
-      dispatch(setLogin({ accessToken: newAccessToken, refreshToken: newRefreshToken }));
-
-      dispatch(checkAuth());
-    } catch (refreshError) {
-      dispatch(setLogout());
-    }
-  }
-};

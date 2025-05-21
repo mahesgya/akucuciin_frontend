@@ -1,8 +1,9 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
-import { checkAuth, setLoading, setLogin, setLogout } from "../redux/auth.slicer";
+import { setLoading, setLogin, setLogout } from "../redux/auth.slicer";
 import { errorSwal, successSwal } from "../utils/alert.utils";
+import CustomerServices from "./customer.services";
 
 const BASE_URL = process.env.REACT_APP_BASE_BACKEND_URL;
 
@@ -24,8 +25,9 @@ const AuthServices = {
       Cookies.set("accessToken", accessToken, { secure: true, sameSite: "none", expires: 1 });
       Cookies.set("refreshToken", refreshToken, { secure: true, sameSite: "none", expires: 7 });
 
-      dispatch(setLogin({ accessToken, refreshToken }));
-      await dispatch(checkAuth());
+      await dispatch(setLogin({ accessToken, refreshToken }));
+      await CustomerServices.getProfile(accessToken, dispatch)
+      
       navigate("/");
       return response.data;
     } catch (error) {

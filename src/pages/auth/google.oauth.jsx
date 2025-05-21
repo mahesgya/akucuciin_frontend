@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
-import { checkAuth, setLogin } from "../../redux/auth.slicer";
+import { setLogin } from "../../redux/auth.slicer";
 import LoadingUtils from "../../utils/loading.utils";
+import CustomerServices from "../../services/customer.services";
 
 const GoogleOauthRedirect = () => {
   const [searchParams] = useSearchParams();
@@ -24,8 +25,8 @@ const GoogleOauthRedirect = () => {
         Cookies.set("refreshToken", refreshToken, { secure: false, sameSite: "none", expires: 7 });
 
         await new Promise((r) => setTimeout(r, 300));
-        dispatch(setLogin({ accessToken, refreshToken }));
-        await dispatch(checkAuth());
+        await dispatch(setLogin({ accessToken, refreshToken }));
+        await CustomerServices.getProfile(accessToken, dispatch);
 
         navigate("/");
       }
@@ -34,9 +35,7 @@ const GoogleOauthRedirect = () => {
     storeTokens();
   }, [searchParams, navigate, dispatch]);
 
-  return (
-    <LoadingUtils/>
-  );
+  return <LoadingUtils />;
 };
 
 export default GoogleOauthRedirect;
