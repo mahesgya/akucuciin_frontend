@@ -92,7 +92,7 @@ const Login = () => {
           </form>
 
           <div className="border border-0.2 border-gray-500/30 shadow-sm rounded-[10px] space-y-5 w-[20rem] flex align-center items-center flex-col justify-center">
-            <button onClick={handleOauth} className="flex justify-center items-center font-sans w-[20rem] bg-white p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-0.2 focus:ring-gray-500/30 focus:ring-offset-0.2">
+            <button onClick={handleOauth} className="flex justify-center items-center font-sans w-[19rem] bg-white p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-0.2 focus:ring-gray-500/30 focus:ring-offset-0.2">
               <img src="Images/google.png" className="w-6 h-6" alt="Google Icon" />
               <p className="ml-2 font-sans text-gray-500 text-center text-sm">Sign in with Google</p>
             </button>

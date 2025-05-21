@@ -22,7 +22,6 @@ const App = () => {
       return;
     }
 
-    console.log("REFRESH TOKEN DARI REDUX: ", refreshToken);
     let hasRefreshed = false;
 
     const refreshUser = async () => {

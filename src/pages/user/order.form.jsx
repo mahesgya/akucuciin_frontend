@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { setProfileData } from "../../redux/auth.slicer";
@@ -7,15 +7,16 @@ import { useDispatch } from "react-redux";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-
+import { FiClock, FiAlertCircle } from "react-icons/fi";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import idLocale from "date-fns/locale/id";
 
+import transformPhoneNumber from "../../utils/phone.number.utils";
 import customerServices from "../../services/customer.services";
-import Swal from "sweetalert2";
+import { successSwal } from "../../utils/alert.utils";
 
-function OrderForm() {
+const OrderForm = () => {
   dayjs.extend(utc);
   dayjs.extend(timezone);
 
@@ -30,6 +31,7 @@ function OrderForm() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [pickupDate, setPickupDate] = useState(null);
+  const [pickupHours, setPickupHours] = useState("");
 
   const [formError, setFormError] = useState("");
   const { idlaundry, idpaket } = useParams();
@@ -49,23 +51,51 @@ function OrderForm() {
     pickup_date: "",
   });
 
+  const timeSlots = [
+    { id: "12-14", label: "12:00 - 14:00", time: "Siang", startHour: 12, endHour: 14 },
+    { id: "14-16", label: "14:00 - 16:00", time: "Siang", startHour: 14, endHour: 16 },
+    { id: "16-18", label: "16:00 - 18:00", time: "Sore", startHour: 16, endHour: 18 },
+    { id: "18-20", label: "18:00 - 20:00", time: "Malam", startHour: 18, endHour: 20 },
+  ];
+
+  const isTimeSlotPassed = (slot) => {
+  if (!pickupDate) return false;
+
+  const now = dayjs().tz("Asia/Jakarta");
+
+  const slotTime = dayjs(pickupDate)
+    .tz("Asia/Jakarta")
+    .hour(slot.startHour)
+    .minute(0)
+    .second(0);
+
+  return now.isAfter(slotTime);
+};
+
+  useEffect(() => {
+    if (pickupHours) {
+      const selectedSlot = timeSlots.find(slot => slot.label === pickupHours);
+      if (selectedSlot && isTimeSlotPassed(selectedSlot)) {
+        setPickupHours(null);
+      }
+    }
+  }, [pickupDate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!accessToken) {
-      await Swal.fire({
-        icon: "error",
-        title: "Gagal Mengirim Order.",
-        text: "Anda Harus Login Terlebih Dahulu",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
+      successSwal("Anda harus login terlebih dahulu.")
       return;
     }
 
     if (!pickupDate) {
       setFormError("Pilih Tanggal Penjemputan");
+      return;
+    }
+
+    if (!pickupHours) {
+      setFormError("Pilih Jam Penjemputan");
       return;
     }
 
@@ -82,30 +112,16 @@ function OrderForm() {
       referral_code: formData.referral_code,
       coupon_code: formData.coupon_code,
       note: formData.note,
-      pickup_date: pickup_date,
+      pickup_date: `${pickupHours} ${pickup_date}`,
     };
 
     profile.telephone = transformPhoneNumber(profile.telephone);
 
-    await customerServices.changeProfile(profile, accessToken);
+    if (profileData.data.telephone === null || profileData.data.address === null) {
+      await customerServices.changeProfile(profile, accessToken);
+    }
     await customerServices.orderLaundry(accessToken, updatedFormData, setIsLoading, navigate);
     await dispatch(setProfileData(profile));
-  };
-
-  const transformPhoneNumber = (phone) => {
-    if (!phone) return "";
-
-    let cleaned = phone.replace(/\D/g, "");
-
-    if (cleaned.startsWith("0")) {
-      cleaned = "62" + cleaned.substring(1);
-    }
-
-    if (!cleaned.startsWith("62")) {
-      cleaned = "62" + cleaned;
-    }
-
-    return cleaned;
   };
 
   const handleBack = () => {
@@ -183,6 +199,73 @@ function OrderForm() {
           />
         </div>
 
+         <div className="w-full">
+          <h4 className="font-quick font-semibold text-left text-gray-700 mb-1 text-md md:text-xl">
+            Jam Penjemputan
+          </h4>
+          
+          {!pickupDate && (
+            <p className="text-blue-500 text-sm mb-2 font-quick flex items-center">
+              <FiAlertCircle className="mr-1" /> Silakan pilih tanggal penjemputan terlebih dahulu
+            </p>
+          )}
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {timeSlots.map((slot) => {
+              const isDisabled = !pickupDate || isTimeSlotPassed(slot);
+              
+              return (
+                <div
+                  key={slot.id}
+                  onClick={() => !isDisabled && setPickupHours(slot.label)}
+                  className={`
+                    rounded-lg border border-0.2 border-gray-500/30 
+                    flex flex-col items-center justify-center py-3 px-2
+                    ${isDisabled 
+                      ? "bg-gray-100 opacity-60 cursor-not-allowed border-gray-300" 
+                      : pickupHours === slot.label 
+                        ? "bg-blue-50 border-blue-400 shadow-sm cursor-pointer" 
+                        : "bg-white border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 cursor-pointer"}
+                  `}
+                >
+                  <div className="flex items-center justify-center">
+                    <FiClock 
+                      className={`mr-1.5 text-base ${
+                        isDisabled 
+                          ? "text-gray-400" 
+                          : pickupHours === slot.label 
+                            ? "text-[#3674B5]" 
+                            : "text-gray-500"
+                      }`} 
+                    />
+                    <span 
+                      className={`text-base ${
+                        isDisabled 
+                          ? "text-gray-400" 
+                          : pickupHours === slot.label 
+                            ? "text-[#3674B5]" 
+                            : "text-gray-700"
+                      }`}
+                    >
+                      {slot.label}
+                    </span>
+                  </div>
+                  
+                  {isDisabled && pickupDate && (
+                    <span className="text-xs text-red-500 mt-1">Waktu telah lewat</span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          
+          {pickupDate && !pickupHours && (
+            <p className="text-blue-500 text-xs mt-1 font-quick">
+              * Silakan pilih jam penjemputan
+            </p>
+          )}
+        </div>
+
         <div className="w-full">
           <h4 className="font-quick font-semibold text-left text-gray-700 mb-1 text-md md:text-xl">Kode Referral (Jika Ada)</h4>
           <input
@@ -230,6 +313,6 @@ function OrderForm() {
       <h3 className="text-sm text-gray-600 md:text-lg">HIGHLY PROFESSIONAL CLEANING</h3>
     </div>
   );
-}
+};
 
 export default OrderForm;
