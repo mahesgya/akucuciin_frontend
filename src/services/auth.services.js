@@ -1,6 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import { setLoading } from "../redux/auth.slicer";
+import { errorSwal, successSwal } from "../utils/alert.utils";
 
 const BASE_URL = process.env.REACT_APP_BASE_BACKEND_URL;
 
@@ -23,16 +24,9 @@ const authService = {
   },
   handleOauth: async () => {
     try {
-      window.location.href = `${BASE_URL}/api/customer/login/google-auth`
+      window.location.href = `${BASE_URL}/api/customer/login/google-auth`;
     } catch (error) {
-      await Swal.fire({
-        icon: "error",
-        title: "Gagal melakukan Auth menggunakan google.",
-        text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
+      errorSwal(error.response?.data?.errors);
     }
   },
   logoutUser: async (refreshToken, dispatch) => {
@@ -43,14 +37,7 @@ const authService = {
       });
       return response.data;
     } catch (error) {
-      await Swal.fire({
-        icon: "error",
-        title: "Gagal Melakukan Logout",
-        text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
+      errorSwal(error.response?.data?.errors);
     } finally {
       dispatch(setLoading(false));
     }
@@ -70,14 +57,7 @@ const authService = {
       });
       return response.data;
     } catch (error) {
-      await Swal.fire({
-        icon: "error",
-        title: "Gagal Melakukan Reset Password",
-        text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
+      errorSwal(error.response?.data?.errors);
     }
   },
   resetPassPage: async (email, reset_password_token, password, confirmPassword) => {
@@ -96,40 +76,18 @@ const authService = {
 
       return response.data;
     } catch (error) {
-      await Swal.fire({
-        icon: "error",
-        title: "Gagal Melakukan Pergantian Password.",
-        text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
-
+      errorSwal(error.response?.data?.errors);
       return null;
     }
   },
   resendEmail: async (email) => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_BACKEND_URL}/resend-verification-email`, { email });
-      await Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "Email Verifikasi Baru Sudah Dikirim.",
-        confirmButtonText: "OK",
-        confirmButtonColor: "#3085d6",
-        showCloseButton: true,
-      });
+      successSwal("Email verifikasi baru berhasil dikirim.");
 
       return response.data;
     } catch (error) {
-      await Swal.fire({
-        icon: "error",
-        title: "Gagal Melakukan Resend Email.",
-        text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
+      errorSwal(error.response?.data?.errors);
     }
   },
 };
