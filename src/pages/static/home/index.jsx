@@ -2,29 +2,19 @@ import "../../../style/SectionHome.css";
 
 import { IoSearchCircle } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
-import { useEffect, useState, forwardRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import {  useState, forwardRef } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import CustomerServices from "../../../services/customer.services";
+
 import { errorSwal } from "../../../utils/alert.utils";
 import CloseModal from "../../../components/modal/close.modal";
 import LoadingUtils from "../../../utils/loading.utils";
 
 const Home = ({ text }, Homeref) => {
   const [closeModal, setCloseModal] = useState(false);
-  const { profileData, isLoggedIn, isLoading, accessToken } = useSelector((state) => state.auth);
+  const { profileData, isLoggedIn, isLoading, accessToken} = useSelector((state) => state.auth);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!accessToken) return;
-    const getProfileUser = async () => {
-      await CustomerServices.getProfile(accessToken, dispatch);
-    };
-
-    getProfileUser();
-  }, [accessToken, dispatch]);
 
   const handlePesan = async () => {
     if (accessToken) {

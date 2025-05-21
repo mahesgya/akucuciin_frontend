@@ -13,7 +13,7 @@ const AuthServices = {
       const response = await axios.post(`${BASE_URL}/api/customer`, formData);
       return response.data;
     } catch (error) {
-      throw error;
+      errorSwal(error.response?.data?.errors);
     }
   },
   loginUser: async (formData, dispatch, navigate) => {
@@ -22,12 +22,12 @@ const AuthServices = {
       const response = await axios.post(`${BASE_URL}/api/customer/login`, formData);
       const { accessToken, refreshToken } = response.data.data;
 
-      Cookies.set("accessToken", accessToken, { secure: true, sameSite: "none", expires: 1 });
-      Cookies.set("refreshToken", refreshToken, { secure: true, sameSite: "none", expires: 7 });
+      await Cookies.set("accessToken", accessToken, { secure: true, sameSite: "none", expires: 1 });
+      await Cookies.set("refreshToken", refreshToken, { secure: true, sameSite: "none", expires: 7 });
 
       await dispatch(setLogin({ accessToken, refreshToken }));
-      await CustomerServices.getProfile(accessToken, dispatch)
-      
+      await CustomerServices.getProfile(accessToken, dispatch);
+
       navigate("/");
       return response.data;
     } catch (error) {
@@ -52,11 +52,35 @@ const AuthServices = {
 
       Cookies.remove("accessToken");
       Cookies.remove("refreshToken");
-      navigate("/")
+      navigate("/");
       await dispatch(setLogout());
       return response.data;
     } catch (error) {
       await dispatch(setLogout());
+      errorSwal(error.response?.data?.errors);
+    } finally {
+      setLoading(false);
+    }
+  },
+  refreshUser: async (oldRefreshToken, dispatch, navigate) => {
+    try {
+      setLoading(true);
+
+      const response = await axios.put(`${BASE_URL}/api/auth`, { refresh_token: oldRefreshToken });
+      const { accessToken, refreshToken } = response.data.data;
+
+      Cookies.set("accessToken", accessToken, { secure: true, sameSite: "none", expires: 1 });
+      Cookies.set("refreshToken", refreshToken, { secure: true, sameSite: "none", expires: 7 });
+
+      await dispatch(setLogin({ accessToken, refreshToken }));
+
+      navigate("/");
+
+      return response.data;
+    } catch (error) {
+      await dispatch(setLogout());
+      Cookies.remove("accessToken");
+      Cookies.remove("refreshToken");
       errorSwal(error.response?.data?.errors);
     } finally {
       setLoading(false);

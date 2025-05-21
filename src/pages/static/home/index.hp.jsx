@@ -2,27 +2,17 @@ import "../../../style/HomeHP.css";
 import NavbarHP from "../../../components/navbar/index.hp";
 
 import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import LoadingUtils from "../../../utils/loading.utils";
 import { errorSwal } from "../../../utils/alert.utils";
-import CustomerServices from "../../../services/customer.services";
+
 
 const HomeHP = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { profileData, isLoggedIn, isLoading, accessToken } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (!accessToken) return;
-    const getProfileUser = async () => {
-      await CustomerServices.getProfile(accessToken, dispatch);
-    };
-
-    getProfileUser();
-  }, [accessToken, dispatch]);
 
   const handlePesan = async () => {
     if (accessToken) {
