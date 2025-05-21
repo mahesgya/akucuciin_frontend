@@ -18,6 +18,7 @@ function Home({ text }, Homeref) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!accessToken) return;
     const getProfileUser = async () => {
       await CustomerServices.getProfile(accessToken, dispatch);
     };
@@ -29,7 +30,7 @@ function Home({ text }, Homeref) {
     if (accessToken) {
       navigate("/laundry");
     } else {
-      errorSwal("Silahkan login terlebih dahulu.");
+      await errorSwal("Silahkan login terlebih dahulu.");
       navigate("/login");
     }
   };
@@ -38,7 +39,7 @@ function Home({ text }, Homeref) {
     if (accessToken) {
       navigate("/order");
     } else {
-      errorSwal("Silahkan login terlebih dahulu.");
+      await errorSwal("Silahkan login terlebih dahulu.");
       navigate("/login");
     }
   };

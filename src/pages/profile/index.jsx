@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogout, checkAuth } from "../../redux/auth.slicer";
+import { setLogout } from "../../redux/auth.slicer";
 
 import Cookies from "js-cookie";
 import authController from "../../controller/auth.controller";
 import customerController from "../../controller/customer.controller";
 import customerServices from "../../services/customer.services";
+import transformPhoneNumber from "../../utils/phone.number.utils";
+import CustomerServices from "../../services/customer.services";
+import handleChange from "../../utils/handle.change.utils";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -29,14 +32,13 @@ const Profile = () => {
   });
 
   useEffect(() => {
-    dispatch(checkAuth());
+    if (!accessToken) return;
+    const getProfileUser = async () => {
+      await CustomerServices.getProfile(accessToken, dispatch);
+    };
 
-    const interval = setInterval(() => {
-      dispatch(checkAuth());
-    }, 1800000);
-
-    return () => clearInterval(interval);
-  }, [dispatch]);
+    getProfileUser();
+  }, [accessToken, dispatch]);
 
   const handleInputReferral = () => {
     setInputReferral(!inputReferral);
@@ -53,20 +55,8 @@ const Profile = () => {
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEditProfile({
-      ...editProfile,
-      [name]: value,
-    });
-  };
-
-  const handleChangeReferral = (e) => {
-    const { name, value } = e.target;
-    setReferralCode({
-      [name]: value,
-    });
-  };
+  const handleChangeProfile = handleChange(setEditProfile)
+  const handleChangeReferral = handleChange(setReferralCode);
 
   const handleSubmitReferral = async (e) => {
     e.preventDefault();
@@ -74,22 +64,6 @@ const Profile = () => {
     if (accessToken) {
       await customerServices.postReferral(accessToken, referralCode);
     }
-  };
-
-   const transformPhoneNumber = (phone) => {
-    if (!phone) return "";
-
-    let cleaned = phone.replace(/\D/g, "");
-
-    if (cleaned.startsWith("0")) {
-      cleaned = "62" + cleaned.substring(1);
-    }
-
-    if (!cleaned.startsWith("62")) {
-      cleaned = "62" + cleaned;
-    }
-
-    return cleaned;
   };
 
   const handleSubmit = async (e) => {
@@ -122,7 +96,7 @@ const Profile = () => {
             <div>
               <label className="font-bold block font-quick text-sm text-gray-700">Name</label>
               {isEditing ? (
-                <input type="text" name="name" value={editProfile.name} onChange={handleChange} className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="text" name="name" value={editProfile.name} onChange={handleChangeProfile} className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
               ) : (
                 <p className="mt-1 text-gray-900 font-quick">{profile.name}</p>
               )}
@@ -136,7 +110,7 @@ const Profile = () => {
             <div>
               <label className="font-quick block text-sm font-bold text-gray-700">Phone</label>
               {isEditing ? (
-                <input type="text" name="telephone" value={editProfile.telephone} onChange={handleChange} className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="text" name="telephone" value={editProfile.telephone} onChange={handleChangeProfile} className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
               ) : (
                 <p className="font-quick mt-1 text-gray-900">{profile.telephone}</p>
               )}
@@ -145,7 +119,7 @@ const Profile = () => {
             <div>
               <label className="font-quick block text-sm font-bold text-gray-700">Address</label>
               {isEditing ? (
-                <input type="text" name="address" value={editProfile.address} onChange={handleChange} className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <input type="text" name="address" value={editProfile.address} onChange={handleChangeProfile} className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
               ) : (
                 <p className="font-quick mt-1 text-gray-900">{profile.address}</p>
               )}

@@ -16,6 +16,7 @@ const HomeHP = () => {
   const { profileData, isLoggedIn, isLoading, accessToken } = useSelector((state) => state.auth);
 
   useEffect(() => {
+    if (!accessToken) return;
     const getProfileUser = async () => {
       await CustomerServices.getProfile(accessToken, dispatch);
     };
@@ -27,7 +28,7 @@ const HomeHP = () => {
     if (accessToken) {
       navigate("/laundry");
     } else {
-      errorSwal("Silahkan login terlebih dahulu.");
+      await errorSwal("Silahkan login terlebih dahulu.");
       navigate("/login");
     }
   };
@@ -36,7 +37,7 @@ const HomeHP = () => {
     if (accessToken) {
       navigate("/order");
     } else {
-      errorSwal("Silahkan login terlebih dahulu.");
+      await errorSwal("Silahkan login terlebih dahulu.");
       navigate("/login");
     }
   };
