@@ -1,34 +1,29 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogout } from "../../redux/auth.slicer";
-
 import Cookies from "js-cookie";
-import authController from "../../controller/auth.controller";
-import customerController from "../../controller/customer.controller";
 
+import { setLogout } from "../../redux/auth.slicer";
 import customerServices from "../../services/customer.services";
 import CustomerServices from "../../services/customer.services";
 
 import transformPhoneNumber from "../../utils/phone.number.utils";
 import handleChange from "../../utils/handle.change.utils";
 import LoadingUtils from "../../utils/loading.utils";
+import AuthServices from "../../services/auth.services";
 
 const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const [error, setError] = useState(null);
+  const { profileData, refreshToken, accessToken, isLoading } = useSelector((state) => state.auth);
+  
   const [isEditing, setIsEditing] = useState(false);
   const [inputReferral, setInputReferral] = useState(false);
-  const { profileData, refreshToken, accessToken, isLoading } = useSelector((state) => state.auth);
-
   const [profile, setProfile] = useState({
     name: profileData.data.name,
     telephone: profileData.data.telephone,
     address: profileData.data.address,
   });
-
   const [editProfile, setEditProfile] = useState({ ...profile });
   const [referralCode, setReferralCode] = useState({
     referral_code: "",
@@ -49,7 +44,7 @@ const Profile = () => {
 
   const handleLogout = async () => {
     if (refreshToken) {
-      await authController.handleLogout(refreshToken, dispatch, navigate, setError);
+      await AuthServices.logoutUser(refreshToken, dispatch, navigate);
     } else {
       Cookies.remove("accessToken");
       Cookies.remove("refreshToken");
@@ -75,7 +70,7 @@ const Profile = () => {
     editProfile.telephone = transformPhoneNumber(editProfile.telephone)
 
     if (accessToken) {
-      await customerController.handleProfile(editProfile, accessToken, dispatch, setProfile, setEditProfile, setIsEditing);
+      await CustomerServices.changeProfile(editProfile, accessToken, dispatch, setProfile, setEditProfile, setIsEditing);
     }
   };
 
@@ -166,11 +161,6 @@ const Profile = () => {
             )}
           </div>
         </form>
-        {error && (
-          <p className="error-message text-center" style={{ color: "red" }}>
-            {error}
-          </p>
-        )}
         <div className="flex flex-col items center justify-center">
           <button
             onClick={handleLogout}

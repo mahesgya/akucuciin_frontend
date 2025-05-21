@@ -12,10 +12,10 @@ const CustomerServices = {
       dispatch(setProfileData(response.data));
       return response.data;
     } catch (error) {
-      errorSwal(error.response?.data?.errors)
+      errorSwal(error.response?.data?.errors);
     }
   },
-  changeProfile: async (editProfile, accessToken) => {
+  changeProfile: async (editProfile, accessToken, dispatch, setProfile, setEditProfile, setIsEditing) => {
     try {
       const response = await axios.put(
         `${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer`,
@@ -28,6 +28,13 @@ const CustomerServices = {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
+      dispatch(setProfileData(editProfile));
+      setProfile((prevProfile) => ({
+        ...prevProfile,
+        ...editProfile,
+      }));
+      setEditProfile({ ...editProfile });
+      setIsEditing(false);
       successSwal("Perubahan profile berhasil.");
       return response.data;
     } catch (error) {

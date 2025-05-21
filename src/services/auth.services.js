@@ -1,7 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
-import { checkAuth, setLoading, setLogin } from "../redux/auth.slicer";
+import { checkAuth, setLoading, setLogin, setLogout } from "../redux/auth.slicer";
 import { errorSwal, successSwal } from "../utils/alert.utils";
 
 const BASE_URL = process.env.REACT_APP_BASE_BACKEND_URL;
@@ -25,7 +25,7 @@ const AuthServices = {
       Cookies.set("refreshToken", refreshToken, { secure: true, sameSite: "none", expires: 7 });
 
       dispatch(setLogin({ accessToken, refreshToken }));
-      await dispatch(checkAuth())
+      await dispatch(checkAuth());
       navigate("/");
       return response.data;
     } catch (error) {
@@ -41,14 +41,21 @@ const AuthServices = {
       errorSwal(error.response?.data?.errors);
     }
   },
-  logoutUser: async (refreshToken, dispatch) => {
+  logoutUser: async (refreshToken, dispatch, navigate) => {
     dispatch(setLoading(true));
     try {
       const response = axios.post(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/logout`, {
         refresh_token: refreshToken,
       });
+
+      Cookies.remove("accessToken");
+      Cookies.remove("refreshToken");
+      await dispatch(setLogout());
+      navigate("/");
+
       return response.data;
     } catch (error) {
+      await dispatch(setLogout());
       errorSwal(error.response?.data?.errors);
     } finally {
       dispatch(setLoading(false));
@@ -56,6 +63,7 @@ const AuthServices = {
   },
   resetPasswordEmail: async (email) => {
     try {
+      setLoading(true);
       const response = await axios.post(`${BASE_URL}/request-reset-password`, {
         email,
       });
@@ -70,10 +78,13 @@ const AuthServices = {
       return response.data;
     } catch (error) {
       errorSwal(error.response?.data?.errors);
+    } finally {
+      setLoading(false);
     }
   },
-  resetPassPage: async (email, reset_password_token, password, confirmPassword) => {
+  resetPassPage: async (email, reset_password_token, password, confirmPassword, setLoading) => {
     try {
+      setLoading(true)
       const response = await axios.put(`${process.env.REACT_APP_BASE_BACKEND_URL}/request-reset-password/customer/${email}/${reset_password_token}`, {
         password,
         confirm_password: confirmPassword,
@@ -89,7 +100,8 @@ const AuthServices = {
       return response.data;
     } catch (error) {
       errorSwal(error.response?.data?.errors);
-      return null;
+    }finally{
+      setLoading(false)
     }
   },
   resendEmail: async (email) => {

@@ -1,22 +1,28 @@
 import { useState } from "react";
-import authController from "../../controller/auth.controller";
+import { useSelector } from "react-redux";
+import { setLoading } from "../../redux/auth.slicer";
+import AuthServices from "../../services/auth.services";
+import LoadingUtils from "../../utils/loading.utils";
 
-
-function RequestResetPassword() {
+const RequestResetPassword = () => {
   const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { isLoading } = useSelector((state) => state.auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    await authController.resetPasswordEmail(email, setIsLoading);
+    await AuthServices.resetPasswordEmail(email, setLoading);
   };
+
+  if (isLoading) {
+    return <LoadingUtils />;
+  }
 
   return (
     <div className="min-h-screen w-screen flex flex-row items-center justify-center">
       <img src="/Images/woman.png" alt="" className="hidden h-screen md:block md:w-[40%] object-fit" />
       <div className="h-screen w-screen flex flex-col items-center justify-start mx-[0.5em] mt-[3em] space-y-8 md:justify-center md:mt-0 md:mx-0 md:w-[60%] ">
-      <a href="/login">
+        <a href="/login">
           <img alt="backbiru" src="Images/backbiru.png" className="fixed top-8 left-5"></img>
         </a>
         <img src="/Images/LogoAkucuciin.png" alt="logo" className="w-[9rem] md:w-[15rem]" />
@@ -40,6 +46,6 @@ function RequestResetPassword() {
       </div>
     </div>
   );
-}
+};
 
 export default RequestResetPassword;
