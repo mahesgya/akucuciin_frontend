@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import authController from "../../controller/auth.controller";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import authService from "../../services/auth.services";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function Register() {
+import { errorSwal } from "../../utils/alert.utils";
+import LoadingUtils from "../../utils/loading.utils";
+import { setLoading } from "../../redux/auth.slicer";
+import { validateCustomer } from "../../validator/customer.validator";
+import AuthServices from "../../services/auth.services";
+
+const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [errorPassword, setErrorPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+
+  const { isLoading } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -59,25 +63,51 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password.length >= 8 && formData.confirm_password.length >= 8) {
-      await authController.handleRegister(formData, setFormData, setLoading, navigate);
-    } else {
-      await Swal.fire({
-        icon: "error",
-        title: "Registrasi Gagal",
-        text: "Password atau confirm password minimal 8 karakter.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
+    if (formData.password.length < 8 && formData.confirm_password.length < 8) {
+      errorSwal("Password dan confirm password minimal 8 karakter.");
+      return;
+    }
+
+    if (formData.password !== formData.confirm_password) {
+      errorSwal("Password dan confirm tidak sama.");
+      return;
+    }
+
+    const validationErrors = validateCustomer(formData);
+
+    if(validationErrors){
+      errorSwal(validationErrors)
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await AuthServices.registerUser(formData);
+      setFormData({
+        email: "",
+        password: "",
+        confirm_password: "",
+        name: "",
+        address: "",
+        telephone: "",
       });
+
+      navigate(`/register/${formData.email}`);
+    } catch (error) {
+      return;
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleOauth = async (e) => {
     e.preventDefault();
-    await authService.handleOauth();
-  }
+    await AuthServices.handleOauth();
+  };
 
+  if (isLoading) {
+    return <LoadingUtils />;
+  }
 
   return (
     <div className="min-h-screen w-screen flex flex-row items-center justify-center">
@@ -121,15 +151,7 @@ function Register() {
               <div className="pb-2 space-y-4 flex flex-col align-center justify-center items-center lg:pb-0">
                 <div className="flex flex-row space-x-1 font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm p-[10px] py-[10px] rounded-lg w-[20rem]">
                   <img src="Images/address.png" alt="" className="w-[25px]" />
-                  <input
-                    required
-                    type="text"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    placeholder="Alamat"
-                    className="w-full font-sans bg-white text-gray-700 focus:shadow-none focus:outline-none focus:border-b-2"
-                  />
+                  <input required type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Alamat" className="w-full font-sans bg-white text-gray-700 focus:shadow-none focus:outline-none focus:border-b-2" />
                 </div>
                 <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm px-[10px] py-[10px] rounded-lg w-[20rem]">
                   <img src="Images/passwordReg.png" alt="" className="w-[25px]" />
@@ -169,26 +191,23 @@ function Register() {
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={isLoading}
               className={`shadow-md font-sans w-[20rem] ${
-                loading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-[#687eff] text-white"
+                isLoading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-[#687eff] text-white"
               } text-white font-semibold p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
             >
-              {loading ? "Loading..." : "Daftar"}
+              {isLoading ? "Loading..." : "Daftar"}
             </button>
           </form>
 
           <div className="border border-0.2 border-gray-500/30 shadow-sm rounded-[10px] space-y-5 w-[20rem] flex align-center items-center flex-col justify-center">
-            <button
-              onClick={handleOauth}
-              className="flex justify-center items-center font-sans w-[20rem] bg-white p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-0.2 focus:ring-gray-500/30 focus:ring-offset-0.2"
-            >
+            <button onClick={handleOauth} className="flex justify-center items-center font-sans w-[20rem] bg-white p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-0.2 focus:ring-gray-500/30 focus:ring-offset-0.2">
               <img src="Images/google.png" className="w-6 h-6" alt="Google Icon" />
               <p className="ml-2 font-sans text-gray-500 text-center text-sm">Sign Up with Google</p>
             </button>
           </div>
         </div>
-         <p className="font-sans text-gray-500 text-center text-sm">
+        <p className="font-sans text-gray-500 text-center text-sm">
           Sudah punya akun? {"  "}
           <Link to="/login">
             <button className="font-sans bg-white text-[#687eff] font-normal ">Sign In</button>
@@ -197,6 +216,6 @@ function Register() {
       </div>
     </div>
   );
-}
+};
 
 export default Register;

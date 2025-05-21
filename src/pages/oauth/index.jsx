@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { checkAuth, setLogin } from "../../redux/auth.slicer";
+import LoadingUtils from "../../utils/loading.utils";
 
 const GoogleOauthRedirect = () => {
   const [searchParams] = useSearchParams();
@@ -34,9 +35,7 @@ const GoogleOauthRedirect = () => {
   }, [searchParams, navigate, dispatch]);
 
   return (
-    <div className="flex items-center justify-center h-screen bg-white">
-      <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
-    </div>
+    <LoadingUtils/>
   );
 };
 

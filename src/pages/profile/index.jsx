@@ -6,10 +6,13 @@ import { setLogout } from "../../redux/auth.slicer";
 import Cookies from "js-cookie";
 import authController from "../../controller/auth.controller";
 import customerController from "../../controller/customer.controller";
+
 import customerServices from "../../services/customer.services";
-import transformPhoneNumber from "../../utils/phone.number.utils";
 import CustomerServices from "../../services/customer.services";
+
+import transformPhoneNumber from "../../utils/phone.number.utils";
 import handleChange from "../../utils/handle.change.utils";
+import LoadingUtils from "../../utils/loading.utils";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -18,7 +21,7 @@ const Profile = () => {
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [inputReferral, setInputReferral] = useState(false);
-  const { profileData, refreshToken, accessToken } = useSelector((state) => state.auth);
+  const { profileData, refreshToken, accessToken, isLoading } = useSelector((state) => state.auth);
 
   const [profile, setProfile] = useState({
     name: profileData.data.name,
@@ -75,6 +78,10 @@ const Profile = () => {
       await customerController.handleProfile(editProfile, accessToken, dispatch, setProfile, setEditProfile, setIsEditing);
     }
   };
+
+  if(isLoading){
+    return <LoadingUtils/>
+  }
 
   return (
     <div className="min-h-screen w-screen flex flex-row items-center justify-center">

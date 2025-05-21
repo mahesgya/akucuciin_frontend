@@ -10,7 +10,7 @@ import { errorSwal } from "../../utils/alert.utils";
 import CloseModal from "../../components/modal/close.modal";
 import LoadingUtils from "../../utils/loading.utils";
 
-function Home({ text }, Homeref) {
+const Home = ({ text }, Homeref) => {
   const [closeModal, setCloseModal] = useState(false);
   const { profileData, isLoggedIn, isLoading, accessToken } = useSelector((state) => state.auth);
 
