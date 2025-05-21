@@ -5,10 +5,10 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useEffect, useState, forwardRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { checkAuth } from "../../redux/auth.slicer";
-
-import Swal from "sweetalert2";
+import CustomerServices from "../../services/customer.services";
+import { errorSwal } from "../../utils/alert.utils";
 import CloseModal from "../../components/modal/close.modal";
+import LoadingUtils from "../../utils/loading.utils";
 
 function Home({ text }, Homeref) {
   const [closeModal, setCloseModal] = useState(false);
@@ -18,51 +18,33 @@ function Home({ text }, Homeref) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(checkAuth());
+    const getProfileUser = async () => {
+      await CustomerServices.getProfile(accessToken, dispatch);
+    };
 
-    const interval = setInterval(() => {
-      dispatch(checkAuth());
-    }, 1800000);
-
-    return () => clearInterval(interval);
-  }, [dispatch]);
+    getProfileUser();
+  }, [accessToken, dispatch]);
 
   const handlePesan = async () => {
     if (accessToken) {
-      dispatch(checkAuth());
       navigate("/laundry");
     } else {
-      await Swal.fire({
-        icon: "error",
-        title: "Anda Belom Login. ",
-        text: "Silahkan Login Terlebih Dahulu.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
+      errorSwal("Silahkan login terlebih dahulu.");
       navigate("/login");
     }
   };
 
   const handleOrder = async () => {
     if (accessToken) {
-      dispatch(checkAuth());
       navigate("/order");
     } else {
-      await Swal.fire({
-        icon: "error",
-        title: "Anda Belom Login. ",
-        text: "Silahkan Login Terlebih Dahulu.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
+      errorSwal("Silahkan login terlebih dahulu.");
       navigate("/login");
     }
-  }
+  };
 
   if (isLoading) {
-    return null;
+    return <LoadingUtils/>;
   }
 
   return (
