@@ -1,77 +1,41 @@
 import axios from "axios";
-import Swal from "sweetalert2";
+import { errorSwal } from "../utils/alert.utils";
 
 const laundryServices = {
   getByLocation: async () => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partners/locations`
-      );
+      const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partners/locations`);
 
-      return response.data
+      return response.data;
     } catch (error) {
-      await Swal.fire({
-        icon: "error",
-        title: "Gagal Mendapatkan Data Laundry",
-        text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
+      errorSwal(error.response?.data?.errors);
     }
   },
   getByCity: async (city) => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partners/locations/${city}`
-      );
+      const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partners/locations/${city}`);
 
-      return response.data
+      return response.data;
     } catch (error) {
-      await Swal.fire({
-        icon: "error",
-        title: "Gagal Mendapatkan Data Laundry",
-        text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
+      errorSwal(error.response?.data?.errors);
     }
   },
   getById: async (idLaundry) => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partner/${idLaundry}`
-      );
+      const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partner/${idLaundry}`);
 
-      return response.data
+      return response.data;
     } catch (error) {
-      await Swal.fire({
-        icon: "error",
-        title: "Gagal Mendapatkan Data Laundry",
-        text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
+      errorSwal(error.response?.data?.errors);
     }
   },
   getImages: async (idLaundry) => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partner/${idLaundry}/images`
-      );
+      const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partner/${idLaundry}/images`);
 
-      return response.data
+      return response.data;
     } catch (error) {
-      await Swal.fire({
-        icon: "error",
-        title: "Gagal Mendapatkan Data Laundry",
-        text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
+      errorSwal(error.response?.data?.errors);
     }
   },
 };
