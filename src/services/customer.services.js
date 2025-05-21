@@ -1,8 +1,21 @@
 import axios from "axios";
 import { errorSwal, successSwal } from "../utils/alert.utils";
+import { setProfileData } from "../redux/auth.slicer";
 
-const customerServices = {
-  changeProfile: async (editProfile, accessToken) => {
+const CustomerServices = {
+  getProfile: async (accessToken, dispatch) => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      dispatch(setProfileData(response.data));
+      return response.data;
+    } catch (error) {
+      errorSwal(error.response?.data?.errors);
+    }
+  },
+  changeProfile: async (editProfile, accessToken, dispatch, setProfile, setEditProfile, setIsEditing) => {
     try {
       const response = await axios.put(
         `${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer`,
@@ -15,6 +28,13 @@ const customerServices = {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
+      dispatch(setProfileData(editProfile));
+      setProfile((prevProfile) => ({
+        ...prevProfile,
+        ...editProfile,
+      }));
+      setEditProfile({ ...editProfile });
+      setIsEditing(false);
       successSwal("Perubahan profile berhasil.");
       return response.data;
     } catch (error) {
@@ -103,4 +123,4 @@ const customerServices = {
   },
 };
 
-export default customerServices;
+export default CustomerServices;

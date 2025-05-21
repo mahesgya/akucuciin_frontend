@@ -17,18 +17,14 @@ const Order = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      try {
         const response = await customerServices.getOrderLaundry(accessToken);
         const sortedOrders = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
         setOrders(sortedOrders);
         setFilteredOrders(sortedOrders);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      }
     };
 
     fetchOrders();
-  }, []);
+  }, [accessToken]);
 
   const handleFilterChange = (status) => {
     setFilter(status);

@@ -1,5 +1,5 @@
-import "../../style/ServicesHP.css";
-import NavbarHP from "../../components/navbar/index.hp";
+import "../../../style/ServicesHP.css";
+import NavbarHP from "../../../components/navbar/index.hp";
 
 function OurServicesHP() {
   return (

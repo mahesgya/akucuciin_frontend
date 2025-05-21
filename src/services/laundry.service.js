@@ -1,7 +1,7 @@
 import axios from "axios";
 import { errorSwal } from "../utils/alert.utils";
 
-const laundryServices = {
+const LaundryServices = {
   getByLocation: async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partners/locations`);
@@ -40,4 +40,4 @@ const laundryServices = {
   },
 };
 
-export default laundryServices;
+export default LaundryServices;

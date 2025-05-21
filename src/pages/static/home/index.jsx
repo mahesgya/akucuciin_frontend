@@ -1,68 +1,41 @@
-import "../../style/SectionHome.css";
+import "../../../style/SectionHome.css";
 
 import { IoSearchCircle } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
-import { useEffect, useState, forwardRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import {  useState, forwardRef } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { checkAuth } from "../../redux/auth.slicer";
 
-import Swal from "sweetalert2";
-import CloseModal from "../../components/modal/close.modal";
+import { errorSwal } from "../../../utils/alert.utils";
+import CloseModal from "../../../components/modal/close.modal";
+import LoadingUtils from "../../../utils/loading.utils";
 
-function Home({ text }, Homeref) {
+const Home = ({ text }, Homeref) => {
   const [closeModal, setCloseModal] = useState(false);
-  const { profileData, isLoggedIn, isLoading, accessToken } = useSelector((state) => state.auth);
+  const { profileData, isLoggedIn, isLoading, accessToken} = useSelector((state) => state.auth);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(checkAuth());
-
-    const interval = setInterval(() => {
-      dispatch(checkAuth());
-    }, 1800000);
-
-    return () => clearInterval(interval);
-  }, [dispatch]);
 
   const handlePesan = async () => {
     if (accessToken) {
-      dispatch(checkAuth());
       navigate("/laundry");
     } else {
-      await Swal.fire({
-        icon: "error",
-        title: "Anda Belom Login. ",
-        text: "Silahkan Login Terlebih Dahulu.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
+      await errorSwal("Silahkan login terlebih dahulu.");
       navigate("/login");
     }
   };
 
   const handleOrder = async () => {
     if (accessToken) {
-      dispatch(checkAuth());
       navigate("/order");
     } else {
-      await Swal.fire({
-        icon: "error",
-        title: "Anda Belom Login. ",
-        text: "Silahkan Login Terlebih Dahulu.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
+      await errorSwal("Silahkan login terlebih dahulu.");
       navigate("/login");
     }
-  }
+  };
 
   if (isLoading) {
-    return null;
+    return <LoadingUtils />;
   }
 
   return (
@@ -105,6 +78,6 @@ function Home({ text }, Homeref) {
       {closeModal && <CloseModal onClose={() => setCloseModal(false)} />}
     </div>
   );
-}
+};
 
 export default forwardRef(Home);

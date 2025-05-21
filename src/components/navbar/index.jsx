@@ -6,14 +6,14 @@ import { motion } from "framer-motion";
 import "../../style/Header.css";
 
 import Footer from "../footer/index";
-import Home from "../../pages/home";
-import AboutUs from "../../pages/about/index"
-import OurServices from "../../pages/service/index"
+import Home from "../../pages/static/home";
+import AboutUs from "../../pages/static/about/index";
+import OurServices from "../../pages/static/service/index";
 
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const {isLoggedIn, isLoading } = useSelector((state) => state.auth);
+  const { isLoggedIn, isLoading } = useSelector((state) => state.auth);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const Aboutusref = useRef(null);
@@ -25,15 +25,10 @@ const Navbar = () => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-
   if (isLoading) {
     return (
       <div className="h-screen flex items-center justif`1 y-center">
-        <motion.div
-          className="w-16 h-16 border-4 border-t-transparent border-blue-500 rounded-full"
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-        />
+        <motion.div className="w-16 h-16 border-4 border-t-transparent border-blue-500 rounded-full" animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }} />
       </div>
     );
   }

@@ -1,24 +1,27 @@
-import "../../style/AboutUs.css";
-import { forwardRef } from "react";
+import NavbarHP from "../../../components/navbar/index.hp"
 
-function AboutUs({ text }, Aboutsuref) {
+import "../../../style/AboutUs.css";
+import "../../../style/AboutUsHP.css";
+
+function AboutUsHP() {
   return (
-    <div ref={Aboutsuref}>
-      <section id="AboutUs">
-        <div className="container-about">
-          <h4 className="aboutus-h4">About Us</h4>
-          <h2 className="cepatdanmudah">
+    <div>
+      <section id="AboutUsHP  ">
+        <NavbarHP />
+        <div className="container-aboutHP">
+          <h4 className="aboutus-h4HP">About Us</h4>
+          <h2 className="cepatdanmudahHP">
             <span>Cepat dan mudah</span> pesan antar jasa laundry di sekitar kampus
           </h2>
-          <p className="p-aboutus">
+          <p className="p-aboutusHP">
             Aku Cuciin adalah solusi praktis untuk permasalahan mahasiswa dalam mencuci pakaian. Aku Cuciin adalah platform digital yang dirancang khusus untuk memudahkan kehidupan mahasiswa dalam mencari dan menggunakan jasa laundry agar
             lebih praktis. Dengan layanan kami, Mahasiswa dapat dengan mudah memesan jemput cucian dari outlet laundry melalui fitur-fitur menarik seperti pembayaran online, antar jemput, update progres laundry.
           </p>
+          <img src="Images/About UsHP.png" alt="" className="mesincuci2HP" />
         </div>
-        <img src="Images/About Us.png" alt="" className="mesincuci2" />
       </section>
     </div>
   );
 }
 
-export default forwardRef(AboutUs);
+export default AboutUsHP;

@@ -1,25 +1,24 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import authController from "../../controller/auth.controller";
 import authService from "../../services/auth.services";
+import LoadingUtils from "../../utils/loading.utils";
 
-function Login() {
+const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const {isLoading} = useSelector((state) => state.auth)
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,12 +31,20 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await authController.handleLogin(formData, dispatch, navigate, setFormData, setLoading);
+    await authService.loginUser(formData, dispatch, navigate);
+    setFormData({
+      email: "",
+      password: "",
+    })
   };
 
   const handleOauth = async (e) => {
     e.preventDefault();
     await authService.handleOauth(navigate);
+  };
+
+  if(isLoading){
+    return <LoadingUtils/>
   }
 
   return (
@@ -60,15 +67,7 @@ function Login() {
               </div>
               <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm p-[10px] rounded-lg w-[20rem] ">
                 <img src="Images/passwordReg.png" alt="" className="w-[25px]" />
-                <input
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  placeholder="Password"
-                  className="w-full font-sans bg-white focus:outline-none focus:border-b-2"
-                />
+                <input value={formData.password} onChange={handleChange} required type={showPassword ? "text" : "password"} name="password" placeholder="Password" className="w-full font-sans bg-white focus:outline-none focus:border-b-2" />
 
                 <button type="button" onClick={togglePasswordVisibility} className=" flex justify-center align-center">
                   {showPassword ? <img src="Images/invisible.png" className="w-[25px] h-[25px]" alt="" /> : <img src="Images/visible.png" className="w-[25px] h-[25px]" alt="" />}
@@ -83,20 +82,17 @@ function Login() {
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={isLoading}
               className={`shadow-md font-sans w-[20rem] ${
-                loading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-[#687eff] text-white"
+                isLoading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-[#687eff] text-white"
               } text-white font-semibold p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
             >
-              {loading ? "Loading..." : "Login"}
+              {isLoading ? "Loading..." : "Login"}
             </button>
           </form>
 
           <div className="border border-0.2 border-gray-500/30 shadow-sm rounded-[10px] space-y-5 w-[20rem] flex align-center items-center flex-col justify-center">
-            <button
-              onClick={handleOauth}
-              className="flex justify-center items-center font-sans w-[20rem] bg-white p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-0.2 focus:ring-gray-500/30 focus:ring-offset-0.2"
-            >
+            <button onClick={handleOauth} className="flex justify-center items-center font-sans w-[20rem] bg-white p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-0.2 focus:ring-gray-500/30 focus:ring-offset-0.2">
               <img src="Images/google.png" className="w-6 h-6" alt="Google Icon" />
               <p className="ml-2 font-sans text-gray-500 text-center text-sm">Sign in with Google</p>
             </button>

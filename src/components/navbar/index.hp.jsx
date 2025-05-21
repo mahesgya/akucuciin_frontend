@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import "../../style/Header.css";
 
@@ -26,31 +25,31 @@ const NavbarHP = () => {
           <li className="liHome">
             <img src="Images/Home.png" alt="" className="imgHome" />
             <a href="/" className="navbarli">
-              <NavLink to="/">Home</NavLink>
+              <p >Home</p>
             </a>
           </li>
           <li>
             <img src="Images/About.png" alt="" className="imgHome" />
             <a href="/aboutus" className="navbarli">
-              <NavLink to="/aboutus">About Us</NavLink>
+              <p>About Us</p>
             </a>
           </li>
           <li>
             <img src="Images/Services.png" alt="" className="imgHome" />
             <a href="/services" className="navbarli">
-              <NavLink to="/services">Services</NavLink>
+              <p>Services</p>
             </a>
           </li>
           <li>
             <img src="Images/Contact.png" alt="" className="imgHome" />
             <a href="https://www.instagram.com/akucuciin.id/" className="navbarli">
-              <a href="https://www.instagram.com/akucuciin.id/">Contact</a>
+              <p>Contact</p>
             </a>
           </li>
           <li>
             <img src="Images/privacy.png" alt="" className="imgHome" />
             <a href="/privacy-policy" className="navbarli">
-              <NavLink to="/privacy-policy">Privacy</NavLink>
+              <p>Privacy</p>
             </a>
           </li>
         </ul>

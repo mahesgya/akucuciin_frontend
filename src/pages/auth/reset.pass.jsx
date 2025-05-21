@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import authController from "../../controller/auth.controller";
+import { useSelector } from "react-redux";
 
-function ResetPassword() {
+import LoadingUtils from "../../utils/loading.utils";
+import { setLoading } from "../../redux/auth.slicer";
+import AuthServices from "../../services/auth.services";
+
+const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(null);
 
   const { email, reset_password_token } = useParams();
+  const { isLoading } = useSelector((state) => state.auth);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -22,8 +25,12 @@ function ResetPassword() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await authController.ResetPassPage(email, reset_password_token, password, confirmPassword, setError, setLoading);
+    await AuthServices.resetPassPage(email, reset_password_token, password, confirmPassword, setLoading);
   };
+
+  if (isLoading) {
+    return <LoadingUtils />;
+  }
 
   return (
     <div className="min-h-screen w-screen flex flex-row items-center justify-center">
@@ -69,18 +76,17 @@ function ResetPassword() {
             <button
               type="submit"
               className={`shadow-md font-sans w-[10rem] ${
-                loading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-blue-500 text-white"
+                isLoading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-blue-500 text-white"
               } text-white font-semibold py-4 px-4 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
-              disabled={loading}
+              disabled={isLoading}
             >
-              {loading ? "Loading..." : "Reset Password"}
+              {isLoading ? "Loading..." : "Reset Password"}
             </button>
-            {error && <p className="text-red-500">{error}</p>}
           </form>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default ResetPassword;
