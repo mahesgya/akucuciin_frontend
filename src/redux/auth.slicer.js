@@ -68,11 +68,11 @@ export const checkAuth = () => async (dispatch, getState) => {
       const { accessToken: newAccessToken, refreshToken: newRefreshToken } = refreshResponse.data.data;
 
       Cookies.set("accessToken", newAccessToken, {
-        secure: false,
+        secure: true,
         sameSite: "none",
         expires: 1,
       });
-      Cookies.set("refreshToken", newRefreshToken, { secure: false, sameSite: "none", expires: 7 });
+      Cookies.set("refreshToken", newRefreshToken, { secure: true, sameSite: "none", expires: 7 });
 
       dispatch(setLogin({ accessToken: newAccessToken, refreshToken: newRefreshToken }));
 

@@ -1,5 +1,5 @@
-import authService from "../services/auth.services";
-import { checkAuth, setLogin, setLogout } from "../redux/auth.slicer";
+import AuthServices from "../services/auth.services";
+import { setLogout } from "../redux/auth.slicer";
 import { validateCustomer } from "../validator/customer.validator";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
@@ -7,33 +7,6 @@ import Swal from "sweetalert2";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const authController = {
-  handleLogin: async (formData, dispatch, navigate, setFormData, setLoading) => {
-    setLoading(true);
-    try {
-      const data = await authService.loginUser(formData);
-      const { accessToken, refreshToken } = data.data;
-
-      Cookies.set("accessToken", accessToken, { secure: true, sameSite: "none", expires: 1 });
-      Cookies.set("refreshToken", refreshToken, { secure: true, sameSite: "none", expires: 7 });
-
-      dispatch(setLogin({ accessToken, refreshToken }));
-      await dispatch(checkAuth());
-
-      setFormData({ email: "", password: "" });
-      navigate("/");
-    } catch (error) {
-      await Swal.fire({
-        icon: "error",
-        title: "Login Gagal",
-        text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
-    } finally {
-      setLoading(false);
-    }
-  },
 
   handleRegister: async (formData, setFormData, setLoading, navigate) => {
     setLoading(true);
@@ -53,7 +26,7 @@ const authController = {
 
     if (!validationErrors) {
       try {
-        await authService.registerUser(formData);
+        await AuthServices.registerUser(formData);
         setFormData({
           email: "",
           password: "",
@@ -80,7 +53,7 @@ const authController = {
 
   handleLogout: async (refreshToken, dispatch, navigate, setError) => {
     try {
-      await authService.logoutUser(refreshToken, dispatch);
+      await AuthServices.logoutUser(refreshToken, dispatch);
       Cookies.remove("accessToken");
       Cookies.remove("refreshToken");
       dispatch(setLogout());
@@ -94,7 +67,7 @@ const authController = {
   resetPasswordEmail: async (email, setIsLoading) => {
     try {
       setIsLoading(true);
-      const response = await authService.resetPasswordEmail(email);
+      const response = await AuthServices.resetPasswordEmail(email);
       await sleep(1000);
       setIsLoading(false);
       return response.data;
@@ -110,7 +83,7 @@ const authController = {
         alert("Password dan konfirmasi password harus sama.");
         return;
       }
-      await authService.resetPassPage(email, reset_password_token, password, confirmPassword);
+      await AuthServices.resetPassPage(email, reset_password_token, password, confirmPassword);
     } catch (error) {
       setError(error.response?.data?.errors || "Gagal Reset Password, Silahkan Coba Lagi.");
     } finally {

@@ -1,7 +1,20 @@
 import axios from "axios";
 import { errorSwal, successSwal } from "../utils/alert.utils";
+import { setProfileData } from "../redux/auth.slicer";
 
-const customerServices = {
+const CustomerServices = {
+  getProfile: async (accessToken, dispatch) => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      dispatch(setProfileData(response.data));
+      return response.data;
+    } catch (error) {
+      errorSwal(error.response?.data?.errors)
+    }
+  },
   changeProfile: async (editProfile, accessToken) => {
     try {
       const response = await axios.put(
@@ -103,4 +116,4 @@ const customerServices = {
   },
 };
 
-export default customerServices;
+export default CustomerServices;

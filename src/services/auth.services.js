@@ -1,11 +1,12 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import { setLoading } from "../redux/auth.slicer";
+import Cookies from "js-cookie";
+import { checkAuth, setLoading, setLogin } from "../redux/auth.slicer";
 import { errorSwal, successSwal } from "../utils/alert.utils";
 
 const BASE_URL = process.env.REACT_APP_BASE_BACKEND_URL;
 
-const authService = {
+const AuthServices = {
   registerUser: async (formData) => {
     try {
       const response = await axios.post(`${BASE_URL}/api/customer`, formData);
@@ -14,12 +15,23 @@ const authService = {
       throw error;
     }
   },
-  loginUser: async (formData) => {
+  loginUser: async (formData, dispatch, navigate) => {
     try {
+      setLoading(true);
       const response = await axios.post(`${BASE_URL}/api/customer/login`, formData);
+      const { accessToken, refreshToken } = response.data.data;
+
+      Cookies.set("accessToken", accessToken, { secure: true, sameSite: "none", expires: 1 });
+      Cookies.set("refreshToken", refreshToken, { secure: true, sameSite: "none", expires: 7 });
+
+      dispatch(setLogin({ accessToken, refreshToken }));
+      await dispatch(checkAuth())
+      navigate("/");
       return response.data;
     } catch (error) {
-      throw error;
+      errorSwal(error.response?.data?.errors);
+    } finally {
+      setLoading(false);
     }
   },
   handleOauth: async () => {
@@ -92,4 +104,4 @@ const authService = {
   },
 };
 
-export default authService;
+export default AuthServices;

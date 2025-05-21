@@ -1,72 +1,48 @@
 import "../../style/HomeHP.css";
 import NavbarHP from "../../components/navbar/index.hp";
-import CloseModal from "../../components/modal/close.modal";
 
 import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { checkAuth } from "../../redux/auth.slicer";
-import { motion } from "framer-motion";
-import Swal from "sweetalert2";
 
-function HomeHP() {
+import LoadingUtils from "../../utils/loading.utils";
+import { errorSwal } from "../../utils/alert.utils";
+import CustomerServices from "../../services/customer.services";
+
+const HomeHP = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [closeModal, setCloseModal] = useState(false);
 
   const { profileData, isLoggedIn, isLoading, accessToken } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(checkAuth());
+    const getProfileUser = async () => {
+      await CustomerServices.getProfile(accessToken, dispatch);
+    };
 
-    const interval = setInterval(() => {
-      dispatch(checkAuth());
-    }, 1800000);
-
-    return () => clearInterval(interval);
-  }, [dispatch]);
-
+    getProfileUser();
+  }, [accessToken, dispatch]);
 
   const handlePesan = async () => {
-    try {
-      dispatch(checkAuth());
+    if (accessToken) {
       navigate("/laundry");
-    } catch (error) {
-      await Swal.fire({
-        icon: "error",
-        title: "Anda Belom Login Silahkan Login Terlebih Dahulu.",
-        text: error.response?.data?.errors || "Terjadi kesalahan, coba lagi.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
+    } else {
+      errorSwal("Silahkan login terlebih dahulu.");
       navigate("/login");
     }
   };
 
   const handleOrder = async () => {
     if (accessToken) {
-      dispatch(checkAuth());
       navigate("/order");
     } else {
-      await Swal.fire({
-        icon: "error",
-        title: "Anda Belom Login. ",
-        text: "Silahkan Login Terlebih Dahulu.",
-        confirmButtonText: "Coba Lagi",
-        confirmButtonColor: "#d33",
-        showCloseButton: true,
-      });
+      errorSwal("Silahkan login terlebih dahulu.");
       navigate("/login");
     }
   };
 
   if (isLoading) {
-    return (
-      <div className="h-screen flex items-center justify-center">
-        <motion.div className="w-16 h-16 border-4 border-t-transparent border-blue-500 rounded-full" animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }} />
-      </div>
-    );
+    return <LoadingUtils />;
   }
 
   return (
@@ -101,7 +77,10 @@ function HomeHP() {
                 >
                   Pesan Sekarang
                 </button>
-                <button onClick={handleOrder} className="shadow-md font-sans w-[170px] bg-[#687eff] text-white font-semibold p-3  rounded-[20px] focus:outline-none focus:ring-2 focus:ring-[#687eff] focus:ring-offset-2 md:w-[5rem] lg:w-[7rem]">
+                <button
+                  onClick={handleOrder}
+                  className="shadow-md font-sans w-[170px] bg-[#687eff] text-white font-semibold p-3  rounded-[20px] focus:outline-none focus:ring-2 focus:ring-[#687eff] focus:ring-offset-2 md:w-[5rem] lg:w-[7rem]"
+                >
                   Lihat Order
                 </button>
               </div>
@@ -127,9 +106,8 @@ function HomeHP() {
       <a className="fixed right-4 bottom-4 bg-blue rounded-lg " href="https://wa.me/6285810211200">
         <img alt="waicon" src="Images/waicon.png" className="w-[60px] h-[60px]" />
       </a>
-      {closeModal && <CloseModal onClose={() => setCloseModal(false)} />}
     </div>
   );
-}
+};
 
 export default HomeHP;
