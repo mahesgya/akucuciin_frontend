@@ -65,7 +65,7 @@ const LaundryDetail = () => {
 
   return (
     <div className={`relative flex flex-col items-center justify-start max-w-screen w-full md:items-center overflow-hidden ${priceOn ? "min-h-screen" : "h-[100dvh]"}`}>
-      <section className="flex-grow mx-2 w-full max-w-screen-lg">
+      <section className="flex-grow mx-2 w-full max-w-screen-xl">
         <div className="flex flex-col items-center justify-center w-full">
           {priceOn ? (
             <div className="flex flex-col items-center justify-center gap-2 px-2 pb-4 w-full">
@@ -82,12 +82,12 @@ const LaundryDetail = () => {
                   <p>Tidak ada paket yang sesuai dengan pencarian Anda</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
                   {filteredPackages
                     .slice()
                     .sort((a, b) => Number(a.price_text) - Number(b.price_text))
                     .map((item) => (
-                      <div key={item.id} onClick={() => handlePesan(item.id)} className="flex items-center justify-between bg-white shadow-md border border-0.2 border-gray-300/30 rounded-lg p-3 cursor-pointer w-full w-[500px]">
+                      <div key={item.id} onClick={() => handlePesan(item.id)} className="flex items-center justify-between bg-white shadow-sm border border-0.2 border-gray-300/30 rounded-lg p-3 cursor-pointer w-full min-w-[95dvw] md:min-w-[500px] max-w-[700px]">
                         <div className="w-1/2 px-4 flex flex-col items-start text-right">
                           <h3 className="font-quick text-sm font-bold text-gray-800 text-right">{item.name}</h3>
                           <p className="font-quick text-[10px] font-normal text-gray-500 mt-2 text-justify hyphens-auto text-right">{item.description}</p>

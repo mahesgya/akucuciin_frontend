@@ -201,12 +201,12 @@ const OrderForm = () => {
 
          <div className="w-full">
           <h4 className="font-quick font-semibold text-left text-gray-700 mb-1 text-md md:text-xl">
-            Jam Penjemputan
+            Jam Penjemputan Baju Kotor
           </h4>
           
           {!pickupDate && (
-            <p className="text-blue-500 text-sm mb-2 font-quick flex items-center">
-              <FiAlertCircle className="mr-1" /> Silakan pilih tanggal penjemputan terlebih dahulu
+            <p className="text-blue-500 text-xs mb-2 font-quick flex items-center">
+              <FiAlertCircle className="mr-1" /> Silakan atur tanggal penjemputan dahulu
             </p>
           )}
           
