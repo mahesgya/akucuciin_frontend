@@ -160,7 +160,7 @@ const Profile = () => {
             </div>
 
             <div>
-              <label className="font-quick block text-sm font-bold text-gray-700">Jumlah Pemakai Kode Referal : {profileData.data.referral_code_used} </label>
+              <label className="font-quick block text-sm font-bold text-gray-700">Jumlah Pemakai Kode Referal : {profileData.data.referral_code_success_count} </label>
             </div>
 
             {isEditing && (

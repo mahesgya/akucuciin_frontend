@@ -14,7 +14,7 @@ import idLocale from "date-fns/locale/id";
 
 import transformPhoneNumber from "../../utils/phone.number.utils";
 import customerServices from "../../services/customer.services";
-import { successSwal } from "../../utils/alert.utils";
+import { errorSwal, successSwal } from "../../utils/alert.utils";
 
 const OrderForm = () => {
   dayjs.extend(utc);
@@ -73,6 +73,7 @@ const OrderForm = () => {
 };
 
   useEffect(() => {
+    console.log(pickupHours)
     if (pickupHours) {
       const selectedSlot = timeSlots.find(slot => slot.label === pickupHours);
       if (selectedSlot && isTimeSlotPassed(selectedSlot)) {
@@ -90,11 +91,13 @@ const OrderForm = () => {
     }
 
     if (!pickupDate) {
+      errorSwal("Pilih Tanggal Penjemputan")
       setFormError("Pilih Tanggal Penjemputan");
       return;
     }
 
     if (!pickupHours) {
+      errorSwal("Pilih Jam Penjemputan")
       setFormError("Pilih Jam Penjemputan");
       return;
     }
