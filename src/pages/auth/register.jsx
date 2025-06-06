@@ -122,14 +122,14 @@ const Register = () => {
         <a href="/">
           <img alt="backbiru" src="Images/backbiru.png" className="absolute top-8 left-5 md:fixed  lg:hidden"></img>
         </a>
-        <div className="flex flex-col items-center justify-center space-y-4 md:space-y-6">
+        <div className="flex flex-col items-center justify-center space-y-4 md:space-y-6 lg:space-y-4">
         <img src="Images/LogoAkucuciin.png" alt="logo" className="w-[200px] mt-0 md:w-[13rem] lg:w-[15rem] lg:hidden" />
 
           <h1 className="font-normal font-[#423E3E] text-[20px] font-poppins text-center md:text-[32px]">Register new account</h1>
           <form onSubmit={handleSubmit} className="flex flex-col align-center justify-center items-center ">
-            <div className="flex flex-col align-center justify-center items-center md:space-y-5 lg:space-y-3">
+            <div className="flex flex-col align-center justify-center items-center space-y-3 md:space-y-5 lg:space-y-3">
                 <div className="space-x-1 flex flex-row font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm p-[10px] py-[10px] rounded-lg w-[20rem] md:p-[12px] lg:p-[10px] md:w-[60dvw] lg:w-[30rem]">
-                  <img src="Images/akunReg.png" alt="" className="w-[25px]" />
+                  <img src="Images/profile.webp" alt="" className="w-[25px]" />
                   <input required type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Nama" className="w-full font-sans bg-white text-gray-700 focus:shadow-none focus:outline-none focus:border-b-2" />
                 </div>
 
@@ -139,7 +139,7 @@ const Register = () => {
                 </div>
 
                 <div className="space-x-1 flex flex-row font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm p-[10px] rounded-lg w-[20rem] md:p-[12px] lg:p-[10px] md:w-[60dvw] lg:w-[30rem]">
-                  <img src="Images/callReg.png" alt="" className="w-[25px]" />
+                  <img src="Images/telephone.webp" alt="" className="w-[25px]" />
                   <span className="text-gray-700 font-sans flex items-center">+</span>
                   <input
                     required
@@ -152,7 +152,7 @@ const Register = () => {
                   />
                 </div>
                 <div className="space-x-1 flex flex-row font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm p-[10px] py-[10px] rounded-lg w-[20rem] md:p-[12px] lg:p-[10px] md:w-[60dvw] lg:w-[30rem]">
-                  <img src="Images/address.png" alt="" className="w-[25px]" />
+                  <img src="Images/address.webp" alt="" className="w-[25px]" />
                   <input required type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Alamat" className="w-full font-sans bg-white text-gray-700 focus:shadow-none focus:outline-none focus:border-b-2" />
                 </div>
                 <div className="space-x-1 flex flex-row justify-center align-center font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm px-[10px] py-[10px] rounded-lg w-[20rem] md:p-[12px] lg:p-[10px] md:w-[60dvw] lg:w-[30rem]">
@@ -167,7 +167,7 @@ const Register = () => {
                     className="w-full font-sans bg-white text-gray-700 focus:outline-none focus:border-b-2"
                   />
                   <button type="button" onClick={togglePasswordVisibility} className="flex justify-center align-center">
-                    {showPassword ? <img src="Images/Invisible.webp" className="w-[25px] h-[25px]" alt=""></img> : <img src="Images/visible.png" className="w-[25px] h-[25px]" alt=""></img>}
+                    {showPassword ? <img src="Images/Invisible.webp" className="w-[25px] h-[25px]" alt=""></img> : <img src="Images/visible.webp" className="w-[25px] h-[25px]" alt=""></img>}
                   </button>
                 </div>
                 <div className="space-x-1 flex flex-row justify-center align-center font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm px-[10px] py-[10px] rounded-lg w-[20rem] md:p-[12px] lg:p-[10px] md:w-[60dvw] lg:w-[30rem]">
@@ -182,18 +182,18 @@ const Register = () => {
                     className="w-full font-sans bg-white text-gray-700  focus:outline-none focus:border-b-2"
                   />
                   <button type="button" onClick={togglePasswordVisibility2} className=" flex justify-center align-center">
-                    {showPassword2 ? <img src="Images/Invisible.webp" className="w-[25px] h-[25px]" alt=""></img> : <img src="Images/visible.png" className="w-[25px] h-[25px]" alt=""></img>}
+                    {showPassword2 ? <img src="Images/Invisible.webp" className="w-[25px] h-[25px]" alt=""></img> : <img src="Images/visible.webp" className="w-[25px] h-[25px]" alt=""></img>}
                   </button>
                 </div>
               </div>
-            <p className="my-1 font-sans text-[#687eff] text-sm py-1 md:text-base md:py-2">Notes: Password minimal 8 karakter</p>
+            <p className="my-1 font-sans text-[#687eff] text-sm py-2 md:text-base md:py-2">Notes: Password minimal 8 karakter</p>
 
             {errorPassword && <p className="font-sans text-red-500 text-sm py-2 md:text-base  md:py-2">{errorPassword}</p>}
 
             <button
               type="submit"
               disabled={isLoading}
-              className={`shadow-md font-sans w-[20rem] md:p-[12px] lg:p-[10px] md:w-[60dvw] lg:w-[30rem] md:text-base md:mt-4 ${
+              className={`shadow-md font-sans w-[20rem] md:p-[12px]  md:w-[60dvw] lg:w-[30rem] md:text-base md:mt-4 ${
                 isLoading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-[#687eff] text-white"
               } text-white font-semibold p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
             >
@@ -202,9 +202,9 @@ const Register = () => {
           </form>
 
           <div className="flex justify-center items-center flex-row">
-            <div className="w-[10.5rem] border-t border-zinc-400"></div>
-            <div className="px-2 text-zinc-900/70 text-base font-normal font-['Montserrat'] whitespace-nowrap">Or Sign Up With</div>
-            <div className="w-[10.5rem] border-t border-zinc-400"></div>
+            <div className="w-[6.7rem] md:w-[10.5rem] border-t border-zinc-400"></div>
+            <div className="px-2 text-zinc-900/70 text-[10px] md:text-base font-normal font-['Montserrat'] whitespace-nowrap">Or Sign Up With</div>
+            <div className="w-[6.7rem] md:w-[10.5rem] border-t border-zinc-400"></div>
           </div>
 
           <div className="border border-0.2 border-gray-500/30 shadow-sm rounded-[10px] space-y-5 w-[20rem] flex align-center items-center flex-col justify-center md:w-[60dvw] lg:w-[30rem]" >
@@ -214,7 +214,7 @@ const Register = () => {
             </button>
           </div>
         </div>
-        <p className="font-sans text-gray-500 text-center text-sm md:text-base  md:py-2 md:mt-4">
+        <p className="font-sans text-gray-500 text-center text-sm py-2 md:text-base  md:py-2 md:mt-4">
           Sudah punya akun? {"  "}
           <Link to="/login">
             <button className="font-sans bg-white text-[#687eff] font-normal md:text-base">Sign In</button>

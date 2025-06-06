@@ -83,7 +83,7 @@ const Login = () => {
                 />
 
                 <button type="button" onClick={togglePasswordVisibility} className=" flex justify-center align-center">
-                  {showPassword ? <img src="Images/Invisible.webp" className="w-[25px] h-[25px]" alt="" /> : <img src="Images/visible.png" className="w-[25px] h-[25px]" alt="" />}
+                  {showPassword ? <img src="Images/Invisible.webp" className="w-[25px] h-[25px]" alt="" /> : <img src="Images/visible.webp" className="w-[25px] h-[25px]" alt="" />}
                 </button>
               </div>
             </div>
@@ -105,9 +105,9 @@ const Login = () => {
           </form>
 
           <div className="flex justify-center items-center flex-row">
-            <div className="w-[10.5rem] border-t border-zinc-400"></div>
-            <div className="px-2 text-zinc-900/70 text-base font-normal font-['Montserrat'] whitespace-nowrap">Or Sign In With</div>
-            <div className="w-[10.5rem] border-t border-zinc-400"></div>
+            <div className="w-[6.7rem] md:w-[10.5rem] border-t border-zinc-400"></div>
+            <div className="px-2 text-zinc-900/70 text-[10px] md:text-base font-normal font-['Montserrat'] whitespace-nowrap">Or Sign Up With</div>
+            <div className="w-[6.7rem] md:w-[10.5rem] border-t border-zinc-400"></div>
           </div>
 
           <div className="border border-0.2 border-gray-500/30 shadow-sm rounded-[10px] space-y-5 w-[20rem] flex align-center items-center flex-col justify-center md:w-[60dvw] lg:w-[30rem]">
