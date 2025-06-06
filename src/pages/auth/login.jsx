@@ -66,11 +66,11 @@ const Login = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6 flex flex-col align-center justify-center items-center md:space-y-8">
             <div className="space-y-5 md:space-y-6">
-              <div className="flex flex-row space-x-1 font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm rounded-[10px] p-[8px] rounded-lg w-[20rem] md:p-[15px] md:w-[60dvw] lg:w-[30rem]">
+              <div className="flex flex-row space-x-1 font-['Montserrat'] bg-white border border-0.2 border-gray-500/30 shadow-sm rounded-[10px] p-[8px] rounded-lg w-[20rem] md:p-[15px] md:w-[60dvw] lg:w-[30rem]">
                 <img src="Images/email.webp" alt="" className="w-[25px]" />
-                <input value={formData.email} onChange={handleChange} required type="email" name="email" placeholder="Email" className="w-full bg-white font-sans focus:outline-none focus:border-b-2 md:text-base" />
+                <input value={formData.email} onChange={handleChange} required type="email" name="email" placeholder="Email" className="w-full bg-white font-['Montserrat'] focus:outline-none focus:border-b-2 md:text-base" />
               </div>
-              <div className="flex flex-row justify-center align-center space-x-1 font-sans bg-white border border-0.2 border-gray-500/30 shadow-sm p-[10px] rounded-lg w-[20rem] md:p-[15px] md:w-[60dvw] lg:w-[30rem]">
+              <div className="flex flex-row justify-center align-center space-x-1 font-['Montserrat'] bg-white border border-0.2 border-gray-500/30 shadow-sm p-[10px] rounded-lg w-[20rem] md:p-[15px] md:w-[60dvw] lg:w-[30rem]">
                 <img src="Images/password.webp" alt="" className="w-[25px]" />
                 <input
                   value={formData.password}
@@ -79,7 +79,7 @@ const Login = () => {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Password"
-                  className="w-full font-sans bg-white focus:outline-none focus:border-b-2 md:text-base"
+                  className="w-full font-['Montserrat'] bg-white focus:outline-none focus:border-b-2 md:text-base"
                 />
 
                 <button type="button" onClick={togglePasswordVisibility} className=" flex justify-center align-center">
@@ -88,7 +88,7 @@ const Login = () => {
               </div>
             </div>
             <div className="pl-[8px] space-y-3 flex flex-col self-start">
-              <Link to="/reset-password-email" className="font-sans text-[#687eff] md:text-base">
+              <Link to="/reset-password-email" className="font-['Montserrat'] text-[#687eff] md:text-base">
                 Lupa password?
               </Link>
             </div>
@@ -96,7 +96,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className={`shadow-md font-sans w-[20rem] md:w-[60dvw] md:text-base lg:w-[30rem] ${
+              className={`shadow-md font-['Montserrat'] w-[20rem] md:w-[60dvw] md:text-lg lg:w-[30rem] ${
                 isLoading ? "bg-gray-400 text-gray-600 cursor-not-allowed " : "bg-[#687eff] text-white"
               } text-white font-semibold p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
             >
@@ -111,16 +111,16 @@ const Login = () => {
           </div>
 
           <div className="border border-0.2 border-gray-500/30 shadow-sm rounded-[10px] space-y-5 w-[20rem] flex align-center items-center flex-col justify-center md:w-[60dvw] lg:w-[30rem]">
-            <button onClick={handleOauth} className="flex justify-center items-center font-sans w-[19rem] bg-white p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-0.2 focus:ring-gray-500/30 focus:ring-offset-0.2">
+            <button onClick={handleOauth} className="flex justify-center items-center font-['Montserrat'] w-[19rem] bg-white p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-0.2 focus:ring-gray-500/30 focus:ring-offset-0.2">
               <img src="Images/google.png" className="w-6 h-6" alt="Google Icon" />
-              <p className="ml-2 font-sans text-gray-500 text-center text-sm md:text-base">Sign in with Google</p>
+              <p className="ml-2 font-['Montserrat'] text-gray-500 text-center text-sm md:text-base">Sign in with Google</p>
             </button>
           </div>
         </div>
-        <p className="font-sans text-gray-500 text-center text-sm md:text-base">
+        <p className="font-['Montserrat'] text-gray-500 text-center text-sm md:text-base">
           Belum Punya Akun? {"  "}
           <Link to="/register">
-            <button className="font-sans bg-white text-[#687eff] font-normal md:text-base"> Sign Up</button>
+            <button className="font-['Montserrat'] bg-white text-[#687eff] font-normal md:text-base"> Sign Up</button>
           </Link>
         </p>
       </div>
