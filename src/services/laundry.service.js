@@ -46,6 +46,15 @@ const LaundryServices = {
     } catch (error) {
       errorSwal(error.response?.data?.errors);
     }
+  },
+  getLaundryRating: async (idLaundry) => {
+     try {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partner/${idLaundry}/rating`);
+
+      return response.data;
+    } catch (error) {
+      errorSwal(error.response?.data?.errors);
+    }
   }
 };
 
