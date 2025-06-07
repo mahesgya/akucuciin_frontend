@@ -32,7 +32,6 @@ const LaundryList = () => {
       try {
         setLoading(true);
         const response = await laundryServices.getByCity(city);
-        console.log(response.data);
         setData(response.data);
       } catch (error) {
         setError(error);
