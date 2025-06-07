@@ -6,7 +6,7 @@ const SearchBar = ({ value, onChangeText, onSubmit }) => {
   
   return (
     <div className={`
-      flex items-center w-[95dvw] mx-4 md:mx-auto my-3 px-2 py-3 h-14 md:w-full lg:w-[80dvw]
+      flex items-center w-[95dvw] mx-4 md:mx-auto my-3 px-2 py-3 h-14 md:w-full lg:w-full
       bg-white rounded-xl shadow-sm
       border ${isFocused ? 'border-blue-400 shadow-md shadow-blue-100' : 'border-gray-200'}
       hover:shadow-md

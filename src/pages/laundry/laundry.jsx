@@ -71,7 +71,7 @@ const LaundryList = () => {
         </button>
         <div className=" flex flex-col items-center justify-center">
           <nav className="hidden md:w-[100dvw] mb-8 md:block md:flex items-center justify-between pl-20 lg:pl-24 pr-4 py-2 bg-white shadow-md">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 ml-4">
               <img src="/Images/LogoAkucuciin.png" alt="AkuCuciin Logo" className="w-[150px] lg:w-[200px]" />
             </div>
             <div className="w-full max-w-md">

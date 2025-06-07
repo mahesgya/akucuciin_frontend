@@ -44,7 +44,7 @@ const LaundryDetail = () => {
       const responseImg = await laundryServices.getImages(idlaundry);
       const responseTop = await laundryServices.getTopPicksPackages(idlaundry);
       const responseRating = await laundryServices.getLaundryRating(idlaundry);
-      console.log(responseRating);
+
       setData(response.data);
       setImg(responseImg.data);
       setTopPicks(responseTop.data);
@@ -70,7 +70,7 @@ const LaundryDetail = () => {
     <div className={`relative flex flex-col items-center justify-start max-w-screen w-full md:items-center overflow-hidden min-h-screen`}>
       <section className="flex-grow mx-2 w-full max-w-screen-xl">
         <div className="flex flex-col items-center justify-center w-full ">
-          <div className="relative flex flex-col items-center justify-center min-h-[60%] w-full max-w-screen-lg mb-[5rem] lg:mt-[1rem]">
+          <div className="relative flex flex-col items-center justify-center min-h-[60%] w-full mb-[5rem] lg:mt-[1rem]">
             <div className="w-full flex justify-center lg:w-[80dvw]">
               <FotoCarousel img={img} />
             </div>
@@ -109,7 +109,7 @@ const LaundryDetail = () => {
                 <img src="/Images/toppicks.webp" className="w-[25px] h-[25px] md:w-[30px] md:h-[30px]" alt="thumbs up"></img>
                 <h4 class="justify-start text-neutral-700 text-md font-medium font-['Montserrat'] md:text-lg lg:text-xl">Laundry Top Picks</h4>
               </div>
-              <div className="my-2 w-[100dvw] md:w-[95dvw] lg:w-[95dvw] border-t border-zinc-200 md:my-4"></div>
+              <div className="my-2 w-[100dvw] md:w-[95dvw] lg:w-[80dvw] border-t border-zinc-200 md:my-4"></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5">
@@ -140,8 +140,8 @@ const LaundryDetail = () => {
 
                     {item.avg_rating && (
                       <div className="absolute right-4 bottom-2 flex items-center justify-end mt-2">
-                        <AiFillStar className="mr-1 text-[#F59E0B] text-lg lg:text-2xl" />
-                        <span className="font-['Montserrat'] text-[14px] font-semibold text-[#F59E0B] md:text-lg">{item.avg_rating}/5.00</span>
+                        <AiFillStar className="mr-1 text-[#F59E0B] text-md lg:text-xl" />
+                        <span className="font-['Montserrat'] text-sm font-semibold text-[#F59E0B] md:text-md lg:text-lg">{item.avg_rating}/5.00</span>
                       </div>
                     )}
                   </div>
@@ -153,7 +153,7 @@ const LaundryDetail = () => {
                 <img src="/Images/thumbup.webp" className="w-[25px] h-[25px] md:w-[30px] md:h-[30px]" alt="thumbs up"></img>
                 <h4 class="justify-start text-neutral-700 text-md font-medium font-['Montserrat'] md:text-lg lg:text-xl">All Packages</h4>
               </div>
-              <div className="my-2 w-[100dvw] md:w-[95dvw] lg:w-[95dvw] border-t border-zinc-200 md:my-4"></div>
+              <div className="my-2 w-[100dvw] md:w-[95dvw] lg:w-[80dvw] border-t border-zinc-200 md:my-4"></div>
             </div>
 
             {filteredPackages.length === 0 ? (
