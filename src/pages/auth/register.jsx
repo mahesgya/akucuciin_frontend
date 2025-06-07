@@ -111,7 +111,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen w-screen flex flex-row items-center justify-center">
-       <div className=" hidden h-screen bg-[#687eff] lg:block md:w-[50%] lg:relative lg:flex justify-end items-end rounded-tr-[40px] rounded-br-[40px]">
+       <div className=" hidden h-screen bg-[#687eff] lg:block md:w-[50%] lg:relative lg:flex justify-end items-end rounded-tr-[40px] rounded-br-[40px] lg:h-full">
         <a href="/">
           <img alt="backwhite" src="/Images/backwhite.webp" className="absolute top-8 left-5"></img>
         </a>
@@ -125,7 +125,7 @@ const Register = () => {
         <div className="flex flex-col items-center justify-center space-y-4 md:space-y-6 lg:space-y-4">
         <img src="Images/LogoAkucuciin.png" alt="logo" className="w-[200px] mt-0 md:w-[13rem] lg:w-[15rem] lg:hidden" />
 
-          <h1 className="font-normal font-[#423E3E] text-[20px] font-poppins text-center md:text-[32px]">Register new account</h1>
+          <h1 className="font-normal font-[#423E3E] text-[20px] font-poppins text-center md:text-[24px]">Register new account</h1>
           <form onSubmit={handleSubmit} className="flex flex-col align-center justify-center items-center ">
             <div className="flex flex-col align-center justify-center items-center space-y-3 md:space-y-5 lg:space-y-3">
                 <div className="space-x-1 flex flex-row font-['Montserrat'] bg-white border border-0.2 border-gray-500/30 shadow-sm p-[10px] py-[10px] rounded-lg w-[20rem] md:p-[12px] lg:p-[10px] md:w-[60dvw] lg:w-[30rem]">
@@ -195,7 +195,7 @@ const Register = () => {
               disabled={isLoading}
               className={`shadow-md font-['Montserrat'] w-[20rem] md:p-[12px]  md:w-[60dvw] lg:w-[30rem] md:text-lg md:mt-4 ${
                 isLoading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-[#687eff] text-white"
-              } text-white font-semibold p-3 rounded-[10px] lg:p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+              } text-white font-semibold p-3 rounded-[10px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
             >
               {isLoading ? "Loading..." : "Daftar"}
             </button>
@@ -208,7 +208,7 @@ const Register = () => {
           </div>
 
           <div className="border border-0.2 border-gray-500/30 shadow-sm rounded-[10px] space-y-5 w-[20rem] flex align-center items-center flex-col justify-center md:w-[60dvw] lg:w-[30rem]" >
-            <button onClick={handleOauth} className="flex justify-center items-center font-['Montserrat'] w-[19rem] bg-white p-3 rounded-[10px] md:w-[24rem] lg:p-4 focus:outline-none  focus:ring-0.2 focus:ring-gray-500/30 focus:ring-offset-0.2">
+            <button onClick={handleOauth} className="flex justify-center items-center font-['Montserrat'] w-[19rem] bg-white p-3 rounded-[10px] md:w-[24rem] focus:outline-none  focus:ring-0.2 focus:ring-gray-500/30 focus:ring-offset-0.2">
               <img src="Images/google.png" className="w-6 h-6" alt="Google Icon" />
               <p className="ml-2 font-['Montserrat'] text-gray-500 text-center text-sm md:text-base">Sign Up with Google</p>
             </button>

@@ -8,7 +8,7 @@ const SearchBar = ({ value, onChangeText, onSubmit }) => {
     <div className={`
       flex items-center w-[95dvw] mx-4 md:mx-auto my-3 px-2 py-3 h-14 md:w-full lg:w-full
       bg-white rounded-xl shadow-sm
-      border ${isFocused ? 'border-blue-400 shadow-md shadow-blue-100' : 'border-gray-200'}
+      border ${isFocused ? 'border-[#687eff] shadow-md shadow-blue-100' : 'border-gray-200'}
       hover:shadow-md
     `}>
       <FiSearch className={`mr-3 text-lg transition-colors duration-300 ${isFocused ? 'text-[#687eff]' : 'text-gray-400'}`} />
@@ -42,7 +42,7 @@ const SearchBar = ({ value, onChangeText, onSubmit }) => {
         className={`
           ml-3 px-4 py-1.5 rounded-lg font-medium text-sm transition-all duration-300
           ${isFocused || value 
-            ? 'bg-blue-500 text-white hover:bg-blue-600' 
+            ? 'bg-[#687eff] text-white hover:bg-[#687eff]' 
             : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}
         `}
         aria-label="Search"

@@ -24,7 +24,7 @@ const PromoCarousel = ( {img} ) => {
         <Slider {...settings}>
           {img.map((item) => (
             <div key={item.id}>
-              <img src={`http://localhost:3000/images/promo/${item.filename}`} alt="" className="rounded-b-[30px] shadow-lg w-screen h-[280px] object-fit hover:shadow-2xl transition-all duration-300 lg:h-[300px]  lg:object-cover"/>
+              <img src={`https://akucuciin.com/Images/promo/${item.filename}`} alt="" className="rounded-b-[30px] shadow-lg w-screen h-[280px] object-fit hover:shadow-2xl transition-all duration-300 lg:h-[300px]  lg:object-cover"/>
             </div>
           ))}  
         </Slider>
