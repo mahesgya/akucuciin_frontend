@@ -6,7 +6,7 @@ const SearchBar = ({ value, onChangeText, onSubmit }) => {
   
   return (
     <div className={`
-      flex items-center w-full max-w-md mx-auto my-3 px-2 py-3 h-14
+      flex items-center w-[90dvw] max-w-md mx-4 md:mx-auto my-3 px-2 py-3 h-14 md:w-full
       bg-white rounded-xl shadow-sm
       border ${isFocused ? 'border-blue-400 shadow-md shadow-blue-100' : 'border-gray-200'}
       hover:shadow-md
@@ -16,7 +16,7 @@ const SearchBar = ({ value, onChangeText, onSubmit }) => {
       <input
         type="text"
         className="flex-1 bg-transparent text-[14px] focus:outline-none text-gray-800 placeholder:text-gray-400 font-medium"
-        placeholder="Cari paket laundry..."
+        placeholder="Search"
         value={value}
         onChange={(e) => onChangeText(e.target.value)}
         onKeyDown={(e) => {
