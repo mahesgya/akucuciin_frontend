@@ -8,10 +8,10 @@ const FotoCarousel = ( {img} ) => {
     dots: false,
     infinite: img.length > 1,
     speed: 600,
-    slidesToShow: 2,
+    slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true, 
-    autoplaySpeed: 3000,
+    autoplaySpeed: 4000,
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 1 } },
       { breakpoint: 640, settings: { slidesToShow: 1 } },
@@ -19,12 +19,12 @@ const FotoCarousel = ( {img} ) => {
   };
 
   return (
-    <div className="w-screen h-[240px] relative z-10 lg:h-[300px]">
+    <div className="w-screen h-[280px] relative z-10 lg:h-[380px] lg:w-[80dvw] lg:self-center lg:rounded-[30px]">
       {img.length > 0 ? (
         <Slider {...settings}>
           {img.map((item) => (
             <div key={item.id}>
-              <img src={`${process.env.REACT_APP_BASE_BACKEND_URL}/static/${item.filepath}`} alt="" className="w-screen h-[240px] object-cover hover:shadow-2xl transition-all duration-300 lg:h-[300px] lg:w-screen lg:object-cover"/>
+              <img src={`${process.env.REACT_APP_BASE_BACKEND_URL}/static/${item.filepath}`} alt="" className="rounded-b-[30px] w-screen h-[280px] object-cover hover:shadow-2xl transition-all duration-300 lg:h-[380px] lg:w-[80dvw] lg:self-center lg:object-cover lg:rounded-[30px]"/>
             </div>
           ))}  
         </Slider>
