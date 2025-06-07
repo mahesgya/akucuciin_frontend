@@ -38,6 +38,15 @@ const LaundryServices = {
       errorSwal(error.response?.data?.errors);
     }
   },
+  getTopPicksPackages: async (idLaundry) => {
+     try {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partner/${idLaundry}/top-picks`);
+
+      return response.data;
+    } catch (error) {
+      errorSwal(error.response?.data?.errors);
+    }
+  }
 };
 
 export default LaundryServices;
