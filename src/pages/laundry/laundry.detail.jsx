@@ -67,7 +67,7 @@ const LaundryDetail = () => {
   }
 
   return (
-    <div className={`relative flex flex-col items-center justify-start max-w-screen w-full md:items-center overflow-hidden min-h-screen`}>
+    <div className={`bg-[#F9FAFB] relative flex flex-col items-center justify-start max-w-screen w-full md:items-center overflow-hidden min-h-screen`}>
       <section className="bg-[#F9FAFB]  flex-grow mx-2 w-full max-w-screen-xl">
         <div className="flex flex-col items-center justify-center w-full ">
           <div className="relative flex flex-col items-center justify-center min-h-[60%] w-full mb-[5rem] lg:mt-[1rem]">

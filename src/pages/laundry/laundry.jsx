@@ -64,8 +64,8 @@ const LaundryList = () => {
   }
 
   return (
-    <div className="relative min-h-[100dvh] flex flex-row items-start justify-center">
-      <section className="relative mx-2 flex flex-col items-center justify-start w-[100dvw] mb-4 md:mt-4 md:w-[90vw]">
+    <div className="bg-[#F9FAFB] relative min-h-[100dvh] flex flex-row items-start justify-center">
+      <section className="relative mx-2 flex flex-col items-center justify-start w-[100dvw] mb-4 md:mt-0 lg:mt-0 md:w-[90vw]">
         <button onClick={handleBack} className="z-30 w-[50px] h-[50px] absolute bg-transparent top-2 left-2 md:top-6 md:-left-6 lg:-left-12">
           <img alt="backbiru" src="/Images/backblack.webp" className="absolute z-20 top-4 left-2 w-10 h-10 md:w-[3rem] md:h-[3rem] md:top-0"></img>
         </button>
