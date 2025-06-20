@@ -102,3 +102,5 @@ Kontribusi sangat diterima! Jika Anda ingin membantu mengembangkan proyek ini, s
 5.  Buka Pull Request.
 
 ---
+
+©AkuCuciin. All Rights Reserved.
