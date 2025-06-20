@@ -17,10 +17,13 @@ const Order = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-        const response = await customerServices.getOrderLaundry(accessToken);
-        const sortedOrders = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-        setOrders(sortedOrders);
-        setFilteredOrders(sortedOrders);
+      const response = await customerServices.getOrderLaundry(accessToken);
+      const sortedOrders = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      await setOrders(sortedOrders);
+
+      setFilteredOrders(sortedOrders);
+
+      console.log(response);
     };
 
     fetchOrders();
@@ -179,7 +182,7 @@ const Order = () => {
                   Pembayaran: <span className={`font-quick font-bold ${order.status_payment === "sudah bayar" ? "text-[#10b981]" : "text-[#ef4444]"}`}>{order.status_payment}</span>
                 </p>
                 <p className="font-quick text-gray-600 text-sm">
-                  Tanggal:{" "}
+                  Tanggal Order :{" "}
                   {new Date(order.created_at).toLocaleDateString("id-ID", {
                     weekday: "long",
                     day: "numeric",
@@ -187,6 +190,33 @@ const Order = () => {
                     year: "numeric",
                   })}
                 </p>
+
+                {order?.pickup_date &&
+                  (() => {
+                    const pieces = order.pickup_date.trim().split(" ");
+                    const hasTimeRange = pieces.length > 1;
+                    const timeRange = hasTimeRange ? pieces.slice(0, 3).join(" ") : null;
+                    const rawDate = hasTimeRange ? pieces[3] : pieces[0];
+
+                    const [day, month, year] = rawDate.split("-");
+                    const dateForJS = `${year}-${month}-${day}`;
+                    const jsDate = new Date(dateForJS);
+                    const dayNames = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+                    const dayName = dayNames[jsDate.getDay()];
+
+                    const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+                    const formattedDate = `${day} ${monthNames[Number(month) - 1]} ${year}`;
+
+                    return (
+                      <>
+                        <p className="font-quick text-gray-600 text-sm">
+                          Tanggal Penjemputan: {dayName}, {formattedDate}
+                        </p>
+                        {hasTimeRange && <p className="font-quick text-gray-600 text-sm">Jam Penjemputan: {timeRange}</p>}
+                      </>
+                    );
+                  })()}
+
                 {order.review && (
                   <div>
                     <p className="font-quick text-gray-600 text-sm">
