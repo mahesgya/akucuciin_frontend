@@ -1,70 +1,104 @@
-# Getting Started with Create React App
+# Akucuciin Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-## Available Scripts
+Ini adalah repositori kode untuk antarmuka pengguna (frontend) dari aplikasi **Akucuciin**. Proyek ini dibangun untuk menyediakan platform yang mudah digunakan bagi pelanggan untuk memesan, melacak, dan mengelola layanan laundry mereka.
 
-In the project directory, you can run:
+## 📋 Daftar Isi
 
-### `npm start`
+- [Fitur Utama](#-fitur-utama)
+- [Teknologi yang Digunakan](#-teknologi-yang-digunakan)
+- [Instalasi dan Menjalankan Proyek](#-instalasi-dan-menjalankan-proyek)
+- [Skrip yang Tersedia](#-skrip-yang-tersedia)
+- [Struktur Folder](#-struktur-folder)
+- [Kontribusi](#-kontribusi)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## ✨ Fitur Utama
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Berdasarkan struktur halaman, beberapa fitur yang direncanakan atau sudah ada adalah:
 
-### `npm test`
+-   **Autentikasi Pengguna:** Halaman untuk login dan registrasi.
+-   **Dashboard Pengguna:** Halaman utama setelah login untuk melihat ringkasan status pesanan dan informasi akun.
+-   **Pemesanan:** Alur untuk membuat pesanan laundry baru.
+-   **Riwayat Pesanan:** Melihat daftar semua pesanan yang pernah dibuat.
+-   **Pelacakan Pesanan:** Melihat status terkini dari sebuah pesanan (misal: Diterima, Dicuci, Selesai, Diantar).
+-   **Halaman Landing:** Halaman awal yang informatif untuk pengguna yang belum login.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🚀 Teknologi yang Digunakan
 
-### `npm run build`
+Proyek ini dibangun menggunakan ekosistem modern JavaScript:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-   **Framework Inti:** [React.js](https://reactjs.org/)
+-   **Build Tool:** [Vite](https://vitejs.dev/)
+-   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+-   **Routing:** [React Router DOM](https://reactrouter.com/)
+-   **Permintaan HTTP (API):** [Axios](https://axios-http.com/)
+-   **Komponen UI Interaktif:** [Swiper.js](https://swiperjs.com/) (untuk carousel/slider)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ⚙️ Instalasi dan Menjalankan Proyek
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Untuk menjalankan proyek ini di lingkungan lokal Anda, ikuti langkah-langkah berikut:
 
-### `npm run eject`
+1.  **Clone repositori ini:**
+    ```bash
+    git clone [https://github.com/mahesgya/akucuciin_frontend.git](https://github.com/mahesgya/akucuciin_frontend.git)
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2.  **Masuk ke direktori proyek:**
+    ```bash
+    cd akucuciin_frontend
+    ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3.  **Install semua dependency yang dibutuhkan:**
+    (Gunakan salah satu manajer paket pilihanmu)
+    ```bash
+    npm install
+    # atau
+    yarn install
+    # atau
+    pnpm install
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4.  **Jalankan server development:**
+    ```bash
+    npm run dev
+    ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+5.  Buka browser dan kunjungi `http://localhost:5173` (atau port lain yang muncul di terminal Anda).
 
-## Learn More
+## 📜 Skrip yang Tersedia
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Dalam file `package.json`, terdapat beberapa skrip yang dapat digunakan:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+-   `npm run dev`: Menjalankan aplikasi dalam mode development.
+-   `npm run build`: Membuat build aplikasi yang sudah dioptimalkan untuk production di dalam folder `dist/`.
+-   `npm run preview`: Menjalankan server lokal untuk melihat hasil dari production build.
 
-### Code Splitting
+## 📁 Struktur Folder
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Berikut adalah gambaran umum struktur folder penting dalam direktori `src/`:
 
-### Analyzing the Bundle Size
+```
+src/
+├── assets/         # Untuk menyimpan aset statis seperti gambar, ikon, dll.
+├── components/     # Komponen React yang dapat digunakan kembali (Navbar, Footer, Card).
+├── pages/          # Komponen yang berfungsi sebagai halaman (Home, Login, Dashboard).
+├── services/       # Logika untuk berkomunikasi dengan API backend (menggunakan Axios).
+├── utils/          # Fungsi bantuan atau utilitas umum.
+├── App.jsx         # Komponen root aplikasi dan pengaturan routing.
+└── main.jsx        # Titik masuk utama aplikasi (entry point).
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🤝 Kontribusi
 
-### Making a Progressive Web App
+Kontribusi sangat diterima! Jika Anda ingin membantu mengembangkan proyek ini, silakan buat *fork* dari repositori ini dan ajukan *pull request* dengan perubahan yang Anda usulkan.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1.  Fork repositori ini.
+2.  Buat branch fitur baru (`git checkout -b fitur/NamaFiturBaru`).
+3.  Commit perubahan Anda (`git commit -m 'Menambahkan fitur A'`).
+4.  Push ke branch tersebut (`git push origin fitur/NamaFiturBaru`).
+5.  Buka Pull Request.
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
