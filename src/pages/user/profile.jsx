@@ -121,9 +121,9 @@ const Profile = () => {
         <div className="z-10 mt-4">
           <form
             onSubmit={handleSubmit}
-            className="w-full lg:max-w-lg bg-white rounded-lg shadow-md"
+            className="w-full lg:max-w-lg bg-white rounded-lg shadow-custom-note"
           >
-            <div className="space-y-4 p-6 rounded-lg shadow-md">
+            <div className="space-y-4 p-6 rounded-lg shadow-custom-note">
               <div className="flex gap-4 items-center border-b border-gray-300 pb-4">
                 <div className="flex items-center gap-6 w-full">
                   <img
@@ -246,7 +246,7 @@ const Profile = () => {
           <div className="mt-6 space-y-4 w-full">
             <div>
               {profileData.data.referral_code ? (
-                <div className="flex flex-col bg-white p-4 space-y-4 rounded-lg shadow-md">
+                <div className="flex flex-col bg-white p-4 space-y-4 rounded-lg shadow-custom-note">
                   <div className="flex  w-full items-center border-b border-gray-300 pb-4">
                     <img
                       src="/Images/kodeReferralTag.webp"
@@ -284,7 +284,7 @@ const Profile = () => {
                   </p>
                 </div>
               ) : inputReferral ? (
-                <div className="flex flex-col items-center bg-white p-4 space-y-4 rounded-lg shadow-md">
+                <div className="flex flex-col items-center bg-white p-4 space-y-4 rounded-lg shadow-custom-note">
                   <p className="font-['Montserrat'] block text-lg pb-4 font-bold text-gray-700">
                     Buat Kode Referral
                   </p>
@@ -304,12 +304,12 @@ const Profile = () => {
                   <div className="flex justify-around w-[80%]">
                     <button
                       onClick={handleSubmitReferral}
-                      className="w-[40%] mt-2 px-4 py-2 bg-blue-500 text-white border font-semibold rounded-lg hover:bg-blue-600 hover:shadow-md transition"
+                      className="w-[40%] mt-2 px-4 py-2 bg-blue-500 text-white border font-semibold rounded-lg hover:bg-blue-600 hover:shadow-custom-note transition"
                     >
                       Kirim
                     </button>
 
-                    <div className="w-[40%] mt-2 ml-3 px-4 py-2 border border-blue-500 hover:shadow-md rounded-lg">
+                    <div className="w-[40%] mt-2 ml-3 px-4 py-2 border border-blue-500 hover:shadow-custom-note rounded-lg">
                       <button
                         onClick={handleInputReferral}
                         className="w-full text-blue-500 bg-white font-semibold rounded-lg transition"
@@ -322,7 +322,7 @@ const Profile = () => {
               ) : (
                 <button
                   onClick={handleInputReferral}
-                  className="mt-2 px-4 py-2 w-full bg-blue-500 text-white lg:text-lg text-md font-semibold rounded-lg hover:bg-blue-600 transition"
+                  className="mt-2 px-4 py-2 w-full bg-blue-500 text-white lg:text-lg text-md font-semibold rounded-lg hover:bg-blue-600 transition shadow-custom-note"
                 >
                   Bikin Kode Referral
                 </button>
@@ -333,7 +333,7 @@ const Profile = () => {
           <div className="flex flex-col items center justify-center w-full">
             <button
               onClick={handleLogout}
-              className="mt-8 py-2 shadow-md font-sans w-full bg-red-500 hover:bg-red-600 lg:text-lg text-md text-white font-semibold p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+              className="mt-8 py-2 shadow-custom-note font-sans w-full bg-red-500 hover:bg-red-600 lg:text-lg text-md text-white font-semibold p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 shadow-custom-note"
             >
               Log Out
             </button>

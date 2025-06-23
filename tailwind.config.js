@@ -7,10 +7,6 @@ module.exports = {
 
   theme: {
     extend: {
-
-      boxShadow: {
-        'custom-note': '0px 0px 16px 0px rgba(96, 97, 112, 0.1)',
-      },
       
       colors: {
         "black-33": "rgba(0, 0, 0, 0.33)",
@@ -44,7 +40,7 @@ module.exports = {
         'extra-large': '2.5rem', 
       },
       boxShadow: {
-        'bottom': '0 4px 6px rgba(0, 0, 0, 0.3)', 
+        'custom-note': '0px 0px 16px 0px rgba(96, 97, 112, 0.1)',
       },
       fontWeight:{
         'boldparah' : '1000',
