@@ -7,6 +7,11 @@ module.exports = {
 
   theme: {
     extend: {
+
+      boxShadow: {
+        'custom-note': '0px 0px 16px 0px rgba(96, 97, 112, 0.1)',
+      },
+      
       colors: {
         "black-33": "rgba(0, 0, 0, 0.33)",
         "gray-55" : "rgba(255, 255, 255, 0.08)",
