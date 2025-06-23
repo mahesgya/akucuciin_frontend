@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
@@ -28,15 +28,15 @@ const Profile = () => {
   const [referralCode, setReferralCode] = useState({
     referral_code: "",
   });
+  
+  const getProfileUser = useCallback(async () => {
+    await CustomerServices.getProfile(accessToken, dispatch);
+  }, [accessToken, dispatch]);
 
   useEffect(() => {
     if (!accessToken) return;
-    const getProfileUser = async () => {
-      await CustomerServices.getProfile(accessToken, dispatch);
-    };
-
     getProfileUser();
-  }, [accessToken, dispatch]);
+  }, [accessToken, dispatch, getProfileUser]);
 
   const handleInputReferral = () => {
     setInputReferral(!inputReferral);
@@ -60,6 +60,7 @@ const Profile = () => {
 
     if (accessToken) {
       await customerServices.postReferral(accessToken, referralCode);
+      await getProfileUser();
     }
   };
 
@@ -70,6 +71,7 @@ const Profile = () => {
 
     if (accessToken) {
       await CustomerServices.changeProfile(editProfile, accessToken, dispatch, setProfile, setEditProfile, setIsEditing);
+      await getProfileUser();
     }
   };
 
@@ -152,13 +154,16 @@ const Profile = () => {
                       Phone
                     </label>
                     {isEditing ? (
-                      <input
-                        type="text"
-                        name="telephone"
-                        value={editProfile.telephone}
-                        onChange={handleChangeProfile}
-                        className="mt-1 lg:w-[400px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
+                      <div className="flex items-center lg:w-[400px]">
+                        <p className="mr-2">+62</p>
+                        <input
+                          type="text"
+                          name="telephone"
+                          value={editProfile.telephone}
+                          onChange={handleChangeProfile}
+                          className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
                     ) : (
                       <p className="font-['Montserrat'] mt-1 lg:text-md text-sm text-gray-900">
                         {profile.telephone}
