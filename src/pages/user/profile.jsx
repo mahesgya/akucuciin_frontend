@@ -125,11 +125,11 @@ const Profile = () => {
           >
             <div className="space-y-4 p-6 rounded-lg shadow-md">
               <div className="flex gap-4 items-center border-b border-gray-300 pb-4">
-                <div className="flex items-center gap-4 w-full">
+                <div className="flex items-center gap-6 w-full">
                   <img
                     src="/Images/email.webp"
                     alt="email"
-                    className="lg:w-10 w-8 lg:h-10 h-8"
+                    className="lg:w-8 w-8 lg:h-8 h-8"
                   />
                   <div>
                     <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
@@ -143,11 +143,11 @@ const Profile = () => {
               </div>
 
               <div className="flex gap-4 items-center border-b border-gray-300 pb-4">
-                <div className="flex items-center gap-4 w-full">
+                <div className="flex items-center gap-6 w-full">
                   <img
                     src="/Images/telephone.webp"
                     alt="telephone"
-                    className="lg:w-10 w-8 lg:h-10 h-8"
+                    className="lg:w-8 w-8 lg:h-8 h-8"
                   />
                   <div>
                     <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
@@ -187,11 +187,11 @@ const Profile = () => {
               </div>
 
               <div className="flex gap-4 items-center">
-                <div className="flex items-center gap-4 w-full">
+                <div className="flex items-center gap-6 w-full">
                   <img
                     src="/Images/address.webp"
                     alt="address"
-                    className="lg:w-10 w-8"
+                    className="lg:w-8 w-8"
                   />
                   <div>
                     <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
