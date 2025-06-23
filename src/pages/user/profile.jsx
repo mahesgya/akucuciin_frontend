@@ -78,8 +78,9 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen w-screen flex flex-row items-center justify-center bg-[#F4F5FF]">
-      <div className="hidden h-screen bg-[#687eff] md:w-[50%] lg:relative lg:flex justify-end items-end rounded-tr-[40px] rounded-br-[40px]">
+    <div className="min-h-screen w-screen flex lg:flex-row flex-col items-center justify-center bg-[#F4F5FF]">
+      {/* for desktop, hidden in mobile screens */}
+      <div className="hidden h-[30%] lg:h-screen bg-[#687eff] md:w-[50%] lg:relative lg:flex justify-end items-end rounded-tr-[40px] rounded-br-[40px]">
         <a href="/">
           <img
             alt="backwhite"
@@ -87,7 +88,7 @@ const Profile = () => {
             className="absolute top-8 left-5"
           ></img>
         </a>
-        <div className="text-center text-white text-5xl font-bold font-['Montserrat'] whitespace-nowrap [text-shadow:_2px_2px_2px_rgb(0_0_0_/_0.25)] lg:absolute top-[15dvh] left-1/2 transform -translate-x-1/2">
+        <div className="absolute text-center text-white text-5xl font-bold font-['Montserrat'] whitespace-nowrap [text-shadow:_2px_2px_2px_rgb(0_0_0_/_0.25)] lg:absolute top-[15dvh] left-1/2 transform -translate-x-1/2">
           Welcome Back!
         </div>
         <img
@@ -96,38 +97,43 @@ const Profile = () => {
           className="hidden h-[80%] w-full lg:block object-cover"
         />
       </div>
-      <div className="h-full flex items-center flex-col p-6 rounded-lg md:justify-center md:mt-0 md:mx-0 md:w-[70%] lg:w-[50%]">
+
+      {/* for mobile, hidden in desktop screens */}
+      <div className="absolute z-0 top-0 left-0 w-full lg:hidden h-[40%] bg-[#687eff] rounded-b-[30px]">
         <a href="/">
           <img
-            alt="backbiru"
-            src="/Images/backbiru.png"
-            className="fixed top-8 left-5 lg:relative lg:hidden"
+            alt="backwhite"
+            src="/Images/backwhite.webp"
+            className="absolute top-3 left-3 w-10"
           ></img>
         </a>
-        <div className="flex justify-between flex-col space-y-6 items-center mb-6">
-          <h2 className="font-['Montserrat'] text-2xl font-semibold">
+      </div>
+
+      <div className="h-full flex items-center flex-col p-6 rounded-lg md:justify-center md:mt-0 md:mx-0 md:w-[70%] lg:w-[50%]">
+        <div className="flex justify-between flex-col space-y-6 items-center mb-6 w-full pt-10">
+          <h2 className="font-['Montserrat'] z-10 lg:text-black text-white font-semibold text-center lg:text-2xl text-xl">
             {profile.name}
           </h2>
         </div>
 
-        <div className="bg-[#F4F5FF]">
+        <div className="z-10 mt-4">
           <form
             onSubmit={handleSubmit}
-            className="w-max max-w-lg bg-white rounded-lg shadow-md"
+            className="w-full lg:max-w-lg bg-white rounded-lg shadow-md"
           >
-            <div className="space-y-4 border border-gray-300 p-6 rounded-lg shadow-md">
+            <div className="space-y-4 p-6 rounded-lg shadow-md">
               <div className="flex gap-4 items-center border-b border-gray-300 pb-4">
                 <div className="flex items-center gap-4 w-full">
                   <img
                     src="/Images/email.webp"
                     alt="email"
-                    className="w-10 h-10"
+                    className="lg:w-10 w-8 lg:h-10 h-8"
                   />
                   <div>
-                    <label className="font-['Montserrat'] block text-md font-bold text-gray-700">
+                    <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
                       Email
                     </label>
-                    <p className="font-['Montserrat'] mt-1 text-gray-900">
+                    <p className="font-['Montserrat'] lg:text-md text-sm mt-1 text-gray-900">
                       {profileData.data.email}
                     </p>
                   </div>
@@ -139,10 +145,10 @@ const Profile = () => {
                   <img
                     src="/Images/telephone.webp"
                     alt="telephone"
-                    className="w-10 h-10"
+                    className="lg:w-10 w-8 lg:h-10 h-8"
                   />
                   <div>
-                    <label className="font-['Montserrat'] block text-md font-bold text-gray-700">
+                    <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
                       Phone
                     </label>
                     {isEditing ? (
@@ -151,10 +157,10 @@ const Profile = () => {
                         name="telephone"
                         value={editProfile.telephone}
                         onChange={handleChangeProfile}
-                        className="mt-1 w-[400px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="mt-1 lg:w-[400px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                     ) : (
-                      <p className="font-['Montserrat'] mt-1 text-gray-900">
+                      <p className="font-['Montserrat'] mt-1 lg:text-md text-sm text-gray-900">
                         {profile.telephone}
                       </p>
                     )}
@@ -180,10 +186,10 @@ const Profile = () => {
                   <img
                     src="/Images/address.webp"
                     alt="address"
-                    className="w-10"
+                    className="lg:w-10 w-8"
                   />
                   <div>
-                    <label className="font-['Montserrat'] block text-md font-bold text-gray-700">
+                    <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
                       Address
                     </label>
                     {isEditing ? (
@@ -192,10 +198,10 @@ const Profile = () => {
                         name="address"
                         value={editProfile.address}
                         onChange={handleChangeProfile}
-                        className="mt-1 w-[400px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="mt-1 lg:w-[400px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                     ) : (
-                      <p className="font-['Montserrat'] mt-1 text-gray-900">
+                      <p className="font-['Montserrat'] mt-1 lg:text-md text-sm text-gray-900">
                         {profile.address}
                       </p>
                     )}
@@ -240,13 +246,13 @@ const Profile = () => {
                     <img
                       src="/Images/kodeReferralTag.webp"
                       alt="kode referral"
-                      className="w-10 h-10 mr-4"
+                      className="lg:w-10 w-8 lg:h-10 h-8 mr-4"
                     />
                     <div>
-                      <p className="font-['Montserrat'] block text-md font-bold text-gray-700">
+                      <p className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
                         Kode Referral
                       </p>
-                      <p className="font-['Montserrat'] mt-1 text-gray-900">
+                      <p className="font-['Montserrat'] lg:text-md text-sm mt-1 text-gray-900">
                         {profileData.data.referral_code}
                       </p>
                     </div>
@@ -257,17 +263,20 @@ const Profile = () => {
                       <img
                         src="/Images/kodeReferralGroup.webp"
                         alt="pemakai kode referral"
-                        className="w-10 h-10"
+                        className="lg:w-10 w-8 lg:h-10 h-8"
                       />
                       <div>
-                        <p className="font-['Montserrat'] block text-sm font-bold text-gray-700">
-                          Jumlah Pemakai Kode Referral{" "}
+                        <p className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
+                          Jumlah Pemakai Kode Referral
                         </p>
                         <p>{profileData.data.referral_code_success_count}</p>
                       </div>
                     </div>
                   </div>
-                  <p className="text-blue-500">Ajak {profileData.data.referral_code_until_next_reward} orang lagi untuk mendapatkan voucher</p>
+                  <p className="text-blue-500 lg:text-md text-sm">
+                    Ajak {profileData.data.referral_code_until_next_reward}{" "}
+                    orang lagi untuk mendapatkan voucher
+                  </p>
                 </div>
               ) : inputReferral ? (
                 <div className="flex flex-col items-center bg-white p-4 space-y-4 rounded-lg shadow-md">
@@ -280,22 +289,22 @@ const Profile = () => {
                     placeholder="Masukkan Kode Referral"
                     value={referralCode.referral_code}
                     onChange={handleChangeReferral}
-                    className="mt-1 block w-[80%] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="mt-1 block w-[90%] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   ></input>
 
-                  <p className="text-blue-500">
+                  <p className="text-blue-500 lg:text-md text-sm text-justify px-4">
                     Pastikan sudah benar karena tidak bisa diganti lagi
                   </p>
 
                   <div className="flex justify-around w-[80%]">
                     <button
                       onClick={handleSubmitReferral}
-                      className="w-[40%] mt-2 px-4 py-2 bg-blue-500 text-white border font-semibold rounded-lg hover:bg-blue-600 transition"
+                      className="w-[40%] mt-2 px-4 py-2 bg-blue-500 text-white border font-semibold rounded-lg hover:bg-blue-600 hover:shadow-md transition"
                     >
                       Kirim
                     </button>
 
-                    <div className="w-[40%] mt-2 ml-3 px-4 py-2 border border-blue-500 rounded-lg">
+                    <div className="w-[40%] mt-2 ml-3 px-4 py-2 border border-blue-500 hover:shadow-md rounded-lg">
                       <button
                         onClick={handleInputReferral}
                         className="w-full text-blue-500 bg-white font-semibold rounded-lg transition"
@@ -308,7 +317,7 @@ const Profile = () => {
               ) : (
                 <button
                   onClick={handleInputReferral}
-                  className="mt-2 px-4 py-2 w-full bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition"
+                  className="mt-2 px-4 py-2 w-full bg-blue-500 text-white lg:text-lg text-md font-semibold rounded-lg hover:bg-blue-600 transition"
                 >
                   Bikin Kode Referral
                 </button>
@@ -319,7 +328,7 @@ const Profile = () => {
           <div className="flex flex-col items center justify-center w-full">
             <button
               onClick={handleLogout}
-              className="mt-8 py-3 shadow-md font-sans w-full bg-red-500 hover:bg-red-600 text-white font-semibold p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+              className="mt-8 py-2 shadow-md font-sans w-full bg-red-500 hover:bg-red-600 lg:text-lg text-md text-white font-semibold p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             >
               Log Out
             </button>
