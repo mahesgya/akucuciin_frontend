@@ -322,7 +322,7 @@ const Profile = () => {
               ) : (
                 <button
                   onClick={handleInputReferral}
-                  className="mt-2 px-4 py-2 w-full bg-blue-500 text-white lg:text-lg text-md font-semibold rounded-lg hover:bg-blue-600 transition shadow-custom-note"
+                  className="mt-2 px-4 py-2 w-full bg-blue-primary text-white lg:text-lg text-md font-semibold rounded-lg hover:brightness-110 transition shadow-custom-note"
                 >
                   Bikin Kode Referral
                 </button>
@@ -333,7 +333,7 @@ const Profile = () => {
           <div className="flex flex-col items center justify-center w-full">
             <button
               onClick={handleLogout}
-              className="mt-8 py-2 shadow-custom-note font-sans w-full bg-red-500 hover:bg-red-600 lg:text-lg text-md text-white font-semibold p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 shadow-custom-note"
+              className="mt-8 py-2 shadow-custom-note font-sans w-full bg-red-warning hover:brightness-110 lg:text-lg text-md text-white font-semibold p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 shadow-custom-note"
             >
               Log Out
             </button>
