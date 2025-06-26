@@ -1,16 +1,21 @@
-import { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import { setLogout, setLoading } from "../../redux/auth.slicer";
-import customerServices from "../../services/customer.services";
-import CustomerServices from "../../services/customer.services";
+import "react-toastify/dist/ReactToastify.css";
 
-import transformPhoneNumber from "../../utils/phone.number.utils";
+import { setLoading, setLogout } from "../../redux/auth.slicer";
+import {
+  default as customerServices,
+  default as CustomerServices,
+} from "../../services/customer.services";
+
+import AuthServices from "../../services/auth.services";
 import handleChange from "../../utils/handle.change.utils";
 import LoadingUtils from "../../utils/loading.utils";
-import AuthServices from "../../services/auth.services";
+import transformPhoneNumber from "../../utils/phone.number.utils";
+import { toastContainer } from "../../utils/toast.utils";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -81,6 +86,8 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen w-screen flex lg:flex-row flex-col items-center justify-center bg-[#F4F5FF]">
+      {toastContainer()}
+
       {/* for desktop, hidden in mobile screens */}
       <div className="hidden h-[30%] lg:h-screen bg-[#687eff] md:w-[50%] lg:relative lg:flex justify-end items-end rounded-tr-[40px] rounded-br-[40px]">
         <a href="/">
@@ -333,7 +340,7 @@ const Profile = () => {
           <div className="flex flex-col items center justify-center w-full">
             <button
               onClick={handleLogout}
-              className="mt-8 py-2 shadow-custom-note font-sans w-full bg-red-warning hover:brightness-110 lg:text-lg text-md text-white font-semibold p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 shadow-custom-note"
+              className="mt-8 py-2 shadow-custom-note font-sans w-full bg-red-warning hover:brightness-110 lg:text-lg text-md text-white font-semibold p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             >
               Log Out
             </button>
