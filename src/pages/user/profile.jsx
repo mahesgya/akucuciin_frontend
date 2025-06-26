@@ -340,7 +340,7 @@ const Profile = () => {
           <div className="flex flex-col items center justify-center w-full">
             <button
               onClick={handleLogout}
-              className="mt-8 py-2 shadow-custom-note font-sans w-full bg-red-warning hover:brightness-110 lg:text-lg text-md text-white font-semibold p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 shadow-custom-note"
+              className="mt-8 py-2 shadow-custom-note font-sans w-full bg-red-warning hover:brightness-110 lg:text-lg text-md text-white font-semibold p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             >
               Log Out
             </button>
