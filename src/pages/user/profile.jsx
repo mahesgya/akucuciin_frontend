@@ -1,21 +1,21 @@
-import { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import { ToastContainer, toast } from 'react-toastify'; //npm install react-toastify
-import 'react-toastify/dist/ReactToastify.css';
-import { Bounce } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
+import { setLoading, setLogout } from "../../redux/auth.slicer";
+import {
+  default as customerServices,
+  default as CustomerServices,
+} from "../../services/customer.services";
 
-import { setLogout, setLoading } from "../../redux/auth.slicer";
-import customerServices from "../../services/customer.services";
-import CustomerServices from "../../services/customer.services";
-
-import transformPhoneNumber from "../../utils/phone.number.utils";
+import AuthServices from "../../services/auth.services";
 import handleChange from "../../utils/handle.change.utils";
 import LoadingUtils from "../../utils/loading.utils";
-import AuthServices from "../../services/auth.services";
+import transformPhoneNumber from "../../utils/phone.number.utils";
+import { toastContainer } from "../../utils/toast.utils";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -77,18 +77,6 @@ const Profile = () => {
     if (accessToken) {
       await CustomerServices.changeProfile(editProfile, accessToken, dispatch, setProfile, setEditProfile, setIsEditing);
       await getProfileUser();
-
-      toast.success("Profil berhasil diperbarui!", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-      });
     }
   };
 
@@ -98,21 +86,7 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen w-screen flex lg:flex-row flex-col items-center justify-center bg-[#F4F5FF]">
-
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-        transition={Bounce}
-      />
-
+      {toastContainer()}
 
       {/* for desktop, hidden in mobile screens */}
       <div className="hidden h-[30%] lg:h-screen bg-[#687eff] md:w-[50%] lg:relative lg:flex justify-end items-end rounded-tr-[40px] rounded-br-[40px]">

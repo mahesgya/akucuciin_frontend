@@ -1,6 +1,7 @@
 import axios from "axios";
-import { errorSwal, successSwal } from "../utils/alert.utils";
 import { setProfileData } from "../redux/auth.slicer";
+import { errorSwal, successSwal } from "../utils/alert.utils";
+import { toastError, toastSuccess } from "../utils/toast.utils";
 
 const CustomerServices = {
   getProfile: async (accessToken, dispatch) => {
@@ -35,10 +36,10 @@ const CustomerServices = {
       }));
       setEditProfile({ ...editProfile });
       setIsEditing(false);
-      successSwal("Perubahan profile berhasil.");
+      toastSuccess("Profil berhasil diperbarui.");
       return response.data;
     } catch (error) {
-      errorSwal(error.response?.data?.errors);
+      toastError(error.response?.data?.errors);
     }
   },
   orderLaundry: async (accessToken, formData, setIsLoading, navigate) => {
