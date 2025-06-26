@@ -205,7 +205,7 @@ const Profile = () => {
                       Address
                     </label>
                     {isEditing ? (
-                      <input
+                      <textarea
                         type="text"
                         name="address"
                         value={editProfile.address}
