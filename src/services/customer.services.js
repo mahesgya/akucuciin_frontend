@@ -64,10 +64,10 @@ const CustomerServices = {
         headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
       });
 
-      successSwal("Berhasil membuat kode referral.");
+      toastSuccess("Berhasil membuat kode referral.");
       return response.data;
     } catch (error) {
-      errorSwal(error.response?.data?.errors);
+      toastError(error.response?.data?.errors);
     }
   },
   getOrderLaundry: async (accessToken) => {
