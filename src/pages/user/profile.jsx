@@ -161,14 +161,14 @@ const Profile = () => {
                       Phone
                     </label>
                     {isEditing ? (
-                      <div className="flex items-center lg:w-[400px]">
+                      <div className="flex items-center lg:w-full">
                         <p className="mr-2">+62</p>
                         <input
                           type="text"
                           name="telephone"
                           value={editProfile.telephone}
                           onChange={handleChangeProfile}
-                          className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="mt-1 w-[250px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                       </div>
                     ) : (
@@ -203,14 +203,14 @@ const Profile = () => {
                   <div>
                     <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
                       Address
-                    </label>
+                    </label> 
                     {isEditing ? (
                       <textarea
                         type="text"
                         name="address"
                         value={editProfile.address}
                         onChange={handleChangeProfile}
-                        className="mt-1 lg:w-[400px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="mt-1 lg:w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                     ) : (
                       <p className="font-['Montserrat'] mt-1 lg:text-md text-sm text-gray-900">
