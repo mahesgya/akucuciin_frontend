@@ -125,7 +125,7 @@ const Profile = () => {
           </h2>
         </div>
 
-        <div className="z-10 mt-4">
+        <div className="z-10 mt-4 w-[70%]">
           <form
             onSubmit={handleSubmit}
             className="w-full lg:max-w-lg bg-white rounded-lg shadow-custom-note"
@@ -327,12 +327,14 @@ const Profile = () => {
                   </div>
                 </div>
               ) : (
-                <button
-                  onClick={handleInputReferral}
-                  className="mt-2 px-4 py-2 w-full bg-blue-primary text-white lg:text-lg text-md font-semibold rounded-lg hover:brightness-110 transition shadow-custom-note"
-                >
-                  Bikin Kode Referral
-                </button>
+                <div className="flex flex-col items center justify-center w-full">
+                  <button
+                    onClick={handleInputReferral}
+                    className="mt-2 px-4 py-2 w-[95%] mx-auto bg-blue-primary text-white lg:text-lg text-md font-semibold rounded-full hover:brightness-110 transition shadow-custom-note"
+                  >
+                    Bikin Kode Referral
+                  </button>
+                </div>
               )}
             </div>
           </div>
@@ -340,7 +342,7 @@ const Profile = () => {
           <div className="flex flex-col items center justify-center w-full">
             <button
               onClick={handleLogout}
-              className="mt-8 py-2 shadow-custom-note font-sans w-full bg-red-warning hover:brightness-110 lg:text-lg text-md text-white font-semibold p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+              className="mt-8 py-2 shadow-custom-note font-sans w-[95%] mx-auto bg-red-warning hover:brightness-110 lg:text-lg text-md text-white font-semibold p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             >
               Log Out
             </button>
