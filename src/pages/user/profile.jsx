@@ -136,7 +136,7 @@ const Profile = () => {
                   <img
                     src="/Images/email.webp"
                     alt="email"
-                    className="lg:w-8 w-8 lg:h-8 h-8"
+                    className="w-8 h-8"
                   />
                   <div>
                     <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
@@ -154,7 +154,7 @@ const Profile = () => {
                   <img
                     src="/Images/telephone.webp"
                     alt="telephone"
-                    className="lg:w-8 w-8 lg:h-8 h-8"
+                    className="w-8 h-8"
                   />
                   <div>
                     <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
@@ -198,7 +198,7 @@ const Profile = () => {
                   <img
                     src="/Images/address.webp"
                     alt="address"
-                    className="lg:w-8 w-8"
+                    className="w-8"
                   />
                   <div>
                     <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
@@ -258,7 +258,7 @@ const Profile = () => {
                     <img
                       src="/Images/kodeReferralTag.webp"
                       alt="kode referral"
-                      className="lg:w-10 w-8 lg:h-10 h-8 mr-4"
+                      className="w-8 h-8 mr-4"
                     />
                     <div>
                       <p className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
@@ -275,7 +275,7 @@ const Profile = () => {
                       <img
                         src="/Images/kodeReferralGroup.webp"
                         alt="pemakai kode referral"
-                        className="lg:w-10 w-8 lg:h-10 h-8"
+                        className="w-8 h-8"
                       />
                       <div>
                         <p className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
