@@ -125,7 +125,7 @@ const Profile = () => {
           </h2>
         </div>
 
-        <div className="z-10 mt-4 w-[70%]">
+        <div className="z-10 mt-4 lg:w-[70%]">
           <form
             onSubmit={handleSubmit}
             className="w-full lg:max-w-lg bg-white rounded-lg shadow-custom-note"
@@ -210,7 +210,7 @@ const Profile = () => {
                         name="address"
                         value={editProfile.address}
                         onChange={handleChangeProfile}
-                        className="mt-1 lg:w-[300px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="mt-1 lg:w-[300px] lg:h-[100px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                     ) : (
                       <p className="font-['Montserrat'] mt-1 lg:text-md text-sm text-gray-900">
