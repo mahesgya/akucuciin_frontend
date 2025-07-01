@@ -120,12 +120,12 @@ const Profile = () => {
 
       <div className="h-full flex items-center flex-col p-6 rounded-lg md:justify-center md:mt-0 md:mx-0 md:w-[70%] lg:w-[50%]">
         <div className="flex justify-between flex-col space-y-6 items-center mb-6 w-full pt-10">
-          <h2 className="font-['Montserrat'] z-10 lg:text-black text-white font-semibold text-center lg:text-2xl text-xl">
+          <h2 className="font-['Montserrat'] z-10 lg:text-black text-white font-semibold text-center text-3xl">
             {profile.name}
           </h2>
         </div>
 
-        <div className="z-10 mt-4">
+        <div className="z-10 mt-4 lg:w-[70%]">
           <form
             onSubmit={handleSubmit}
             className="w-full lg:max-w-lg bg-white rounded-lg shadow-custom-note"
@@ -136,7 +136,7 @@ const Profile = () => {
                   <img
                     src="/Images/email.webp"
                     alt="email"
-                    className="lg:w-8 w-8 lg:h-8 h-8"
+                    className="w-8 h-8"
                   />
                   <div>
                     <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
@@ -154,14 +154,14 @@ const Profile = () => {
                   <img
                     src="/Images/telephone.webp"
                     alt="telephone"
-                    className="lg:w-8 w-8 lg:h-8 h-8"
+                    className="w-8 h-8"
                   />
                   <div>
                     <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
                       Phone
                     </label>
                     {isEditing ? (
-                      <div className="flex items-center lg:w-[400px]">
+                      <div className="flex items-center lg:w-full">
                         <p className="mr-2">+62</p>
                         <input
                           type="text"
@@ -198,19 +198,19 @@ const Profile = () => {
                   <img
                     src="/Images/address.webp"
                     alt="address"
-                    className="lg:w-8 w-8"
+                    className="w-8"
                   />
                   <div>
                     <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
                       Address
-                    </label>
+                    </label> 
                     {isEditing ? (
                       <textarea
                         type="text"
                         name="address"
                         value={editProfile.address}
                         onChange={handleChangeProfile}
-                        className="mt-1 lg:w-[400px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="mt-1 w-full lg:h-[100px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                     ) : (
                       <p className="font-['Montserrat'] mt-1 lg:text-md text-sm text-gray-900">
@@ -258,7 +258,7 @@ const Profile = () => {
                     <img
                       src="/Images/kodeReferralTag.webp"
                       alt="kode referral"
-                      className="lg:w-10 w-8 lg:h-10 h-8 mr-4"
+                      className="w-8 h-8 mr-4"
                     />
                     <div>
                       <p className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
@@ -275,7 +275,7 @@ const Profile = () => {
                       <img
                         src="/Images/kodeReferralGroup.webp"
                         alt="pemakai kode referral"
-                        className="lg:w-10 w-8 lg:h-10 h-8"
+                        className="w-8 h-8"
                       />
                       <div>
                         <p className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
@@ -327,12 +327,14 @@ const Profile = () => {
                   </div>
                 </div>
               ) : (
-                <button
-                  onClick={handleInputReferral}
-                  className="mt-2 px-4 py-2 w-full bg-blue-primary text-white lg:text-lg text-md font-semibold rounded-lg hover:brightness-110 transition shadow-custom-note"
-                >
-                  Bikin Kode Referral
-                </button>
+                <div className="flex flex-col items center justify-center w-full">
+                  <button
+                    onClick={handleInputReferral}
+                    className="mt-2 px-4 py-2 w-[95%] mx-auto bg-blue-primary text-white lg:text-lg text-md font-semibold rounded-full hover:brightness-110 transition shadow-custom-note"
+                  >
+                    Bikin Kode Referral
+                  </button>
+                </div>
               )}
             </div>
           </div>
@@ -340,7 +342,7 @@ const Profile = () => {
           <div className="flex flex-col items center justify-center w-full">
             <button
               onClick={handleLogout}
-              className="mt-8 py-2 shadow-custom-note font-sans w-full bg-red-warning hover:brightness-110 lg:text-lg text-md text-white font-semibold p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+              className="mt-8 py-2 shadow-custom-note font-sans w-[95%] mx-auto bg-red-warning hover:brightness-110 lg:text-lg text-md text-white font-semibold p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             >
               Log Out
             </button>
