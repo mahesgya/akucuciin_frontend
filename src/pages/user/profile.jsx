@@ -120,7 +120,7 @@ const Profile = () => {
 
       <div className="h-full flex items-center flex-col p-6 rounded-lg md:justify-center md:mt-0 md:mx-0 md:w-[70%] lg:w-[50%]">
         <div className="flex justify-between flex-col space-y-6 items-center mb-6 w-full pt-10">
-          <h2 className="font-['Montserrat'] z-10 lg:text-black text-white font-semibold text-center lg:text-3xl text-xl">
+          <h2 className="font-['Montserrat'] z-10 lg:text-black text-white font-semibold text-center text-3xl">
             {profile.name}
           </h2>
         </div>
@@ -168,7 +168,7 @@ const Profile = () => {
                           name="telephone"
                           value={editProfile.telephone}
                           onChange={handleChangeProfile}
-                          className="mt-1 w-[250px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                       </div>
                     ) : (
@@ -210,7 +210,7 @@ const Profile = () => {
                         name="address"
                         value={editProfile.address}
                         onChange={handleChangeProfile}
-                        className="mt-1 lg:w-[300px] lg:h-[100px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="mt-1 w-full lg:h-[100px] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                     ) : (
                       <p className="font-['Montserrat'] mt-1 lg:text-md text-sm text-gray-900">
