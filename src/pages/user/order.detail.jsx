@@ -693,7 +693,7 @@ const OrderDetail = () => {
 
               {data.payment_link && data.status_payment === "sudah bayar" && (
                 <button
-                  onClick={() => handlePayment(data.id)}
+                  onClick={() => window.open(data.payment_link, "_blank")}
                   className="w-full bg-[#687EFF] hover:bg-[#4762FF] text-white font-semibold py-2 rounded-full shadow-sm transition"
                 >
                   Lihat invoice
