@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import customerServices from "../../services/customer.services";
-import { FaRegClock, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import ReactDOM from "react-dom/client";
+import { FaCheckCircle, FaRegClock, FaTimesCircle } from "react-icons/fa";
+import ReactStars from "react-rating-stars-component";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ReactStars from "react-rating-stars-component";
-import ReactDOM from "react-dom/client";
 import Swal from "sweetalert2";
+import customerServices from "../../services/customer.services";
 import "../../style/SectionHome.css";
 
 const Order = () => {
@@ -175,14 +175,20 @@ const Order = () => {
 
                 {order?.pickup_date &&
                   (() => {
-                    const pieces = order.pickup_date.trim().split(" ");
-                    const hasTimeRange = pieces.length > 1;
-                    const timeRange = hasTimeRange ? pieces.slice(0, 3).join(" ") : null;
-                    const rawDate = hasTimeRange ? pieces[3] : pieces[0];
+                    const pickupStr = order.pickup_date.trim();
+                    
+                    const dateRegex = /(\d{2}-\d{2}-\d{4})$/;
+                    const dateMatch = pickupStr.match(dateRegex);
+                    
+                    if (!dateMatch) return null;
+
+                    const rawDate = dateMatch[1]; // ex: 22-05-2025
+                    const timeRange = pickupStr.replace(rawDate, "").trim(); // sisanya adalah time range (bisa kosong)
 
                     const [day, month, year] = rawDate.split("-");
                     const dateForJS = `${year}-${month}-${day}`;
                     const jsDate = new Date(dateForJS);
+                    
                     const dayNames = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
                     const dayName = dayNames[jsDate.getDay()];
 
@@ -194,7 +200,11 @@ const Order = () => {
                         <p className="font-quick text-gray-600 text-sm">
                           Tanggal Penjemputan: {dayName}, {formattedDate}
                         </p>
-                        {hasTimeRange && <p className="font-quick text-gray-600 text-sm">Jam Penjemputan: {timeRange}</p>}
+                        {timeRange && (
+                          <p className="font-quick text-gray-600 text-sm">
+                            Jam Penjemputan: {timeRange}
+                          </p>
+                        )}
                       </>
                     );
                   })()}
