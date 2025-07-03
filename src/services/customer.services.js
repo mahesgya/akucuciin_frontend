@@ -80,16 +80,23 @@ const CustomerServices = {
       errorSwal(error.response?.data?.errors);
     }
   },
-  cancelOrder: async (accessToken, orderId) => {
+  cancelOrder: async (accessToken, orderId, cancelReason) => {
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/order/${orderId}`, {
-        headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
-      });
-
+      const response = await axios.delete(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/order/${orderId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json",
+          },
+          data: {
+            cancel_reason: cancelReason,
+          },
+        }
+      );
+  
       successSwal("Order berhasil dibatalkan.");
       return response.data;
     } catch (error) {
-      errorSwal(error.response?.data?.errors);
+      errorSwal(error.response?.data?.errors || "Unauthorized");
     }
   },
   postReview: async (accessToken, orderId, rating, review) => {
@@ -122,6 +129,18 @@ const CustomerServices = {
       errorSwal(error.response?.data?.errors);
     }
   },
+  getSingleOrder: async (accessToken, orderId) => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/order/${orderId}`, {        
+        headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+      });
+
+      const orderData = response.data;
+      return orderData;
+    } catch (error) {
+      errorSwal(error.response?.data?.errors);
+    }
+  }
 };
 
 export default CustomerServices;

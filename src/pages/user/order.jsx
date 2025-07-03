@@ -38,24 +38,6 @@ const Order = () => {
     }
   };
 
-  const handleCancelOrder = async (id) => {
-    const confirmed = await Swal.fire({
-      icon: "warning",
-      title: "Yakin ingin membatalkan order anda?",
-      showCancelButton: true,
-      confirmButtonText: "Yakin",
-      cancelButtonText: "Batal",
-      customClass: {
-        confirmButton: "btn-confirm",
-        cancelButton: "btn-cancel",
-      },
-    });
-
-    if (confirmed.isConfirmed) {
-      await customerServices.cancelOrder(accessToken, id);
-    }
-  };
-
   const handlePayment = async (id) => {
     const confirmed = await Swal.fire({
       icon: "warning",
@@ -230,31 +212,33 @@ const Order = () => {
                 )}
               </div>
 
-              <div className="relative flex items-center space-x-2">
-                {order.status === "pending" && <FaRegClock className="text-yellow-500 text-xl" />}
-                {order.status === "selesai" && <FaCheckCircle className="text-green-500 text-xl" />}
-                {order.status === "batal" && <FaTimesCircle className="text-red-500 text-xl" />}
-                <span
-                  className={`font-quick px-3 py-1 rounded-lg text-sm font-semibold ${
-                    order.status === "pending"
-                      ? "bg-yellow-100 text-yellow-800"
-                      : order.status === "selesai"
-                      ? "bg-green-100 text-green-800"
-                      : order.status === "batal"
-                      ? "bg-red-100 text-red-800"
-                      : order.status === "kesalahan"
-                      ? "bg-[#9ca3af] text-black"
-                      : "bg-blue-100 text-blue-800"
-                  }`}
-                >
-                  {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                </span>
+              <div className="relative flex flex-col items-start space-y-2">
+                <div className="flex items-center space-x-2">
+                  <span
+                    className={`font-quick px-3 py-1 rounded-lg text-sm font-semibold ${
+                      order.status === "pending"
+                        ? "bg-yellow-100 text-yellow-800"
+                        : order.status === "selesai"
+                        ? "bg-green-100 text-green-800"
+                        : order.status === "batal"
+                        ? "bg-red-100 text-red-800"
+                        : order.status === "kesalahan"
+                        ? "bg-[#9ca3af] text-black"
+                        : "bg-blue-100 text-blue-800"
+                    }`}
+                  >
+                    {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                  </span>
+                  {order.status === "pending" && <FaRegClock className="text-yellow-500 text-xl" />}
+                  {order.status === "selesai" && <FaCheckCircle className="text-green-500 text-xl" />}
+                  {order.status === "batal" && <FaTimesCircle className="text-red-500 text-xl" />}
+                </div>
 
-                {order.status === "pending" && (
-                  <button onClick={() => handleCancelOrder(order.id)} className="font-quick absolute top-10 left-6 px-3 py-1 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
-                    Cancel
+                {
+                  <button onClick={() => navigate(`/order/${order.id}`)} className="w-full font-quick px-3 py-1 text-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                    Lihat Detail
                   </button>
-                )}
+                }
 
                 {order.status === "selesai" && !order.review && (
                   <button onClick={() => handleReview(order.id)} className="font-quick absolute top-10 left-6 px-3 py-1 text-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
