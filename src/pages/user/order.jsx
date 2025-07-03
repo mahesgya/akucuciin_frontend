@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import ReactDOM from "react-dom/client";
 import { FaCheckCircle, FaRegClock, FaTimesCircle } from "react-icons/fa";
 import ReactStars from "react-rating-stars-component";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import customerServices from "../../services/customer.services";
 import "../../style/SectionHome.css";
 
@@ -35,68 +33,6 @@ const Order = () => {
       setFilteredOrders(orders);
     } else {
       setFilteredOrders(orders.filter((order) => order.status === status));
-    }
-  };
-
-  const handleReview = async (orderId) => {
-    let ratingValue = 0;
-
-    const starContainer = document.createElement("div");
-    starContainer.id = "star-rating-container";
-    document.body.appendChild(starContainer);
-
-    const root = ReactDOM.createRoot(starContainer);
-    root.render(
-      <ReactStars
-        count={5}
-        onChange={(newRating) => {
-          ratingValue = newRating;
-        }}
-        size={30}
-        activeColor="#ffd700"
-      />
-    );
-
-    const { value: formValues } = await Swal.fire({
-      title: "Beri Ulasan",
-      html: `
-      <div id="star-rating" style="display: flex; justify-content: center; margin-bottom: 10px;"></div>
-      <textarea id="review" class="swal2-textarea" placeholder="Tulis ulasan Anda"></textarea>
-    `,
-      didOpen: () => {
-        const modalStarContainer = document.getElementById("star-rating");
-        modalStarContainer.appendChild(starContainer);
-      },
-      didClose: () => {
-        root.unmount();
-        if (starContainer.parentNode) {
-          starContainer.parentNode.removeChild(starContainer);
-        }
-      },
-      focusConfirm: false,
-      showCancelButton: true,
-      confirmButtonText: "Kirim",
-      cancelButtonText: "Batal",
-      confirmButtonColor: "#3b82f6",
-      cancelButtonColor: "#9ca3af",
-      customClass: {
-        confirmButton: "swal2-confirm btn-confirm",
-        cancelButton: "swal2-cancel btn-cancel",
-      },
-      buttonsStyling: true,
-      preConfirm: () => {
-        const review = document.getElementById("review").value;
-        if (ratingValue === 0) {
-          Swal.showValidationMessage("Pilih rating dulu!");
-          return false;
-        }
-        return { rating: ratingValue, review };
-      },
-    });
-
-    if (formValues) {
-      await customerServices.postReview(accessToken, orderId, formValues.rating, formValues.review);
-      window.location.reload();
     }
   };
 
