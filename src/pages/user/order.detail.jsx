@@ -818,6 +818,10 @@ const OrderDetail = () => {
                   Terima kasih sudah memberikan penilaian ^^
                 </h2>
 
+                <h3 className="text-lg font-semibold text-center text-gray-600 mb-4 font-['Montserrat']">
+                  "{data.review}"
+                </h3>
+
                 {/* Star Rating Section */}
                 <div className="flex justify-center mb-6">
                   {Array.from({ length: data.rating }, (_, i) => i + 1).map(
