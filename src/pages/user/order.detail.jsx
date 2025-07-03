@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import CustomerServices from '../../services/customer.services'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import transformPhoneNumber from '../../utils/phone.number.utils'
+import { useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import CustomerServices from '../../services/customer.services'
 import { successSwal } from '../../utils/alert.utils'
 import ddmmyyFormatter from '../../utils/ddmmyyFormatter.utils'
+import transformPhoneNumber from '../../utils/phone.number.utils'
 
 const RatingSwal = (accessToken, orderId) => {
   let currentRating = 0;
@@ -750,8 +750,7 @@ const OrderDetail = () => {
                     {data.status}
                   </div>
                 )}
-                {(data.status === "selesai" ||
-                  data.status === "penjemputan" ||
+                {(data.status === "penjemputan" ||
                   data.status === "pencucian" ||
                   data.status === "pengantaran") && (
                   <div className="w-full font-quick px-3 py-1 lg:text-sm text-xs border border-black bg-[#B3EBF2]/50 text-black font-semibold rounded-lg">
