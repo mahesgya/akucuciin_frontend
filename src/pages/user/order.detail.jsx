@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import CustomerServices from '../../services/customer.services'
-import { successSwal } from '../../utils/alert.utils'
+import { errorSwal, successSwal } from '../../utils/alert.utils'
 import ddmmyyFormatter from '../../utils/ddmmyyFormatter.utils'
 import transformPhoneNumber from '../../utils/phone.number.utils'
 
@@ -147,7 +147,7 @@ const RatingSwal = (accessToken, orderId) => {
       
       return { rating: currentRating, comment: finalComment };
     },
-  }).then((result) => {
+  }).then(async (result) => {
     if (result.isConfirmed) {
       const { rating, comment } = result.value;
 
@@ -161,32 +161,14 @@ const RatingSwal = (accessToken, orderId) => {
       });
 
       // Submit the review
-      CustomerServices.postReview(accessToken, orderId, rating, comment)
-        .then((response) => {
-          // Check if response is successful
-          if (response && response.success) {
-            successSwal("Review berhasil dikirim!");
-            window.location.reload();
-          } else {
-            // Response exists but indicates failure
-            Swal.fire({
-              icon: "error",
-              title: "Gagal mengirim review",
-              text: response?.message || "Silakan coba lagi nanti",
-              customClass: {
-                confirmButton: "btn-confirm",
-                cancelButton: "btn-cancel",
-              },
-            });
-          }
-        })
-        .catch((error) => {
-          Swal.fire({
-            icon: "error",
-            title: "Gagal mengirim review",
-            text: error?.response?.data?.message || "Silakan coba lagi nanti",
-          });
+      try {
+        await CustomerServices.postReview(accessToken, orderId, rating, comment)
+        successSwal("Ulasan berhasil dikirim").then(() => {
+          window.location.reload();
         });
+      } catch (error) {
+        errorSwal(error.message || "Terjadi kesalahan, silakan coba lagi");
+      }
     }
   });
 }

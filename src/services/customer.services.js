@@ -109,10 +109,9 @@ const CustomerServices = {
         }
       );
 
-      successSwal("Ulasan berhasil dikirim");
       return response.data;
     } catch (error) {
-      errorSwal(error.response?.data?.errors);
+      throw new Error(error.response?.data?.errors || "Server error, please try again later.");
     }
   },
   orderPayment: async (accessToken, orderId) => {
