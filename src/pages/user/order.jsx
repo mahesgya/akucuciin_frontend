@@ -38,24 +38,6 @@ const Order = () => {
     }
   };
 
-  const handlePayment = async (id) => {
-    const confirmed = await Swal.fire({
-      icon: "warning",
-      title: "Anda akan di arahkan ke laman pembayaran?",
-      showCancelButton: true,
-      confirmButtonText: "Yakin",
-      cancelButtonText: "Batal",
-      customClass: {
-        confirmButton: "btn-confirm",
-        cancelButton: "btn-cancel",
-      },
-    });
-
-    if (confirmed.isConfirmed) {
-      await customerServices.orderPayment(accessToken, id);
-    }
-  };
-
   const handleReview = async (orderId) => {
     let ratingValue = 0;
 
@@ -245,12 +227,12 @@ const Order = () => {
                 </div>
 
                 {
-                  <button onClick={() => navigate(`/order/${order.id}`)} className="w-full font-quick px-3 py-1 text-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                  <button onClick={() => navigate(`/order/${order.id}`)} className="whitespace-nowrap w-full font-quick px-3 py-1 text-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
                     Lihat Detail
                   </button>
                 }
 
-                {order.status === "selesai" && !order.review && (
+                {/* {order.status === "selesai" && !order.review && (
                   <button onClick={() => handleReview(order.id)} className="font-quick absolute top-10 left-6 px-3 py-1 text-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
                     Review
                   </button>
@@ -260,7 +242,7 @@ const Order = () => {
                   <button onClick={() => handlePayment(order.id)} className="font-quick absolute top-10 left-6 px-3 py-1 text-sm bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
                     Bayar
                   </button>
-                )}
+                )} */}
               </div>
             </div>
           ))

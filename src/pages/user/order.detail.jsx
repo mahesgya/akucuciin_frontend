@@ -166,6 +166,7 @@ const RatingSwal = (accessToken, orderId) => {
           // Check if response is successful
           if (response && response.success) {
             successSwal("Review berhasil dikirim!");
+            window.location.reload();
           } else {
             // Response exists but indicates failure
             Swal.fire({
@@ -373,6 +374,24 @@ const OrderDetail = () => {
     RatingSwal(accessToken, orderId);
   };
 
+  const handlePayment = async (id) => {
+    const confirmed = await Swal.fire({
+      icon: "warning",
+      title: "Anda akan di arahkan ke laman pembayaran?",
+      showCancelButton: true,
+      confirmButtonText: "Yakin",
+      cancelButtonText: "Batal",
+      customClass: {
+        confirmButton: "btn-confirm",
+        cancelButton: "btn-cancel",
+      },
+    });
+
+    if (confirmed.isConfirmed) {
+      await CustomerServices.orderPayment(accessToken, id);
+    }
+  };
+
   const handleCancelOrder = async (id) => {
     const confirmed = await Swal.fire({
       title: "Kenapa cancel order?",
@@ -453,8 +472,8 @@ const OrderDetail = () => {
   return (
     <div className="lg:h-screen h-full flex flex-col items-center justify-start bg-gray-50">
       {data.status !== "batal" && (
-        <div className="flex flex-col items-center justify-center bg-[#687EFF] lg:p-8 py-12 mb-6 lg:h-40  w-full rounded-b-3xl shadow-md top-0 left-0 right-0">
-          <a href="/">
+        <div className="flex flex-col items-center justify-center bg-[#687EFF] lg:p-8 py-12 mb-6 lg:h-40 w-full rounded-b-3xl shadow-md top-0 left-0 right-0">
+          <a href="/order">
             <img
               alt="backwhite"
               src="/Images/backwhite.webp"
@@ -471,19 +490,19 @@ const OrderDetail = () => {
       )}
 
       {data.status === "batal" && (
-        <div className="flex flex-col items-center justify-center bg-[#EF4444] lg:p-8 mb-6 h-[20%] w-full rounded-b-3xl shadow-md top-0 left-0 right-0">
-          <a href="/">
+        <div className="flex flex-col items-center justify-center bg-[#EF4444] lg:p-8 py-12 mb-6 lg:h-40 w-full rounded-b-3xl shadow-md top-0 left-0 right-0">
+          <a href="/order">
             <img
               alt="backwhite"
               src="/Images/backwhite.webp"
               className="absolute top-8 left-5"
             ></img>
           </a>
-          <h1 className="text-4xl font-bold h-[80%] text-white text-center font-['Montserrat']">
+          <h1 className="lg:text-4xl text-2xl font-bold h-[80%] text-white text-center font-['Montserrat']">
             Order Batal
           </h1>
-          <p className="text-2xl text-white font-['Montserrat']">
-            ORDER ID : #{data.id}
+          <p className="lg:text-2xl text-sm text-white font-['Montserrat']">
+            {data.id}
           </p>
         </div>
       )}
@@ -636,7 +655,7 @@ const OrderDetail = () => {
           {/* Middle Top */}
           <div className="flex flex-col h-full bg-white p-6 rounded-lg shadow-lg items-center justify-between">
             <div className="flex flex-col items-center justify-center w-full">
-              <h2 className='lg:text-xl text-lg font-semibold font-["Montserrat'>
+              <h2 className='lg:text-xl text-lg font-semibold font-["Montserrat]'>
                 Track Order
               </h2>
               <div className="w-full border-b-2 py-2 border-neutral-200"></div>
@@ -663,22 +682,22 @@ const OrderDetail = () => {
                 </div>
               )}
 
-              {data.status === "batal" && <div className="w-full"></div>}
-
-              {data.payment_link !== null && data.status === "belum bayar" && (
-                <div className="w-full">
-                  <button className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-2 rounded-full shadow-sm transition">
-                    Bayar
-                  </button>
-                </div>
+              {data.payment_link && data.status_payment === "belum bayar" && (
+                <button
+                  onClick={() => handlePayment(data.id)}
+                  className="w-full bg-green-400 hover:bg-green-500 text-white font-semibold py-2 rounded-full shadow-sm transition"
+                >
+                  Bayar
+                </button>
               )}
 
-              {data.payment_link !== null && data.status === "sudah bayar" && (
-                <div className="w-full">
-                  <button className="w-full bg-[#687EFF] hover:bg-[#4762FF] text-white font-semibold py-2 rounded-full shadow-sm transition">
-                    Lihat invoice
-                  </button>
-                </div>
+              {data.payment_link && data.status_payment === "sudah bayar" && (
+                <button
+                  onClick={() => handlePayment(data.id)}
+                  className="w-full bg-[#687EFF] hover:bg-[#4762FF] text-white font-semibold py-2 rounded-full shadow-sm transition"
+                >
+                  Lihat invoice
+                </button>
               )}
             </div>
           </div>
@@ -696,11 +715,11 @@ const OrderDetail = () => {
         </div>
 
         {/* Right Part*/}
-        <div className='lg:order-3 order-1 flex flex-col h-full'>
+        <div className="lg:order-3 order-1 flex flex-col h-full">
           {/* Right Top */}
           <div className="flex flex-col bg-white p-6 rounded-lg shadow-lg">
             <div className="flex flex-row items-center justify-between mb-4">
-              <div className='flex flex-col space-y-2'>
+              <div className="flex flex-col space-y-2">
                 <p className='font-semibold lg:text-xl text-sm font-["Montserrat"]'>
                   {data.package.name}
                 </p>
@@ -763,7 +782,7 @@ const OrderDetail = () => {
 
           {/* Right Bottom */}
           <div className="flex items-center justify-center font-['Montserrat'] mt-4 shadow-lg">
-            {data.status === "selesai" && (
+            {data.status === "selesai" && data.rating === 0 && (
               <div className="bg-white rounded-lg p-6 md:p-8 w-full">
                 <h2 className="text-lg font-bold text-center text-black mb-2 font-['Montserrat']">
                   Berikan rating yuk!
@@ -795,7 +814,7 @@ const OrderDetail = () => {
             )}
             {data.status === "selesai" && data.rating !== 0 && (
               <div className="bg-white rounded-lg p-6 md:p-8 w-full">
-                <h2 className="text-2xl font-bold text-center text-black mb-2 font-['Montserrat']">
+                <h2 className="text-lg font-bold text-center text-black mb-2 font-['Montserrat']">
                   Terima kasih sudah memberikan penilaian ^^
                 </h2>
 
