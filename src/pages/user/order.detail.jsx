@@ -471,8 +471,15 @@ const OrderDetail = () => {
 
   return (
     <div className="lg:h-screen h-full flex flex-col items-center justify-start bg-gray-50">
+      {/* Header Section */}
       {data.status !== "batal" && (
-        <div className="flex flex-col items-center justify-center bg-[#687EFF] lg:p-8 py-12 mb-6 lg:h-40 w-full rounded-b-3xl shadow-md top-0 left-0 right-0">
+        <div
+          className={`flex flex-col items-center justify-center ${
+            data.status === "selesai"
+              ? "bg-green-500"
+              : "bg-[#687EFF]"
+          } lg:p-8 py-12 mb-6 lg:h-40 w-full rounded-b-3xl shadow-md top-0 left-0 right-0`}
+        >
           <a href="/order">
             <img
               alt="backwhite"
@@ -481,7 +488,7 @@ const OrderDetail = () => {
             ></img>
           </a>
           <h1 className="lg:text-4xl text-2xl font-bold h-[80%] text-white text-center font-['Montserrat']">
-            Order Berhasil
+            {data.status === "selesai" ? "Order Selesai" : "Order"}
           </h1>
           <p className="lg:text-2xl text-sm text-white font-['Montserrat']">
             {data.id}
