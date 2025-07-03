@@ -9,6 +9,15 @@ import ddmmyyFormatter from '../../utils/ddmmyyFormatter.utils'
 
 const RatingSwal = (accessToken, orderId) => {
   let currentRating = 0;
+  
+  // Example chip options - these would be defined externally in a real implementation
+  const chipOptions = [
+    "Waktu penjemputan",
+    "Waktu pengantaran",
+    "Website",
+    "Layanan laundry",
+    "Kebersihan barang"
+  ];
 
   Swal.fire({
     title: "Berikan rating yuk!",
@@ -29,6 +38,18 @@ const RatingSwal = (accessToken, orderId) => {
           `
             )
             .join("")}
+        </div>
+      </div>
+      <div class="mb-4">
+        <p class="text-sm text-gray-600 mb-2 font-['Montserrat']">Pilih yang sesuai:</p>
+        <div class="flex flex-wrap justify-center gap-2 mb-3">
+          ${chipOptions.map(
+            (chip, index) => `
+            <div class="chip cursor-pointer py-1 px-3 rounded-xl border-2 border-gray-300 text-black text-sm hover:bg-gray-200" data-selected="false" data-chip-index="${index}">
+              ${chip}
+            </div>
+          `
+          ).join("")}
         </div>
       </div>
       <textarea id="rating-comment" class="w-full p-3 h-28 border-2 border-gray-300 rounded-lg focus:outline-none resize-none" placeholder="tambahkan komentar"></textarea>
@@ -78,14 +99,53 @@ const RatingSwal = (accessToken, orderId) => {
           });
         });
       });
+      
+      // Add event listeners to chips for selection
+      const chips = document.querySelectorAll(".chip");
+      chips.forEach((chip) => {
+        chip.addEventListener("click", function() {
+          const isSelected = this.getAttribute("data-selected") === "true";
+          
+          // Toggle selection
+          if (isSelected) {
+            this.setAttribute("data-selected", "false");
+            this.classList.remove("bg-blue-100", "border-blue-500", "text-blue-700");
+            this.classList.add("border-gray-300", "text-gray-700");
+          } else {
+            this.setAttribute("data-selected", "true");
+            this.classList.remove("border-gray-300");
+            this.classList.add("bg-blue-100", "border-blue-500");
+          }
+        });
+      });
     },
     preConfirm: () => {
       if (currentRating === 0) {
         Swal.showValidationMessage("Mohon berikan rating bintang");
         return false;
       }
+      
+      // Get selected chips
+      const selectedChips = [];
+      document.querySelectorAll(".chip[data-selected='true']").forEach((chip) => {
+        const chipIndex = parseInt(chip.getAttribute("data-chip-index"));
+        selectedChips.push(chipOptions[chipIndex]);
+      });
+      
       const comment = document.getElementById("rating-comment").value;
-      return { rating: currentRating, comment };
+      
+      // Format the final comment with selected chips
+      let finalComment = "";
+      if (selectedChips.length > 0) {
+        finalComment = selectedChips.join(", ");
+        if (comment.trim()) {
+          finalComment += ", " + comment.trim();
+        }
+      } else {
+        finalComment = comment.trim();
+      }
+      
+      return { rating: currentRating, comment: finalComment };
     },
   }).then((result) => {
     if (result.isConfirmed) {
@@ -105,25 +165,25 @@ const RatingSwal = (accessToken, orderId) => {
         .then((response) => {
           // Check if response is successful
           if (response && response.success) {
-        successSwal("Review berhasil dikirim!");
+            successSwal("Review berhasil dikirim!");
           } else {
-        // Response exists but indicates failure
-        Swal.fire({
-          icon: "error",
-          title: "Gagal mengirim review",
-          text: response?.message || "Silakan coba lagi nanti",
-          customClass: {
-            confirmButton: "btn-confirm",
-            cancelButton: "btn-cancel",
-          },
-        });
+            // Response exists but indicates failure
+            Swal.fire({
+              icon: "error",
+              title: "Gagal mengirim review",
+              text: response?.message || "Silakan coba lagi nanti",
+              customClass: {
+                confirmButton: "btn-confirm",
+                cancelButton: "btn-cancel",
+              },
+            });
           }
         })
         .catch((error) => {
           Swal.fire({
-        icon: "error",
-        title: "Gagal mengirim review",
-        text: error?.response?.data?.message || "Silakan coba lagi nanti",
+            icon: "error",
+            title: "Gagal mengirim review",
+            text: error?.response?.data?.message || "Silakan coba lagi nanti",
           });
         });
     }
