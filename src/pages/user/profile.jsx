@@ -125,7 +125,7 @@ const Profile = () => {
           </h2>
         </div>
 
-        <div className="z-10 mt-4 lg:w-[70%]">
+        <div className="z-10 mt-4">
           <form
             onSubmit={handleSubmit}
             className="w-full lg:max-w-lg bg-white rounded-lg shadow-custom-note"
