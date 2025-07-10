@@ -125,7 +125,7 @@ const Profile = () => {
           </h2>
         </div>
 
-        <div className="z-10 mt-4 lg:w-[70%]">
+        <div className="z-10 mt-4">
           <form
             onSubmit={handleSubmit}
             className="w-full lg:max-w-lg bg-white rounded-lg shadow-custom-note"
@@ -203,7 +203,7 @@ const Profile = () => {
                   <div>
                     <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700">
                       Address
-                    </label> 
+                    </label>
                     {isEditing ? (
                       <textarea
                         type="text"
@@ -248,12 +248,10 @@ const Profile = () => {
             </div>
           </form>
 
-          {}
-
-          <div className="mt-6 space-y-4 w-full">
+          <div className="mt-6 space-y-4 w-full lg:max-w-lg rounded-lg">
             <div>
               {profileData.data.referral_code ? (
-                <div className="flex flex-col bg-white p-4 space-y-4 rounded-lg shadow-custom-note">
+                <div className="flex flex-col w-full bg-white p-4 space-y-4 rounded-lg shadow-custom-note">
                   <div className="flex  w-full items-center border-b border-gray-300 pb-4">
                     <img
                       src="/Images/kodeReferralTag.webp"
@@ -339,7 +337,7 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="flex flex-col items center justify-center w-full">
+          <div className="flex flex-col items center justify-center w-full lg:max-w-lg">
             <button
               onClick={handleLogout}
               className="mt-8 py-2 shadow-custom-note font-sans w-[95%] mx-auto bg-red-warning hover:brightness-110 lg:text-lg text-md text-white font-semibold p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
