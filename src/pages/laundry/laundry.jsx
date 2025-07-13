@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import laundryServices from "../../services/laundry.service";
 import SearchBar from "../../components/bar/search.bar";
-import PromoImages from "../../data/promo.images";
 import PromoCarousel from "../../components/carousel/promo.carousel";
+import PromoImages from "../../data/promo.images";
+import laundryServices from "../../services/laundry.service";
 const LaundryList = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -51,7 +51,10 @@ const LaundryList = () => {
     navigate("/");
   };
 
-  const handleKunjungi = (activeLaundry) => {
+  const handleKunjungi = (activeLaundry, laundryName, isOpen) => {
+    if (!isOpen) {
+      return;
+    }
     navigate(`/laundry/${activeLaundry}`);
   };
 
@@ -107,7 +110,7 @@ const LaundryList = () => {
             {filteredData.map((laundry) => (
               <button
                 key={laundry.id}
-                onClick={() => handleKunjungi(laundry.id)}
+                onClick={() => handleKunjungi(laundry.id, laundry.name, laundry.is_open)}
                 className="w-full text-left bg-white"
               >
                 <div className="relative flex flex-row md:flex-col items-center min-h-[90px] h-full overflow-hidden md:min-h-[390px] rounded-xl bg-white border border-neutral-300 shadow-sm shadow-black/10 hover:shadow-md hover:shadow-black/20 transition-all duration-300 ease-out">
@@ -130,8 +133,8 @@ const LaundryList = () => {
                     {!laundry.is_open && (
                       <div className="md:hidden bg-[#] flex flex-row items-center gap-2">
                         <img src="/Images/moon.svg" alt="closed" />
-                        <p className="font-['Montserrat'] text-[12px] font-medium md:text-[14px] text-[#EF4444] text-justify hyphens-auto">
-                          Sorry, we're closed
+                        <p className="font-['Montserrat'] text-[10px] font-medium md:text-[12px] text-[#EF4444] text-justify hyphens-auto">
+                          Sorry, we're closed, come back later!
                         </p>
                       </div>
                     )}
@@ -149,7 +152,7 @@ const LaundryList = () => {
                     <div class="hidden w-[22rem] border-2 border-[#7F7F7F] h-10 bg-[#F4F5FF] rounded-[10px] my-4 md:flex items-center justify-center">
                       <h4 class="text-[#EF4444] text-base font-semibold font-['Montserrat'] flex flex-row items-center gap-2">
                         <img src="/Images/moon.svg" alt="closed" />
-                        Sorry, we're closed
+                        Sorry, we're closed, come back later!
                       </h4>
                     </div>
                   )}
