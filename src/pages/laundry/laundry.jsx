@@ -51,7 +51,7 @@ const LaundryList = () => {
     navigate("/");
   };
 
-  const handleKunjungi = (activeLaundry, laundryName, isOpen) => {
+  const handleKunjungi = (activeLaundry, isOpen) => {
     if (!isOpen) {
       return;
     }
@@ -110,7 +110,7 @@ const LaundryList = () => {
             {filteredData.map((laundry) => (
               <button
                 key={laundry.id}
-                onClick={() => handleKunjungi(laundry.id, laundry.name, laundry.is_open)}
+                onClick={() => handleKunjungi(laundry.id, laundry.is_open)}
                 className="w-full text-left bg-white"
               >
                 <div className="relative flex flex-row md:flex-col items-center min-h-[90px] h-full overflow-hidden md:min-h-[390px] rounded-xl bg-white border border-neutral-300 shadow-sm shadow-black/10 hover:shadow-md hover:shadow-black/20 transition-all duration-300 ease-out">
