@@ -12,7 +12,6 @@ import {
 } from "../../services/customer.services";
 
 import AuthServices from "../../services/auth.services";
-import handleChange from "../../utils/handle.change.utils";
 import LoadingUtils from "../../utils/loading.utils";
 import transformPhoneNumber from "../../utils/phone.number.utils";
 import { toastContainer } from "../../utils/toast.utils";
@@ -231,15 +230,17 @@ const EditProfileSheet = ({ accessToken, editProfile, dispatch, setProfile, setE
               <input
                 type="text"
                 value={formData.name}
-                onChange={(e) => handleInputChange('name', e.target.value)}
+                onChange={(e) => handleInputChange("name", e.target.value)}
                 className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-['Montserrat'] ${
-                  errors.name ? 'border-red-500' : 'border-gray-300'
+                  errors.name ? "border-red-500" : "border-gray-300"
                 }`}
                 placeholder="Masukkan nama"
                 disabled={isSubmitting}
               />
               {errors.name && (
-                <p className="text-red-500 text-xs mt-1 font-['Montserrat']">{errors.name}</p>
+                <p className="text-red-500 text-xs mt-1 font-['Montserrat']">
+                  {errors.name}
+                </p>
               )}
             </div>
 
@@ -254,16 +255,20 @@ const EditProfileSheet = ({ accessToken, editProfile, dispatch, setProfile, setE
                 <input
                   type="text"
                   value={formData.telephone}
-                  onChange={(e) => handleInputChange('telephone', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("telephone", e.target.value)
+                  }
                   className={`flex-1 px-4 py-2 border rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-['Montserrat'] ${
-                    errors.telephone ? 'border-red-500' : 'border-gray-300'
+                    errors.telephone ? "border-red-500" : "border-gray-300"
                   }`}
                   placeholder="Masukkan nomor telepon"
                   disabled={isSubmitting}
                 />
               </div>
               {errors.telephone && (
-                <p className="text-red-500 text-xs mt-1 font-['Montserrat']">{errors.telephone}</p>
+                <p className="text-red-500 text-xs mt-1 font-['Montserrat']">
+                  {errors.telephone}
+                </p>
               )}
             </div>
 
@@ -274,33 +279,232 @@ const EditProfileSheet = ({ accessToken, editProfile, dispatch, setProfile, setE
               <textarea
                 rows="4"
                 value={formData.address}
-                onChange={(e) => handleInputChange('address', e.target.value)}
+                onChange={(e) => handleInputChange("address", e.target.value)}
                 className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-['Montserrat'] resize-none ${
-                  errors.address ? 'border-red-500' : 'border-gray-300'
+                  errors.address ? "border-red-500" : "border-gray-300"
                 }`}
                 placeholder="Masukkan alamat lengkap"
                 disabled={isSubmitting}
               />
               {errors.address && (
-                <p className="text-red-500 text-xs mt-1 font-['Montserrat']">{errors.address}</p>
+                <p className="text-red-500 text-xs mt-1 font-['Montserrat']">
+                  {errors.address}
+                </p>
               )}
             </div>
 
             <div className="flex gap-3 pt-4 border-t border-neutral-400">
-              <button
-                onClick={handleClose}
+              <div className="w-full">
+                <button
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}
+                  className="w-full flex-1 px-4 py-2 bg-blue-500 font-semibold text-white rounded-2xl hover:bg-blue-600 font-['Montserrat'] disabled:opacity-50"
+                >
+                  {isSubmitting ? "Menyimpan..." : "Simpan"}
+                </button>
+              </div>
+              <div className="w-full border-2 border-[#687EFF] rounded-2xl">
+                <button
+                  onClick={handleClose}
+                  disabled={isSubmitting}
+                  className="w-full flex-1 px-4 py-2 font-semibold border border-blue-600 bg-white text-[#687EFF] rounded-2xl font-['Montserrat'] disabled:opacity-50"
+                >
+                  Batal
+                </button>
+              </div>
+            </div>
+          </div>
+        </Sheet.Content>
+      </Sheet.Container>
+    </Sheet>
+  );
+};
+
+const KodeRefferralSwal = (accessToken, getProfileUser) => {
+  Swal.fire({
+    title: "Buat Kode Referral",
+    html: `
+      <div class="space-y-4">
+        <div class="text-left">
+          <label class="block text-sm font-bold text-gray-700 mb-2 font-['Montserrat']">Kode Referral</label>
+          <input 
+            id="referral-code" 
+            type="text" 
+            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#687EFF] font-['Montserrat']"
+            placeholder="Masukkan Kode Referral"
+          />
+        </div>
+        
+        <div class="text-center">
+          <p class="text-[#687EFF] text-sm font-['Montserrat']">
+            Pastikan sudah benar karena tidak bisa diganti lagi
+          </p>
+        </div>
+      </div>
+    `,
+    showCancelButton: true,
+    confirmButtonText: "Submit",
+    cancelButtonText: "Batal",
+    customClass: {
+      confirmButton: "btn-confirm",
+      cancelButton: "btn-cancel",
+    },
+    backdrop: true,
+    allowOutsideClick: false,
+    preConfirm: () => {
+      const referralCode = document
+        .getElementById("referral-code")
+        .value.trim();
+
+      if (!referralCode) {
+        Swal.showValidationMessage("Kode referral tidak boleh kosong");
+        return false;
+      }
+
+      return { referral_code: referralCode };
+    },
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      const { referral_code } = result.value;
+
+      // Show loading state
+      Swal.fire({
+        title: "Membuat kode referral...",
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+
+      // Submit the referral code
+      try {
+        await customerServices.postReferral(accessToken, { referral_code });
+        await getProfileUser();
+        successSwal("Kode referral berhasil dibuat");
+      } catch (error) {
+        errorSwal(error.message || "Terjadi kesalahan, silakan coba lagi");
+      }
+    }
+  });
+};
+
+const KodeRefferralSheet = ({ accessToken, getProfileUser, onClose, isOpen }) => {
+  const [formData, setFormData] = useState({
+    referral_code: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleInputChange = (value) => {
+    setFormData(prev => ({
+      ...prev,
+      referral_code: value
+    }));
+    // Clear error when user starts typing
+    if (errors.referral_code) {
+      setErrors(prev => ({
+        ...prev,
+        referral_code: ''
+      }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!formData.referral_code.trim()) {
+      newErrors.referral_code = "Kode referral tidak boleh kosong";
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async () => {
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // Submit the referral code
+    try {
+      await customerServices.postReferral(accessToken, formData);
+      await getProfileUser();
+      successSwal("Kode referral berhasil dibuat");
+      handleClose();
+    } catch (error) {
+      errorSwal(error.message || "Terjadi kesalahan, silakan coba lagi");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleClose = () => {
+    if (onClose) {
+      onClose();
+    }
+  };
+
+  return (
+    <Sheet isOpen={isOpen} onClose={handleClose}>
+      <Sheet.Container>
+        <Sheet.Header>
+          <div className="w-full flex justify-center">
+            <div className="w-[30%] border-4 rounded-full border-neutral-200 mt-4"></div>
+          </div>
+        </Sheet.Header>
+        <Sheet.Content>
+          <div className="p-4 space-y-4">
+            <div className="text-center mb-4">
+              <h2 className="text-lg font-bold text-gray-700 font-['Montserrat']">
+                Buat Kode Referral
+              </h2>
+            </div>
+
+            <div className="text-left">
+              <input
+                type="text"
+                value={formData.referral_code}
+                onChange={(e) => handleInputChange(e.target.value)}
+                className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#687EFF] font-['Montserrat'] ${
+                  errors.referral_code ? "border-red-500" : "border-gray-300"
+                }`}
+                placeholder="Masukkan Kode Referral"
                 disabled={isSubmitting}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 font-['Montserrat'] disabled:opacity-50"
-              >
-                Batal
-              </button>
-              <button
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-                className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 font-['Montserrat'] disabled:opacity-50"
-              >
-                {isSubmitting ? "Menyimpan..." : "Simpan"}
-              </button>
+              />
+              {errors.referral_code && (
+                <p className="text-red-500 text-xs mt-1 font-['Montserrat']">
+                  {errors.referral_code}
+                </p>
+              )}
+            </div>
+
+            <div className="text-center">
+              <p className="text-[#687EFF] text-sm font-['Montserrat']">
+                Pastikan sudah benar karena tidak bisa diganti lagi
+              </p>
+            </div>
+
+            <div className="flex gap-3 pt-4 border-t border-neutral-400">
+              <div className="w-full">
+                <button
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}
+                  className="w-full flex-1 px-4 py-2 font-semibold bg-[#687EFF] text-white rounded-full hover:bg-blue-600 font-['Montserrat'] disabled:opacity-50"
+                >
+                  {isSubmitting ? "Submitting..." : "Submit"}
+                </button>
+              </div>
+              <div className="w-full border-2 border-[#687EFF] rounded-full">
+                <button
+                  onClick={handleClose}
+                  disabled={isSubmitting}
+                  className="w-full flex-1 px-4 py-2 border border-blue-600 font-semibold text-[#687EFF] rounded-full bg-white hover:bg-gray-50 font-['Montserrat'] disabled:opacity-50"
+                >
+                  Batal
+                </button>
+              </div>
             </div>
           </div>
         </Sheet.Content>
@@ -316,17 +520,14 @@ const Profile = () => {
   const { profileData, refreshToken, accessToken, isLoading } = useSelector((state) => state.auth);
 
   const [isEditing, setIsEditing] = useState(false);
-  const [inputReferral, setInputReferral] = useState(false);
   const [showEditSheet, setShowEditSheet] = useState(false);
+  const [showReferralSheet, setShowReferralSheet] = useState(false);
   const [profile, setProfile] = useState({
     name: profileData.data.name,
     telephone: profileData.data.telephone,
     address: profileData.data.address,
   });
   const [editProfile, setEditProfile] = useState({ ...profile });
-  const [referralCode, setReferralCode] = useState({
-    referral_code: "",
-  });
   
   const getProfileUser = useCallback(async () => {
     await CustomerServices.getProfile(accessToken, dispatch);
@@ -338,7 +539,15 @@ const Profile = () => {
   }, [accessToken, dispatch, getProfileUser]);
 
   const handleInputReferral = () => {
-    setInputReferral(!inputReferral);
+    if (isMobile) {
+      setShowReferralSheet(true);
+    } else {
+      KodeRefferralSwal(accessToken, getProfileUser);
+    }
+  };
+
+  const handleCloseReferralSheet = () => {
+    setShowReferralSheet(false);
   };
 
   const handleEditProfile = () => {
@@ -371,17 +580,6 @@ const Profile = () => {
     }
   };
 
-  const handleChangeReferral = handleChange(setReferralCode);
-
-  const handleSubmitReferral = async (e) => {
-    e.preventDefault();
-
-    if (accessToken) {
-      await customerServices.postReferral(accessToken, referralCode);
-      await getProfileUser();
-    }
-  };
-
   if (isLoading) {
     return <LoadingUtils />;
   }
@@ -402,6 +600,16 @@ const Profile = () => {
           getProfileUser={getProfileUser}
           onClose={handleCloseEditSheet}
           isOpen={showEditSheet}
+        />
+      )}
+
+      {/* Conditional rendering of referral sheet for mobile */}
+      {showReferralSheet && (
+        <KodeRefferralSheet
+          accessToken={accessToken}
+          getProfileUser={getProfileUser}
+          onClose={handleCloseReferralSheet}
+          isOpen={showReferralSheet}
         />
       )}
 
@@ -552,42 +760,6 @@ const Profile = () => {
                     Ajak {profileData.data.referral_code_until_next_reward}{" "}
                     orang lagi untuk mendapatkan voucher
                   </p>
-                </div>
-              ) : inputReferral ? (
-                <div className="flex flex-col items-center bg-white p-4 space-y-4 rounded-lg shadow-custom-note">
-                  <p className="font-['Montserrat'] block text-lg pb-4 font-bold text-gray-700">
-                    Buat Kode Referral
-                  </p>
-                  <input
-                    type="text"
-                    name="referral_code"
-                    placeholder="Masukkan Kode Referral"
-                    value={referralCode.referral_code}
-                    onChange={handleChangeReferral}
-                    className="mt-1 block w-[90%] px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  ></input>
-
-                  <p className="text-blue-500 lg:text-md text-sm text-justify px-4">
-                    Pastikan sudah benar karena tidak bisa diganti lagi
-                  </p>
-
-                  <div className="flex justify-around w-[80%]">
-                    <button
-                      onClick={handleSubmitReferral}
-                      className="w-[40%] mt-2 px-4 py-2 bg-blue-500 text-white border font-semibold rounded-lg hover:bg-blue-600 hover:shadow-custom-note transition"
-                    >
-                      Kirim
-                    </button>
-
-                    <div className="w-[40%] mt-2 ml-3 px-4 py-2 border border-blue-500 hover:shadow-custom-note rounded-lg">
-                      <button
-                        onClick={handleInputReferral}
-                        className="w-full text-blue-500 bg-white font-semibold rounded-lg transition"
-                      >
-                        Batal
-                      </button>
-                    </div>
-                  </div>
                 </div>
               ) : (
                 <div className="flex flex-col items center justify-center w-full">
