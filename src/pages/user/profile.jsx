@@ -510,27 +510,6 @@ const Profile = () => {
                   </button>
                 </div>
               )}
-
-              {isEditing &&
-                (isMobile ? (
-                  <div className="flex justify-end mt-4">
-                    <button
-                      type="submit"
-                      className="font-['Montserrat'] px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
-                    >
-                      Save Mobile
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex justify-end mt-4">
-                    <button
-                      type="submit"
-                      className="font-['Montserrat'] px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
-                    >
-                      Save Desktop
-                    </button>
-                  </div>
-                ))}
             </div>
           </form>
 
