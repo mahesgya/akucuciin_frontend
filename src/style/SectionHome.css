@@ -10,8 +10,9 @@ body {
 }
 
 .btn-cancel {
-  background-color: #aaa;
-  color: black;
+  background-color: #fff;
+  color: #687EFF;
+  border: 2px solid #687EFF;
 }
 
 #SectionHome {
