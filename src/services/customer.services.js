@@ -49,9 +49,9 @@ const CustomerServices = {
         headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
       });
 
-      successSwal("Pesanan berhasil dikirim.");
-      navigate("/");
-      return response.data;
+      successSwal("Pesanan berhasil dikirim.").then(() => {
+        navigate(`/order/${response.data.data.id}`);
+      });
     } catch (error) {
       errorSwal(error.response?.data?.errors);
     } finally {
