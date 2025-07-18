@@ -7,7 +7,10 @@ module.exports = {
 
   theme: {
     extend: {
+      
       colors: {
+        'blue-primary': '#687EFF',
+        'red-warning' : "#EF4444",
         "black-33": "rgba(0, 0, 0, 0.33)",
         "gray-55" : "rgba(255, 255, 255, 0.08)",
         "gray-ao" : "#A0A0A0",
@@ -39,12 +42,14 @@ module.exports = {
         'extra-large': '2.5rem', 
       },
       boxShadow: {
-        'bottom': '0 4px 6px rgba(0, 0, 0, 0.3)', 
+        'custom-note': '0px 0px 16px 0px rgba(96, 97, 112, 0.1)',
       },
       fontWeight:{
         'boldparah' : '1000',
       }
     },
   },
-  plugins: [],
+   plugins: [
+    require('tailwindcss-textshadow')
+  ],
 };

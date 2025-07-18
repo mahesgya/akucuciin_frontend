@@ -73,7 +73,6 @@ const OrderForm = () => {
 };
 
   useEffect(() => {
-    console.log(pickupHours)
     if (pickupHours) {
       const selectedSlot = timeSlots.find(slot => slot.label === pickupHours);
       if (selectedSlot && isTimeSlotPassed(selectedSlot)) {

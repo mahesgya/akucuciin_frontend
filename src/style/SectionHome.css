@@ -5,13 +5,14 @@ body {
 }
 
 .btn-confirm {
-  background-color: #3085d6;
+  background-color: #687EFF;
   color: white;
 }
 
 .btn-cancel {
-  background-color: #aaa;
-  color: black;
+  background-color: #fff;
+  color: #687EFF;
+  border: 2px solid #687EFF;
 }
 
 #SectionHome {

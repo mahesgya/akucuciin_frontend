@@ -23,6 +23,7 @@ import LaundryList from "./pages/laundry/laundry";
 import LaundryDetail from "./pages/laundry/laundry.detail";
 import Order from "./pages/user/order";
 import PrivacyPolicy from "./pages/static/privacy_policy";
+import OrderDetail from "./pages/user/order.detail";
 
 const Routess = [
   {
@@ -101,6 +102,10 @@ const Routess = [
     path: "/privacy-policy",
     element: <PrivacyPolicy />,
   },
+  {
+    path: "/order/:orderId",
+    element: <OrderDetail />,
+  }
 ];
 
 export default Routess;

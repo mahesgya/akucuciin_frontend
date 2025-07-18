@@ -1,6 +1,7 @@
 import axios from "axios";
-import { errorSwal, successSwal } from "../utils/alert.utils";
 import { setProfileData } from "../redux/auth.slicer";
+import { errorSwal, successSwal } from "../utils/alert.utils";
+import { toastError, toastSuccess } from "../utils/toast.utils";
 
 const CustomerServices = {
   getProfile: async (accessToken, dispatch) => {
@@ -35,10 +36,10 @@ const CustomerServices = {
       }));
       setEditProfile({ ...editProfile });
       setIsEditing(false);
-      successSwal("Perubahan profile berhasil.");
+      toastSuccess("Profil berhasil diperbarui.");
       return response.data;
     } catch (error) {
-      errorSwal(error.response?.data?.errors);
+      toastError(error.response?.data?.errors);
     }
   },
   orderLaundry: async (accessToken, formData, setIsLoading, navigate) => {
@@ -48,9 +49,9 @@ const CustomerServices = {
         headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
       });
 
-      successSwal("Pesanan berhasil dikirim.");
-      navigate("/");
-      return response.data;
+      successSwal("Pesanan berhasil dikirim.").then(() => {
+        navigate(`/order/${response.data.data.id}`);
+      });
     } catch (error) {
       errorSwal(error.response?.data?.errors);
     } finally {
@@ -63,10 +64,10 @@ const CustomerServices = {
         headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
       });
 
-      successSwal("Berhasil membuat kode referral.");
+      toastSuccess("Berhasil membuat kode referral.");
       return response.data;
     } catch (error) {
-      errorSwal(error.response?.data?.errors);
+      toastError(error.response?.data?.errors);
     }
   },
   getOrderLaundry: async (accessToken) => {
@@ -79,16 +80,23 @@ const CustomerServices = {
       errorSwal(error.response?.data?.errors);
     }
   },
-  cancelOrder: async (accessToken, orderId) => {
+  cancelOrder: async (accessToken, orderId, cancelReason) => {
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/order/${orderId}`, {
-        headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
-      });
-
+      const response = await axios.delete(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/order/${orderId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json",
+          },
+          data: {
+            cancel_reason: cancelReason,
+          },
+        }
+      );
+  
       successSwal("Order berhasil dibatalkan.");
       return response.data;
     } catch (error) {
-      errorSwal(error.response?.data?.errors);
+      errorSwal(error.response?.data?.errors || "Unauthorized");
     }
   },
   postReview: async (accessToken, orderId, rating, review) => {
@@ -101,10 +109,9 @@ const CustomerServices = {
         }
       );
 
-      successSwal("Ulasan berhasil dikirim");
       return response.data;
     } catch (error) {
-      errorSwal(error.response?.data?.errors);
+      throw new Error(error.response?.data?.errors || "Server error, please try again later.");
     }
   },
   orderPayment: async (accessToken, orderId) => {
@@ -121,6 +128,18 @@ const CustomerServices = {
       errorSwal(error.response?.data?.errors);
     }
   },
+  getSingleOrder: async (accessToken, orderId) => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/order/${orderId}`, {        
+        headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+      });
+
+      const orderData = response.data;
+      return orderData;
+    } catch (error) {
+      errorSwal(error.response?.data?.errors);
+    }
+  }
 };
 
 export default CustomerServices;
