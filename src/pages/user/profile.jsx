@@ -19,7 +19,6 @@ import { toastContainer } from "../../utils/toast.utils";
 import { Sheet } from "react-modal-sheet";
 import useIsMobileScreen from "../../utils/isMobileScreen.utils";
 import Swal from "sweetalert2";
-import { successSwal, errorSwal } from "../../utils/alert.utils";
 
 const EditProfileSwal = (
 	accessToken,
