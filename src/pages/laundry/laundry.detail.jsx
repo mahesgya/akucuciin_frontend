@@ -156,7 +156,7 @@ const LaundryDetail = () => {
 											>
 												<div className="flex items-start justify-between">
 													<div className="mr-4">
-														<h3 className="font-['Montserrat'] font-semibold text-md font-semibold text-gray-800 md:text-lg">
+														<h3 className="font-['Montserrat'] font-semibold text-md text-gray-800 md:text-lg">
 															{item.name}
 														</h3>
 														<p className="font-['Montserrat'] text-[10px] text-gray-500 mt-0.5 md:text-[12px] lg:text-[14px]">
