@@ -209,9 +209,10 @@ const FlexRowAccordion = ({ title, contents }) => {
           <div className='font-["Montserrat"] text-sm border-l-2 border-neutral-200 pl-2 w-full'>
             {contents.map((content, index) => (
               <div className="flex flex-row items-center justify-between w-full pr-2 space-x-4" key={index}>
-                <p className='text-sm mt-2 font-["Montserrat"] whitespace-nowrap font-semibold'>{content.field}</p>
+                <p className='text-xs mt-2 font-["Montserrat"] whitespace-nowrap font-semibold'>{content.field}</p>
                 
-                <p className='w-full text-end text-sm mt-2 font-["Montserrat"] whitespace-nowrap overflow-hidden text-ellipsis font-semibold'>{content.value === "" ? "-" : content.value}</p>
+                <p className='w-full text-end text-xs mt-2 font-["Montserrat"] break-words font-semibold'>
+                {content.value === "" ? "-" : content.value}</p>
                 
                 {content.link && (
                   <a href={content.link} target='_blank' rel='noopener noreferrer' title={content.link} className='w-full mt-2 font-["Montserrat"] whitespace-nowrap overflow-hidden text-ellipsis text-blue-600 hover:text-blue-800 underline hover:no-underline transition-colors duration-200'>{content.link === "" ? "-" : content.link}</a>
