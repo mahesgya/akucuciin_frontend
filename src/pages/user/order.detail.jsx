@@ -605,6 +605,7 @@ const OrderDetail = () => {
               title={"Voucher dan Referral"}
               contents={[
                 { field: "Kupon", value: data.coupon_code },
+                {field: "Diskon Kupon", value: `${data.coupon?.multiplier} %` ?? "-"},
                 { field: "Kode referal", value: data.referral_code },
               ]}
             />
