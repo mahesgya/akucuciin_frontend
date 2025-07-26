@@ -25,6 +25,7 @@ import Order from "./pages/user/order";
 import PrivacyPolicy from "./pages/static/privacy_policy";
 import OrderDetail from "./pages/user/order.detail";
 import NotFound from "./pages/not_found";
+import SnkVoucherGacha from "./pages/other/SnkVoucherGacha";
 
 const Routess = [
 	{
@@ -106,6 +107,10 @@ const Routess = [
 	{
 		path: "/order/:orderId",
 		element: <OrderDetail />,
+	},
+	{
+		path: "/voucher-gacha/snk",
+		element: <SnkVoucherGacha />,
 	},
 	{
 		path: "*",
