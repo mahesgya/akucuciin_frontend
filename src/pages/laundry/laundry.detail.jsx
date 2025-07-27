@@ -81,6 +81,7 @@ const LaundryDetail = () => {
 		const activePaketForNavigation = {
 			...activePaket,
 			features: featuresArray,
+			laundry_name: data.name,
 		};
 
 		navigate(`/laundry/${idlaundry}/pesan/${activePaketForNavigation.id}`, {
