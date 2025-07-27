@@ -64,8 +64,27 @@ const LaundryDetail = () => {
 	};
 
 	const handlePesan = (activePaket) => {
-		navigate(`/laundry/${idlaundry}/pesan/${activePaket.id}`, {
-			state: { activePaket },
+		let featuresArray;
+
+		if (typeof activePaket.features === "string") {
+			// If it's a string, split it into an array
+			featuresArray = activePaket.features.split(",");
+		} else if (Array.isArray(activePaket.features)) {
+			// If it's already an array, use it as is
+			featuresArray = activePaket.features;
+		} else {
+			// If it's null, undefined, or any other unexpected type, default to an empty array
+			// This ensures 'features' is always an array for the receiving component.
+			featuresArray = [];
+		}
+
+		const activePaketForNavigation = {
+			...activePaket,
+			features: featuresArray,
+		};
+
+		navigate(`/laundry/${idlaundry}/pesan/${activePaketForNavigation.id}`, {
+			state: { activePaket: activePaketForNavigation },
 		});
 	};
 
