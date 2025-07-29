@@ -84,46 +84,46 @@ const VoucherReferralSwal = (
 		},
 	}).then(async (result) => {
 		if (result.isConfirmed) {
-			try {
-				let referralResponse = null;
-				let couponResponse = null;
+			let referralResponse = null;
+			let couponResponse = null;
 
-				// if both fields are empty, do nothing
-				if (!result.value.referral_code && !result.value.coupon_code) {
-					return;
-				}
+			// if both fields are empty, do nothing
+			if (!result.value.referral_code && !result.value.coupon_code) {
+				onValidationResponse({
+					referralResponse: null,
+					couponResponse: null,
+					referral_code: "",
+					coupon_code: "",
+				});
+				return;
+			}
 
-				// if referral field is filled, validate it
-				if (result.value.referral_code) {
-					referralResponse = await customerServices.checkReferralCode(
-						accessToken,
-						result.value.referral_code
-					);
-				}
+			// if referral field is filled, validate it
+			if (result.value.referral_code) {
+				referralResponse = await customerServices.checkReferralCode(
+					accessToken,
+					result.value.referral_code
+				);
+			}
 
-				// if coupon field is filled, validate it
-				if (result.value.coupon_code) {
-					couponResponse = await customerServices.checkCouponCode(
-						accessToken,
-						result.value.coupon_code
-					);
-				}
+			// if coupon field is filled, validate it
+			if (result.value.coupon_code) {
+				couponResponse = await customerServices.checkCouponCode(
+					accessToken,
+					result.value.coupon_code
+				);
+			}
 
-				// Pass validation responses to parent component
-				if (onValidationResponse) {
-					onValidationResponse({
-						referralResponse: referralResponse,
-						couponResponse: couponResponse,
-						referral_code: result.value.referral_code
-							? result.value.referral_code
-							: "",
-						coupon_code: result.value.coupon_code
-							? result.value.coupon_code
-							: "",
-					});
-				}
-			} catch (error) {
-				console.log("Error in Swal submit:", error);
+			// Pass validation responses to parent component
+			if (onValidationResponse) {
+				onValidationResponse({
+					referralResponse: referralResponse,
+					couponResponse: couponResponse,
+					referral_code: result.value.referral_code
+						? result.value.referral_code
+						: "",
+					coupon_code: result.value.coupon_code ? result.value.coupon_code : "",
+				});
 			}
 		}
 	});
@@ -157,6 +157,12 @@ const VoucherReferralSheet = ({
 
 			// if both fields are empty, do nothing and close the sheet
 			if (!localFormData.referral_code && !localFormData.coupon_code) {
+				onValidationResponse({
+					referralResponse: null,
+					couponResponse: null,
+					referral_code: "",
+					coupon_code: "",
+				});
 				return;
 			}
 
@@ -190,13 +196,10 @@ const VoucherReferralSheet = ({
 				});
 			}
 
-			console.log("Error is sheet submit try");
-
 			handleClose();
 		} finally {
 			setIsSubmitting(false);
 			handleClose();
-			console.log("Error is sheet submit finally");
 		}
 	};
 
@@ -448,16 +451,24 @@ const OrderForm = () => {
 	const handleValidationResponse = async (responses) => {
 		// Set validation responses
 		setValidationResponses(responses);
-		console.log("Validation responses:", responses);
 
-		// Handle errors early on
-		if (!responses.referralResponse && !responses.couponResponse) {
+		if (
+			!responses.referralResponse &&
+			responses.referral_code &&
+			!responses.couponResponse &&
+			responses.coupon_code
+		) {
 			toastError(responses.referralResponse.errors);
 			toastError(responses.couponResponse.errors);
 			return;
 		}
 
-		if (responses.referralResponse) {
+		if (responses.referral_code === "") {
+			setFormData((prev) => ({
+				...prev,
+				referral_code: "",
+			}));
+		} else if (responses.referralResponse) {
 			if (!responses.referralResponse.success) {
 				toastError(responses.referralResponse.errors);
 			} else {
@@ -469,7 +480,12 @@ const OrderForm = () => {
 			}
 		}
 
-		if (responses.couponResponse) {
+		if (responses.coupon_code === "") {
+			setFormData((prev) => ({
+				...prev,
+				coupon_code: "",
+			}));
+		} else if (responses.couponResponse) {
 			if (!responses.couponResponse.success) {
 				toastError(responses.couponResponse.errors);
 			} else {
@@ -482,8 +498,6 @@ const OrderForm = () => {
 				);
 			}
 		}
-
-		console.log("Validation responses:", responses);
 	};
 
 	const handleVoucherReferralClick = () => {
@@ -704,15 +718,15 @@ const OrderForm = () => {
 												<div className="flex flex-row items-center justify-center">
 													{formData.coupon_code}
 													<div className="ml-2 px-2 py-1 text-xs text-center rounded-full text-white font-[Montserrat] bg-[#EF4444]">
-														{validationResponses.couponResponse
-															? validationResponses.couponResponse.data
-																	.multiplier
-															: "20"}{" "}
+														{
+															validationResponses.couponResponse.data
+																?.multiplier
+														}{" "}
 														% Off
 													</div>
 												</div>
 												<div className="text-sm font-semibold font-[Montserrat] italic border-t border-gray-300">
-													{validationResponses.couponResponse.data.description}
+													{validationResponses.couponResponse.data?.description}
 												</div>
 											</div>
 										</div>
