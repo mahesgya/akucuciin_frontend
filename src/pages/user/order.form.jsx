@@ -1,28 +1,25 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { setProfileData } from "../../redux/auth.slicer";
-import { useDispatch } from "react-redux";
 import { AiFillStar } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { setProfileData } from "../../redux/auth.slicer";
 
+import idLocale from "date-fns/locale/id";
 import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import { FiClock, FiAlertCircle } from "react-icons/fi";
+import utc from "dayjs/plugin/utc";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import idLocale from "date-fns/locale/id";
 
-import transformPhoneNumber from "../../utils/phone.number.utils";
+import { Sheet } from "react-modal-sheet";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 import customerServices from "../../services/customer.services";
 import { errorSwal, successSwal } from "../../utils/alert.utils";
-import { toastSuccess, toastError } from "../../utils/toast.utils";
 import useIsMobileScreen from "../../utils/isMobileScreen.utils";
-import Swal from "sweetalert2";
-import { Sheet } from "react-modal-sheet";
-import { scale } from "framer-motion";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import transformPhoneNumber from "../../utils/phone.number.utils";
+import { toastError, toastSuccess } from "../../utils/toast.utils";
 
 // NOTE BUAT BESOK PAGI : yg kiri udh kelar. yg kanan tinggal kalender
 // Semuanya belom responsive
@@ -752,7 +749,7 @@ const OrderForm = () => {
 									)}
 									<div
 										onClick={() => handleVoucherReferralClick()}
-										className="bg-transparent text-sm text-white font-[Montserrat] border rounded-full w-full px-6 py-2 font-semibold hover:bg-white/20 flex items-center justify-center"
+										className="bg-transparent text-sm text-white font-[Montserrat] border rounded-full w-full px-4 py-2 font-semibold hover:bg-white/20 flex items-center justify-center"
 									>
 										Edit
 									</div>
