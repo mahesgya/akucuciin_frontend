@@ -16,10 +16,13 @@ import idLocale from "date-fns/locale/id";
 import transformPhoneNumber from "../../utils/phone.number.utils";
 import customerServices from "../../services/customer.services";
 import { errorSwal, successSwal } from "../../utils/alert.utils";
+import { toastSuccess, toastError } from "../../utils/toast.utils";
 import useIsMobileScreen from "../../utils/isMobileScreen.utils";
 import Swal from "sweetalert2";
 import { Sheet } from "react-modal-sheet";
 import { scale } from "framer-motion";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // NOTE BUAT BESOK PAGI : yg kiri udh kelar. yg kanan tinggal kalender
 // Semuanya belom responsive
@@ -79,94 +82,54 @@ const VoucherReferralSwal = (
 
 			return { referral_code: referralCode, coupon_code: couponCode };
 		},
-	})
-		.then((result) => {
-			if (result.isConfirmed) {
-				const { referral_code, coupon_code } = result.value;
+	}).then(async (result) => {
+		if (result.isConfirmed) {
+			let referralResponse = null;
+			let couponResponse = null;
 
-				if (!referral_code && !coupon_code) {
-					errorSwal("Masukkan kode referral atau voucher diskon");
-					return;
-				}
-
-				(async () => {
-					let referralResponse = null;
-					let couponResponse = null;
-
-					if (referral_code) {
-						referralResponse = await customerServices.checkReferralCode(
-							accessToken,
-							referral_code
-						);
-					}
-
-					if (coupon_code) {
-						couponResponse = await customerServices.checkCouponCode(
-							accessToken,
-							coupon_code
-						);
-					}
-
-					if (couponResponse && couponResponse.success) {
-						setFormData((prev) => ({
-							...prev,
-							coupon_code: coupon_code,
-						}));
-					}
-
-					if (referralResponse && referralResponse.success) {
-						setFormData((prev) => ({
-							...prev,
-							referral_code: referral_code,
-						}));
-					}
-
-					// Pass validation responses to parent component
-					if (onValidationResponse) {
-						onValidationResponse({
-							referralResponse,
-							couponResponse,
-							referral_code,
-							coupon_code,
-						});
-					}
-
-					if (
-						(couponResponse && couponResponse.success) ||
-						(referralResponse && referralResponse.success)
-					) {
-						successSwal(
-							`${
-								referralResponse
-									? referralResponse.success
-										? referralResponse.data + ". "
-										: ""
-									: ""
-							}\n ${
-								couponResponse
-									? couponResponse.success
-										? `Kupon "${couponResponse.data.name}" Valid dengan diskon ${couponResponse.data.multiplier}%`
-										: ""
-									: ""
-							}` || "Kode voucher/referral berhasil disimpan"
-						);
-					} else {
-						errorSwal(
-							`${referralResponse ? referralResponse.errors + "." : ""} \n${
-								couponResponse ? couponResponse.errors : ""
-							}` || "Kode voucher/referral tidak valid"
-						);
-					}
-				})();
+			// if both fields are empty, do nothing
+			if (!result.value.referral_code && !result.value.coupon_code) {
+				onValidationResponse({
+					referralResponse: null,
+					couponResponse: null,
+					referral_code: "",
+					coupon_code: "",
+				});
+				return;
 			}
-		})
-		.catch((error) => {
-			errorSwal(error.message || "Terjadi kesalahan saat memproses permintaan");
-		});
+
+			// if referral field is filled, validate it
+			if (result.value.referral_code) {
+				referralResponse = await customerServices.checkReferralCode(
+					accessToken,
+					result.value.referral_code
+				);
+			}
+
+			// if coupon field is filled, validate it
+			if (result.value.coupon_code) {
+				couponResponse = await customerServices.checkCouponCode(
+					accessToken,
+					result.value.coupon_code
+				);
+			}
+
+			// Pass validation responses to parent component
+			if (onValidationResponse) {
+				onValidationResponse({
+					referralResponse: referralResponse,
+					couponResponse: couponResponse,
+					referral_code: result.value.referral_code
+						? result.value.referral_code
+						: "",
+					coupon_code: result.value.coupon_code ? result.value.coupon_code : "",
+				});
+			}
+		}
+	});
 };
 const VoucherReferralSheet = ({
 	formData,
-	setFormData,
 	onClose,
 	isOpen,
 	accessToken,
@@ -188,17 +151,22 @@ const VoucherReferralSheet = ({
 	const handleSubmit = async () => {
 		setIsSubmitting(true);
 
-		if (!localFormData.referral_code && !localFormData.coupon_code) {
-			errorSwal("Masukkan kode referral atau voucher diskon");
-			setIsSubmitting(false);
-			handleClose();
-			return;
-		}
-
 		try {
 			let referralResponse = null;
 			let couponResponse = null;
 
+			// if both fields are empty, do nothing and close the sheet
+			if (!localFormData.referral_code && !localFormData.coupon_code) {
+				onValidationResponse({
+					referralResponse: null,
+					couponResponse: null,
+					referral_code: "",
+					coupon_code: "",
+				});
+				return;
+			}
+
+			// if referral field is filled, validate it
 			if (localFormData.referral_code) {
 				referralResponse = await customerServices.checkReferralCode(
 					accessToken,
@@ -206,6 +174,7 @@ const VoucherReferralSheet = ({
 				);
 			}
 
+			// if coupon field is filled, validate it
 			if (localFormData.coupon_code) {
 				couponResponse = await customerServices.checkCouponCode(
 					accessToken,
@@ -213,60 +182,21 @@ const VoucherReferralSheet = ({
 				);
 			}
 
-			if (couponResponse && couponResponse.success) {
-				setFormData((prev) => ({
-					...prev,
-					coupon_code: localFormData.coupon_code,
-				}));
-			}
-
-			if (referralResponse && referralResponse.success) {
-				setFormData((prev) => ({
-					...prev,
-					referral_code: localFormData.referral_code,
-				}));
-			}
-
 			// Pass validation responses to parent component
 			if (onValidationResponse) {
 				onValidationResponse({
-					referralResponse,
-					couponResponse,
-					referral_code: localFormData.referral_code,
-					coupon_code: localFormData.coupon_code,
+					referralResponse: referralResponse,
+					couponResponse: couponResponse,
+					referral_code: localFormData.referral_code
+						? localFormData.referral_code
+						: "",
+					coupon_code: localFormData.coupon_code
+						? localFormData.coupon_code
+						: "",
 				});
 			}
 
-			if (
-				(couponResponse && couponResponse.success) ||
-				(referralResponse && referralResponse.success)
-			) {
-				successSwal(
-					`${
-						referralResponse
-							? referralResponse.success
-								? referralResponse.data + ". "
-								: ""
-							: ""
-					}\n ${
-						couponResponse
-							? couponResponse.success
-								? `Kupon "${couponResponse.data.name}" Valid dengan diskon ${couponResponse.data.multiplier}%`
-								: ""
-							: ""
-					}` || "Kode voucher/referral berhasil disimpan"
-				);
-			} else {
-				errorSwal(
-					`${referralResponse ? referralResponse.errors + "." : ""} \n${
-						couponResponse ? couponResponse.errors : ""
-					}` || "Kode voucher/referral tidak valid"
-				);
-			}
-
 			handleClose();
-		} catch (error) {
-			errorSwal(error.errors || "Terjadi kesalahan saat memproses permintaan");
 		} finally {
 			setIsSubmitting(false);
 			handleClose();
@@ -518,11 +448,56 @@ const OrderForm = () => {
 		navigate(-1);
 	};
 
-	const handleValidationResponse = (responses) => {
+	const handleValidationResponse = async (responses) => {
+		// Set validation responses
 		setValidationResponses(responses);
-		// You can add additional logic here to handle the validation responses
-		// For example, storing discount amounts, updating UI, etc.
-		console.log("Validation responses:", responses);
+
+		if (
+			!responses.referralResponse &&
+			responses.referral_code &&
+			!responses.couponResponse &&
+			responses.coupon_code
+		) {
+			toastError(responses.referralResponse.errors);
+			toastError(responses.couponResponse.errors);
+			return;
+		}
+
+		if (responses.referral_code === "") {
+			setFormData((prev) => ({
+				...prev,
+				referral_code: "",
+			}));
+		} else if (responses.referralResponse) {
+			if (!responses.referralResponse.success) {
+				toastError(responses.referralResponse.errors);
+			} else {
+				setFormData((prev) => ({
+					...prev,
+					referral_code: responses.referral_code || prev.referral_code,
+				}));
+				await toastSuccess(responses.referralResponse.data);
+			}
+		}
+
+		if (responses.coupon_code === "") {
+			setFormData((prev) => ({
+				...prev,
+				coupon_code: "",
+			}));
+		} else if (responses.couponResponse) {
+			if (!responses.couponResponse.success) {
+				toastError(responses.couponResponse.errors);
+			} else {
+				setFormData((prev) => ({
+					...prev,
+					coupon_code: responses.coupon_code || prev.coupon_code,
+				}));
+				await toastSuccess(
+					`Kupon "${responses.couponResponse.data.name}" Valid dengan diskon ${responses.couponResponse.data.multiplier}%`
+				);
+			}
+		}
 	};
 
 	const handleVoucherReferralClick = () => {
@@ -563,11 +538,12 @@ const OrderForm = () => {
 	};
 
 	return (
-		<div className="flex flex-col space-y-4 bg-[#F4F5FF] h-full min-h-screen w-screen">
+		<div className="flex flex-col bg-[#F4F5FF] h-full min-h-screen w-screen">
+			<ToastContainer />
+
 			{showVoucherReferralSheet && (
 				<VoucherReferralSheet
 					formData={formData}
-					setFormData={setFormData}
 					isOpen={showVoucherReferralSheet}
 					onClose={() => setShowVoucherReferralSheet(false)}
 					accessToken={accessToken}
@@ -737,13 +713,21 @@ const OrderForm = () => {
 										<p className="font-[Montserrat] font-bold text-base">
 											Yay! Anda dapat promo!
 										</p>
-										<div className="rounded-lg font-bold text-lg flex justify-center items-center py-2 px-4 bg-white text-black">
-											{formData.coupon_code}
-											<div className="ml-2 px-2 py-1 text-xs text-center rounded-full text-white font-[Montserrat] bg-[#EF4444]">
-												{validationResponses.couponResponse
-													? validationResponses.couponResponse.data.multiplier
-													: "20"}{" "}
-												% Off
+										<div className="flex flex-col space-y-2">
+											<div className="rounded-lg font-bold text-lg flex flex-col justify-center items-center py-2 px-4 bg-white text-black">
+												<div className="flex flex-row items-center justify-center">
+													{formData.coupon_code}
+													<div className="ml-2 px-2 py-1 text-xs text-center rounded-full text-white font-[Montserrat] bg-[#EF4444]">
+														{
+															validationResponses.couponResponse.data
+																?.multiplier
+														}{" "}
+														% Off
+													</div>
+												</div>
+												<div className="text-sm font-semibold font-[Montserrat] italic border-t border-gray-300">
+													{validationResponses.couponResponse.data?.description}
+												</div>
 											</div>
 										</div>
 									</div>
