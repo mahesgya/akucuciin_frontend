@@ -711,9 +711,9 @@ const OrderForm = () => {
 														% Off
 													</div>
 												</div>
-												{/* <div className="text-sm font-semibold font-[Montserrat] italic border-t border-gray-300">
+												<div className="text-sm font-semibold font-[Montserrat] italic border-t border-gray-300">
 													{validationResponses.couponResponse.data.description}
-												</div> */}
+												</div>
 											</div>
 										</div>
 									</div>
