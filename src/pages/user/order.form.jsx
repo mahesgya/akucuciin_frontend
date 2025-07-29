@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { setProfileData } from "../../redux/auth.slicer";
 
 import idLocale from "date-fns/locale/id";
@@ -696,6 +696,13 @@ const OrderForm = () => {
 						</div>
 					</div>
 
+				  <Link
+						to="/voucher-gacha/snk"
+						state={{ from: window.location.pathname }}
+						className="font-quick font-semibold text-center text-blue-600 mb-1 mt-4 text-md md:text-md hover:underline"
+					>
+						Dapatkan diskon up to 62% SEKARANG! 👉 Cek caranya disini yukk! 👈
+					</Link>
 					<div
 						className={`w-full rounded-lg shadow-md ${
 							formData.referral_code || formData.coupon_code
@@ -765,7 +772,8 @@ const OrderForm = () => {
 								>
 									<div className="text-2xl lg:text-3xl">%</div>
 									<div className="ml-4 w-full flex flex-col text-base font-bold">
-										<p>Punya Voucher / Referral?</p>
+										<p>Punya Voucher ?</p>
+										<p>Punya Referral Teman?</p>
 										<p>Klik di sini</p>
 									</div>
 								</div>
