@@ -303,6 +303,8 @@ const OrderForm = () => {
 	const [pickupDate, setPickupDate] = useState(null);
 	const [pickupHours, setPickupHours] = useState("");
 
+	const [lastOrder, setLastOrder] = useState(null);
+
 	const location = useLocation();
 	const { activePaket } = location.state || {};
 
@@ -385,6 +387,14 @@ const OrderForm = () => {
 			}
 		}
 	}, [pickupDate]);
+
+	useEffect(() => {
+		const fetchLastOrder = async () => {
+			const response = await customerServices.getLastOrder(accessToken);
+			setLastOrder(response.data);
+		};
+		fetchLastOrder();
+	}, []);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -535,7 +545,7 @@ const OrderForm = () => {
 	};
 
 	return (
-		<div className="flex flex-col bg-[#F4F5FF] h-full min-h-screen w-screen">
+		<div className="flex flex-col bg-[#F4F5FF] h-full min-h-screen w-screen pb-8">
 			<ToastContainer />
 
 			{showVoucherReferralSheet && (
@@ -676,9 +686,39 @@ const OrderForm = () => {
 								setFormData({ ...formData, maps_pinpoint: e.target.value })
 							}
 							type="text"
-							placeholder="Ex: https://www.google.com/maps"
+							placeholder="Ex: https://maps.app.goo.gl/..."
 							className="font-[Montserrat] rounded-lg p-2 w-full bg-white border border-0.2 border-gray-500/30 shadow-sm text-gray-700 focus:outline-none focus:border-b-2 text-base"
 						/>
+						{lastOrder && lastOrder.maps_pinpoint && (
+							<div className="mt-4 w-full flex flex-col gap-2 justify-between items-center mb-2">
+								<div className="border border-white align-middle bg-[#687EFF] w-full rounded-lg">
+									<button
+										type="button"
+										onClick={() =>
+											setFormData((prev) => ({
+												...prev,
+												maps_pinpoint: lastOrder.maps_pinpoint,
+											}))
+										}
+										className="font-[Montserrat] w-full p-2 rounded-lg font-semibold text-white text-sm"
+									>
+										Gunakan Maps Sebelumnya
+									</button>
+								</div>
+
+								<div className="border border-[#687EFF] w-full rounded-lg align-middle">
+									<button
+										type="button"
+										onClick={() =>
+											window.open(`${lastOrder.maps_pinpoint}`, "_blank")
+										}
+										className="font-[Montserrat] w-full p-2 rounded-lg font-semibold text-[#687EFF] text-sm"
+									>
+										Cek Maps Sebelumnya
+									</button>
+								</div>
+							</div>
+						)}
 						<div className="flex flex-row space-x-1 items-center justify-start hover:underline">
 							<img
 								src="/Images/gmaps.png"
@@ -696,7 +736,7 @@ const OrderForm = () => {
 						</div>
 					</div>
 
-				  <Link
+					<Link
 						to="/voucher-gacha/snk"
 						state={{ from: window.location.pathname }}
 						className="font-quick font-semibold text-center text-blue-600 mb-1 mt-4 text-md md:text-md hover:underline"
