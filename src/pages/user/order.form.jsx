@@ -574,7 +574,7 @@ const OrderForm = () => {
 			{/* Form Starts */}
 			<form
 				onSubmit={handleSubmit}
-				className="lg:grid lg:grid-flow-col lg:grid-cols-2 space-y-4 gap-8 items-center lg:px-16 w-full h-full px-8"
+				className="lg:grid lg:grid-flow-col lg:grid-cols-2 space-y-4 lg:space-y-0 gap-8 items-center lg:px-16 w-full h-full px-8"
 			>
 				<div className="h-full flex flex-col w-full space-y-4">
 					{/* package info */}
