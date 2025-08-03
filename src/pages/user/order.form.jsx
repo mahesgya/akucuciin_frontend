@@ -691,7 +691,7 @@ const OrderForm = () => {
 						/>
 						{lastOrder && lastOrder.maps_pinpoint && (
 							<div className="mt-4 w-full flex flex-col gap-2 justify-between items-center mb-2">
-								<div className="border border-white align-middle bg-[#687EFF] w-full rounded-lg">
+								<div className="border border-white align-middle bg-[#687EFF] w-full rounded-full">
 									<button
 										type="button"
 										onClick={() =>
@@ -706,7 +706,7 @@ const OrderForm = () => {
 									</button>
 								</div>
 
-								<div className="border border-[#687EFF] w-full rounded-lg align-middle">
+								<div className="border border-[#687EFF] w-full rounded-full align-middle">
 									<button
 										type="button"
 										onClick={() =>
