@@ -16,6 +16,13 @@
 	border: none !important;
 	font-size: medium !important;
 }
+
+@media screen and (max-width: 640px) {
+	.react-datepicker-wrapper {
+		font-size: 0.875rem !important; /* 14px */
+	}
+}
+
 .react-datepicker__input-container input {
 	width: 100% !important;
 }

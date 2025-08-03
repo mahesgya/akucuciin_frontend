@@ -231,6 +231,27 @@ const CustomerServices = {
 			);
 		}
 	},
+	getLastOrder: async (accessToken) => {
+		try {
+			const response = await axios.get(
+				`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/last-order`,
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+						"Content-Type": "application/json",
+					},
+				}
+			);
+			return response.data;
+		} catch (error) {
+			return (
+				error.response?.data || {
+					success: false,
+					errors: "Failed to fetch last order",
+				}
+			);
+		}
+	},
 };
 
 export default CustomerServices;
