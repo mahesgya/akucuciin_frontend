@@ -558,23 +558,23 @@ const OrderForm = () => {
 				/>
 			)}
 
-			<div className="flex flex-col items-center justify-center bg-[#687EFF] lg:p-8 py-12 mb-6 lg:h-40 w-full rounded-b-3xl shadow-md top-0 left-0 right-0">
-				<button onClick={handleBack}>
+			<div className="flex flex-row items-center justify-start bg-[#687EFF] pl-4 lg:p-8 py-12 mb-6 w-full rounded-b-3xl shadow-md top-0 left-0 right-0">
+				<button onClick={handleBack} className="bg-transparent">
 					<img
 						alt="backwhite"
 						src="/Images/backwhite.webp"
-						className="absolute top-8 left-5"
+						className="h-10 w-10"
 					></img>
 				</button>
-				<h1 className="lg:text-5xl mt-5 text-2xl font-bold h-[80%] text-white text-center font-['Montserrat']">
-					Form Order
+				<h1 className="lg:text-4xl ml-4 text-2xl font-bold text-white font-['Montserrat']">
+					{activePaket.laundry_name}
 				</h1>
 			</div>
 
 			{/* Form Starts */}
 			<form
 				onSubmit={handleSubmit}
-				className="lg:grid lg:grid-flow-col lg:grid-cols-2 space-y-4 lg:space-y-0 gap-8 items-center lg:px-16 w-full h-full px-8"
+				className="lg:grid lg:grid-flow-col lg:grid-cols-2 space-y-4 lg:space-y-0 gap-8 w-full h-full px-8 lg:px-24"
 			>
 				<div className="h-full flex flex-col w-full space-y-4">
 					{/* package info */}
@@ -588,13 +588,10 @@ const OrderForm = () => {
 									{activePaket.description}
 								</p>
 							</div>
-							<div className="flex flex-col items-end space-y-2 h-full">
+							<div className="flex flex-col justify-center items-end space-y-2 h-full">
 								<p className='font-medium text-base text-green-400 font-["Montserrat"]'>
 									Rp
 									{parseInt(activePaket.price_text).toLocaleString("id-ID")}
-								</p>
-								<p className="text-[Montserrat] text-sm">
-									{activePaket.laundry_name}
 								</p>
 							</div>
 						</div>
@@ -675,7 +672,7 @@ const OrderForm = () => {
 							</div>
 						</div>
 					)}
-					<div className="w-full bg-white rounded-lg px-6 py-5 shadow-md">
+					<div className="w-full bg-white rounded-lg px-6 py-5 shadow-lg">
 						<h4 className="font-[Montserrat] font-semibold text-left text-gray-700 mb-1 text-base">
 							Link Google Maps
 						</h4>
@@ -843,12 +840,12 @@ const OrderForm = () => {
 				</div>
 				{/* end of left div */}
 				{/* start of right div */}
-				<div className="col-span-12 bg-white flex flex-col rounded-lg px-10 py-5 space-y-4 h-full w-full relative">
+				<div className="bg-white flex flex-col rounded-lg px-10 py-5 space-y-4 h-fit w-full relative shadow-lg">
 					<h4 className="font-[Montserrat] font-semibold text-left text-gray-700 mb-1 text-sm lg:text-xl">
 						Kapan baju kotornya mau dijemput?
 					</h4>
 
-					<div className="flex flex-col lg:flex-row space-x-4 w-full">
+					<div className="flex flex-col w-full">
 						{/* Calendar */}
 						<DatePicker
 							inline
@@ -864,7 +861,7 @@ const OrderForm = () => {
 							className="font-[Montserrat] rounded-lg p-2 bg-white border border-0.2 border-gray-500/30 shadow-sm text-gray-700 focus:outline-none focus:border-b-2 text-base lg:text-base"
 						/>
 
-						<div className="flex flex-col w-full h-full lg:border-l lg:border-l-gray-300 lg:pl-4">
+						<div className="flex flex-col w-full h-full mt-4 border-t-2 border-gray-200 pt-4">
 							{/* timeslots */}
 							<div className="flex flex-col w-full">
 								{timeSlots.map((slot) => {
@@ -876,7 +873,7 @@ const OrderForm = () => {
 										<div
 											key={slot.id}
 											className={
-												`flex items-center space-x-2 mb-1 p-2 rounded-md transition-colors duration-200 ` +
+												`flex items-center mb-1 py-2 rounded-md transition-colors duration-200 ` +
 												(isDisabled
 													? "opacity-60 cursor-not-allowed text-gray-400"
 													: isSelected
@@ -943,7 +940,7 @@ const OrderForm = () => {
 					<button
 						type="submit"
 						disabled={isLoading}
-						className={`absolute bottom-4 left-0 right-0 mx-10 shadow-md font-[Montserrat] font-base lg:text-xl  ${
+						className={`shadow-md font-[Montserrat] font-base lg:text-xl  ${
 							isLoading
 								? "bg-gray-400 text-gray-600 cursor-not-allowed"
 								: "bg-green-500 text-white"
