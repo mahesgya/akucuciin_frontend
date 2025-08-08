@@ -14,12 +14,11 @@
 .react-datepicker-wrapper {
 	width: 100% !important;
 	border: none !important;
-	font-size: medium !important;
 }
 
 @media screen and (max-width: 640px) {
-	.react-datepicker-wrapper {
-		font-size: 0.875rem !important; /* 14px */
+	.react-datepicker__month-container {
+		font-size: small !important;
 	}
 }
 
@@ -29,6 +28,7 @@
 
 .react-datepicker__month-container {
 	width: 100% !important;
+	font-size: medium !important;
 }
 
 .react-datepicker__header {
@@ -45,6 +45,9 @@
 }
 
 .react-datepicker__month {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 8px !important;
 	margin: 0 !important;
 	padding: 0 !important;
 	width: 100% !important;
