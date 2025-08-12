@@ -20,6 +20,7 @@ import { errorSwal, successSwal } from "../../utils/alert.utils";
 import useIsMobileScreen from "../../utils/isMobileScreen.utils";
 import transformPhoneNumber from "../../utils/phone.number.utils";
 import { toastError, toastSuccess } from "../../utils/toast.utils";
+import isSpecialVoucher from "../../utils/IsSpecialVoucher.utils";
 
 // NOTE BUAT BESOK PAGI : yg kiri udh kelar. yg kanan tinggal kalender
 // Semuanya belom responsive
@@ -759,11 +760,11 @@ const OrderForm = () => {
 												<div className="flex flex-row items-center justify-center">
 													{formData.coupon_code}
 													<div className="ml-2 px-2 py-1 text-xs text-center rounded-full text-white font-[Montserrat] bg-[#EF4444]">
-														{
-															validationResponses.couponResponse.data
-																?.multiplier
-														}{" "}
-														% Off
+														{isSpecialVoucher(
+															validationResponses.couponResponse.data?.name
+														)
+															? "6% - 62% Off"
+															: `${validationResponses.couponResponse.data?.multiplier}% Off`}{" "}
 													</div>
 												</div>
 												<div className="text-sm font-semibold font-[Montserrat] italic border-t border-gray-300">
