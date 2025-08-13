@@ -77,7 +77,7 @@ const Routess = [
 		element: <ResetPassword />,
 	},
 	{
-		path: "/me",
+		path: "/profile",
 		element: <Profile />,
 	},
 	{
