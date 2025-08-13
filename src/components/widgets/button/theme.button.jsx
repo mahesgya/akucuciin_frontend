@@ -41,7 +41,7 @@ export default function ThemeSwitcher() {
               'dark:focus-visible:ring-offset-dark-bg',
               isActive
                 ? 'bg-blue-primary text-white'
-                : 'text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+                : 'text-gray-600 dark:text-gray-600 hover:bg-gray-300 dark:hover:text-gray-300 dark:hover:bg-gray-600'
             ].join(' ')}
           >
             {opt.icon}
