@@ -1,5 +1,3 @@
-import Navbar from "./components/layout/navbar/index";
-import HomeHP from "./pages/static/home/index.hp";
 import "./App.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { setLogout } from "./redux/auth.slicer";
 import AuthServices from "./services/auth.services";
 import Cookies from "js-cookie";
+import LaundryList from "./pages/laundry/laundry";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -36,13 +35,14 @@ const App = () => {
 
   return (
     <div className="App">
-      <div className="appHP">
+      <LaundryList/>
+      {/* <div className="appHP">
         <HomeHP className="homeHP" />
       </div>
 
       <div className="AppLaptop">
         <Navbar />
-      </div>
+      </div> */}
     </div>
   );
 };
