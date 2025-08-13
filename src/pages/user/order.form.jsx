@@ -11,281 +11,18 @@ import utc from "dayjs/plugin/utc";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { Sheet } from "react-modal-sheet";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
+
 import customerServices from "../../services/customer.services";
 import { errorSwal, successSwal } from "../../utils/alert.utils";
 import useIsMobileScreen from "../../utils/isMobileScreen.utils";
 import transformPhoneNumber from "../../utils/phone.number.utils";
 import { toastError, toastSuccess } from "../../utils/toast.utils";
 import isSpecialVoucher from "../../utils/IsSpecialVoucher.utils";
-
-// NOTE BUAT BESOK PAGI : yg kiri udh kelar. yg kanan tinggal kalender
-// Semuanya belom responsive
-
-const VoucherReferralSwal = (
-	formData,
-	setFormData,
-	accessToken,
-	onValidationResponse
-) => {
-	Swal.fire({
-		title: "Voucher / Referral",
-		html: `
-			<div class="space-y-4">
-				<div class="text-left">
-					<label class="block text-sm font-bold text-gray-700 mb-2 font-['Montserrat']">Kode Referral</label>
-					<input 
-						id="referral-code" 
-						type="text" 
-						value="${formData.referral_code || ""}"
-						class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-['Montserrat']"
-						placeholder="Ex: REF12345"
-					/>
-				</div>
-				
-				<div class="text-left">
-					<label class="block text-sm font-bold text-gray-700 mb-2 font-['Montserrat']">Voucher Diskon</label>
-					<input 
-						id="coupon-code" 
-						type="text" 
-						value="${formData.coupon_code || ""}"
-						class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-['Montserrat']"
-						placeholder="Ex: DISKON12"
-					/>
-				</div>
-
-				<div class="text-center text-[#687EFF] text-sm font-['Montserrat'] font-semibold hover:underline">
-					<a href='https://instagram.com/akucuciin.id/' target="blank" >Cek promo lain di instagram/akucuciin.id</a>
-				</div>
-
-			</div>
-		`,
-		showCancelButton: true,
-		confirmButtonText: "Simpan",
-		cancelButtonText: "Batal",
-		customClass: {
-			confirmButton: "btn-confirm",
-			cancelButton: "btn-cancel",
-		},
-		backdrop: true,
-		allowOutsideClick: false,
-		preConfirm: () => {
-			const referralCode = document
-				.getElementById("referral-code")
-				.value.trim();
-			const couponCode = document.getElementById("coupon-code").value.trim();
-
-			return { referral_code: referralCode, coupon_code: couponCode };
-		},
-	}).then(async (result) => {
-		if (result.isConfirmed) {
-			let referralResponse = null;
-			let couponResponse = null;
-
-			// if both fields are empty, do nothing
-			if (!result.value.referral_code && !result.value.coupon_code) {
-				onValidationResponse({
-					referralResponse: null,
-					couponResponse: null,
-					referral_code: "",
-					coupon_code: "",
-				});
-				return;
-			}
-
-			// if referral field is filled, validate it
-			if (result.value.referral_code) {
-				referralResponse = await customerServices.checkReferralCode(
-					accessToken,
-					result.value.referral_code
-				);
-			}
-
-			// if coupon field is filled, validate it
-			if (result.value.coupon_code) {
-				couponResponse = await customerServices.checkCouponCode(
-					accessToken,
-					result.value.coupon_code
-				);
-			}
-
-			// Pass validation responses to parent component
-			if (onValidationResponse) {
-				onValidationResponse({
-					referralResponse: referralResponse,
-					couponResponse: couponResponse,
-					referral_code: result.value.referral_code
-						? result.value.referral_code
-						: "",
-					coupon_code: result.value.coupon_code ? result.value.coupon_code : "",
-				});
-			}
-		}
-	});
-};
-const VoucherReferralSheet = ({
-	formData,
-	onClose,
-	isOpen,
-	accessToken,
-	onValidationResponse,
-}) => {
-	const [localFormData, setLocalFormData] = useState({
-		referral_code: formData.referral_code || "",
-		coupon_code: formData.coupon_code || "",
-	});
-	const [isSubmitting, setIsSubmitting] = useState(false);
-
-	const handleInputChange = (field, value) => {
-		setLocalFormData((prev) => ({
-			...prev,
-			[field]: value,
-		}));
-	};
-
-	const handleSubmit = async () => {
-		setIsSubmitting(true);
-
-		try {
-			let referralResponse = null;
-			let couponResponse = null;
-
-			// if both fields are empty, do nothing and close the sheet
-			if (!localFormData.referral_code && !localFormData.coupon_code) {
-				onValidationResponse({
-					referralResponse: null,
-					couponResponse: null,
-					referral_code: "",
-					coupon_code: "",
-				});
-				return;
-			}
-
-			// if referral field is filled, validate it
-			if (localFormData.referral_code) {
-				referralResponse = await customerServices.checkReferralCode(
-					accessToken,
-					localFormData.referral_code
-				);
-			}
-
-			// if coupon field is filled, validate it
-			if (localFormData.coupon_code) {
-				couponResponse = await customerServices.checkCouponCode(
-					accessToken,
-					localFormData.coupon_code
-				);
-			}
-
-			// Pass validation responses to parent component
-			if (onValidationResponse) {
-				onValidationResponse({
-					referralResponse: referralResponse,
-					couponResponse: couponResponse,
-					referral_code: localFormData.referral_code
-						? localFormData.referral_code
-						: "",
-					coupon_code: localFormData.coupon_code
-						? localFormData.coupon_code
-						: "",
-				});
-			}
-
-			handleClose();
-		} finally {
-			setIsSubmitting(false);
-			handleClose();
-		}
-	};
-
-	const handleClose = () => {
-		if (onClose) {
-			onClose();
-		}
-	};
-
-	return (
-		<Sheet isOpen={isOpen} onClose={handleClose}>
-			<Sheet.Container>
-				<Sheet.Header>
-					<div className="w-full flex justify-center">
-						<div className="w-[30%] border-4 rounded-full border-neutral-200 mt-4"></div>
-					</div>
-				</Sheet.Header>
-				<Sheet.Content>
-					<div className="p-4 space-y-4">
-						<div className="text-center mb-4">
-							<h2 className="text-lg font-bold text-gray-700 font-['Montserrat']">
-								Voucher / Referral
-							</h2>
-						</div>
-
-						<div className="text-left">
-							<label className="block text-sm font-bold text-gray-700 mb-2 font-['Montserrat']">
-								Kode Referral
-							</label>
-							<input
-								type="text"
-								value={localFormData.referral_code}
-								onChange={(e) =>
-									handleInputChange("referral_code", e.target.value)
-								}
-								className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-['Montserrat']"
-								placeholder="Ex: REF12345"
-								disabled={isSubmitting}
-							/>
-						</div>
-
-						<div className="text-left">
-							<label className="block text-sm font-bold text-gray-700 mb-2 font-['Montserrat']">
-								Voucher Diskon
-							</label>
-							<input
-								type="text"
-								value={localFormData.coupon_code}
-								onChange={(e) =>
-									handleInputChange("coupon_code", e.target.value)
-								}
-								className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-['Montserrat']"
-								placeholder="Ex: DISKON12"
-								disabled={isSubmitting}
-							/>
-						</div>
-
-						<div className="text-center text-[#687EFF] text-sm font-['Montserrat'] font-semibold hover:underline">
-							<a
-								href="https://instagram.com/akucuciin.id/"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								Cek promo lain di instagram/akucuciin.id
-							</a>
-						</div>
-						<div className="flex gap-3 pt-4 border-t border-neutral-400">
-							<button
-								onClick={handleClose}
-								disabled={isSubmitting}
-								className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 font-['Montserrat'] disabled:opacity-50"
-							>
-								Batal
-							</button>
-							<button
-								onClick={handleSubmit}
-								disabled={isSubmitting}
-								className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 font-['Montserrat'] disabled:opacity-50"
-							>
-								Simpan
-							</button>
-						</div>
-					</div>
-				</Sheet.Content>
-			</Sheet.Container>
-		</Sheet>
-	);
-};
+import VoucherReferralSwal from "../../components/modal/referral.swal";
+import VoucherReferralSheet from "../../components/ui/sheet/referral.sheet";
 
 const OrderForm = () => {
 	dayjs.extend(utc);
@@ -309,7 +46,6 @@ const OrderForm = () => {
 	const location = useLocation();
 	const { activePaket } = location.state || {};
 
-	const [formError, setFormError] = useState("");
 	const { idlaundry, idpaket } = useParams();
 	const navigate = useNavigate();
 
@@ -407,13 +143,11 @@ const OrderForm = () => {
 
 		if (!pickupDate) {
 			errorSwal("Pilih Tanggal Penjemputan");
-			setFormError("Pilih Tanggal Penjemputan");
 			return;
 		}
 
 		if (!pickupHours) {
 			errorSwal("Pilih Jam Penjemputan");
-			setFormError("Pilih Jam Penjemputan");
 			return;
 		}
 
@@ -457,7 +191,6 @@ const OrderForm = () => {
 	};
 
 	const handleValidationResponse = async (responses) => {
-		// Set validation responses
 		setValidationResponses(responses);
 
 		if (
@@ -519,7 +252,6 @@ const OrderForm = () => {
 				handleValidationResponse
 			);
 		}
-		setFormError("");
 	};
 
 	const handleEditNotes = () => {
@@ -572,13 +304,11 @@ const OrderForm = () => {
 				</h1>
 			</div>
 
-			{/* Form Starts */}
 			<form
 				onSubmit={handleSubmit}
 				className="lg:grid lg:grid-flow-col lg:grid-cols-2 space-y-4 lg:space-y-0 gap-8 w-full h-full px-8 lg:px-24"
 			>
 				<div className="h-full flex flex-col w-full space-y-4">
-					{/* package info */}
 					<div className="flex flex-col w-full bg-white p-6 rounded-lg shadow-lg">
 						<div className="flex flex-row items-center justify-between mb-4">
 							<div className="flex flex-col space-y-2">
@@ -597,10 +327,8 @@ const OrderForm = () => {
 							</div>
 						</div>
 
-						{/* divider */}
 						<div className="w-full border-b-2 border-neutral-200"></div>
 
-						{/* features */}
 						<div className="flex space-x-2 justify-between h-full">
 							<div className="flex flex-col space-y-2 h-full">
 								{activePaket.features?.map((feature, index) => (
@@ -632,7 +360,6 @@ const OrderForm = () => {
 							</div>
 						)}
 					</div>
-					{/* (profileData.data.telephone === null || profileData.data.address === null) */}
 					{(profileData.data.telephone === null ||
 						profileData.data.address === null) && (
 						<div className="flex flex-col space-y-4">
@@ -839,15 +566,12 @@ const OrderForm = () => {
 						)}
 					</div>
 				</div>
-				{/* end of left div */}
-				{/* start of right div */}
 				<div className="bg-white flex flex-col rounded-lg px-10 py-5 space-y-4 h-fit w-full relative shadow-lg">
 					<h4 className="font-[Montserrat] font-semibold text-left text-gray-700 mb-1 text-sm lg:text-xl">
 						Kapan baju kotornya mau dijemput?
 					</h4>
 
 					<div className="flex flex-col w-full">
-						{/* Calendar */}
 						<DatePicker
 							inline
 							required
@@ -863,7 +587,6 @@ const OrderForm = () => {
 						/>
 
 						<div className="flex flex-col w-full h-full mt-4 border-t-2 border-gray-200 pt-4">
-							{/* timeslots */}
 							<div className="flex flex-col w-full">
 								{timeSlots.map((slot) => {
 									const isDisabled =
@@ -878,7 +601,7 @@ const OrderForm = () => {
 												(isDisabled
 													? "opacity-60 cursor-not-allowed text-gray-400"
 													: isSelected
-													? "bg-blue-50 text-blue-700 font-semibold" // Selected style
+													? "bg-blue-50 text-blue-700 font-semibold" 
 													: "bg-white text-gray-700 hover:bg-gray-100 cursor-pointer")
 											}
 										>
@@ -910,8 +633,6 @@ const OrderForm = () => {
 									);
 								})}
 							</div>
-
-							{/* notes */}
 							{formData.note ? (
 								<div className="flex flex-col w-full h-fit space-y-2 mt-2 border-l-2 mb-12 border-[#687EFF] pl-4">
 									<p className="font-[Montserrat] max-w-60 h-full overflow-clip text-ellipsis font-medium text-[#7F7F7F] mb-1 text-sm">
@@ -934,10 +655,7 @@ const OrderForm = () => {
 								</div>
 							)}
 						</div>
-						{/* Time Slots */}
 					</div>
-
-					{/* Submit Button */}
 					<button
 						type="submit"
 						disabled={isLoading}

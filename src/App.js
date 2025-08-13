@@ -1,4 +1,4 @@
-import Navbar from "./components/navbar/index";
+import Navbar from "./components/layout/navbar/index";
 import HomeHP from "./pages/static/home/index.hp";
 import "./App.css";
 import { useEffect } from "react";

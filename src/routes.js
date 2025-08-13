@@ -12,10 +12,10 @@ import GoogleOauthRedirect from "./pages/auth/google.oauth";
 
 import OrderForm from "./pages/user/order.form";
 
-import VerifyFailed from "./components/verify/verify.failed";
-import VerifyFailedInvalid from "./components/verify/verfiy.failed.invalid";
-import VerifyFailedActivated from "./components/verify/verify.failed.activated";
-import VerifySuccess from "./components/verify/verify.success";
+import VerifyFailed from "./components/ui/verify/verify.failed";
+import VerifyFailedInvalid from "./components/ui/verify/verfiy.failed.invalid";
+import VerifyFailedActivated from "./components/ui/verify/verify.failed.activated";
+import VerifySuccess from "./components/ui/verify/verify.success";
 
 import Profile from "./pages/user/profile";
 

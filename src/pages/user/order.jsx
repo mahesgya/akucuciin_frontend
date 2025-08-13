@@ -20,8 +20,6 @@ const Order = () => {
       await setOrders(sortedOrders);
 
       setFilteredOrders(sortedOrders);
-
-      console.log(response);
     };
 
     fetchOrders();
@@ -100,8 +98,8 @@ const Order = () => {
                     
                     if (!dateMatch) return null;
 
-                    const rawDate = dateMatch[1]; // ex: 22-05-2025
-                    const timeRange = pickupStr.replace(rawDate, "").trim(); // sisanya adalah time range (bisa kosong)
+                    const rawDate = dateMatch[1];
+                    const timeRange = pickupStr.replace(rawDate, "").trim(); 
 
                     const [day, month, year] = rawDate.split("-");
                     const dateForJS = `${year}-${month}-${day}`;

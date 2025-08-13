@@ -1,5 +1,5 @@
 import "../../../style/HomeHP.css";
-import NavbarHP from "../../../components/navbar/index.hp";
+import NavbarHP from "../../../components/layout/navbar/index.hp";
 
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
