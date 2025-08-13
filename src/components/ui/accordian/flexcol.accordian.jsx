@@ -1,0 +1,55 @@
+import { useState } from "react";
+
+const FlexColAccordion = ({ title, contents }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="w-full flex flex-col items-start justify-between space-y-2 mb-2">
+      <div onClick={() => setIsOpen(!isOpen)} className="flex flex-col items-start justify-between w-full space-y-1">
+        <div className="flex flex-row items-center justify-between w-full h-full">
+          <p className='font-["Montserrat"] text-sm font-semibold'>{title}</p>
+          {isOpen ? (
+            <div className="flex items-center justify-center h-full">
+              <img src="/Images/ArrowAccordionOpened.png" alt="arrow" className="h-full" />
+            </div>
+          ) : (
+            <div className="flex items-center justify-center h-full">
+              <img src="/Images/ArrowAccordionClosed.png" alt="arrow" className="h-full" />
+            </div>
+          )}
+        </div>
+        {isOpen && (
+          <div className='font-["Montserrat"] text-sm border-l-2 border-neutral-200 pl-2 w-full'>
+            {contents.map((content, index) => (
+              <div className="flex flex-col items-start justify-between w-full pr-2" key={index}>
+                <p className='text-sm mt-2 font-["Montserrat"] whitespace-nowrap font-semibold'>{content.field}</p>
+
+                <p className='w-full text-sm text-justify mt-2 font-["Montserrat"]'>{content.value === "" ? "-" : content.value}</p>
+
+                {content.link && (
+                  <a
+                    href={content.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={content.link}
+                    className='w-full mt-2 font-["Montserrat"] text-blue-600 hover:text-blue-800 underline hover:no-underline transition-colors duration-200'
+                  >
+                    {content.link === "" ? "-" : content.link}
+                  </a>
+                )}
+
+                {content.phone && (
+                  <a href={content.phone} className='w-full mt-2 font-["Montserrat"] text-blue-600 hover:text-blue-800 underline hover:no-underline'>
+                    `https://wa.me/{content.phone}`
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default FlexColAccordion
