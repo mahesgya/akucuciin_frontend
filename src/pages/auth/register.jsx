@@ -140,7 +140,7 @@ const Register = () => {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Nama"
-                  className="w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:shadow-none focus:outline-none focus:border-b-2"
+                  className="fix-autofill w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:shadow-none focus:outline-none focus:border-b-2"
                 />
               </div>
 
@@ -153,7 +153,7 @@ const Register = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Email"
-                  className="w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:shadow-none focus:outline-none focus:border-b-2"
+                  className="fix-autofill w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:shadow-none focus:outline-none focus:border-b-2"
                 />
               </div>
 
@@ -167,7 +167,7 @@ const Register = () => {
                   value={formData.telephone}
                   onChange={handleChange}
                   placeholder="Nomor Whatsapp"
-                  className="w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:shadow-none focus:outline-none focus:border-b-2"
+                  className="fix-autofill w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:shadow-none focus:outline-none focus:border-b-2"
                 />
               </div>
 
@@ -180,7 +180,7 @@ const Register = () => {
                   value={formData.address}
                   onChange={handleChange}
                   placeholder="Alamat"
-                  className="w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:shadow-none focus:outline-none focus:border-b-2"
+                  className="fix-autofill w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:shadow-none focus:outline-none focus:border-b-2"
                 />
               </div>
 
@@ -193,7 +193,7 @@ const Register = () => {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Password"
-                  className="w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:outline-none focus:border-b-2"
+                  className="fix-autofill w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:outline-none focus:border-b-2"
                 />
                 <button type="button" onClick={togglePasswordVisibility} className="flex justify-center align-center">
                   {showPassword ? <img src="Images/Invisible.webp" className="w-[25px] h-[25px]" alt=""></img> : <img src="Images/visible.webp" className="w-[25px] h-[25px]" alt=""></img>}
@@ -209,7 +209,7 @@ const Register = () => {
                   value={formData.confirm_password}
                   onChange={handleChange}
                   placeholder="Masukkan Password Kembali"
-                  className="w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:outline-none focus:border-b-2"
+                  className="fix-autofill w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:outline-none focus:border-b-2"
                 />
                 <button type="button" onClick={togglePasswordVisibility2} className=" flex justify-center align-center">
                   {showPassword2 ? <img src="Images/Invisible.webp" className="w-[25px] h-[25px]" alt=""></img> : <img src="Images/visible.webp" className="w-[25px] h-[25px]" alt=""></img>}

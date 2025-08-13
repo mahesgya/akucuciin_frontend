@@ -75,3 +75,25 @@ input:-webkit-autofill {
 	background-color: transparent !important;
 	transition: background-color 5000s ease-in-out 0s;
 }
+
+@layer utilities {
+  .fix-autofill:-webkit-autofill,
+  .fix-autofill:-webkit-autofill:hover,
+  .fix-autofill:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
+    box-shadow: 0 0 0px 1000px #ffffff inset;
+    -webkit-text-fill-color: #111827; 
+    caret-color: #111827;
+    transition: background-color 9999s ease-out 0s;
+  }
+
+  .dark .fix-autofill:-webkit-autofill,
+  .dark .fix-autofill:-webkit-autofill:hover,
+  .dark .fix-autofill:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #1E1E1E inset; 
+    box-shadow: 0 0 0px 1000px #1E1E1E inset;
+    -webkit-text-fill-color: #E5E5E5; 
+    caret-color: #E5E5E5;
+  }
+}
+

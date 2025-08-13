@@ -77,7 +77,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   placeholder="Email"
-                  className="w-full bg-white dark:bg-dark-card text-gray-900 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 font-['Montserrat'] focus:outline-none focus:border-b-2 md:text-base"
+                  className="fix-autofill w-full bg-white dark:bg-dark-card text-gray-900 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 font-['Montserrat'] focus:outline-none focus:border-b-1 md:text-base"
                 />
               </div>
 
@@ -90,7 +90,7 @@ const Login = () => {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Password"
-                  className="w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-900 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:outline-none focus:border-b-2 md:text-base"
+                  className="fix-autofill w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-900 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:outline-none focus:border-b-1 md:text-base"
                 />
 
                 <button type="button" onClick={togglePasswordVisibility} className=" flex justify-center align-center">
