@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import "../../style/Header.css";
+import "../../../style/Header.css";
 
 const NavbarHP = () => {
   const [menuOpen, setMenuOpen] = useState(false);

@@ -3,12 +3,12 @@ import { NavLink } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { motion } from "framer-motion";
 
-import "../../style/Header.css";
+import "../../../style/Header.css";
 
 import Footer from "../footer/index";
-import Home from "../../pages/static/home";
-import AboutUs from "../../pages/static/about/index";
-import OurServices from "../../pages/static/service/index";
+import Home from "../../../pages/static/home";
+import AboutUs from "../../../pages/static/about/index";
+import OurServices from "../../../pages/static/service/index";
 
 import { useSelector } from "react-redux";
 

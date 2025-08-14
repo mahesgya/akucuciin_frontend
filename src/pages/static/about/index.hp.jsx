@@ -1,4 +1,4 @@
-import NavbarHP from "../../../components/navbar/index.hp"
+import NavbarHP from "../../../components/layout/navbar/index.hp"
 
 import "../../../style/AboutUs.css";
 import "../../../style/AboutUsHP.css";
