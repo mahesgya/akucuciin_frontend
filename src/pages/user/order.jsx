@@ -99,7 +99,6 @@ const PageHeader = ({ filter, onFilterChange, searchQuery, onSearchChange }) => 
   </div>
 );
 
-
 const OrderPage = () => {
   const { accessToken } = useSelector((state) => state.auth);
   const [orders, setOrders] = useState([]);
@@ -111,7 +110,6 @@ const OrderPage = () => {
     customerServices.getOrderLaundry(accessToken).then(response => {
       const sorted = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setOrders(sorted);
-      console.log(sorted)
     }).catch(error => console.error("Gagal mengambil data order:", error));
   }, [accessToken]);
 
