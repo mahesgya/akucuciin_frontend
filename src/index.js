@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Routess from "./routes";
+import Routess from "./routes/routes";
 import ScrollToTop from "./hooks/scroll.top";
 
 import { BrowserRouter, useRoutes } from "react-router-dom";
