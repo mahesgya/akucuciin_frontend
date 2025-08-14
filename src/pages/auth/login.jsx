@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import authService from "../../services/auth.services";
 import LoadingUtils from "../../utils/loading.utils";
@@ -8,6 +8,13 @@ import LoadingUtils from "../../utils/loading.utils";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const stateFrom = location?.state && location?.state?.from;
+  const activePackage = stateFrom?.state?.activePaket
+  const fromStatePath = stateFrom && stateFrom?.pathname + stateFrom?.search + stateFrom?.hash;
+
+  let redirectTo = "/";
 
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -31,7 +38,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await authService.loginUser(formData, dispatch, navigate);
+    await authService.loginUser(formData, dispatch, navigate, redirectTo, fromStatePath, activePackage);
     setFormData({
       email: "",
       password: "",

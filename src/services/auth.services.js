@@ -16,7 +16,7 @@ const AuthServices = {
       errorSwal(error.response?.data?.errors);
     }
   },
-  loginUser: async (formData, dispatch, navigate) => {
+  loginUser: async (formData, dispatch, navigate, redirectTo, fromStatePath, activePaket) => {
     try {
       setLoading(true);
       const response = await axios.post(`${BASE_URL}/api/customer/login`, formData);
@@ -28,7 +28,10 @@ const AuthServices = {
       await dispatch(setLogin({ accessToken, refreshToken }));
       await CustomerServices.getProfile(accessToken, dispatch);
 
-      navigate("/");
+      redirectTo = fromStatePath || sessionStorage.getItem("postLoginRedirect") || "/";
+      sessionStorage.removeItem("postLoginRedirect");
+
+      navigate(redirectTo, { replace: true , state: { activePaket: activePaket }});
       return response.data;
     } catch (error) {
       errorSwal(error.response?.data?.errors);
