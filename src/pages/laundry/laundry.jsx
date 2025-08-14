@@ -110,9 +110,9 @@ const LaundryList = () => {
                 <div className="flex flex-1 flex-col gap-1 p-4 self-start">
                   <div className="">
                     <h3 className="font-['Montserrat'] text-[14px] md:text-[20px] font-bold text-blue-primary">{laundry.name}</h3>
-                    <h4 className="font-['Montserrat'] text-[12px] md:text-[14px] text-black29/70 dark:text-dark-text/70"> {laundry.area}</h4>
+                    <h4 className="font-['Montserrat'] text-[12px] md:text-[15px] text-black29/65 dark:text-dark-text/70"> {laundry.area}</h4>
                   </div>
-                  <p className="font-['Montserrat'] text-[8px] md:text-[14px] text-black29/85 dark:text-dark-text/80 text-justify hyphens-auto">{laundry.description}</p>
+                  <p className="font-['Montserrat'] text-[10px] md:text-[14px] text-black29/85 dark:text-dark-text/80 text-justify hyphens-auto">{laundry.description}</p>
 
                   {!laundry.is_open && (
                     <div className="md:hidden bg-[#] flex flex-row items-center gap-1">
