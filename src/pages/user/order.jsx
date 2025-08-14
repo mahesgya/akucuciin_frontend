@@ -20,6 +20,7 @@ const InfoPill = ({ icon, label, value, valueClass = '' }) => (
 const OrderCard = ({ order }) => {
   const navigate = useNavigate();
   const visuals = STATUS_CONFIG[order.status] || STATUS_CONFIG.default;
+  const beforeDoku = order?.price_after === "0.00" && !order?.payment_link && order?.status_payment === "sudah bayar"
 
   return (
     <div className="bg-white font-['Montserrat'] dark:bg-dark-card rounded-xl overflow-hidden shadow-lg transition-all duration-300">
@@ -36,7 +37,7 @@ const OrderCard = ({ order }) => {
         <div className="grid grid-cols-2 gap-3">
           <InfoPill icon={<FaCalendarAlt />} label="Tanggal Order" value={new Date(order.created_at).toLocaleDateString("id-ID", { day: '2-digit', month: 'long', year: 'numeric' })} />
           <InfoPill icon={<FaBalanceScale />} label="Berat" value={`${order.weight} kg`} />
-          <InfoPill icon={<FaTag />} label="Total" value={`Rp ${order.price_after}`} />
+          <InfoPill icon={<FaTag />} label="Total" value={beforeDoku ? `Rp ${order.price}` :`Rp ${order.price_after}`} />
           <InfoPill icon={<FaMoneyBillWave />} label="Pembayaran" value={order.status_payment} valueClass={order.status_payment === "sudah bayar" ? "text-green-500" : "text-red-500"} />
         </div>
       </div>
@@ -110,6 +111,7 @@ const OrderPage = () => {
     customerServices.getOrderLaundry(accessToken).then(response => {
       const sorted = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setOrders(sorted);
+      console.log(sorted)
     }).catch(error => console.error("Gagal mengambil data order:", error));
   }, [accessToken]);
 

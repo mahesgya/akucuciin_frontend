@@ -145,7 +145,12 @@ const OrderDetail = () => {
             <div className="flex flex-row items-center justify-between w-full">
               <p className='font-["Montserrat"] font-semibold text-gray-800 dark:text-dark-text'>Total </p>
               {data.price_after !== "0.00" && <p className='font-["Montserrat"] font-medium text-gray-900 dark:text-dark-text'>Rp {data.price_after}</p>}
-              {data.price_after === "0.00" && <p className='font-["Montserrat"] font-medium text-gray-900 dark:text-dark-text'>Belum diinput oleh mitra</p>}
+              {data.price_after === "0.00" &&
+                (!data?.payment_link && data?.status_payment === "sudah bayar" ? (
+                  <p className='font-["Montserrat"] font-medium text-gray-900 dark:text-dark-text'>Rp {data?.price}</p>
+                ) : (
+                  <p className='font-["Montserrat"] font-medium text-gray-900 dark:text-dark-text'>Belum diinput oleh mitra</p>
+                ))}
             </div>
 
             <div className="flex flex-row items-center justify-between w-full">
