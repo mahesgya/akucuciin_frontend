@@ -46,7 +46,7 @@ module.exports = {
         'extra-large': '2.5rem',
       },
       boxShadow: {
-        'custom-note': '0px 0px 16px 0px rgba(96, 97, 112, 0.1)',
+        'custom-note': '0px 0px 8px 0px rgba(96, 97, 112, 0.1)',
       },
       fontWeight: {
         'boldparah': '1000',

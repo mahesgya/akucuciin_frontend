@@ -85,10 +85,6 @@ const Routess = [
 		element: <Order />,
 	},
 	{
-		path: "/laundry",
-		element: <LaundryList />,
-	},
-	{
 		path: "/laundry/:idlaundry",
 		element: <LaundryDetail />,
 	},
