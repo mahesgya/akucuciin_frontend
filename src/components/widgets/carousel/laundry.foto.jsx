@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 const FotoCarousel = ( {img} ) => {
 
   const settings = {
+    arrows: false, 
     dots: false,
     infinite: img.length > 1,
     speed: 600,
