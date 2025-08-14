@@ -105,7 +105,7 @@ const Profile = () => {
 
       <div className="min-h-screen flex items-center flex-col px-4 pb-36 pt-6 md:pl-24 md:py-6 md:pr-6 lg:p-6 rounded-xl md:justify-center md:mt-0 md:mx-0 md:w-[70%] lg:w-[50%] dark:text-dark-text bg-gray-100 dark:bg-dark-bg">
         <div className="flex justify-between flex-col space-y-6 items-center mb-4 w-full pt-6">
-          <h2 className="font-['Montserrat'] z-10 lg:text-black text-white dark:text-dark-text font-semibold text-center text-3xl">{profile.name}</h2>
+          <h2 className="font-['Montserrat'] z-10 text-black dark:text-dark-text font-semibold text-center text-3xl">{profile.name}</h2>
         </div>
 
         <div className="z-10 mt-4">

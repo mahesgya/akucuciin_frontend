@@ -77,9 +77,9 @@ const LaundryDetail = () => {
       laundry_name: data.name,
     };
 
-    navigate(`/laundry/${idlaundry}/pesan/${activePaketForNavigation.id}`, {
-      state: { activePaket: activePaketForNavigation },
-    });
+      navigate(`/laundry/${idlaundry}/pesan/${activePaketForNavigation.id}`, {
+        state: { activePaket: activePaketForNavigation },
+      });
   };
 
   if (isLoading) {
@@ -135,7 +135,7 @@ const LaundryDetail = () => {
                   <div className="my-2 w-[100dvw] md:w-[95dvw] lg:w-[85dvw] border-t border-zinc-200 dark:border-neutral-700 md:my-4"></div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5 md:mx-12 w-[100dvw] md:w-[95dvw] lg:w-[85dvw]">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5 md:mx-12 w-[95dvw] md:w-[95dvw] lg:w-[85dvw]">
                   {topPicks
                     .slice()
                     .sort((a, b) => Number(a.price_text) - Number(b.price_text))
@@ -192,7 +192,7 @@ const LaundryDetail = () => {
                 <p>Tidak ada paket yang sesuai dengan pencarian Anda</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 md:mx-12 w-[100dvw] md:w-[95dvw] lg:w-[85dvw]">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 md:mx-12 w-[95dvw] md:w-[95dvw] lg:w-[85dvw]">
                 {filteredPackages
                   .slice()
                   .sort((a, b) => Number(a.price_text) - Number(b.price_text))

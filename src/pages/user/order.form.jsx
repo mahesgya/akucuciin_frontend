@@ -36,6 +36,7 @@ const OrderForm = () => {
   });
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const [isLoading, setIsLoading] = useState(false);
   const [pickupDate, setPickupDate] = useState(null);
@@ -43,7 +44,6 @@ const OrderForm = () => {
 
   const [lastOrder, setLastOrder] = useState(null);
 
-  const location = useLocation();
   const { activePaket } = location.state || {};
 
   const { idlaundry, idpaket } = useParams();
@@ -255,7 +255,7 @@ const OrderForm = () => {
 
       {showVoucherReferralSheet && <VoucherReferralSheet formData={formData} isOpen={showVoucherReferralSheet} onClose={() => setShowVoucherReferralSheet(false)} accessToken={accessToken} onValidationResponse={handleValidationResponse} />}
 
-      <div className="flex flex-row items-center justify-start bg-[#687EFF] pl-4 lg:p-8 py-12 mb-6 w-full rounded-b-3xl shadow-md top-0 left-0 right-0">
+      <div className="flex flex-row items-center justify-start bg-[#687EFF] pl-4 lg:p-8 py-12 mb-6 w-full rounded-b-3xl shadow-sm top-0 left-0 right-0">
         <button onClick={handleBack} className="bg-transparent">
           <img alt="backwhite" src="/Images/backwhite.webp" className="h-10 w-10" />
         </button>
@@ -264,7 +264,7 @@ const OrderForm = () => {
 
       <form onSubmit={handleSubmit} className="lg:grid lg:grid-flow-col lg:grid-cols-2 space-y-4 lg:space-y-0 gap-8 w-full h-full px-3 lg:px-24">
         <div className="h-full flex flex-col w-full space-y-4">
-          <div className="flex flex-col w-full bg-white dark:bg-dark-card dark:border-neutral-700 p-6 rounded-xl shadow-lg border border-gray-100">
+          <div className="relative flex flex-col w-full bg-white dark:bg-dark-card p-6 rounded-xl shadow-sm border border-gray-300/30 dark:border-neutral-700">
             <div className="flex flex-row items-center justify-between mb-4">
               <div className="flex flex-col space-y-2">
                 <p className='font-semibold lg:text-xl text-base font-["Montserrat"] dark:text-dark-text'>{activePaket?.name}</p>
@@ -289,16 +289,16 @@ const OrderForm = () => {
             </div>
 
             {activePaket?.avg_rating && (
-              <div className="relative h-full bottom-0 flex items-center mt-2">
-                <AiFillStar className="mr-1 text-[#F59E0B] text-sm lg:text-xl" />
-                <span className="font-['Montserrat'] text-sm font-semibold text-[#F59E0B]">{Number(activePaket.avg_rating).toFixed(1)}/5.0</span>
+              <div className="absolute bottom-3 right-4 z-10 flex items-center gap-1 pointer-events-none">
+                <AiFillStar className="text-[#F59E0B] text-base md:text-lg" />
+                <span className="font-['Montserrat'] text-sm md:text-base font-semibold text-[#F59E0B]">{Number(activePaket.avg_rating).toFixed(1)}/5.0</span>
               </div>
             )}
           </div>
 
           {(profileData.data.telephone === null || profileData.data.address === null) && (
             <div className="flex flex-col space-y-4">
-              <div className="bg-white dark:bg-dark-card rounded-xl px-10 py-5 shadow-md border border-gray-100 dark:border-neutral-700">
+              <div className="bg-white dark:bg-dark-card rounded-xl px-10 py-5 shadow-sm border border-gray-300/30 dark:border-neutral-700">
                 <h4 className="font-['Montserrat'] font-bold text-left text-gray-700 dark:text-dark-text mb-1 text-base">Nomor Telephone</h4>
                 <div className="border-b border-gray-300 dark:border-neutral-700 mb-4">
                   <input
@@ -312,7 +312,7 @@ const OrderForm = () => {
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-dark-card rounded-xl px-10 py-5 shadow-md border border-gray-100 dark:border-neutral-700">
+              <div className="bg-white dark:bg-dark-card rounded-xl px-10 py-5 shadow-sm border border-gray-300/30 dark:border-neutral-700">
                 <h4 className="font-['Montserrat'] font-bold text-left text-gray-700 dark:text-dark-text mb-1 text-base">Alamat Lengkap</h4>
                 <div className="border-b border-gray-300 dark:border-neutral-700 mb-4">
                   <input
@@ -328,7 +328,7 @@ const OrderForm = () => {
             </div>
           )}
 
-          <div className="w-full bg-white dark:bg-dark-card rounded-xl px-6 py-5 shadow-lg border border-gray-100 dark:border-neutral-700">
+          <div className="w-full bg-white dark:bg-dark-card rounded-xl px-6 py-5 shadow-sm border border-gray-300/30 dark:border-neutral-700">
             <h4 className="font-['Montserrat'] font-semibold text-left text-gray-700 dark:text-dark-text mb-1 text-base">Link Google Maps</h4>
             <input
               required
@@ -367,7 +367,7 @@ const OrderForm = () => {
             Dapatkan diskon up to 62% SEKARANG! 👉 Cek caranya disini yukk! 👈
           </Link>
 
-          <div className={`w-full rounded-xl shadow-md ${formData.referral_code || formData.coupon_code ? "bg-gradient-to-r from-[#687EFF] to-[#39BCF8]" : "bg-white dark:bg-dark-card border border-gray-100 dark:border-neutral-700"}`}>
+          <div className={`w-full rounded-xl shadow-sm ${formData.referral_code || formData.coupon_code ? "bg-gradient-to-r from-[#687EFF] to-[#39BCF8]" : "bg-white dark:bg-dark-card border border-gray-300/30 dark:border-neutral-700"}`}>
             {(formData.referral_code || formData.coupon_code) && (
               <div className="space-y-2 bg-gradient-to-r from-[#687EFF] to-[#39BCF8] text-white font-bold py-4 px-8 rounded-xl mb-4">
                 {formData.coupon_code && (
@@ -426,7 +426,7 @@ const OrderForm = () => {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-dark-card flex flex-col rounded-xl px-6 md:px-10 py-5 space-y-4 h-fit w-full relative shadow-lg border border-gray-100 dark:border-neutral-700">
+        <div className="bg-white dark:bg-dark-card flex flex-col rounded-xl px-6 md:px-10 py-5 space-y-4 h-fit w-full relative shadow-sm border border-gray-300/30 dark:border-neutral-700">
           <h4 className="font-['Montserrat'] font-semibold text-left text-gray-700 dark:text-dark-text mb-1 text-sm lg:text-xl">Kapan baju kotornya mau dijemput?</h4>
 
           <div className="flex flex-col w-full">
@@ -549,7 +549,7 @@ const OrderForm = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`shadow-md font-['Montserrat'] font-base lg:text-xl ${
+            className={`shadow-sm font-['Montserrat'] font-base lg:text-xl ${
               isLoading ? "bg-gray-400 text-gray-600 cursor-not-allowed" : "bg-green-500 text-white"
             } font-semibold p-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-dark-bg`}
           >

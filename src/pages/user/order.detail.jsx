@@ -109,7 +109,7 @@ const OrderDetail = () => {
   }
 
   return (
-    <div className="lg:h-screen h-full flex flex-col items-center justify-start bg-gray-50 dark:bg-dark-bg">
+    <div className="lg:min-h-screen h-full flex flex-col items-center justify-start bg-gray-50 dark:bg-dark-bg">
       {data.status !== "batal" && (
         <div className={`flex flex-col items-center justify-center ${data.status === "selesai" ? "bg-green-500" : "bg-[#687EFF]"} lg:p-8 py-12 mb-6 lg:h-40 w-full rounded-b-3xl shadow-md top-0 left-0 right-0`}>
           <a href="/order">
