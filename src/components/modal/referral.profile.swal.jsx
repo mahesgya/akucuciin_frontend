@@ -1,11 +1,11 @@
 import Swal from "sweetalert2";
 import CustomerServices from "../../services/customer.services";
-import "../../style/SectionHome.css"
+import "../../style/SectionHome.css";
 
 const KodeRefferralSwal = (accessToken, getProfileUser) => {
-	Swal.fire({
-		title: "Buat Kode Referral",
-		html: `
+  Swal.fire({
+    title: "Buat Kode Referral",
+    html: `
       <div class="space-y-4">
         <div class="text-left">
           <label class="block text-sm font-bold text-gray-700 mb-2 font-['Montserrat']">Kode Referral</label>
@@ -24,38 +24,41 @@ const KodeRefferralSwal = (accessToken, getProfileUser) => {
         </div>
       </div>
     `,
-		showCancelButton: true,
-		confirmButtonText: "Submit",
-		cancelButtonText: "Batal",
-		customClass: {
-			confirmButton: "btn-confirm",
-			cancelButton: "btn-cancel",
-		},
-		backdrop: true,
-		allowOutsideClick: false,
-		preConfirm: () => {
-			const referralCode = document
-				.getElementById("referral-code")
-				.value.trim();
+    showCancelButton: true,
+    confirmButtonText: "Submit",
+    cancelButtonText: "Batal",
+    customClass: {
+      confirmButton: "btn-confirm",
+      cancelButton: "btn-cancel",
+    },
+    backdrop: true,
+    allowOutsideClick: false,
+    didOpen: () => {
+      const container = Swal.getContainer();
+      const isDark = document.documentElement.classList.contains("dark");
+      container?.setAttribute("data-swal2-theme", isDark ? "dark" : "light");
+    },
+    preConfirm: () => {
+      const referralCode = document.getElementById("referral-code").value.trim();
 
-			if (!referralCode) {
-				Swal.showValidationMessage("Kode referral tidak boleh kosong");
-				return false;
-			}
+      if (!referralCode) {
+        Swal.showValidationMessage("Kode referral tidak boleh kosong");
+        return false;
+      }
 
-			return { referral_code: referralCode };
-		},
-	}).then(async (result) => {
-		if (result.isConfirmed) {
-			const { referral_code } = result.value;
+      return { referral_code: referralCode };
+    },
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      const { referral_code } = result.value;
 
-			try {
-				await CustomerServices.postReferral(accessToken, { referral_code });
-			} finally {
-				getProfileUser();
-			}
-		}
-	});
+      try {
+        await CustomerServices.postReferral(accessToken, { referral_code });
+      } finally {
+        getProfileUser();
+      }
+    }
+  });
 };
 
-export default KodeRefferralSwal
+export default KodeRefferralSwal;

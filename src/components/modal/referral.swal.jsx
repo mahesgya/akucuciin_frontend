@@ -1,16 +1,11 @@
 import Swal from "sweetalert2";
 import customerServices from "../../services/customer.services";
-import "../../style/SectionHome.css"
+import "../../style/SectionHome.css";
 
-const VoucherReferralSwal = (
-	formData,
-	setFormData,
-	accessToken,
-	onValidationResponse
-) => {
-	Swal.fire({
-		title: "Voucher / Referral",
-		html: `
+const VoucherReferralSwal = (formData, setFormData, accessToken, onValidationResponse) => {
+  Swal.fire({
+    title: "Voucher / Referral",
+    html: `
 			<div class="space-y-4">
 				<div class="text-left">
 					<label class="block text-sm font-bold text-gray-700 mb-2 font-['Montserrat']">Kode Referral</label>
@@ -40,64 +35,60 @@ const VoucherReferralSwal = (
 
 			</div>
 		`,
-		showCancelButton: true,
-		confirmButtonText: "Simpan",
-		cancelButtonText: "Batal",
-		customClass: {
-			confirmButton: "btn-confirm",
-			cancelButton: "btn-cancel",
-		},
-		backdrop: true,
-		allowOutsideClick: false,
-		preConfirm: () => {
-			const referralCode = document
-				.getElementById("referral-code")
-				.value.trim();
-			const couponCode = document.getElementById("coupon-code").value.trim();
+    showCancelButton: true,
+    confirmButtonText: "Simpan",
+    cancelButtonText: "Batal",
+    customClass: {
+      confirmButton: "btn-confirm",
+      cancelButton: "btn-cancel",
+    },
+    backdrop: true,
+    allowOutsideClick: false,
+    didOpen: () => {
+      const container = Swal.getContainer();
+      const isDark = document.documentElement.classList.contains("dark");
+      container?.setAttribute("data-swal2-theme", isDark ? "dark" : "light");
+    },
+	
+    preConfirm: () => {
+      const referralCode = document.getElementById("referral-code").value.trim();
+      const couponCode = document.getElementById("coupon-code").value.trim();
 
-			return { referral_code: referralCode, coupon_code: couponCode };
-		},
-	}).then(async (result) => {
-		if (result.isConfirmed) {
-			let referralResponse = null;
-			let couponResponse = null;
+      return { referral_code: referralCode, coupon_code: couponCode };
+    },
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      let referralResponse = null;
+      let couponResponse = null;
 
-			if (!result.value.referral_code && !result.value.coupon_code) {
-				onValidationResponse({
-					referralResponse: null,
-					couponResponse: null,
-					referral_code: "",
-					coupon_code: "",
-				});
-				return;
-			}
+      if (!result.value.referral_code && !result.value.coupon_code) {
+        onValidationResponse({
+          referralResponse: null,
+          couponResponse: null,
+          referral_code: "",
+          coupon_code: "",
+        });
+        return;
+      }
 
-			if (result.value.referral_code) {
-				referralResponse = await customerServices.checkReferralCode(
-					accessToken,
-					result.value.referral_code
-				);
-			}
+      if (result.value.referral_code) {
+        referralResponse = await customerServices.checkReferralCode(accessToken, result.value.referral_code);
+      }
 
-			if (result.value.coupon_code) {
-				couponResponse = await customerServices.checkCouponCode(
-					accessToken,
-					result.value.coupon_code
-				);
-			}
+      if (result.value.coupon_code) {
+        couponResponse = await customerServices.checkCouponCode(accessToken, result.value.coupon_code);
+      }
 
-			if (onValidationResponse) {
-				onValidationResponse({
-					referralResponse: referralResponse,
-					couponResponse: couponResponse,
-					referral_code: result.value.referral_code
-						? result.value.referral_code
-						: "",
-					coupon_code: result.value.coupon_code ? result.value.coupon_code : "",
-				});
-			}
-		}
-	});
+      if (onValidationResponse) {
+        onValidationResponse({
+          referralResponse: referralResponse,
+          couponResponse: couponResponse,
+          referral_code: result.value.referral_code ? result.value.referral_code : "",
+          coupon_code: result.value.coupon_code ? result.value.coupon_code : "",
+        });
+      }
+    }
+  });
 };
 
-export default VoucherReferralSwal
+export default VoucherReferralSwal;
