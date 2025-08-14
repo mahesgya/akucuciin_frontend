@@ -34,10 +34,17 @@ const ResetPassword = () => {
 
   return (
     <div className="min-h-screen w-screen flex flex-row items-center justify-center">
-      <img src="/Images/woman.png" alt="" className="hidden h-screen md:block md:w-[40%] object-fit" />
+      <div className="hidden h-screen bg-[#687eff] lg:block md:w-[50%] lg:relative lg:flex justify-end items-end rounded-tr-[40px] rounded-br-[40px]">
+        <a href="/">
+          <img alt="backwhite" src="/Images/backwhite.webp" className="absolute top-8 left-5" />
+        </a>
+        <div className="text-center text-white text-5xl font-bold font-['Montserrat'] whitespace-nowrap [text-shadow:_2px_2px_2px_rgb(0_0_0_/_0.25)] lg:absolute top-[15dvh] left-1/2 transform -translate-x-1/2">Welcome Back!</div>
+        <img src="/Images/mockup_hp.webp" alt="" className="hidden h-[80%] w-full lg:block object-cover" />
+      </div>
+
       <div className="h-screen w-screen flex flex-col items-center justify-start mx-[0.5em] mt-[3em] space-y-8 md:justify-center md:mt-0 md:mx-0 md:w-[60%]">
         <a href="/">
-          <img alt="backbiru" src="Images/backbiru.png" className="fixed top-8 left-5"></img>
+          <img alt="backbiru" src="/Images/backbiru.png" className="absolute top-8 left-5 lg:hidden" />
         </a>
         <img src="/Images/LogoAkucuciin.png" alt="logo" className="w-[9rem] md:w-[15rem]" />
         <div className="flex flex-col items-center justify-center space-y-5">

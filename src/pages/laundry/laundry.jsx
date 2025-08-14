@@ -81,7 +81,7 @@ const LaundryList = () => {
 
         <div className="w-[90dvw] md:w-[87dvw] mt-8 mb-4 md:mb-0 lg:mb-4 flex justify-between">
           <h3 className="font-['Montserrat'] text-md md:text-xl font-semibold text-blue-primary dark:text-white">{isLoggedIn ? `Halo, ${profileData.data.name}!` : "Temukan Laundry Favoritmu"}</h3>
-          <div className="hidden md:block">
+          <div className="md:block">
             <ThemeSwitcher />
           </div>
         </div>

@@ -16,7 +16,7 @@ import useIsMobileScreen from "../../utils/isMobileScreen.utils";
 import Sidebar from "../../components/layout/sidebar/sidebar";
 
 import KodeRefferralSheet from "../../components/ui/sheet/referral.profile.sheet";
-import EditProfileSheet from "../../components/ui/sheet/edit.referral.sheet";
+import EditProfileSheet from "../../components/ui/sheet/edit.profile.sheet";
 import EditProfileSwal from "../../components/modal/profile.edit.swal";
 import KodeRefferralSwal from "../../components/modal/referral.profile.swal";
 
@@ -84,7 +84,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen w-screen pb-4 flex lg:flex-row flex-col items-center justify-center bg-[#F4F5FF] dark:bg-dark-bg">
+    <div className="min-h-screen w-screen flex lg:flex-row flex-col items-center justify-center bg-gray-100 dark:bg-dark-bg">
       {toastContainer()}
       <Sidebar />
       {showEditSheet && (
@@ -103,14 +103,14 @@ const Profile = () => {
 
       {showReferralSheet && <KodeRefferralSheet accessToken={accessToken} getProfileUser={getProfileUser} onClose={handleCloseReferralSheet} isOpen={showReferralSheet} />}
 
-      <div className="h-screen flex items-center flex-col p-6 rounded-lg md:justify-center md:mt-0 md:mx-0 md:w-[70%] lg:w-[50%] dark:text-dark-text">
-        <div className="flex justify-between flex-col space-y-6 items-center mb-4 w-full pt-10">
+      <div className="min-h-screen flex items-center flex-col px-4 pb-36 pt-6 md:pl-24 md:py-6 md:pr-6 lg:p-6 rounded-xl md:justify-center md:mt-0 md:mx-0 md:w-[70%] lg:w-[50%] dark:text-dark-text bg-gray-100 dark:bg-dark-bg">
+        <div className="flex justify-between flex-col space-y-6 items-center mb-4 w-full pt-6">
           <h2 className="font-['Montserrat'] z-10 lg:text-black text-white dark:text-dark-text font-semibold text-center text-3xl">{profile.name}</h2>
         </div>
 
         <div className="z-10 mt-4">
-          <form className="w-full lg:max-w-lg bg-white dark:bg-dark-card rounded-lg shadow-custom-note">
-            <div className="space-y-4 p-6 rounded-lg shadow-custom-note">
+          <form className="w-full lg:max-w-lg bg-white dark:bg-dark-card rounded-xl shadow-custom-note">
+            <div className="space-y-4 p-6 rounded-xl shadow-custom-note">
               <div className="flex gap-4 items-center border-b border-gray-300 dark:border-neutral-700 pb-4">
                 <div className="flex items-center gap-6 w-full">
                   <img src="/Images/email.webp" alt="email" className="w-8 h-8" />
@@ -142,11 +142,11 @@ const Profile = () => {
               </div>
 
               {!isEditing && (
-                <div className="w-full flex justify-end mt-4 border-2 border-[#687EFF] rounded-full">
+                <div className="w-full flex justify-end mt-4 border-2 border-[#687EFF] rounded-2xl">
                   <button
                     type="button"
                     onClick={handleEditProfile}
-                    className="w-full font-['Montserrat'] px-6 py-2 text-[#687EFF] font-semibold rounded-full bg-white hover:bg-gray-100 dark:bg-dark-card dark:hover:bg-dark-card-darker transition duration-200"
+                    className="w-full font-['Montserrat'] px-6 py-2 text-[#687EFF] font-semibold rounded-2xl bg-white hover:bg-gray-100 dark:bg-dark-card dark:hover:bg-dark-card-darker transition duration-200"
                   >
                     Edit
                   </button>
@@ -155,10 +155,10 @@ const Profile = () => {
             </div>
           </form>
 
-          <div className="mt-6 space-y-4 w-full lg:max-w-lg rounded-lg">
+          <div className="mt-6 space-y-4 w-full lg:max-w-lg rounded-xl">
             <div>
               {profileData.data.referral_code ? (
-                <div className="flex flex-col w-full bg-white dark:bg-dark-card p-4 space-y-4 rounded-lg shadow-custom-note">
+                <div className="flex flex-col w-full bg-white dark:bg-dark-card p-4 space-y-4 rounded-xl shadow-custom-note">
                   <div className="flex  w-full items-center border-b border-gray-300 dark:border-neutral-700 pb-4">
                     <img src="/Images/kodeReferralTag.webp" alt="kode referral" className="w-8 h-8 mr-4" />
                     <div>
@@ -180,7 +180,7 @@ const Profile = () => {
                 </div>
               ) : (
                 <div className="flex flex-col items center justify-center w-full">
-                  <button onClick={handleInputReferral} className="mt-2 px-4 py-2 w-[95%] mx-auto bg-blue-primary text-white lg:text-lg text-md font-semibold rounded-full hover:brightness-110 transition shadow-custom-note">
+                  <button onClick={handleInputReferral} className="mt-2 px-4 py-2 w-[100%] mx-auto bg-blue-primary text-white lg:text-lg text-md font-semibold rounded-2xl hover:brightness-110 transition shadow-custom-note">
                     Bikin Kode Referral
                   </button>
                 </div>
@@ -188,10 +188,10 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="flex flex-col items center justify-center w-full lg:max-w-lg">
+          <div className="flex flex-col items-center justify-center w-full lg:max-w-lg">
             <button
               onClick={handleLogout}
-              className="mt-8 py-2 shadow-custom-note font-sans w-[95%] mx-auto bg-red-warning hover:brightness-110 lg:text-lg text-md text-white font-semibold p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-dark-bg"
+              className="mt-6 py-2 shadow-custom-note font-quick w-[100%] mx-auto bg-red-warning hover:brightness-110 lg:text-lg text-md text-white font-semibold p-2 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-dark-bg"
             >
               Log Out
             </button>
