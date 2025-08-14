@@ -6,34 +6,45 @@ const VoucherReferralSwal = (formData, setFormData, accessToken, onValidationRes
   Swal.fire({
     title: "Voucher / Referral",
     html: `
-			<div class="space-y-4">
-				<div class="text-left">
-					<label class="block text-sm font-bold text-gray-700 mb-2 font-['Montserrat']">Kode Referral</label>
-					<input 
-						id="referral-code" 
-						type="text" 
-						value="${formData.referral_code || ""}"
-						class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-['Montserrat']"
-						placeholder="Ex: REF12345"
-					/>
-				</div>
-				
-				<div class="text-left">
-					<label class="block text-sm font-bold text-gray-700 mb-2 font-['Montserrat']">Voucher Diskon</label>
-					<input 
-						id="coupon-code" 
-						type="text" 
-						value="${formData.coupon_code || ""}"
-						class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-['Montserrat']"
-						placeholder="Ex: DISKON12"
-					/>
-				</div>
+        <div class="space-y-4">
+          <div class="text-left">
+            <label class="block text-sm font-bold text-gray-700 dark:text-dark-text mb-2 font-['Montserrat']">
+              Kode Referral
+            </label>
+            <input 
+              id="referral-code" 
+              type="text" 
+              value="${formData.referral_code || ""}"
+              class="w-full px-4 py-2 border border-gray-300 dark:border-neutral-700 rounded-md
+                    focus:outline-none focus:ring-2 focus:ring-blue-500 font-['Montserrat']
+                    bg-white dark:bg-dark-card text-gray-800 dark:text-dark-text
+                    placeholder:text-gray-400 dark:placeholder:text-dark-text/60"
+              placeholder="Ex: REF12345"
+            />
+          </div>
+          
+          <div class="text-left">
+            <label class="block text-sm font-bold text-gray-700 dark:text-dark-text mb-2 font-['Montserrat']">
+              Voucher Diskon
+            </label>
+            <input 
+              id="coupon-code" 
+              type="text" 
+              value="${formData.coupon_code || ""}"
+              class="w-full px-4 py-2 border border-gray-300 dark:border-neutral-700 rounded-md
+                    focus:outline-none focus:ring-2 focus:ring-blue-500 font-['Montserrat']
+                    bg-white dark:bg-dark-card text-gray-800 dark:text-dark-text
+                    placeholder:text-gray-400 dark:placeholder:text-dark-text/60"
+              placeholder="Ex: DISKON12"
+            />
+          </div>
 
-				<div class="text-center text-[#687EFF] text-sm font-['Montserrat'] font-semibold hover:underline">
-					<a href='https://instagram.com/akucuciin.id/' target="blank" >Cek promo lain di instagram/akucuciin.id</a>
-				</div>
-
-			</div>
+          <div class="text-center text-[#687EFF] dark:text-blue-300 text-sm font-['Montserrat'] font-semibold hover:underline">
+            <a href='https://instagram.com/akucuciin.id/' target="blank">
+              Cek promo lain di instagram/akucuciin.id
+            </a>
+          </div>
+        </div>
 		`,
     showCancelButton: true,
     confirmButtonText: "Simpan",
@@ -49,7 +60,7 @@ const VoucherReferralSwal = (formData, setFormData, accessToken, onValidationRes
       const isDark = document.documentElement.classList.contains("dark");
       container?.setAttribute("data-swal2-theme", isDark ? "dark" : "light");
     },
-	
+
     preConfirm: () => {
       const referralCode = document.getElementById("referral-code").value.trim();
       const couponCode = document.getElementById("coupon-code").value.trim();
