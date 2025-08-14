@@ -213,7 +213,8 @@ const OrderForm = () => {
           ...prev,
           coupon_code: responses.coupon_code || prev.coupon_code,
         }));
-        await toastSuccess(`Kupon "${responses.couponResponse.data.name}" Valid dengan diskon ${responses.couponResponse.data.multiplier}%`);
+        const percentageDiscount = isSpecialVoucher(responses.couponResponse.data?.name) ? "6% - 62" : responses.couponResponse.data.multiplier
+        await toastSuccess(`Kupon "${responses.couponResponse.data.name}" Valid dengan diskon ${percentageDiscount}%`);
       }
     }
   };
