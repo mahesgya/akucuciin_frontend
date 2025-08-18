@@ -19,6 +19,23 @@ const CustomerServices = {
 			errorSwal(error.response?.data?.errors);
 		}
 	},
+	fillMissingFields: async (formData, dispatch) => {
+		try {
+			const response = await axios.put(
+				`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer`,
+				formData,
+				{
+					headers: { Authorization: `Bearer ${formData.accessToken}` },
+				}
+			);
+
+			dispatch(setProfileData(response.data));
+			return response.data;
+		} catch (error) {
+			errorSwal(error.response?.data?.errors || "Gagal melengkapi data.");
+			throw error;
+		}
+	},
 	changeProfile: async (
 		editProfile,
 		accessToken,
