@@ -10,7 +10,8 @@ const PromoCarouselDesktop = ({ img, className = "" }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 3000,
+    arrows: false,
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 1 } },
       { breakpoint: 640, settings: { slidesToShow: 1 } },
@@ -24,9 +25,9 @@ const PromoCarouselDesktop = ({ img, className = "" }) => {
           {img.map((item) => (
             <div key={item.id} className="w-full">
               <img
-                src={`https://akucuciin.com/Images/promo/${item.filename}`}
+                src={`${process.env.REACT_APP_BASE_FRONTEND_URL}/Images/promo/${item.filename}`}
                 alt=""
-                className="h-[300px] w-full object-cover rounded-[20px]"
+                className="h-[290px] w-full object-fit rounded-[20px]"
               />
             </div>
           ))}

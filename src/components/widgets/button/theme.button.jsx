@@ -64,22 +64,21 @@ export default function ThemeSwitcher() {
           aria-haspopup="true"
           aria-expanded={open}
           className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-gray-200 dark:border-neutral-700
-                     bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text
+                     bg-white/60 dark:bg-dark-card/50 text-gray-700 dark:text-dark-text
                      shadow-sm hover:bg-gray-50 dark:hover:bg-dark-card-darker
                      focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500
                      ring-offset-2 ring-offset-white dark:ring-offset-dark-bg"
         >
           <span className="shrink-0">{current.icon}</span>
-          <span className="text-sm font-semibold">{current.label}</span>
           <Caret open={open} />
         </button>
 
         {open && (
           <div
             role="menu"
-            className="absolute right-0 mt-2 w-44 z-50 origin-top-right rounded-xl border border-gray-200 dark:border-neutral-700
+            className="absolute left-0 mt-2 z-50 origin-top-left rounded-xl border border-gray-200 dark:border-neutral-700
                        bg-white dark:bg-dark-card shadow-lg p-1 animate-[fadeIn_120ms_ease-out]"
-            style={{ transformOrigin: "top right" }}
+            style={{ transformOrigin: "top left" }}
           >
             {themeOptions.map(opt => {
               const active = theme === opt.name;
@@ -93,16 +92,10 @@ export default function ThemeSwitcher() {
                   }}
                   className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm
                               transition-colors text-gray-700 dark:text-dark-text
-                              hover:bg-gray-100 dark:bg-dark-card dark:hover:bg-gray-700
-                              ${active ? "bg-gray-100 dark:bg-dark-card-darker font-semibold" : ""}`}
+                              hover:bg-gray-100 bg-white dark:bg-dark-card dark:hover:bg-gray-700
+                              ${active ? "bg-gray-100 dark:bg-gray-800 font-semibold" : ""}`}
                 >
                   <span className="shrink-0">{opt.icon}</span>
-                  <span>{opt.label}</span>
-                  {active && (
-                    <svg className="ml-auto h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path fillRule="evenodd" d="M16.704 5.29a1 1 0 010 1.42l-7.01 7.01a1 1 0 01-1.42 0L3.296 8.74a1 1 0 111.414-1.414l4.154 4.154 6.304-6.304a1 1 0 011.536.11z" clipRule="evenodd" />
-                    </svg>
-                  )}
                 </button>
               );
             })}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../../components/ui/bar/search.bar";
 import PromoCarousel from "../../components/widgets/carousel/promo.carousel";
-import PromoImages from "../../data/promo.images";
+import { PromoImages, PromoImagesDesktop } from "../../data/promo.images";
 import laundryServices from "../../services/laundry.service";
 import Sidebar from "../../components/layout/sidebar/sidebar";
 import PromoCarouselDesktop from "../../components/widgets/carousel/promo.carousel.desktop";
@@ -79,7 +79,7 @@ const LaundryList = () => {
           </div>
         </div>
 
-        <div className="z-30 absolute top-2 right-2 md:hidden">
+        <div className="z-30 absolute top-2 left-2 md:hidden">
             <ThemeSwitcher />
           </div>
 
@@ -91,7 +91,7 @@ const LaundryList = () => {
         </div>
 
         <div className="hidden md:block w-full mt-4 mb-4">
-          <PromoCarouselDesktop img={PromoImages} />
+          <PromoCarouselDesktop img={PromoImagesDesktop} />
           <div className="mt-3">
             <SearchBar value={searchQuery} onChangeText={setSearchQuery} onSubmit={handleSearch} />
           </div>

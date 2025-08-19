@@ -11,7 +11,8 @@ const PromoCarousel = ( {img} ) => {
     slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: true, 
-    autoplaySpeed: 4000,
+    autoplaySpeed: 3000,
+    arrows: false,
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 1 } },
       { breakpoint: 640, settings: { slidesToShow: 1 } },
@@ -24,7 +25,7 @@ const PromoCarousel = ( {img} ) => {
         <Slider {...settings}>
           {img.map((item) => (
             <div key={item.id} className="lg:w-[800px]">
-              <img src={`https://akucuciin.com/Images/promo/${item.filename}`} alt="" className="rounded-b-[30px] shadow-lg w-screen h-[250px] object-fit hover:shadow-2xl transition-all duration-300 lg:h-[300px] lg:w-![800px] lg:object-cover lg:shadow-none lg:hover:shadow-none lg:rounded-[20px]"/>
+              <img src={`${process.env.REACT_APP_BASE_FRONTEND_URL}/Images/promo/${item.filename}`} alt="" className="rounded-b-[30px] shadow-lg w-screen h-[250px] object-fit hover:shadow-2xl transition-all duration-300 lg:h-[300px] lg:w-![800px] lg:object-cover lg:shadow-none lg:hover:shadow-none lg:rounded-[20px]"/>
             </div>
           ))}  
         </Slider>
