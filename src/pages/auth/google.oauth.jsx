@@ -7,35 +7,44 @@ import LoadingUtils from "../../utils/loading.utils";
 import CustomerServices from "../../services/customer.services";
 
 const GoogleOauthRedirect = () => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+	const [searchParams] = useSearchParams();
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
-  useEffect(() => {
-    const storeTokens = async () => {
-      const accessToken = searchParams.get("accessToken");
-      const refreshToken = searchParams.get("refreshToken");
+	useEffect(() => {
+		const storeTokens = async () => {
+			const accessToken = searchParams.get("accessToken");
+			const refreshToken = searchParams.get("refreshToken");
 
-      if (accessToken && refreshToken) {
-        Cookies.set("accessToken", accessToken, {
-          secure: false,
-          sameSite: "none",
-          expires: 1,
-        });
-        Cookies.set("refreshToken", refreshToken, { secure: false, sameSite: "none", expires: 7 });
+			if (accessToken && refreshToken) {
+				Cookies.set("accessToken", accessToken, {
+					secure: false,
+					sameSite: "none",
+					expires: 1,
+				});
+				Cookies.set("refreshToken", refreshToken, {
+					secure: false,
+					sameSite: "none",
+					expires: 7,
+				});
 
-        await new Promise((r) => setTimeout(r, 300));
-        await dispatch(setLogin({ accessToken, refreshToken }));
-        await CustomerServices.getProfile(accessToken, dispatch);
+				await new Promise((r) => setTimeout(r, 300));
+				await dispatch(setLogin({ accessToken, refreshToken }));
+				const user = await CustomerServices.getProfile(accessToken, dispatch);
 
-        navigate("/");
-      }
-    };
+				// Find if user has telephone number and address or not, redirect accordingly
+				if (user.data.telephone && user.data.address) {
+					navigate("/");
+				} else {
+					navigate("/register/missing-fields");
+				}
+			}
+		};
 
-    storeTokens();
-  }, [searchParams, navigate, dispatch]);
+		storeTokens();
+	}, [searchParams, navigate, dispatch]);
 
-  return <LoadingUtils />;
+	return <LoadingUtils />;
 };
 
 export default GoogleOauthRedirect;

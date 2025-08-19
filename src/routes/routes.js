@@ -27,6 +27,7 @@ import NotFound from "../pages/not_found";
 import SnkVoucherGacha from "../pages/other/SnkVoucherGacha";
 
 import RequireAuth from "./require.auth";
+import MissingFields from "../pages/auth/missing.fields";
 
 const withAuth = (element) => <RequireAuth>{element}</RequireAuth>;
 
@@ -50,6 +51,10 @@ const Routess = [
 	{
 		path: "/register",
 		element: <Register />,
+	},
+	{
+		path: "/register/missing-fields",
+		element: <MissingFields />,
 	},
 	{
 		path: "/register/:email",
@@ -99,7 +104,10 @@ const Routess = [
 	{ path: "/order", element: withAuth(<Order />) },
 	{ path: "/order/:orderId", element: withAuth(<OrderDetail />) },
 	{ path: "/profile", element: withAuth(<Profile />) },
-	{ path: "/laundry/:idlaundry/pesan/:idpaket", element: withAuth(<OrderForm />) },
+	{
+		path: "/laundry/:idlaundry/pesan/:idpaket",
+		element: withAuth(<OrderForm />),
+	},
 
 	{
 		path: "*",
