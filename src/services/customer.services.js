@@ -1,6 +1,7 @@
 import axios from "axios";
 import { setProfileData } from "../redux/auth.slicer";
 import { errorSwal, successSwal } from "../utils/alert.utils";
+import transformPhoneNumber from "../utils/phone.number.utils";
 import { toastError, toastSuccess } from "../utils/toast.utils";
 
 const CustomerServices = {
@@ -19,13 +20,14 @@ const CustomerServices = {
 			errorSwal(error.response?.data?.errors);
 		}
 	},
-	fillMissingFields: async (formData, dispatch) => {
+	fillMissingFields: async (accessToken, formData, dispatch) => {
+		formData.telephone = transformPhoneNumber(formData.telephone);
 		try {
 			const response = await axios.put(
 				`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer`,
 				formData,
 				{
-					headers: { Authorization: `Bearer ${formData.accessToken}` },
+					headers: { Authorization: `Bearer ${accessToken}` },
 				}
 			);
 

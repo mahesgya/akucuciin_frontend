@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import authService from "../../services/auth.services";
-import LoadingUtils from "../../utils/loading.utils";
 import CustomerServices from "../../services/customer.services";
 import { successSwal } from "../../utils/alert.utils";
+import LoadingUtils from "../../utils/loading.utils";
 
 const MissingFields = () => {
 	const navigate = useNavigate();
@@ -17,7 +16,7 @@ const MissingFields = () => {
 		address: "",
 		telephone: "",
 	});
-	const { isLoading } = useSelector((state) => state.auth);
+	const { accessToken, isLoading } = useSelector((state) => state.auth);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -31,6 +30,7 @@ const MissingFields = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const response = await CustomerServices.fillMissingFields(
+			accessToken,
 			formData,
 			dispatch
 		);
@@ -123,7 +123,7 @@ const MissingFields = () => {
 									required
 									type="text"
 									name="telephone"
-									placeholder="nomor telepon"
+									placeholder="Nomor WA (62xxxx)"
 									className="fix-autofill w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-900 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:outline-none focus:border-b-1 md:text-base"
 								/>
 							</div>
