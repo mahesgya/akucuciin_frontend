@@ -86,7 +86,7 @@ const MissingFields = () => {
 
 				<div className="flex flex-col items-center justify-center space-y-7 lg:space-y-5">
 					<h1 className="font-normal text-[20px] font-poppins self-start md:text-[24px] dark:text-dark-text">
-						Fill in the missing fields to continue
+						Yuk lengkapi data kamu untuk melanjutkan
 					</h1>
 
 					<form
