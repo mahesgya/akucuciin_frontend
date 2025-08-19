@@ -1,12 +1,13 @@
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 
 const END_DATE = "2025-08-27T23:59:59+07:00";
+const END_DATE_NGEKOS = "2025-09-09T23:59:59+07:00";
 const START_DATE = "2025-07-27T00:00:00+07:00";
 
 const VOUCHERS = [
   { code: "AKUMABA", start: START_DATE, end: END_DATE, accent: "indigo" },
-  { code: "AKUNGEKOS", start: START_DATE, end: END_DATE, accent: "fuchsia" },
+  { code: "AKUNGEKOS", start: START_DATE, end: END_DATE_NGEKOS, accent: "fuchsia" },
 ];
 
 const TERMS = [
@@ -52,7 +53,7 @@ function Chevron({ open }) {
 
 export default function SnkVoucherGacha() {
   const navigate = useNavigate();
-  const [activeIdx, setActiveIdx] = useState(0); // 0: AKUMABA, 1: AKUNGEKOS
+  const [activeIdx, setActiveIdx] = useState(0); 
   const [copied, setCopied] = useState(false);
   const [openId, setOpenId] = useState(1);
 
@@ -74,25 +75,20 @@ export default function SnkVoucherGacha() {
     } catch {}
   };
 
-  // util kelas warna aksen sesuai voucher aktif
   const accentBg = activeVoucher.accent === "fuchsia" ? "from-fuchsia-600" : "from-indigo-600";
   const accentSolid = activeVoucher.accent === "fuchsia" ? "bg-fuchsia-600 hover:bg-fuchsia-700" : "bg-indigo-600 hover:bg-indigo-700";
   const accentChip = activeVoucher.accent === "fuchsia" ? "bg-fuchsia-100 text-fuchsia-700" : "bg-indigo-100 text-indigo-700";
   const accentDot = activeVoucher.accent === "fuchsia" ? "bg-fuchsia-500" : "bg-indigo-500";
-  const accentBorderOpen = activeVoucher.accent === "fuchsia" ? "border-fuchsia-200" : "border-indigo-200";
-  const accentTextOpen = activeVoucher.accent === "fuchsia" ? "text-fuchsia-700" : "text-indigo-700";
 
   return (
     <div className='font-["Montserrat"] min-h-screen bg-gradient-to-b from-indigo-50 via-white to-white dark:bg-dark-bg dark:from-dark-bg dark:via-dark-bg dark:to-dark-bg dark:text-dark-text'>
       <header className="relative">
-        {/* background aura */}
         <div
           className={`absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] ${
             activeVoucher.accent === "fuchsia" ? "from-fuchsia-200/60" : "from-indigo-200/60"
           } via-white to-white dark:from-black/20 dark:via-transparent dark:to-transparent`}
         />
 
-        {/* back button */}
         <button
           onClick={() => navigate(-1)}
           aria-label="Kembali"
@@ -148,22 +144,6 @@ export default function SnkVoucherGacha() {
                     <Stat label="detik" value={String(seconds).padStart(2, "0")} />
                   </div>
                 )}
-              </div>
-              <div className="mt-4 flex items-center justify-center gap-3">
-                <Link
-                  to="/order"
-                  className="inline-flex items-center justify-center rounded-xl bg-black text-white px-4 py-2 text-sm font-semibold hover:bg-gray-900 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black dark:focus:ring-offset-dark-bg"
-                >
-                  Gunakan di Checkout
-                </Link>
-                <a
-                  href="https://akucuciin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-xl border border-gray-300 dark:border-neutral-700 text-gray-800 dark:text-dark-text px-4 py-2 text-sm font-semibold hover:bg-gray-50 dark:hover:bg-dark-card-darker transition"
-                >
-                  Kunjungi Website
-                </a>
               </div>
             </div>
           </div>
@@ -223,14 +203,6 @@ export default function SnkVoucherGacha() {
             <div className="text-lg sm:text-xl font-bold dark:text-dark-text">Siap coba peruntunganmu?</div>
             <div className="text-sm text-gray-600 dark:text-dark-text/80">Masukkan kode di halaman checkout dan lihat potongan yang kamu dapat.</div>
           </div>
-          <Link
-            to="/order"
-            className={`inline-flex items-center justify-center rounded-xl ${accentSolid} text-white px-5 py-2.5 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-dark-bg ${
-              activeVoucher.accent === "fuchsia" ? "focus:ring-fuchsia-600" : "focus:ring-indigo-600"
-            }`}
-          >
-            Pergi ke Order
-          </Link>
         </div>
       </footer>
     </div>
