@@ -23,6 +23,7 @@ import useIsMobileScreen from "../../utils/isMobileScreen.utils";
 import isSpecialVoucher from "../../utils/IsSpecialVoucher.utils";
 import transformPhoneNumber from "../../utils/phone.number.utils";
 import { toastError, toastSuccess } from "../../utils/toast.utils";
+import OrderConfirmationSwal from "../../components/modal/order-confirmation.swal";
 
 const OrderForm = () => {
   dayjs.extend(utc);
@@ -129,7 +130,7 @@ const OrderForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+ 
     if (!accessToken) {
       successSwal("Anda harus login terlebih dahulu.");
       return;
@@ -160,6 +161,23 @@ const OrderForm = () => {
       note: formData.note,
       pickup_date: `${pickupHours} ${pickup_date}`,
     };
+
+    const orderConfirmation = await OrderConfirmationSwal({
+      "Nama Laundry": activePaket?.laundry_name,
+      "Nama Paket": activePaket?.name,
+      "Tanggal Penjemputan": pickup_date,
+      "Jam Penjemputan": pickupHours,
+      "Maps Pinpoint": formData.maps_pinpoint || "Tidak ada",
+      "Nomor Telephone": profile.telephone || "Tidak ada",
+      "Alamat Lengkap": profile.address || "Tidak ada",
+      "Catatan Tambahan": formData.note || "Tidak ada",
+      "Kode Referral": formData.referral_code || "Tidak ada",
+      "Kode Voucher": formData.coupon_code || "Tidak ada",
+    });
+    
+    if (!orderConfirmation) {
+      return;
+    }
 
     profile.telephone = transformPhoneNumber(profile.telephone);
 
