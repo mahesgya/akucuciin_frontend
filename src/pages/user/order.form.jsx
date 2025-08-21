@@ -257,6 +257,11 @@ const OrderForm = () => {
         confirmButton: "btn-confirm",
         cancelButton: "btn-cancel",
       },
+      didOpen: () => {
+        const container = Swal.getContainer();
+        const isDark = document.documentElement.classList.contains("dark");
+        container?.setAttribute("data-swal2-theme", isDark ? "dark" : "light");
+      },
       preConfirm: (note) => {
         if (note === null || note.trim() === "") {
           setFormData((prev) => ({ ...prev, note: "" }));
