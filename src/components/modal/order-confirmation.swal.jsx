@@ -2,17 +2,18 @@ import Swal from "sweetalert2";
 
 const OrderConfirmationSwal = (orderDetails) => {
     const formatOrderDetails = (details) => {
-        let formattedDetails = '<table style="width: 100%; text-align: left;">';
+        let formattedDetails = '<div class="w-full text-left grid lg:grid-cols-2 grid-cols-1 gap-4">';
         for (const [key, value] of Object.entries(details)) {
             if (typeof value !== 'object' && typeof value !== 'function') {
                 formattedDetails += `
-                    <tr>
-                        <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>${key}</strong></td>
-                        <td style="padding: 8px; border-bottom: 1px solid #ddd;">${value}</td>
-                    </tr>`;
+                    <div class="flex flex-col text-base pb-2 border-b border-gray-200 dark:border-gray-700">
+                        <div class="p-1"><strong>${key}</strong></div>
+                        <div class="p-1">${value}</div>
+                    </div>
+                    `;
             }
         }
-        formattedDetails += '</table>';
+        formattedDetails += '</div>';
         return formattedDetails;
     };
 
