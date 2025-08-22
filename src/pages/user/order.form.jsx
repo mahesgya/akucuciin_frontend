@@ -283,10 +283,10 @@ const OrderForm = () => {
         <button onClick={handleBack} className="bg-transparent">
           <img alt="backwhite" src="/Images/backwhite.webp" className="h-10 w-10" />
         </button>
-        <h1 className="lg:text-4xl ml-4 text-2xl font-bold text-white font-['Montserrat']">{activePaket?.laundry_name}</h1>
+        <h1 className="lg:text-2xl ml-4 text-2xl font-bold text-white font-['Montserrat']">{activePaket?.laundry_name}</h1>
       </div>
 
-      <form onSubmit={handleSubmit} className="lg:grid lg:grid-flow-col lg:grid-cols-2 space-y-4 lg:space-y-0 gap-8 w-full h-full px-3 lg:px-24">
+      <form onSubmit={handleSubmit} className="lg:grid lg:grid-flow-col lg:grid-cols-[2fr_3fr] space-y-4 lg:space-y-0 gap-8 w-full h-full px-3 lg:px-24">
         <div className="h-full flex flex-col w-full space-y-4">
           <div className="relative flex flex-col w-full bg-white dark:bg-dark-card p-6 rounded-xl shadow-sm border border-gray-300/30 dark:border-neutral-700">
             <div className="flex flex-row items-center justify-between mb-4">
@@ -353,7 +353,7 @@ const OrderForm = () => {
           )}
 
           <Link to="/voucher-gacha/snk" state={{ from: window.location.pathname }} className="font-quick font-semibold text-center text-blue-600 dark:text-blue-400 mb-1 mt-4 text-md md:text-md hover:underline">
-            Dapatkan diskon up to 62% SEKARANG! 👉 Cek caranya disini yukk! 👈
+            Dapatkan diskon up to 62% SEKARANG! <br/> 👉 Cek caranya disini yukk! 👈
           </Link>
 
           <div className="w-full bg-white dark:bg-dark-card rounded-xl px-6 py-5 shadow-sm border border-gray-300/30 dark:border-neutral-700">
@@ -405,7 +405,7 @@ const OrderForm = () => {
                             {isSpecialVoucher(validationResponses.couponResponse.data?.name) ? "6% - 62% Off" : `${validationResponses.couponResponse.data?.multiplier}% Off`}{" "}
                           </div>
                         </div>
-                        <div className="text-sm font-semibold font-['Montserrat'] italic border-t border-gray-300">{validationResponses.couponResponse.data?.description}</div>
+                        <div className="text-xs font-semibold font-['Montserrat'] italic">{validationResponses.couponResponse.data?.description}</div>
                       </div>
                     </div>
                   </div>
