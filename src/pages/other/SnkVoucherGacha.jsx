@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const END_DATE = "2025-08-27T23:59:59+07:00";
+const END_DATE = "2025-09-05T23:59:59+07:00";
 const END_DATE_NGEKOS = "2025-09-09T23:59:59+07:00";
 const START_DATE = "2025-07-27T00:00:00+07:00";
 
@@ -13,7 +13,7 @@ const VOUCHERS = [
 const TERMS = [
   { id: 1, title: "Voucher hanya berlaku 1x pakai untuk 1 akun", desc: "Jika pesanan dibatalkan, voucher tidak dapat digunakan kembali untuk akun tersebut." },
   { id: 2, title: "Diskon acak hingga 62%", desc: "Setiap pengguna yang memasukkan kode akan memperoleh nominal diskon acak. Cek di halaman detail order setelah pemesanan." },
-  { id: 3, title: "Masa berlaku", desc: "Voucher berlaku pada 27 Juli 2025 hingga 27 Agustus 2025 sesuai zona waktu WIB." },
+  { id: 3, title: "Masa berlaku", desc: "Voucher berlaku pada 27 Juli 2025 hingga 9 September 2025 sesuai zona waktu WIB." },
   { id: 4, title: "Tidak dapat digabung dengan promo lain", desc: "Kode ini tidak bisa digabung dengan promo atau kode voucher lainnya." },
   { id: 5, title: "Penggunaan melanggar akan dibatalkan", desc: "Penyalahgunaan seperti spam akun atau manipulasi transaksi akan dibatalkan secara sepihak oleh Akucuciin." },
   { id: 6, title: "Tidak dapat diuangkan", desc: "Voucher tidak dapat ditukar dengan uang tunai atau dikembalikan." },
