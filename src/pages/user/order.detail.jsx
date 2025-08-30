@@ -232,8 +232,6 @@ const OrderDetail = () => {
             </div>
 
             <div className="flex items-center justify-center mt-4 w-full">
-              <p className="text-blue-600 text-sm text-center mt-4 mb-2">{data.status === "pencucian" ? "Menunggu penimbangan" : ""}</p>
-
               {data.status === "pending" && (
                 <div className="w-full">
                   <p className="lg:text-sm text-xs text-center text-[#687EFF] mb-2">Order tidak bisa dicancel setelah sudah dijemput</p>
