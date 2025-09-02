@@ -87,8 +87,13 @@ const RatingSwal = (accessToken, orderId) => {
           currentRating = rating;
 
           stars.forEach((s, index) => {
-            s.classList.toggle("text-yellow-400", index < rating);
-            s.classList.toggle("text-gray-300", index >= rating);
+            if (index < rating) {
+              s.classList.add("text-yellow-400");
+              s.classList.remove("text-gray-300", "dark:text-neutral-600");
+            } else {
+              s.classList.remove("text-yellow-400");
+              s.classList.add("text-gray-300", "dark:text-neutral-600");
+            }
           });
         });
 
@@ -96,16 +101,26 @@ const RatingSwal = (accessToken, orderId) => {
           const rating = parseInt(this.getAttribute("data-rating"));
 
           stars.forEach((s, index) => {
-            s.classList.toggle("text-yellow-400", index < rating);
-            s.classList.toggle("text-gray-300", index >= rating);
+            if (index < rating) {
+              s.classList.add("text-yellow-400");
+              s.classList.remove("text-gray-300", "dark:text-neutral-600");
+            } else {
+              s.classList.remove("text-yellow-400");
+              s.classList.add("text-gray-300", "dark:text-neutral-600");
+            }
           });
         });
 
         star.addEventListener("mouseout", function () {
           // Reset to current rating on mouseout
           stars.forEach((s, index) => {
-            s.classList.toggle("text-yellow-400", index < currentRating);
-            s.classList.toggle("text-gray-300", index >= currentRating);
+            if (index < currentRating) {
+              s.classList.add("text-yellow-400");
+              s.classList.remove("text-gray-300", "dark:text-neutral-600");
+            } else {
+              s.classList.remove("text-yellow-400");
+              s.classList.add("text-gray-300", "dark:text-neutral-600");
+            }
           });
         });
       });
@@ -116,12 +131,30 @@ const RatingSwal = (accessToken, orderId) => {
 
           if (isSelected) {
             this.setAttribute("data-selected", "false");
-            this.classList.remove("bg-blue-100", "border-blue-500", "text-blue-700");
-            this.classList.add("border-gray-300", "text-gray-700");
+            // Remove selected styles
+            this.classList.remove(
+              "bg-blue-100", "dark:bg-blue-900/30", 
+              "border-blue-500", "dark:border-blue-400", 
+              "text-blue-700", "dark:text-blue-300"
+            );
+            // Add unselected styles
+            this.classList.add(
+              "border-gray-300", "dark:border-neutral-700",
+              "text-black", "dark:text-dark-text"
+            );
           } else {
             this.setAttribute("data-selected", "true");
-            this.classList.remove("border-gray-300");
-            this.classList.add("bg-blue-100", "border-blue-500");
+            // Remove unselected styles
+            this.classList.remove(
+              "border-gray-300", "dark:border-neutral-700",
+              "text-black", "dark:text-dark-text"
+            );
+            // Add selected styles
+            this.classList.add(
+              "bg-blue-100", "dark:bg-blue-900/30",
+              "border-blue-500", "dark:border-blue-400",
+              "text-blue-700", "dark:text-blue-300"
+            );
           }
         });
       });
