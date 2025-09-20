@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { setProfileData } from "../../redux/auth.slicer";
 
 import idLocale from "date-fns/locale/id";
@@ -15,6 +15,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 
+import OrderConfirmationSwal from "../../components/modal/order-confirmation.swal";
 import VoucherReferralSwal from "../../components/modal/referral.swal";
 import VoucherReferralSheet from "../../components/ui/sheet/referral.sheet";
 import customerServices from "../../services/customer.services";
@@ -23,7 +24,6 @@ import useIsMobileScreen from "../../utils/isMobileScreen.utils";
 import isSpecialVoucher from "../../utils/IsSpecialVoucher.utils";
 import transformPhoneNumber from "../../utils/phone.number.utils";
 import { toastError, toastSuccess } from "../../utils/toast.utils";
-import OrderConfirmationSwal from "../../components/modal/order-confirmation.swal";
 
 const OrderForm = () => {
   dayjs.extend(utc);
@@ -352,9 +352,12 @@ const OrderForm = () => {
             </div>
           )}
 
-          <Link to="/voucher-gacha/snk" state={{ from: window.location.pathname }} className="font-quick font-semibold text-center text-blue-600 dark:text-blue-400 mb-1 mt-4 text-md md:text-md hover:underline">
+          {/*  THIS CAN BE USED LATER FOR PROMO VOUCHER */}
+          {/*
+            <Link to="/voucher-gacha/snk" state={{ from: window.location.pathname }} className="font-quick font-semibold text-center text-blue-600 dark:text-blue-400 mb-1 mt-4 text-md md:text-md hover:underline">
             Dapatkan diskon up to 62% SEKARANG! <br/> 👉 Cek caranya disini yukk! 👈
-          </Link>
+            </Link> 
+          */}
 
           <div className="w-full bg-white dark:bg-dark-card rounded-xl px-6 py-5 shadow-sm border border-gray-300/30 dark:border-neutral-700">
             <h4 className="font-['Montserrat'] font-semibold text-left text-gray-700 dark:text-dark-text mb-1 text-base">Link Google Maps</h4>
