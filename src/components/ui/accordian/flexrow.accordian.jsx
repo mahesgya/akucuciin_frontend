@@ -4,7 +4,7 @@ const FlexRowAccordion = ({ title, contents }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="w-full flex flex-col items-start justify-between space-y-2 mb-2">
+    <div className="w-full flex flex-col items-start justify-between space-y-2">
       <div onClick={() => setIsOpen(!isOpen)} className="flex flex-col items-start justify-between w-full space-y-1">
         <div className="flex flex-row items-center justify-between w-full h-full">
           <p className='font-["Montserrat"] text-sm font-semibold text-gray-800 dark:text-dark-text'>{title}</p>
@@ -25,7 +25,9 @@ const FlexRowAccordion = ({ title, contents }) => {
               <div className="flex flex-row items-center justify-between w-full pr-2 space-x-4" key={index}>
                 <p className='text-xs mt-2 font-["Montserrat"] whitespace-nowrap font-semibold text-gray-700 dark:text-dark-text/80'>{content.field}</p>
 
-                <p className='w-full text-end text-xs mt-2 font-["Montserrat"] break-words font-semibold text-gray-900 dark:text-dark-text'>{content.value === "" ? "-" : content.value}</p>
+                {content.value && (
+                  <p className='w-full text-xs mt-2 font-["Montserrat"] break-words font-semibold text-gray-900 dark:text-dark-text'>{content.value === "" ? "-" : content.value}</p>
+                )}
 
                 {content.link && (
                   <a
@@ -40,7 +42,7 @@ const FlexRowAccordion = ({ title, contents }) => {
                 )}
 
                 {content.phone && (
-                  <a href={content.phone} className='w-full mt-2 font-["Montserrat"] text-end text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline hover:no-underline transition-colors duration-200'>
+                  <a href={content.phone} className='w-full mt-2 font-["Montserrat"] text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline hover:no-underline transition-colors duration-200'>
                     {content.phone}
                   </a>
                 )}
