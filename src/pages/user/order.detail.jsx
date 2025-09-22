@@ -123,7 +123,7 @@ const OrderDetail = () => {
 						/>
 					</a>
 					<h1 className="lg:text-[32px] text-[24px] font-bold text-white text-center font-['Montserrat']">
-						{data.status === "selesai" ? "Order Selesai" : "Order"}
+						{data.status === "selesai" ? "Order Selesai" : "Berhasil"}
 					</h1>
 					<p className="lg:text-xl text-sm text-white font-['Montserrat']">
 						{data.id}
@@ -150,7 +150,7 @@ const OrderDetail = () => {
 			)}
 
 			{/* Main */}
-			<div className="grid lg:grid-cols-2 grid-cols-1 gap-4 h-full pb-8 w-full px-4 lg:px-32">
+			<div className="grid lg:grid-cols-2 grid-cols-1 gap-4 h-full pb-8 w-full px-4 lg:px-28">
 				<div
 					className={`order-1 flex flex-col ${
 						data.status === "selesai" ? "space-y-4" : ""
@@ -376,23 +376,24 @@ const OrderDetail = () => {
 				<div className="order-2 border]">
 					<div className="flex flex-col bg-white dark:bg-dark-card p-6 border border-[#D0D5DD] dark:border-[#423E3E] rounded-lg items-center justify-between">
 						<div className="flex flex-col w-full">
-							<h2 className='lg:text-lg text-sm text-center font-semibold font-["Montserrat"] text-gray-900 dark:text-dark-text'>
+							<h2 className='lg:text-lg text-sm text-center font-semibold font-["Montserrat"] text-gray-900 dark:text-dark-text mb-2'>
 								Track Order
 							</h2>
-							<div className="w-full border-b-2 lg:my-4 my-2 border-neutral-200 dark:border-neutral-700" />
 							<div className="flex flex-row items-center justify-between w-full">
-								<p className="font-['Montserrat'] text-gray-900 dark:text-dark-text">Order Time</p>
+								<p className="lg:text-base text-sm font-['Montserrat'] font-semibold text-gray-900 dark:text-dark-text">Order Time :</p>
 								<p className='lg:text-base text-sm font-["Montserrat"] text-gray-900 dark:text-dark-text'>
-									{new Date(data.created_at).toLocaleString("id-ID", {
+									{`${new Date(data.created_at).toLocaleString("id-ID", {
 										weekday: "long", // "Tuesday"
 										year: "numeric", // "2025"
 										month: "long", // "August"
 										day: "numeric", // "12"
-										hour: "numeric", // "7"
-										minute: "numeric", // "57"
-									})}
+									})}, ${new Date(data.created_at).toLocaleTimeString("id-ID", {
+										hour: "2-digit",
+										minute: "2-digit",
+									})}`}
 								</p>
 							</div>
+							<div className="w-full border-b-2 my-2 border-neutral-200 dark:border-neutral-700" />
 							<TrackOrderTimeline status={data.status} />
 						</div>
 
