@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -71,14 +71,7 @@ const OrderForm = () => {
     pickup_date: "",
   });
 
-  const timeSlots = [
-    {
-      id: "12-14",
-      label: "12:00 - 14:00",
-      time: "Siang",
-      startHour: 12,
-      endHour: 14,
-    },
+  const timeSlots = useMemo(() => [
     {
       id: "14-16",
       label: "14:00 - 16:00",
@@ -87,29 +80,23 @@ const OrderForm = () => {
       endHour: 16,
     },
     {
-      id: "16-18",
-      label: "16:00 - 18:00",
+      id: "16-20",
+      label: "16:00 - 20:00",
       time: "Sore",
       startHour: 16,
-      endHour: 18,
-    },
-    {
-      id: "18-20",
-      label: "18:00 - 20:00",
-      time: "Malam",
-      startHour: 18,
       endHour: 20,
     },
-  ];
+  ], []);
 
-  const isTimeSlotPassed = (slot) => {
+  const isTimeSlotPassed = useCallback((slot) => {
     if (!pickupDate) return false;
 
     const now = dayjs().tz("Asia/Jakarta");
     const slotTime = dayjs(pickupDate).tz("Asia/Jakarta").hour(slot.startHour).minute(0).second(0);
 
-    return now.isAfter(slotTime);
-  };
+    // Check if current time is within 45 minutes of slot start time
+    return now.isAfter(slotTime.add(45, 'minutes'));
+  }, [pickupDate]);
 
   useEffect(() => {
     if (pickupHours) {
@@ -118,7 +105,7 @@ const OrderForm = () => {
         setPickupHours(null);
       }
     }
-  }, [pickupDate]);
+  }, [pickupDate, pickupHours, timeSlots, isTimeSlotPassed]);
 
   useEffect(() => {
     const fetchLastOrder = async () => {
@@ -126,7 +113,7 @@ const OrderForm = () => {
       setLastOrder(response.data);
     };
     fetchLastOrder();
-  }, []);
+  }, [accessToken]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -524,7 +511,7 @@ const OrderForm = () => {
             <div className="flex flex-col w-full h-full mt-4 border-t-2 border-gray-200 dark:border-neutral-700 pt-4">
               <div className="flex flex-col w-full">
                 {timeSlots.map((slot) => {
-                  const isDisabled = !pickupDate || isTimeSlotPassed(slot, pickupDate);
+                  const isDisabled = !pickupDate || isTimeSlotPassed(slot);
                   const isSelected = pickupHours === slot.label;
 
                   return (
