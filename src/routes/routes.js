@@ -25,6 +25,7 @@ import PrivacyPolicy from "../pages/static/privacy_policy";
 import OrderDetail from "../pages/user/order.detail";
 import NotFound from "../pages/not_found";
 import SnkVoucherGacha from "../pages/other/SnkVoucherGacha";
+import MapExample from "../pages/examples/MapExample";
 
 import RequireAuth from "./require.auth";
 import MissingFields from "../pages/auth/missing.fields";
@@ -99,6 +100,10 @@ const Routess = [
 	{
 		path: "/voucher-gacha/snk",
 		element: <SnkVoucherGacha />,
+	},
+	{
+		path: "/map-example",
+		element: <MapExample />,
 	},
 
 	{ path: "/order", element: withAuth(<Order />) },
