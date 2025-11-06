@@ -285,10 +285,11 @@ const CustomerServices = {
 					},
 				}
 			);
-			toastSuccess("Alamat berhasil ditambahkan.");
+			successSwal("Alamat berhasil ditambahkan.");
 			return response.data;
 		} catch (error) {
-			toastError(error.response?.data || "Gagal menambahkan alamat.");
+			const errorMessage = error.response?.data?.errors || "Gagal menambahkan alamat.";
+			errorSwal(errorMessage);
 			throw error;
 		}
 	},
@@ -341,10 +342,11 @@ const CustomerServices = {
 					},
 				}
 			);
-			toastSuccess("Alamat berhasil diperbarui.");
+			successSwal("Alamat berhasil diperbarui.");
 			return response.data;
 		} catch (error) {
-			toastError(error.response?.data || "Gagal memperbarui alamat.");
+			const errorMessage = error.response?.data?.errors || "Gagal memperbarui alamat.";
+			errorSwal(errorMessage);
 			throw error;
 		}
 	},
@@ -360,10 +362,11 @@ const CustomerServices = {
 					},
 				}
 			);
-			toastSuccess("Alamat berhasil dihapus.");
+			successSwal("Alamat berhasil dihapus.");
 			return response.data;
 		} catch (error) {
-			errorSwal(error.response?.data || "Gagal menghapus alamat.");
+			const errorMessage = error.response?.data?.errors || "Gagal menghapus alamat.";
+			errorSwal(errorMessage);
 			throw error;
 		}
 	},

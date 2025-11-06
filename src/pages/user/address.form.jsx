@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import LocationPicker from "../../components/ui/map/LocationPicker";
 import customerServices from "../../services/customer.services";
 import { errorSwal } from "../../utils/alert.utils";
@@ -175,8 +173,6 @@ const AddressForm = () => {
 
   return (
     <div className="font-['Montserrat'] flex flex-col bg-[#F4F5FF] dark:bg-dark-bg min-h-screen w-screen pb-8 dark:text-dark-text">
-      <ToastContainer />
-
       {/* Header */}
       <div className="flex flex-row items-center justify-start bg-[#687EFF] pl-4 lg:p-8 py-12 mb-6 w-full rounded-b-3xl shadow-sm">
         <button onClick={handleBack} className="bg-transparent">
