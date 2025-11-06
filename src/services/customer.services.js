@@ -370,6 +370,27 @@ const CustomerServices = {
 			throw error;
 		}
 	},
+
+	setDefaultAddress: async (accessToken, addressId) => {
+		try {
+			const response = await axios.put(
+				`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/addresses/${addressId}/default`,
+				{},
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+						"Content-Type": "application/json",
+					},
+				}
+			);
+			successSwal("Alamat utama berhasil diubah.");
+			return response.data;
+		} catch (error) {
+			const errorMessage = error.response?.data?.errors || "Gagal mengubah alamat utama.";
+			errorSwal(errorMessage);
+			throw error;
+		}
+	},
 };
 
 export default CustomerServices;

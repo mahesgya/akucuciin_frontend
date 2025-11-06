@@ -57,6 +57,15 @@ const Addresses = () => {
     }
   };
 
+  const handleSetDefault = async (addressId) => {
+    try {
+      await customerServices.setDefaultAddress(accessToken, addressId);
+      fetchAddresses();
+    } catch (error) {
+      console.error("Error setting default address:", error);
+    }
+  };
+
   const handleBack = () => {
     navigate("/profile");
   };
@@ -86,7 +95,9 @@ const Addresses = () => {
         {/* Loading State */}
         {isLoading && (
           <div className="text-center py-8">
-            <p className="text-gray-600 dark:text-dark-text/70">Memuat alamat...</p>
+            <p className="text-gray-600 dark:text-dark-text/70">
+              Memuat alamat...
+            </p>
           </div>
         )}
 
@@ -152,27 +163,26 @@ const Addresses = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2 lg:items-center">
                 <button
-                  onClick={() => navigate(`/profile/addresses/edit/${address.id}`)}
-                  className="flex-1 bg-[#687EFF] text-white font-semibold py-2 rounded-lg hover:bg-[#5668CC] transition-colors"
+                  onClick={() =>
+                    navigate(`/profile/addresses/edit/${address.id}`)
+                  }
+                  className="w-full lg:w-1/2 bg-[#687EFF] text-white font-semibold py-2 rounded-lg hover:bg-[#5668CC] transition-colors"
                 >
                   Edit
                 </button>
-                <button
-                  onClick={() =>
-                    window.open(
-                      `https://maps.google.com/?q=${address.latitude},${address.longitude}`,
-                      "_blank"
-                    )
-                  }
-                  className="flex-1 bg-[#39BCF8] text-white font-semibold py-2 rounded-lg hover:bg-[#2BA8E0] transition-colors"
-                >
-                  Lihat Peta
-                </button>
+                {!address.is_default && (
+                  <button
+                    onClick={() => handleSetDefault(address.id)}
+                    className="w-full lg:w-1/2 bg-green-500 text-white font-semibold py-2 rounded-lg hover:bg-green-600 transition-colors"
+                  >
+                    Jadikan Alamat Utama
+                  </button>
+                )}
                 <button
                   onClick={() => handleDelete(address.id)}
-                  className="flex-1 bg-red-500 text-white font-semibold py-2 rounded-lg hover:bg-red-600 transition-colors"
+                  className="w-full lg:w-1/2 bg-red-500 text-white font-semibold py-2 rounded-lg hover:bg-red-600 transition-colors"
                 >
                   Hapus
                 </button>
