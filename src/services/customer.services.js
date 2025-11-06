@@ -288,7 +288,7 @@ const CustomerServices = {
 			toastSuccess("Alamat berhasil ditambahkan.");
 			return response.data;
 		} catch (error) {
-			toastError(error.response?.data?.errors || "Gagal menambahkan alamat.");
+			toastError(error.response?.data || "Gagal menambahkan alamat.");
 			throw error;
 		}
 	},
@@ -306,7 +306,7 @@ const CustomerServices = {
 			);
 			return response.data;
 		} catch (error) {
-			errorSwal(error.response?.data?.errors || "Gagal mengambil data alamat.");
+			errorSwal(error.response?.data || "Gagal mengambil data alamat.");
 			throw error;
 		}
 	},
@@ -324,7 +324,7 @@ const CustomerServices = {
 			);
 			return response.data;
 		} catch (error) {
-			errorSwal(error.response?.data?.errors || "Gagal mengambil data alamat.");
+			errorSwal(error.response.data.errors || "Gagal mengambil data alamat.");
 			throw error;
 		}
 	},
@@ -344,7 +344,7 @@ const CustomerServices = {
 			toastSuccess("Alamat berhasil diperbarui.");
 			return response.data;
 		} catch (error) {
-			toastError(error.response?.data?.errors || "Gagal memperbarui alamat.");
+			toastError(error.response?.data || "Gagal memperbarui alamat.");
 			throw error;
 		}
 	},
@@ -363,7 +363,7 @@ const CustomerServices = {
 			toastSuccess("Alamat berhasil dihapus.");
 			return response.data;
 		} catch (error) {
-			errorSwal(error.response?.data?.errors || "Gagal menghapus alamat.");
+			errorSwal(error.response?.data || "Gagal menghapus alamat.");
 			throw error;
 		}
 	},

@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -55,7 +55,7 @@ const AddressForm = () => {
       }
     } catch (error) {
       console.error("Error fetching address:", error);
-      errorSwal("Gagal mengambil data alamat");
+      errorSwal(error.response?.data.errors || "Gagal mengambil data alamat.");
       navigate("/profile/addresses");
     } finally {
       setLoadingAddress(false);
@@ -261,7 +261,7 @@ const AddressForm = () => {
           {currentPosition && (
             <LocationPicker
               initialPosition={currentPosition}
-              initialZoom={15}
+              initialZoom={25}
               onLocationSelect={handleLocationSelect}
               height="400px"
               showCoordinates={true}
