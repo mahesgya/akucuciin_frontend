@@ -1,18 +1,18 @@
-import { useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import SearchBar from "../../components/ui/bar/search.bar";
-import PromoCarousel from "../../components/widgets/carousel/promo.carousel";
-import { PromoImages, PromoImagesDesktop } from "../../data/promo.images";
-import laundryServices from "../../services/laundry.service";
-import Sidebar from "../../components/layout/sidebar/sidebar";
-import PromoCarouselDesktop from "../../components/widgets/carousel/promo.carousel.desktop";
-import ThemeSwitcher from "../../components/widgets/button/theme.button";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Sidebar from "../../components/layout/sidebar/sidebar";
+import SearchBar from "../../components/ui/bar/search.bar";
+import ThemeSwitcher from "../../components/widgets/button/theme.button";
+import PromoCarousel from "../../components/widgets/carousel/promo.carousel";
+import PromoCarouselDesktop from "../../components/widgets/carousel/promo.carousel.desktop";
+import { PromoImages, PromoImagesDesktop } from "../../data/promo.images";
 import {
+	fetchLocationError,
 	fetchLocationStart,
-  setLocation,
-  fetchLocationError
+	setLocation,
 } from "../../redux/location.slicer";
+import laundryServices from "../../services/laundry.service";
 
 const LaundryList = () => {
 	const [loading, setLoading] = useState(false);
@@ -20,7 +20,10 @@ const LaundryList = () => {
 	const [data, setData] = useState([]);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [filteredData, setFilteredData] = useState([]);
-	const [selectedArea, setSelectedArea] = useState("");
+	const [selectedArea, setSelectedArea] = useState(() => {
+		// Load from localStorage on initial render
+		return localStorage.getItem("selectedArea") || "";
+	});
 	const [isAreaDropdownOpen, setisAreaDropdownOpen] = useState(false);
 	const { profileData, isLoggedIn } = useSelector((state) => state.auth);
   const [laundryAreas, setLaundryAreas] = useState([]);
@@ -28,10 +31,10 @@ const LaundryList = () => {
   const locationState = useSelector((state) => state.location);
 	const dispatch = useDispatch();
 	const { latitude, longitude } = locationState.data;
-	const { loadingLocation, errorLocation } = locationState;
 
 	const handleAreaSelect = (areaValue) => {
 		setSelectedArea(areaValue);
+		localStorage.setItem("selectedArea", areaValue); // Save to localStorage
 		setisAreaDropdownOpen(false);
 	};
 
