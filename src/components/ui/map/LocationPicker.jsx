@@ -1,14 +1,23 @@
-import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useEffect, useState } from "react";
+import {
+  MapContainer,
+  Marker,
+  TileLayer,
+  useMap,
+  useMapEvents,
+} from "react-leaflet";
 
 // Fix for default marker icon issue in React-Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
-  iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-  shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+  iconRetinaUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+  iconUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
 
 // Component to handle map clicks
@@ -17,10 +26,10 @@ function LocationMarker({ position, setPosition, onLocationSelect }) {
     click(e) {
       const newPosition = [e.latlng.lat, e.latlng.lng];
       setPosition(newPosition);
-      
+
       // Generate Google Maps link
       const mapsUrl = `https://maps.google.com/?q=${e.latlng.lat},${e.latlng.lng}`;
-      
+
       if (onLocationSelect) {
         onLocationSelect({
           lat: e.latlng.lat,
@@ -34,11 +43,27 @@ function LocationMarker({ position, setPosition, onLocationSelect }) {
   return position ? <Marker position={position} /> : null;
 }
 
+// Component to update map center
+function ChangeMapView({ center, zoom }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (center && center.length === 2) {
+      map.setView(center, zoom || map.getZoom(), {
+        animate: true,
+        duration: 1,
+      });
+    }
+  }, [center, zoom, map]);
+
+  return null;
+}
+
 /**
  * LocationPicker Component
- * 
+ *
  * A reusable map component that allows users to pick a location by clicking on the map.
- * 
+ *
  * @param {Object} props
  * @param {Array} props.initialPosition - Initial position [lat, lng] (default: [-6.5971, 106.8060] - Jakarta)
  * @param {number} props.initialZoom - Initial zoom level (default: 13)
@@ -49,7 +74,7 @@ function LocationMarker({ position, setPosition, onLocationSelect }) {
  * @param {boolean} props.showCoordinates - Show coordinates below the map (default: true)
  * @param {boolean} props.showSearchButton - Show "Use Current Location" button (default: true)
  * @param {string} props.className - Additional CSS classes
- * 
+ *
  * @example
  * <LocationPicker
  *   initialPosition={[-6.5971, 106.8060]}
@@ -71,12 +96,14 @@ const LocationPicker = ({
   className = "",
 }) => {
   const [position, setPosition] = useState(initialPosition);
+  const [mapCenter, setMapCenter] = useState(initialPosition);
   const [loadingLocation, setLoadingLocation] = useState(false);
 
   // Update position when initialPosition changes
   useEffect(() => {
     if (initialPosition && initialPosition.length === 2) {
       setPosition(initialPosition);
+      setMapCenter(initialPosition);
     }
   }, [initialPosition]);
 
@@ -92,9 +119,10 @@ const LocationPicker = ({
       (pos) => {
         const newPosition = [pos.coords.latitude, pos.coords.longitude];
         setPosition(newPosition);
-        
+        setMapCenter(newPosition); // Move map view to current location
+
         const mapsUrl = `https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
-        
+
         if (onLocationSelect) {
           onLocationSelect({
             lat: pos.coords.latitude,
@@ -102,7 +130,7 @@ const LocationPicker = ({
             mapsUrl: mapsUrl,
           });
         }
-        
+
         setLoadingLocation(false);
       },
       (error) => {
@@ -124,7 +152,12 @@ const LocationPicker = ({
         <MapContainer
           center={position}
           zoom={initialZoom}
-          style={{ height: "100%", width: "100%", borderRadius: "12px", zIndex: 0 }}
+          style={{
+            height: "100%",
+            width: "100%",
+            borderRadius: "12px",
+            zIndex: 0,
+          }}
           className="shadow-sm border border-gray-300/30 dark:border-neutral-700"
         >
           <TileLayer
@@ -136,6 +169,7 @@ const LocationPicker = ({
             setPosition={setPosition}
             onLocationSelect={onLocationSelect}
           />
+          <ChangeMapView center={mapCenter} zoom={initialZoom} />
         </MapContainer>
       </div>
 
@@ -146,14 +180,14 @@ const LocationPicker = ({
           disabled={loadingLocation}
           className="font-['Montserrat'] w-full md:w-auto px-4 py-2 bg-[#687EFF] text-white rounded-xl font-semibold hover:bg-[#5668CC] focus:outline-none focus:ring-2 focus:ring-[#687EFF] focus:ring-offset-2 dark:focus:ring-offset-dark-bg disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {loadingLocation ? "Getting Location..." : "📍 Use Current Location"}
+          {loadingLocation ? "Getting Location..." : "Gunakan Lokasi Sekarang"}
         </button>
       )}
 
       {showCoordinates && position && (
         <div className="bg-white dark:bg-dark-card p-3 rounded-xl border border-gray-300/30 dark:border-neutral-700">
           <p className="font-['Montserrat'] text-sm text-gray-600 dark:text-dark-text/70">
-            <span className="font-semibold">Selected Location:</span>
+            <span className="font-semibold">Lokasi Dipilih:</span>
           </p>
           <p className="text-sm text-gray-800 dark:text-dark-text font-mono">
             Lat: {position[0].toFixed(6)}, Lng: {position[1].toFixed(6)}
@@ -164,7 +198,7 @@ const LocationPicker = ({
             rel="noopener noreferrer"
             className="font-['Montserrat'] text-sm text-[#687EFF] hover:underline inline-flex items-center mt-1"
           >
-            Open in Google Maps →
+            Preview in Google Maps →
           </a>
         </div>
       )}
