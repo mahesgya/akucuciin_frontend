@@ -132,7 +132,7 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-gray-200 dark:border-neutral-700 px-6">
+        <div className="flex border-b border-gray-200 dark:border-neutral-700 px-6 bg-white dark:bg-dark-card">
           <button
             onClick={() => setActiveTab("map")}
             className={`font-['Montserrat'] px-6 py-3 font-semibold transition-colors ${
@@ -141,7 +141,7 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
             }`}
           >
-            📍 Pilih di Peta
+            Pilih di Peta
           </button>
           {isLoggedIn && (
             <button
@@ -152,13 +152,13 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
                   : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
               }`}
             >
-              🏠 Alamat Tersimpan
+              Alamat Tersimpan
             </button>
           )}
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto p-6 bg-white dark:bg-dark-card">
           {activeTab === "map" ? (
             <div className="space-y-4">
               <p className="font-['Montserrat'] text-sm text-gray-600 dark:text-gray-400">
@@ -198,10 +198,10 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
                   <button
                     key={address.id}
                     onClick={() => handleAddressSelect(address)}
-                    className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
+                    className={`w-full text-left p-4 rounded-xl border-2 transition-all bg-white dark:bg-dark-card ${
                       selectedLocation?.lat === parseFloat(address.latitude) &&
                       selectedLocation?.lng === parseFloat(address.longitude)
-                        ? "border-[#687EFF] bg-[#687EFF]/10 dark:bg-[#687EFF]/20"
+                        ? "border-[#687EFF] !bg-[#687EFF]/10 dark:!bg-[#687EFF]/20"
                         : "border-gray-200 dark:border-neutral-700 hover:border-[#687EFF]/50"
                     }`}
                   >

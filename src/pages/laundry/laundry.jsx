@@ -252,11 +252,11 @@ const LaundryList = () => {
 							</div>
 						)}
 					</div>
-					<button
-						onClick={() => setIsLocationModalOpen(true)}
-						className="px-2 md:px-0 lg:px-0 w-full md:w-auto"
-					>
-						<div className="flex items-center justify-between mx-auto my-3 px-4 py-3 h-14 min-w-[200px] bg-white dark:bg-dark-card rounded-xl shadow-sm dark:shadow-black/30 border border-gray-200 dark:border-neutral-700 hover:shadow-md hover:border-[#687EFF] transition-all duration-200">
+					<div className="px-2 md:px-0 lg:px-0 w-full md:w-auto">
+						<button
+							onClick={() => setIsLocationModalOpen(true)}
+							className="w-full flex items-center justify-between mx-auto my-3 px-4 py-3 h-14 min-w-[200px] bg-white dark:bg-dark-card rounded-xl shadow-sm dark:shadow-black/30 border border-gray-200 dark:border-neutral-700 hover:shadow-md hover:border-[#687EFF] transition-all duration-200"
+						>
 							<div className="flex items-center gap-2">
 								<svg
 									className="w-5 h-5 text-[#687EFF]"
@@ -303,8 +303,8 @@ const LaundryList = () => {
 									d="M9 5l7 7-7 7"
 								/>
 							</svg>
-						</div>
-					</button>
+						</button>
+					</div>
 
 					<div className="hidden lg:block w-full">
 						<SearchBar
