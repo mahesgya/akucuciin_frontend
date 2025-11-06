@@ -1,18 +1,19 @@
-import { useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import SearchBar from "../../components/ui/bar/search.bar";
-import PromoCarousel from "../../components/widgets/carousel/promo.carousel";
-import { PromoImages, PromoImagesDesktop } from "../../data/promo.images";
-import laundryServices from "../../services/laundry.service";
-import Sidebar from "../../components/layout/sidebar/sidebar";
-import PromoCarouselDesktop from "../../components/widgets/carousel/promo.carousel.desktop";
-import ThemeSwitcher from "../../components/widgets/button/theme.button";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Sidebar from "../../components/layout/sidebar/sidebar";
+import LocationSelectorModal from "../../components/modal/location.selector.modal";
+import SearchBar from "../../components/ui/bar/search.bar";
+import ThemeSwitcher from "../../components/widgets/button/theme.button";
+import PromoCarousel from "../../components/widgets/carousel/promo.carousel";
+import PromoCarouselDesktop from "../../components/widgets/carousel/promo.carousel.desktop";
+import { PromoImages, PromoImagesDesktop } from "../../data/promo.images";
 import {
+	fetchLocationError,
 	fetchLocationStart,
-  setLocation,
-  fetchLocationError
+	setLocation,
 } from "../../redux/location.slicer";
+import laundryServices from "../../services/laundry.service";
 
 const LaundryList = () => {
 	const [loading, setLoading] = useState(false);
@@ -20,18 +21,22 @@ const LaundryList = () => {
 	const [data, setData] = useState([]);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [filteredData, setFilteredData] = useState([]);
-	const [selectedArea, setSelectedArea] = useState("");
+	const [selectedArea, setSelectedArea] = useState(() => {
+		// Load from localStorage on initial render
+		return localStorage.getItem("selectedArea") || "";
+	});
 	const [isAreaDropdownOpen, setisAreaDropdownOpen] = useState(false);
+	const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
 	const { profileData, isLoggedIn } = useSelector((state) => state.auth);
   const [laundryAreas, setLaundryAreas] = useState([]);
   
   const locationState = useSelector((state) => state.location);
 	const dispatch = useDispatch();
-	const { latitude, longitude } = locationState.data;
-	const { loadingLocation, errorLocation } = locationState;
+	const { latitude, longitude, label } = locationState.data;
 
 	const handleAreaSelect = (areaValue) => {
 		setSelectedArea(areaValue);
+		localStorage.setItem("selectedArea", areaValue); // Save to localStorage
 		setisAreaDropdownOpen(false);
 	};
 
@@ -59,8 +64,12 @@ const LaundryList = () => {
 					setLocation({
 						latitude: lat,
 						longitude: long,
+						label: "Lokasi Saat Ini",
 					})
 				);
+
+				// Save label to localStorage
+				localStorage.setItem("locationLabel", "Lokasi Saat Ini");
 			},
 			(error) => {
 				dispatch(
@@ -95,11 +104,17 @@ const LaundryList = () => {
 
 	const navigate = useNavigate();
 
+	// Get current location only on initial mount if no location is set
+	useEffect(() => {
+		if (!latitude || !longitude) {
+			getCurrentLocation();
+		}
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				setLoading(true);
-		getCurrentLocation();
 				const response = await laundryServices.getByCity(selectedArea, latitude, longitude);
 				setData(response.data);
     		const areasResponse = await getLaundryAreas();
@@ -113,7 +128,7 @@ const LaundryList = () => {
 		};
 
 		fetchData();
-	}, [latitude, longitude, selectedArea, getCurrentLocation, getLaundryAreas]);
+	}, [latitude, longitude, selectedArea, getLaundryAreas]);
 
 	useEffect(() => {
 		handleSearch();
@@ -237,7 +252,59 @@ const LaundryList = () => {
 							</div>
 						)}
 					</div>
-					<div className="w-fit border border-red-500">ini buat select koordinat user</div>
+					<div className="px-2 md:px-0 lg:px-0 w-full md:w-auto">
+						<button
+							onClick={() => setIsLocationModalOpen(true)}
+							className="w-full flex items-center justify-between mx-auto my-3 px-4 py-3 h-14 min-w-[200px] bg-white dark:bg-dark-card rounded-xl shadow-sm dark:shadow-black/30 border border-gray-200 dark:border-neutral-700 hover:shadow-md hover:border-[#687EFF] transition-all duration-200"
+						>
+							<div className="flex items-center gap-2">
+								<svg
+									className="w-5 h-5 text-[#687EFF]"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+									/>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+									/>
+								</svg>
+								<div className="text-left">
+									<p className="text-xs text-gray-500 dark:text-gray-400 font-['Montserrat']">
+										Lokasi
+									</p>
+									<p className="text-sm font-medium text-gray-700 dark:text-dark-text font-['Montserrat']">
+										{label 
+											? label
+											: latitude && longitude
+											? `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`
+											: "Pilih Lokasi"}
+									</p>
+								</div>
+							</div>
+							<svg
+								className="w-5 h-5 text-gray-500"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={2}
+									d="M9 5l7 7-7 7"
+								/>
+							</svg>
+						</button>
+					</div>
 
 					<div className="hidden lg:block w-full">
 						<SearchBar
@@ -335,6 +402,12 @@ const LaundryList = () => {
 					</h1>
 				)}
 			</section>
+
+			{/* Location Selector Modal */}
+			<LocationSelectorModal
+				isOpen={isLocationModalOpen}
+				onClose={() => setIsLocationModalOpen(false)}
+			/>
 		</div>
 	);
 };

@@ -128,6 +128,7 @@ const LocationPicker = ({
             lat: pos.coords.latitude,
             lng: pos.coords.longitude,
             mapsUrl: mapsUrl,
+            label: "Lokasi Saat Ini",
           });
         }
 

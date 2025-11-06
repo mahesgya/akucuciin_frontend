@@ -4,6 +4,7 @@ const initialState = {
 	data: {
 		latitude: null,
 		longitude: null,
+		label: null,
 	},
 	loadingLocation: false,
 	errorLocation: null,
@@ -17,6 +18,7 @@ const locationSlice = createSlice({
 		setLocation: (state, action) => {
 			state.data.latitude = action.payload.latitude;
 			state.data.longitude = action.payload.longitude;
+			state.data.label = action.payload.label || null;
 			state.loadingLocation = false;
 			state.errorLocation = null;
 		},
@@ -33,6 +35,7 @@ const locationSlice = createSlice({
 		clearLocation: (state) => {
 			state.data.latitude = null;
 			state.data.longitude = null;
+			state.data.label = null;
 			state.loadingLocation = false;
 			state.errorLocation = null;
 		},
