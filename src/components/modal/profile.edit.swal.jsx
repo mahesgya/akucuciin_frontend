@@ -39,19 +39,6 @@ const EditProfileSwal = (accessToken, editProfile, dispatch, setProfile, setEdit
     </div>
   </div>
 
-  <div class="text-left">
-    <label class="block text-sm font-bold text-gray-700 dark:text-dark-text mb-2 font-['Montserrat']">Alamat</label>
-    <textarea
-      id="profile-address"
-      rows="4"
-      class="w-full px-4 py-2 border border-gray-300 dark:border-neutral-700 rounded-md
-             focus:outline-none focus:ring-2 focus:ring-blue-500 font-['Montserrat'] resize-none
-             bg-white dark:bg-dark-card text-gray-800 dark:text-dark-text
-             placeholder:text-gray-400 dark:placeholder:text-gray-400"
-      placeholder="Masukkan alamat lengkap"
-    >${editProfile.address || ""}</textarea>
-  </div>
-
   <div class="w-full border border-neutral-200 dark:border-neutral-700"><div/>
 </div>
 
@@ -73,7 +60,6 @@ const EditProfileSwal = (accessToken, editProfile, dispatch, setProfile, setEdit
     preConfirm: () => {
       const name = document.getElementById("profile-name").value.trim();
       const telephone = document.getElementById("profile-telephone").value.trim();
-      const address = document.getElementById("profile-address").value.trim();
 
       if (!name) {
         Swal.showValidationMessage("Nama tidak boleh kosong");
@@ -83,20 +69,15 @@ const EditProfileSwal = (accessToken, editProfile, dispatch, setProfile, setEdit
         Swal.showValidationMessage("Nomor telepon tidak boleh kosong");
         return false;
       }
-      if (!address) {
-        Swal.showValidationMessage("Alamat tidak boleh kosong");
-        return false;
-      }
 
-      return { name, telephone, address };
+      return { name, telephone };
     },
   }).then(async (result) => {
     if (result.isConfirmed) {
-      const { name, telephone, address } = result.value;
+      const { name, telephone } = result.value;
       const updatedProfile = {
         name,
         telephone: transformPhoneNumber(telephone),
-        address,
       };
       try {
         await CustomerServices.changeProfile(updatedProfile, accessToken, dispatch, setProfile, setEditProfile, setIsEditing);

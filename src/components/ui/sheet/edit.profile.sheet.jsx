@@ -7,7 +7,6 @@ const EditProfileSheet = ({ accessToken, editProfile, dispatch, setProfile, setE
   const [formData, setFormData] = useState({
     name: editProfile.name || "",
     telephone: editProfile.telephone || "",
-    address: editProfile.address || "",
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,9 +33,6 @@ const EditProfileSheet = ({ accessToken, editProfile, dispatch, setProfile, setE
     if (!formData.telephone.trim()) {
       newErrors.telephone = "Nomor telepon tidak boleh kosong";
     }
-    if (!formData.address.trim()) {
-      newErrors.address = "Alamat tidak boleh kosong";
-    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -51,7 +47,6 @@ const EditProfileSheet = ({ accessToken, editProfile, dispatch, setProfile, setE
     const updatedProfile = {
       name: formData.name,
       telephone: transformPhoneNumber(formData.telephone),
-      address: formData.address,
     };
 
     try {
@@ -111,21 +106,6 @@ const EditProfileSheet = ({ accessToken, editProfile, dispatch, setProfile, setE
                 />
               </div>
               {errors.telephone && <p className="text-red-500 text-xs mt-1 font-['Montserrat']">{errors.telephone}</p>}
-            </div>
-
-            <div className="text-left">
-              <label className="block text-sm font-bold text-gray-700 dark:text-dark-text mb-2 font-['Montserrat']">Alamat</label>
-              <textarea
-                rows="4"
-                value={formData.address}
-                onChange={(e) => handleInputChange("address", e.target.value)}
-                className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-['Montserrat'] resize-none bg-white dark:bg-dark-card text-gray-800 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 dark:border-neutral-700 ${
-                  errors.address ? "border-red-500" : "border-gray-300"
-                }`}
-                placeholder="Masukkan alamat lengkap"
-                disabled={isSubmitting}
-              />
-              {errors.address && <p className="text-red-500 text-xs mt-1 font-['Montserrat']">{errors.address}</p>}
             </div>
 
             <div className="flex gap-3 pt-4 border-t border-neutral-400 dark:border-neutral-700">

@@ -18,6 +18,8 @@ import VerifyFailedActivated from "../components/ui/verify/verify.failed.activat
 import VerifySuccess from "../components/ui/verify/verify.success";
 
 import Profile from "../pages/user/profile";
+import Addresses from "../pages/user/addresses";
+import AddressForm from "../pages/user/address.form";
 
 import LaundryDetail from "../pages/laundry/laundry.detail";
 import Order from "../pages/user/order";
@@ -109,6 +111,9 @@ const Routess = [
 	{ path: "/order", element: withAuth(<Order />) },
 	{ path: "/order/:orderId", element: withAuth(<OrderDetail />) },
 	{ path: "/profile", element: withAuth(<Profile />) },
+	{ path: "/profile/addresses", element: withAuth(<Addresses />) },
+	{ path: "/profile/addresses/new", element: withAuth(<AddressForm />) },
+	{ path: "/profile/addresses/edit/:addressId", element: withAuth(<AddressForm />) },
 	{
 		path: "/laundry/:idlaundry/pesan/:idpaket",
 		element: withAuth(<OrderForm />),

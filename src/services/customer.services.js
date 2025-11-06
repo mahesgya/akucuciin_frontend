@@ -52,7 +52,6 @@ const CustomerServices = {
 				{
 					name: editProfile.name,
 					telephone: editProfile.telephone,
-					address: editProfile.address,
 				},
 				{
 					headers: { Authorization: `Bearer ${accessToken}` },
@@ -61,7 +60,8 @@ const CustomerServices = {
 			dispatch(setProfileData(editProfile));
 			setProfile((prevProfile) => ({
 				...prevProfile,
-				...editProfile,
+				name: editProfile.name,
+				telephone: editProfile.telephone,
 			}));
 			setEditProfile({ ...editProfile });
 			setIsEditing(false);
@@ -269,6 +269,102 @@ const CustomerServices = {
 					errors: "Failed to fetch last order",
 				}
 			);
+		}
+	},
+
+	// Address Management APIs
+	createAddress: async (accessToken, addressData) => {
+		try {
+			const response = await axios.post(
+				`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/addresses`,
+				addressData,
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+						"Content-Type": "application/json",
+					},
+				}
+			);
+			toastSuccess("Alamat berhasil ditambahkan.");
+			return response.data;
+		} catch (error) {
+			toastError(error.response?.data?.errors || "Gagal menambahkan alamat.");
+			throw error;
+		}
+	},
+
+	getAddresses: async (accessToken) => {
+		try {
+			const response = await axios.get(
+				`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/addresses`,
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+						"Content-Type": "application/json",
+					},
+				}
+			);
+			return response.data;
+		} catch (error) {
+			errorSwal(error.response?.data?.errors || "Gagal mengambil data alamat.");
+			throw error;
+		}
+	},
+
+	getAddressById: async (accessToken, addressId) => {
+		try {
+			const response = await axios.get(
+				`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/addresses/${addressId}`,
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+						"Content-Type": "application/json",
+					},
+				}
+			);
+			return response.data;
+		} catch (error) {
+			errorSwal(error.response?.data?.errors || "Gagal mengambil data alamat.");
+			throw error;
+		}
+	},
+
+	updateAddress: async (accessToken, addressId, addressData) => {
+		try {
+			const response = await axios.put(
+				`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/addresses/${addressId}`,
+				addressData,
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+						"Content-Type": "application/json",
+					},
+				}
+			);
+			toastSuccess("Alamat berhasil diperbarui.");
+			return response.data;
+		} catch (error) {
+			toastError(error.response?.data?.errors || "Gagal memperbarui alamat.");
+			throw error;
+		}
+	},
+
+	deleteAddress: async (accessToken, addressId) => {
+		try {
+			const response = await axios.delete(
+				`${process.env.REACT_APP_BASE_BACKEND_URL}/api/customer/addresses/${addressId}`,
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+						"Content-Type": "application/json",
+					},
+				}
+			);
+			toastSuccess("Alamat berhasil dihapus.");
+			return response.data;
+		} catch (error) {
+			errorSwal(error.response?.data?.errors || "Gagal menghapus alamat.");
+			throw error;
 		}
 	},
 };

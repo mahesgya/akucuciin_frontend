@@ -146,7 +146,7 @@ const LocationPicker = ({
           disabled={loadingLocation}
           className="font-['Montserrat'] w-full md:w-auto px-4 py-2 bg-[#687EFF] text-white rounded-xl font-semibold hover:bg-[#5668CC] focus:outline-none focus:ring-2 focus:ring-[#687EFF] focus:ring-offset-2 dark:focus:ring-offset-dark-bg disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {loadingLocation ? "Getting Location..." : "📍 Use Current Location"}
+          {loadingLocation ? "Getting Location..." : "Gunakan Lokasi Sekarang"}
         </button>
       )}
 
