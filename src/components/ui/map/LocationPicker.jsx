@@ -187,7 +187,7 @@ const LocationPicker = ({
       {showCoordinates && position && (
         <div className="bg-white dark:bg-dark-card p-3 rounded-xl border border-gray-300/30 dark:border-neutral-700">
           <p className="font-['Montserrat'] text-sm text-gray-600 dark:text-dark-text/70">
-            <span className="font-semibold">Selected Location:</span>
+            <span className="font-semibold">Lokasi Dipilih:</span>
           </p>
           <p className="text-sm text-gray-800 dark:text-dark-text font-mono">
             Lat: {position[0].toFixed(6)}, Lng: {position[1].toFixed(6)}
@@ -198,7 +198,7 @@ const LocationPicker = ({
             rel="noopener noreferrer"
             className="font-['Montserrat'] text-sm text-[#687EFF] hover:underline inline-flex items-center mt-1"
           >
-            Open in Google Maps →
+            Preview in Google Maps →
           </a>
         </div>
       )}

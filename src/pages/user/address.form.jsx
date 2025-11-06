@@ -264,17 +264,6 @@ const AddressForm = () => {
               showSearchButton={!isEditMode}
             />
           )}
-
-          {formData.latitude && formData.longitude && (
-            <div className="mt-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-xl p-4">
-              <p className="font-['Montserrat'] text-green-700 dark:text-green-400 font-semibold text-sm mb-1">
-                ✓ Lokasi dipilih
-              </p>
-              <p className="text-xs font-mono text-green-600 dark:text-green-300">
-                {formData.latitude.toFixed(6)}, {formData.longitude.toFixed(6)}
-              </p>
-            </div>
-          )}
         </div>
 
         {/* Submit Button */}
