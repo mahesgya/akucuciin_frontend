@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
 import { setLocation } from "../../redux/location.slicer";
 import customerServices from "../../services/customer.services";
 import LocationPicker from "../ui/map/LocationPicker";
+import { errorSwal, successSwal } from "../../utils/alert.utils";
 
 /**
  * LocationSelectorModal
@@ -76,12 +76,7 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
 
   const handleConfirm = () => {
     if (!selectedLocation) {
-      Swal.fire({
-        icon: "warning",
-        title: "Pilih Lokasi",
-        text: "Silakan pilih lokasi terlebih dahulu",
-        confirmButtonColor: "#687EFF",
-      });
+      errorSwal("Lokasi belum dipilih");
       return;
     }
 
@@ -98,15 +93,11 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
       localStorage.removeItem("locationLabel");
     }
 
-    Swal.fire({
-      icon: "success",
-      title: "Lokasi Dipilih!",
-      text: selectedLocation.label 
-        ? `Lokasi: ${selectedLocation.label}`
-        : `Koordinat: ${selectedLocation.lat.toFixed(6)}, ${selectedLocation.lng.toFixed(6)}`,
-      timer: 2000,
-      showConfirmButton: false,
-    });
+    if(selectedLocation.label) {
+      successSwal(`Lokasi: ${selectedLocation.label}`);
+    } else {
+      successSwal(`Koordinat: ${selectedLocation.lat.toFixed(6)}, ${selectedLocation.lng.toFixed(6)}`);
+    }
 
     onClose();
   };
@@ -122,6 +113,7 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
             Pilih Lokasi
           </h2>
           <button
+            type="button"
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
           >
@@ -134,6 +126,7 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
         {/* Tabs */}
         <div className="flex border-b border-gray-200 dark:border-neutral-700 px-6 bg-white dark:bg-dark-card">
           <button
+            type="button"
             onClick={() => setActiveTab("map")}
             className={`font-['Montserrat'] px-6 py-3 font-semibold transition-colors ${
               activeTab === "map"
@@ -145,6 +138,7 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
           </button>
           {isLoggedIn && (
             <button
+              type="button"
               onClick={() => setActiveTab("addresses")}
               className={`font-['Montserrat'] px-6 py-3 font-semibold transition-colors ${
                 activeTab === "addresses"
@@ -187,6 +181,7 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
                     Belum ada alamat tersimpan
                   </p>
                   <button
+                    type="button"
                     onClick={() => window.location.href = "/profile/addresses/new"}
                     className="font-['Montserrat'] bg-[#687EFF] text-white px-6 py-2 rounded-lg hover:bg-[#5668CC] transition-colors"
                   >
@@ -196,6 +191,7 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
               ) : (
                 addresses.map((address) => (
                   <button
+                    type="button"
                     key={address.id}
                     onClick={() => handleAddressSelect(address)}
                     className={`w-full text-left p-4 rounded-xl border-2 transition-all bg-white dark:bg-dark-card ${
@@ -241,13 +237,15 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
         {/* Footer */}
         <div className="flex gap-3 p-6 border-t border-gray-200 dark:border-neutral-700">
           <button
-            onClick={onClose}
+            type="button"
+            onClick={() => onClose}
             className="flex-1 font-['Montserrat'] bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-3 rounded-xl hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors"
           >
             Batal
           </button>
           <button
-            onClick={handleConfirm}
+            type="button"
+            onClick={() => handleConfirm()}
             className="flex-1 font-['Montserrat'] bg-[#687EFF] text-white font-semibold py-3 rounded-xl hover:bg-[#5668CC] transition-colors"
           >
             Konfirmasi Lokasi
