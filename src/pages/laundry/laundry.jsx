@@ -403,21 +403,21 @@ const LaundryList = () => {
 									<div className="hidden md:w-[19rem] lg:w-[21rem] border-t border-zinc-400 dark:border-zinc-700 md:block"></div>
 
 									{!laundry.is_open ? (
-										<div class="hidden md:w-[19rem] lg:w-[21rem] border-2 border-[#7F7F7F] dark:border-neutral-500 h-10 bg-[#F4F5FF] dark:bg-neutral-800 rounded-[10px] my-4 md:flex items-center justify-center">
-											<h4 class="text-[#EF4444] text-sm lg:text-base font-semibold font-['Montserrat'] flex flex-row items-center gap-2">
+										<div className="hidden md:w-[19rem] lg:w-[21rem] border-2 border-[#7F7F7F] dark:border-neutral-500 h-10 bg-[#F4F5FF] dark:bg-neutral-800 rounded-[10px] my-4 md:flex items-center justify-center">
+											<h4 className="text-[#EF4444] text-sm lg:text-base font-semibold font-['Montserrat'] flex flex-row items-center gap-2">
 												<img src="/Images/moon.svg" alt="closed" />
 												Sorry, we're closed, come back later!
 											</h4>
 										</div>
 									) : laundry.is_user_in_radius ? (
-										<div class="hidden md:w-[19rem] lg:w-[21rem] h-10 bg-indigo-500 rounded-[10px] my-4 md:flex items-center justify-center">
-											<h4 class="text-white text-base font-semibold font-['Montserrat']">
+										<div className="hidden md:w-[19rem] lg:w-[21rem] h-10 bg-indigo-500 rounded-[10px] my-4 md:flex items-center justify-center">
+											<h4 className="text-white text-base font-semibold font-['Montserrat']">
 												Lihat Detail
 											</h4>
 										</div>
 									) : (
-										<div class="hidden md:w-[19rem] lg:w-[21rem] border border-[#7F7F7F] dark:border-neutral-500 h-10 bg-[#F4F5FF] dark:bg-neutral-800 rounded-[10px] my-4 md:flex items-center justify-center">
-											<h4 class="text-[#EF4444] text-sm lg:text-base font-semibold font-['Montserrat'] flex flex-row items-center gap-2">
+										<div className="hidden md:w-[19rem] lg:w-[21rem] border border-[#7F7F7F] dark:border-neutral-500 h-10 bg-[#F4F5FF] dark:bg-neutral-800 rounded-[10px] my-4 md:flex items-center justify-center">
+											<h4 className="text-[#EF4444] text-sm lg:text-base font-semibold font-['Montserrat'] flex flex-row items-center gap-2">
 												<img src="/Images/too_far.png" alt="too far" />
 												Laundry too far!
 											</h4>
