@@ -282,7 +282,7 @@ const LaundryList = () => {
 										Lokasi
 									</p>
 									<p className="text-sm font-medium text-gray-700 dark:text-dark-text font-['Montserrat']">
-										{label 
+										{label
 											? label
 											: latitude && longitude
 											? `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`
@@ -359,7 +359,7 @@ const LaundryList = () => {
 											{laundry.description}
 										</p>
 
-										{!laundry.is_open && (
+										{!laundry.is_open ? (
 											<div className="md:hidden bg-[#] flex flex-row items-center gap-1">
 												<img
 													src="/Images/moon.svg"
@@ -368,6 +368,19 @@ const LaundryList = () => {
 												/>
 												<p className="font-['Montserrat'] text-[8px] font-medium text-[#EF4444] text-justify hyphens-auto">
 													Sorry, we're closed, come back later!
+												</p>
+											</div>
+										) : laundry.is_user_in_radius ? (
+											<div className="md:hidden bg-[#] flex flex-row items-center gap-1"></div>
+										) : (
+											<div className="md:hidden bg-[#] flex flex-row items-center gap-1">
+												<img
+													src="/Images/too_far.png"
+													alt="closed"
+													className="w-4"
+												/>
+												<p className="font-['Montserrat'] text-[8px] font-medium text-[#EF4444] text-justify hyphens-auto">
+													Laundry too far!
 												</p>
 											</div>
 										)}
