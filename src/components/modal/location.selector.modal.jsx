@@ -7,7 +7,7 @@ import LocationPicker from "../ui/map/LocationPicker";
 
 /**
  * LocationSelectorModal
- * 
+ *
  * A modal that allows users to select their location either by:
  * 1. Using current GPS location
  * 2. Picking a location on the map
@@ -36,7 +36,12 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
         label: locationState.data.label || null,
       });
     }
-  }, [isOpen, locationState.data.latitude, locationState.data.longitude, locationState.data.label]);
+  }, [
+    isOpen,
+    locationState.data.latitude,
+    locationState.data.longitude,
+    locationState.data.label,
+  ]);
 
   // Fetch user's saved addresses
   useEffect(() => {
@@ -64,7 +69,10 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
   // Update current position from Redux state
   useEffect(() => {
     if (locationState.data.latitude && locationState.data.longitude) {
-      setCurrentPosition([locationState.data.latitude, locationState.data.longitude]);
+      setCurrentPosition([
+        locationState.data.latitude,
+        locationState.data.longitude,
+      ]);
     }
   }, [locationState.data.latitude, locationState.data.longitude]);
 
@@ -75,7 +83,7 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
   const handleAddressSelect = (address) => {
     const lat = parseFloat(address.latitude);
     const lng = parseFloat(address.longitude);
-    
+
     setSelectedLocation({
       lat,
       lng,
@@ -100,14 +108,14 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
         const response = await fetch(
           `https://nominatim.openstreetmap.org/reverse?format=json&lat=${selectedLocation.lat}&lon=${selectedLocation.lng}&accept-language=id&addressdetails=1`
         );
-        
+
         if (response.ok) {
           const data = await response.json();
           if (data && data.display_name) {
             // Truncate to first 3 parts (street, area, city)
-            const parts = data.display_name.split(',');
+            const parts = data.display_name.split(",");
             if (parts.length > 3) {
-              finalLabel = parts.slice(0, 3).join(',');
+              finalLabel = parts.slice(0, 3).join(",");
             } else {
               finalLabel = data.display_name;
             }
@@ -116,20 +124,26 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
       } catch (error) {
         console.warn("Reverse geocoding failed, using coordinates:", error);
         // Fall back to coordinates
-        finalLabel = `${selectedLocation.lat.toFixed(6)}, ${selectedLocation.lng.toFixed(6)}`;
+        finalLabel = `${selectedLocation.lat.toFixed(
+          6
+        )}, ${selectedLocation.lng.toFixed(6)}`;
       }
 
       // If still no label after fetch attempt, use coordinates
       if (!finalLabel) {
-        finalLabel = `${selectedLocation.lat.toFixed(6)}, ${selectedLocation.lng.toFixed(6)}`;
+        finalLabel = `${selectedLocation.lat.toFixed(
+          6
+        )}, ${selectedLocation.lng.toFixed(6)}`;
       }
     }
 
-    dispatch(setLocation({
-      latitude: selectedLocation.lat,
-      longitude: selectedLocation.lng,
-      label: finalLabel,
-    }));
+    dispatch(
+      setLocation({
+        latitude: selectedLocation.lat,
+        longitude: selectedLocation.lng,
+        label: finalLabel,
+      })
+    );
 
     // Save label to localStorage for persistence
     if (finalLabel) {
@@ -144,16 +158,26 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-white dark:bg-dark-card">
+    <div className="fixed inset-0 z-50 flex flex-col items-center bg-white dark:bg-dark-card">
       {/* Header - Fixed at top */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-neutral-700 bg-white dark:bg-dark-card shadow-sm">
+      <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-neutral-700 bg-white dark:bg-dark-card shadow-sm w-full max-w-4xl">
         <button
           type="button"
           onClick={onClose}
           className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors"
         >
-          <svg className="w-6 h-6 text-gray-700 dark:text-dark-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <svg
+            className="w-6 h-6 text-gray-700 dark:text-dark-text"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
         </button>
         <h2 className="text-lg font-bold font-['Montserrat'] text-gray-800 dark:text-dark-text">
@@ -163,7 +187,7 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
       </div>
 
       {/* Map/Content - Takes full remaining height */}
-      <div className="flex-1 relative overflow-hidden">
+      <div className="flex-1 relative overflow-hidden w-full max-w-4xl">
         {activeTab === "map" ? (
           <LocationPicker
             initialPosition={currentPosition}
@@ -188,7 +212,9 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
                 </p>
                 <button
                   type="button"
-                  onClick={() => window.location.href = "/profile/addresses/new"}
+                  onClick={() =>
+                    (window.location.href = "/profile/addresses/new")
+                  }
                   className="font-['Montserrat'] bg-[#687EFF] text-white px-6 py-2 rounded-lg hover:bg-[#5668CC] transition-colors"
                 >
                   Tambah Alamat
@@ -223,15 +249,25 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
                         {address.address}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-500 font-mono">
-                        {parseFloat(address.latitude).toFixed(6)}, {parseFloat(address.longitude).toFixed(6)}
+                        {parseFloat(address.latitude).toFixed(6)},{" "}
+                        {parseFloat(address.longitude).toFixed(6)}
                       </p>
                     </div>
                     {selectedLocation?.lat === parseFloat(address.latitude) &&
-                      selectedLocation?.lng === parseFloat(address.longitude) && (
-                      <svg className="w-6 h-6 text-[#687EFF]" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                    )}
+                      selectedLocation?.lng ===
+                        parseFloat(address.longitude) && (
+                        <svg
+                          className="w-6 h-6 text-[#687EFF]"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      )}
                   </div>
                 </button>
               ))
@@ -241,14 +277,22 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
       </div>
 
       {/* Bottom Sheet - Fixed at bottom */}
-      <div className="bg-white dark:bg-dark-card border-t border-gray-200 dark:border-neutral-700 shadow-lg">
+      <div className="bg-white dark:bg-dark-card border-t border-gray-200 dark:border-neutral-700 shadow-lg w-full max-w-4xl">
         {/* Location Info */}
         {selectedLocation && (
           <div className="p-4 border-b border-gray-200 dark:border-neutral-700">
             <div className="flex items-start gap-3">
               <div className="p-2 bg-[#687EFF]/10 rounded-full flex-shrink-0">
-                <svg className="w-5 h-5 text-[#687EFF]" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                <svg
+                  className="w-5 h-5 text-[#687EFF]"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
               <div className="flex-1 min-w-0">
@@ -256,7 +300,10 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
                   Lokasi Dipilih
                 </p>
                 <p className="font-['Montserrat'] font-semibold text-gray-800 dark:text-dark-text text-sm">
-                  {selectedLocation.label || `${selectedLocation.lat.toFixed(6)}, ${selectedLocation.lng.toFixed(6)}`}
+                  {selectedLocation.label ||
+                    `${selectedLocation.lat.toFixed(
+                      6
+                    )}, ${selectedLocation.lng.toFixed(6)}`}
                 </p>
               </div>
             </div>
