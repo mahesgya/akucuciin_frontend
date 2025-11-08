@@ -112,7 +112,7 @@ const LocationPicker = ({
   // Get user's current location
   const getCurrentLocation = () => {
     if (!navigator.geolocation) {
-      alert("Geolocation is not supported by your browser");
+      alert("Geolokasi tidak didukung oleh browser Anda");
       return;
     }
 
@@ -138,12 +138,29 @@ const LocationPicker = ({
       },
       (error) => {
         console.error("Error getting location:", error);
-        alert("Unable to retrieve your location");
         setLoadingLocation(false);
+
+        let errorMessage = "Gagal mendapatkan lokasi Anda";
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            errorMessage =
+              "Izin akses lokasi ditolak. Mohon aktifkan izin lokasi di browser Anda.";
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorMessage =
+              "Informasi lokasi tidak tersedia. Coba lagi dalam beberapa saat.";
+            break;
+          case error.TIMEOUT:
+            errorMessage = "Permintaan lokasi timeout. Silakan coba lagi.";
+            break;
+          default:
+            errorMessage = "Gagal mendapatkan lokasi. Silakan coba lagi.";
+        }
+        alert(errorMessage);
       },
       {
         enableHighAccuracy: true,
-        timeout: 5000,
+        timeout: 10000, // 10 secs
         maximumAge: 0,
       }
     );
@@ -196,13 +213,32 @@ const LocationPicker = ({
             title="Gunakan Lokasi Sekarang"
           >
             {loadingLocation ? (
-              <svg className="w-[30px] h-[30px] text-[#687EFF] animate-spin" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              <svg
+                className="w-[30px] h-[30px] text-[#687EFF] animate-spin"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
               </svg>
             ) : (
-              <svg className="w-[30px] h-[30px] text-[#687EFF]" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0013 3.06V1h-2v2.06A8.994 8.994 0 003.06 11H1v2h2.06A8.994 8.994 0 0011 20.94V23h2v-2.06A8.994 8.994 0 0020.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
+              <svg
+                className="w-[30px] h-[30px] text-[#687EFF]"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0013 3.06V1h-2v2.06A8.994 8.994 0 003.06 11H1v2h2.06A8.994 8.994 0 0011 20.94V23h2v-2.06A8.994 8.994 0 0020.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z" />
               </svg>
             )}
           </button>
