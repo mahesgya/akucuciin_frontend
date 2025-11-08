@@ -14,6 +14,7 @@ import {
 	setLocation,
 } from "../../redux/location.slicer";
 import laundryServices from "../../services/laundry.service";
+import LoadingUtils from "../../utils/loading.utils";
 
 const LaundryList = () => {
 	const [loading, setLoading] = useState(false);
@@ -142,7 +143,7 @@ const LaundryList = () => {
 	};
 
 	if (loading) {
-		return <div className="text-center py-8">Loading...</div>;
+		return <LoadingUtils/>;
 	}
 
 	if (error) {
@@ -210,9 +211,14 @@ const LaundryList = () => {
 										d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
 									/>
 								</svg>
-								<span className="text-sm font-medium text-gray-700 dark:text-dark-text">
-									{selectedArea || "Pilih Area"}
-								</span>
+								<div className="text-left">
+									<p className="text-xs text-gray-500 dark:text-gray-400 font-['Montserrat']">
+										Area Laundry
+									</p>
+									<p className="text-sm font-medium text-gray-700 dark:text-dark-text font-['Montserrat']">
+										{selectedArea || "Pilih Area"}
+									</p>
+								</div>
 							</div>
 							<svg
 								className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${
@@ -234,12 +240,20 @@ const LaundryList = () => {
 						{/* Dropdown Menu */}
 						{isAreaDropdownOpen && (
 							<div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-dark-card border border-gray-200 dark:border-neutral-700 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
+
+								{/* Header */}
+								<div className="px-4 py-3 border-b border-gray-200 dark:border-neutral-700 bg-gray-50 dark:bg-neutral-800 rounded-t-lg">
+									<p className="text-sm font-semibold text-gray-700 dark:text-dark-text font-['Montserrat']">
+										Area Laundry
+									</p>
+								</div>
+								
 								{Object.keys(laundryAreas).length > 0 ? (
 									Object.keys(laundryAreas).map((areaKey) => (
 										<button
 											key={areaKey}
 											onClick={() => handleAreaSelect(areaKey, areaKey)}
-											className="w-full px-4 py-3 text-left text-sm bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text hover:bg-gray-50 dark:hover:bg-neutral-700 transition-colors duration-150 first:rounded-t-lg last:rounded-b-lg"
+											className="w-full px-4 py-3 text-left text-sm bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text hover:bg-gray-50 dark:hover:bg-neutral-700 transition-colors duration-150 last:rounded-b-lg"
 										>
 											{areaKey}
 										</button>
