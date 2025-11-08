@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLocation } from "../../redux/location.slicer";
 import customerServices from "../../services/customer.services";
+import { errorSwal } from "../../utils/alert.utils";
 import LocationPicker from "../ui/map/LocationPicker";
-import { errorSwal, successSwal } from "../../utils/alert.utils";
 
 /**
  * LocationSelectorModal
@@ -26,6 +26,17 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
     locationState.data.latitude || -6.5971,
     locationState.data.longitude || 106.806,
   ]);
+
+  // Initialize selectedLocation with current position when modal opens
+  useEffect(() => {
+    if (isOpen && locationState.data.latitude && locationState.data.longitude) {
+      setSelectedLocation({
+        lat: locationState.data.latitude,
+        lng: locationState.data.longitude,
+        label: locationState.data.label || null,
+      });
+    }
+  }, [isOpen, locationState.data.latitude, locationState.data.longitude, locationState.data.label]);
 
   // Fetch user's saved addresses
   useEffect(() => {
@@ -74,29 +85,57 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
     setCurrentPosition([lat, lng]);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (!selectedLocation) {
       errorSwal("Lokasi belum dipilih");
       return;
     }
 
+    let finalLabel = selectedLocation.label;
+
+    // Only fetch reverse geocoding if label is null (map click without label)
+    // Skip if it's "Lokasi Saat Ini" or a saved address label
+    if (!finalLabel) {
+      try {
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${selectedLocation.lat}&lon=${selectedLocation.lng}&accept-language=id&addressdetails=1`
+        );
+        
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.display_name) {
+            // Truncate to first 3 parts (street, area, city)
+            const parts = data.display_name.split(',');
+            if (parts.length > 3) {
+              finalLabel = parts.slice(0, 3).join(',');
+            } else {
+              finalLabel = data.display_name;
+            }
+          }
+        }
+      } catch (error) {
+        console.warn("Reverse geocoding failed, using coordinates:", error);
+        // Fall back to coordinates
+        finalLabel = `${selectedLocation.lat.toFixed(6)}, ${selectedLocation.lng.toFixed(6)}`;
+      }
+
+      // If still no label after fetch attempt, use coordinates
+      if (!finalLabel) {
+        finalLabel = `${selectedLocation.lat.toFixed(6)}, ${selectedLocation.lng.toFixed(6)}`;
+      }
+    }
+
     dispatch(setLocation({
       latitude: selectedLocation.lat,
       longitude: selectedLocation.lng,
-      label: selectedLocation.label || null,
+      label: finalLabel,
     }));
 
     // Save label to localStorage for persistence
-    if (selectedLocation.label) {
-      localStorage.setItem("locationLabel", selectedLocation.label);
+    if (finalLabel) {
+      localStorage.setItem("locationLabel", finalLabel);
     } else {
       localStorage.removeItem("locationLabel");
-    }
-
-    if(selectedLocation.label) {
-      successSwal(`Lokasi: ${selectedLocation.label}`);
-    } else {
-      successSwal(`Koordinat: ${selectedLocation.lat.toFixed(6)}, ${selectedLocation.lng.toFixed(6)}`);
     }
 
     onClose();

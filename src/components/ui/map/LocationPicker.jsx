@@ -35,6 +35,7 @@ function LocationMarker({ position, setPosition, onLocationSelect }) {
           lat: e.latlng.lat,
           lng: e.latlng.lng,
           mapsUrl: mapsUrl,
+          label: null, // Will be fetched on confirm
         });
       }
     },
