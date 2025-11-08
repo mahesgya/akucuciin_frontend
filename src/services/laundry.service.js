@@ -2,7 +2,7 @@ import axios from "axios";
 import { errorSwal } from "../utils/alert.utils";
 
 const LaundryServices = {
-  getByLocation: async () => {
+  getLaundryLocations: async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partners/locations`);
 
@@ -11,18 +11,35 @@ const LaundryServices = {
       errorSwal(error.response?.data?.errors);
     }
   },
-  getByCity: async (city) => {
+  getByCity: async (city, lat, long) => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partners/locations/${city}`);
+      let response;
+      if(lat && long){
+        response = await axios.get(
+          `${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partners/locations/${city}?user_latitude=${lat}&user_longitude=${long}`
+        );
+      } else {
+        response = await axios.get(
+          `${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partners/locations/${city}`
+        );
+      } 
 
       return response.data;
     } catch (error) {
       errorSwal(error.response?.data?.errors);
     }
   },
-  getById: async (idLaundry) => {
+  getById: async (idLaundry, lat, long) => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partner/${idLaundry}`);
+      let response;
+      if(lat && long){
+        response = await axios.get(
+					`${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partner/${idLaundry}?user_latitude=${lat}&user_longitude=${long}`
+				);
+
+      } else {
+        response = await axios.get(`${process.env.REACT_APP_BASE_BACKEND_URL}/api/laundry_partner/${idLaundry}`);
+      }
 
       return response.data;
     } catch (error) {

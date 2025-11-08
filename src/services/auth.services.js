@@ -1,6 +1,6 @@
 import axios from "axios";
-import Swal from "sweetalert2";
 import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 import { setLoading, setLogin, setLogout } from "../redux/auth.slicer";
 import { errorSwal, successSwal } from "../utils/alert.utils";
 import CustomerServices from "./customer.services";
@@ -28,13 +28,37 @@ const AuthServices = {
       await dispatch(setLogin({ accessToken, refreshToken }));
       await CustomerServices.getProfile(accessToken, dispatch);
 
+      // Check if user has any addresses
+      try {
+        const addressResponse = await CustomerServices.getAddresses(accessToken);
+        if (addressResponse.success && (!addressResponse.data || addressResponse.data.length === 0)) {
+          // No addresses found, show modal and redirect
+          await Swal.fire({
+            icon: "info",
+            title: "Selamat Datang!",
+            text: "Yuk buat alamat pertama Anda untuk kemudahan menggunakan Akucuciin.",
+            confirmButtonText: "Buat Alamat",
+            confirmButtonColor: "#687EFF",
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+          });
+          navigate("/profile/addresses", { replace: true });
+          return response.data;
+        }
+      } catch (addressError) {
+        // If address check fails, continue with normal flow
+        console.error("Error checking addresses:", addressError);
+      }
+
       redirectTo = fromStatePath || sessionStorage.getItem("postLoginRedirect") || "/";
       sessionStorage.removeItem("postLoginRedirect");
 
       navigate(redirectTo, { replace: true , state: { activePaket: activePaket }});
       return response.data;
     } catch (error) {
-      errorSwal(error.response?.data?.errors);
+      const errorMessage = error.response?.data?.errors || error.response?.data?.message || "Login gagal. Silakan coba lagi.";
+      errorSwal(errorMessage);
+      throw error;
     } finally {
       setLoading(false);
     }

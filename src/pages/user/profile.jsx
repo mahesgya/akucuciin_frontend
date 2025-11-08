@@ -12,13 +12,13 @@ import AuthServices from "../../services/auth.services";
 import LoadingUtils from "../../utils/loading.utils";
 import { toastContainer } from "../../utils/toast.utils";
 
-import useIsMobileScreen from "../../utils/isMobileScreen.utils";
 import Sidebar from "../../components/layout/sidebar/sidebar";
+import useIsMobileScreen from "../../utils/isMobileScreen.utils";
 
-import KodeRefferralSheet from "../../components/ui/sheet/referral.profile.sheet";
-import EditProfileSheet from "../../components/ui/sheet/edit.profile.sheet";
 import EditProfileSwal from "../../components/modal/profile.edit.swal";
 import KodeRefferralSwal from "../../components/modal/referral.profile.swal";
+import EditProfileSheet from "../../components/ui/sheet/edit.profile.sheet";
+import KodeRefferralSheet from "../../components/ui/sheet/referral.profile.sheet";
 
 const Profile = () => {
   const isMobile = useIsMobileScreen(768);
@@ -133,11 +133,18 @@ const Profile = () => {
 
               <div className="flex gap-4 items-center">
                 <div className="flex items-center gap-6 w-full">
-                  <img src="/Images/address.webp" alt="address" className="w-8" />
-                  <div>
-                    <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700 dark:text-dark-text">Address</label>
-                    <p className="font-['Montserrat'] mt-1 lg:text-md text-sm text-gray-900 dark:text-dark-text">{profile.address}</p>
+                  <img src="/Images/address.webp" alt="saved addresses" className="w-8" />
+                  <div className="flex-1">
+                    <label className="font-['Montserrat'] block lg:text-md text-sm font-bold text-gray-700 dark:text-dark-text">Alamat Tersimpan</label>
+                    <p className="font-['Montserrat'] mt-1 lg:text-md text-sm text-gray-600 dark:text-dark-text/70">Kelola alamat</p>
                   </div>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/profile/addresses")}
+                    className="font-['Montserrat'] px-4 py-2 text-[#687EFF] font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-dark-card-darker transition duration-200"
+                  >
+                    Lihat →
+                  </button>
                 </div>
               </div>
 
@@ -148,7 +155,7 @@ const Profile = () => {
                     onClick={handleEditProfile}
                     className="w-full font-['Montserrat'] px-6 py-2 text-[#687EFF] font-semibold rounded-2xl bg-white hover:bg-gray-100 dark:bg-dark-card dark:hover:bg-dark-card-darker transition duration-200"
                   >
-                    Edit
+                    Edit Profile
                   </button>
                 </div>
               )}
