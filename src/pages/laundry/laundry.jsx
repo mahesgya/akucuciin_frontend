@@ -169,8 +169,8 @@ const LaundryList = () => {
 					<ThemeSwitcher />
 				</div>
 
-				<div className="w-[90dvw] md:w-[87dvw] mt-12 mb-0 md:mb-0 lg:mb-4 flex flex-row justify-between">
-					<h3 className="font-['Montserrat'] text-md md:text-2xl lg:text-3xl font-semibold text-blue-primary dark:text-white">
+				<div className="w-[90dvw] md:w-[87dvw] mt-0 lg:mt-12 mb-0 md:mb-0 lg:mb-4 flex flex-row justify-between">
+					<h3 className="hidden md:block font-['Montserrat'] text-md md:text-2xl lg:text-3xl font-semibold text-blue-primary dark:text-white">
 						{isLoggedIn
 							? `Halo, ${profileData.data.name}!`
 							: "Temukan Laundry Favoritmu"}
@@ -184,12 +184,12 @@ const LaundryList = () => {
 					<PromoCarouselDesktop img={PromoImagesDesktop} />
 				</div>
 
-				<div className="w-full flex-col md:flex-row md:items-center md:justify-between mt-4 mb-6 gap-4 flex md:flex lg:flex">
+				<div className="w-full flex-col md:flex-row md:items-center md:justify-between mt-4 mb-6 pt-4 lg:pt-0 gap-2 flex md:flex lg:flex">
 					{/* Location Picker Dropdown */}
 					<div className="relative px-2 md:px-0 lg:px-0">
 						<button
 							onClick={() => setisAreaDropdownOpen(!isAreaDropdownOpen)}
-							className="flex items-center justify-between mx-auto my-3 px-4 py-3 h-14 min-w-[200px] w-full bg-white dark:bg-dark-card rounded-xl shadow-sm dark:shadow-black/30 border border-gray-200 dark:border-neutral-700 hover:shadow-md transition-all duration-200"
+							className="flex items-center justify-between mx-auto px-4 py-3 h-14 min-w-[200px] w-full bg-white dark:bg-dark-card rounded-xl shadow-sm dark:shadow-black/30 border border-gray-200 dark:border-neutral-700 hover:shadow-md transition-all duration-200"
 						>
 							<div className="flex items-center gap-2">
 								<svg
@@ -240,14 +240,13 @@ const LaundryList = () => {
 						{/* Dropdown Menu */}
 						{isAreaDropdownOpen && (
 							<div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-dark-card border border-gray-200 dark:border-neutral-700 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
-
 								{/* Header */}
 								<div className="px-4 py-3 border-b border-gray-200 dark:border-neutral-700 bg-gray-50 dark:bg-neutral-800 rounded-t-lg">
 									<p className="text-sm font-semibold text-gray-700 dark:text-dark-text font-['Montserrat']">
 										Area Laundry
 									</p>
 								</div>
-								
+
 								{Object.keys(laundryAreas).length > 0 ? (
 									Object.keys(laundryAreas).map((areaKey) => (
 										<button
@@ -269,7 +268,7 @@ const LaundryList = () => {
 					<div className="px-2 md:px-0 lg:px-0 w-full md:w-auto">
 						<button
 							onClick={() => setIsLocationModalOpen(true)}
-							className="w-full flex items-center justify-between mx-auto my-3 px-4 py-3 h-14 min-w-[200px] bg-white dark:bg-dark-card rounded-xl shadow-sm dark:shadow-black/30 border border-gray-200 dark:border-neutral-700 hover:shadow-md hover:border-[#687EFF] transition-all duration-200"
+							className="w-full flex items-center justify-between mx-auto px-4 py-3 h-14 min-w-[200px] bg-white dark:bg-dark-card rounded-xl shadow-sm dark:shadow-black/30 border border-gray-200 dark:border-neutral-700 hover:shadow-md hover:border-[#687EFF] transition-all duration-200"
 						>
 							<div className="flex items-center gap-2">
 								<svg
@@ -343,20 +342,22 @@ const LaundryList = () => {
 								}
 								className="w-full text-left bg-white dark:bg-transparent"
 							>
-								<div className="relative flex flex-row md:flex-col items-center min-h-[90px] h-full overflow-hidden md:min-h-[390px] rounded-xl bg-white dark:bg-dark-card border border-neutral-300 dark:border-neutral-700 shadow-sm shadow-black/10 dark:shadow-black/30 hover:shadow-md hover:shadow-black/20 transition-all duration-300 ease-out">
-									<img
-										src={
-											laundry?.image?.filepath
-												? `${process.env.REACT_APP_BASE_BACKEND_URL}/static/${laundry.image.filepath}`
-												: "https://placehold.co/600x400" // fallback image to use
-										}
-										alt={laundry.name}
-										className={`w-[8.5rem] h-[120px] object-cover md:w-full md:h-[180px] rounded-l-xl md:rounded-t-xl md:rounded-l-none ${
-											laundry.is_open ? "" : "filter grayscale"
-										} ${laundry.is_user_in_radius ? "" : "filter grayscale"}`}
-									/>
+								<div className="relative gap-3 p-3 flex flex-row md:flex-col items-center min-h-[90px] h-full overflow-hidden md:min-h-[390px] rounded-xl bg-white dark:bg-dark-card border border-neutral-300 dark:border-neutral-700 shadow-sm shadow-black/10 dark:shadow-black/30 hover:shadow-md hover:shadow-black/20 transition-all duration-300 ease-out">
+									<div className="items-center w-[130px] h-[130px] md:w-full md:h-[180px]">
+										<img
+											src={
+												laundry?.image?.filepath
+													? `${process.env.REACT_APP_BASE_BACKEND_URL}/static/${laundry.image.filepath}`
+													: "https://placehold.co/600x400" // fallback image to use
+											}
+											alt={laundry.name}
+											className={`h-full w-full object-cover rounded-xl ${
+												laundry.is_open ? "" : "filter grayscale"
+											} ${laundry.is_user_in_radius ? "" : "filter grayscale"}`}
+										/>
+									</div>
 
-									<div className="flex flex-1 flex-col gap-2 p-4 self-start">
+									<div className="flex flex-1 flex-col gap-2 justify-between">
 										<h3 className="font-['Montserrat'] text-[14px] md:text-[20px] font-bold text-blue-primary">
 											{laundry.name}
 										</h3>
@@ -374,49 +375,47 @@ const LaundryList = () => {
 										</p>
 
 										{!laundry.is_open ? (
-											<div className="md:hidden bg-[#] flex flex-row items-center gap-1">
+											<div className="md:hidden flex flex-row items-center gap-1">
 												<img
 													src="/Images/moon.svg"
 													alt="closed"
 													className="w-4"
 												/>
-												<p className="font-['Montserrat'] text-[8px] font-medium text-[#EF4444] text-justify hyphens-auto">
-													Sorry, we're closed, come back later!
+												<p className="font-['Montserrat'] text-[12px] font-medium text-[#EF4444] text-justify hyphens-auto">
+													Sorry, we're closed
 												</p>
 											</div>
 										) : laundry.is_user_in_radius ? (
-											<div className="md:hidden bg-[#] flex flex-row items-center gap-1"></div>
+											<div className="md:hidden flex flex-row items-center gap-1"></div>
 										) : (
-											<div className="md:hidden bg-[#] flex flex-row items-center gap-1">
+											<div className="md:hidden flex flex-row items-center gap-1">
 												<img
 													src="/Images/too_far.png"
 													alt="closed"
 													className="w-4"
 												/>
-												<p className="font-['Montserrat'] text-[8px] font-medium text-[#EF4444] text-justify hyphens-auto">
-													Laundry too far!
+												<p className="font-['Montserrat'] text-[12px] font-medium text-[#EF4444] text-justify hyphens-auto">
+													Laundry too far
 												</p>
 											</div>
 										)}
 									</div>
 
-									<div className="hidden md:w-[19rem] lg:w-[21rem] border-t border-zinc-400 dark:border-zinc-700 md:block"></div>
-
 									{!laundry.is_open ? (
-										<div className="hidden md:w-[19rem] lg:w-[21rem] border-2 border-[#7F7F7F] dark:border-neutral-500 h-10 bg-[#F4F5FF] dark:bg-neutral-800 rounded-[10px] my-4 md:flex items-center justify-center">
+										<div className="hidden w-full border-2 border-[#7F7F7F] dark:border-neutral-500 h-fit p-2 bg-[#F4F5FF] dark:bg-neutral-800 rounded-[10px] md:flex items-center justify-center">
 											<h4 className="text-[#EF4444] text-sm lg:text-base font-semibold font-['Montserrat'] flex flex-row items-center gap-2">
 												<img src="/Images/moon.svg" alt="closed" />
-												Sorry, we're closed, come back later!
+												Sorry, we're closed
 											</h4>
 										</div>
 									) : laundry.is_user_in_radius ? (
-										<div className="hidden md:w-[19rem] lg:w-[21rem] h-10 bg-indigo-500 rounded-[10px] my-4 md:flex items-center justify-center">
+										<div className="hidden w-full h-fit p-2 bg-indigo-500 rounded-[10px] md:flex items-center justify-center">
 											<h4 className="text-white text-base font-semibold font-['Montserrat']">
 												Lihat Detail
 											</h4>
 										</div>
 									) : (
-										<div className="hidden md:w-[19rem] lg:w-[21rem] border border-[#7F7F7F] dark:border-neutral-500 h-10 bg-[#F4F5FF] dark:bg-neutral-800 rounded-[10px] my-4 md:flex items-center justify-center">
+										<div className="hidden w-full border border-[#7F7F7F] dark:border-neutral-500 h-fit p-2 bg-[#F4F5FF] dark:bg-neutral-800 rounded-[10px] md:flex items-center justify-center">
 											<h4 className="text-[#EF4444] text-sm lg:text-base font-semibold font-['Montserrat'] flex flex-row items-center gap-2">
 												<img src="/Images/too_far.png" alt="too far" />
 												Laundry too far!
