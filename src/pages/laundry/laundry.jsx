@@ -331,7 +331,11 @@ const LaundryList = () => {
 							>
 								<div className="relative flex flex-row md:flex-col items-center min-h-[90px] h-full overflow-hidden md:min-h-[390px] rounded-xl bg-white dark:bg-dark-card border border-neutral-300 dark:border-neutral-700 shadow-sm shadow-black/10 dark:shadow-black/30 hover:shadow-md hover:shadow-black/20 transition-all duration-300 ease-out">
 									<img
-										src={`${process.env.REACT_APP_BASE_BACKEND_URL}/static/${laundry.image.filepath}`}
+										src={
+											laundry?.image?.filepath
+												? `${process.env.REACT_APP_BASE_BACKEND_URL}/static/${laundry.image.filepath}`
+												: "https://placehold.co/600x400" // fallback image to use
+										}
 										alt={laundry.name}
 										className={`w-[8.5rem] h-[120px] object-cover md:w-full md:h-[180px] rounded-l-xl md:rounded-t-xl md:rounded-l-none ${
 											laundry.is_open ? "" : "filter grayscale"
