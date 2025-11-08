@@ -2,12 +2,12 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import {
-  MapContainer,
-  Marker,
-  TileLayer,
-  useMap,
-  useMapEvents,
-  ZoomControl,
+    MapContainer,
+    Marker,
+    TileLayer,
+    useMap,
+    useMapEvents,
+    ZoomControl,
 } from "react-leaflet";
 
 // Fix for default marker icon issue in React-Leaflet
@@ -167,7 +167,7 @@ const LocationPicker = ({
   };
 
   return (
-    <div className={`flex flex-col space-y-2 h-full ${className}`}>
+    <div className={`flex flex-col space-y-2 ${className}`} style={{ height: height === "100%" ? "100%" : "auto" }}>
       <style>
         {`
           .leaflet-bottom.leaflet-right .leaflet-control-zoom {
@@ -177,7 +177,7 @@ const LocationPicker = ({
           }
         `}
       </style>
-      <div className="relative flex-1" style={{ width }}>
+      <div className="relative" style={{ width, height: height === "100%" ? "100%" : height }}>
         <MapContainer
           center={position}
           zoom={initialZoom}

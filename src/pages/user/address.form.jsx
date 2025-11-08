@@ -254,16 +254,18 @@ const AddressForm = () => {
             </div>
           )}
 
-          {currentPosition && (
-            <LocationPicker
-              initialPosition={currentPosition}
-              initialZoom={25}
-              onLocationSelect={handleLocationSelect}
-              height="400px"
-              showCoordinates={true}
-              showSearchButton={!isEditMode}
-            />
-          )}
+          <div className="w-full">
+            {currentPosition && (
+              <LocationPicker
+                initialPosition={currentPosition}
+                initialZoom={17}
+                onLocationSelect={handleLocationSelect}
+                height="400px"
+                showCoordinates={true}
+                showSearchButton={!isEditMode}
+              />
+            )}
+          </div>
         </div>
 
         {/* Submit Button */}
