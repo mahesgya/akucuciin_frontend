@@ -14,6 +14,7 @@ import {
 	setLocation,
 } from "../../redux/location.slicer";
 import laundryServices from "../../services/laundry.service";
+import LoadingUtils from "../../utils/loading.utils";
 
 const LaundryList = () => {
 	const [loading, setLoading] = useState(false);
@@ -142,7 +143,7 @@ const LaundryList = () => {
 	};
 
 	if (loading) {
-		return <div className="text-center py-8">Loading...</div>;
+		return <LoadingUtils/>;
 	}
 
 	if (error) {
@@ -210,9 +211,14 @@ const LaundryList = () => {
 										d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
 									/>
 								</svg>
-								<span className="text-sm font-medium text-gray-700 dark:text-dark-text">
-									{selectedArea || "Pilih Area"}
-								</span>
+								<div className="text-left">
+									<p className="text-xs text-gray-500 dark:text-gray-400 font-['Montserrat']">
+										Area Laundry
+									</p>
+									<p className="text-sm font-medium text-gray-700 dark:text-dark-text font-['Montserrat']">
+										{selectedArea || "Pilih Area"}
+									</p>
+								</div>
 							</div>
 							<svg
 								className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${
@@ -234,12 +240,20 @@ const LaundryList = () => {
 						{/* Dropdown Menu */}
 						{isAreaDropdownOpen && (
 							<div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-dark-card border border-gray-200 dark:border-neutral-700 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
+
+								{/* Header */}
+								<div className="px-4 py-3 border-b border-gray-200 dark:border-neutral-700 bg-gray-50 dark:bg-neutral-800 rounded-t-lg">
+									<p className="text-sm font-semibold text-gray-700 dark:text-dark-text font-['Montserrat']">
+										Area Laundry
+									</p>
+								</div>
+								
 								{Object.keys(laundryAreas).length > 0 ? (
 									Object.keys(laundryAreas).map((areaKey) => (
 										<button
 											key={areaKey}
 											onClick={() => handleAreaSelect(areaKey, areaKey)}
-											className="w-full px-4 py-3 text-left text-sm bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text hover:bg-gray-50 dark:hover:bg-neutral-700 transition-colors duration-150 first:rounded-t-lg last:rounded-b-lg"
+											className="w-full px-4 py-3 text-left text-sm bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text hover:bg-gray-50 dark:hover:bg-neutral-700 transition-colors duration-150 last:rounded-b-lg"
 										>
 											{areaKey}
 										</button>
@@ -282,7 +296,7 @@ const LaundryList = () => {
 										Lokasi
 									</p>
 									<p className="text-sm font-medium text-gray-700 dark:text-dark-text font-['Montserrat']">
-										{label 
+										{label
 											? label
 											: latitude && longitude
 											? `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`
@@ -331,7 +345,11 @@ const LaundryList = () => {
 							>
 								<div className="relative flex flex-row md:flex-col items-center min-h-[90px] h-full overflow-hidden md:min-h-[390px] rounded-xl bg-white dark:bg-dark-card border border-neutral-300 dark:border-neutral-700 shadow-sm shadow-black/10 dark:shadow-black/30 hover:shadow-md hover:shadow-black/20 transition-all duration-300 ease-out">
 									<img
-										src={`${process.env.REACT_APP_BASE_BACKEND_URL}/static/${laundry.image.filepath}`}
+										src={
+											laundry?.image?.filepath
+												? `${process.env.REACT_APP_BASE_BACKEND_URL}/static/${laundry.image.filepath}`
+												: "https://placehold.co/600x400" // fallback image to use
+										}
 										alt={laundry.name}
 										className={`w-[8.5rem] h-[120px] object-cover md:w-full md:h-[180px] rounded-l-xl md:rounded-t-xl md:rounded-l-none ${
 											laundry.is_open ? "" : "filter grayscale"
@@ -355,7 +373,7 @@ const LaundryList = () => {
 											{laundry.description}
 										</p>
 
-										{!laundry.is_open && (
+										{!laundry.is_open ? (
 											<div className="md:hidden bg-[#] flex flex-row items-center gap-1">
 												<img
 													src="/Images/moon.svg"
@@ -366,27 +384,40 @@ const LaundryList = () => {
 													Sorry, we're closed, come back later!
 												</p>
 											</div>
+										) : laundry.is_user_in_radius ? (
+											<div className="md:hidden bg-[#] flex flex-row items-center gap-1"></div>
+										) : (
+											<div className="md:hidden bg-[#] flex flex-row items-center gap-1">
+												<img
+													src="/Images/too_far.png"
+													alt="closed"
+													className="w-4"
+												/>
+												<p className="font-['Montserrat'] text-[8px] font-medium text-[#EF4444] text-justify hyphens-auto">
+													Laundry too far!
+												</p>
+											</div>
 										)}
 									</div>
 
 									<div className="hidden md:w-[19rem] lg:w-[21rem] border-t border-zinc-400 dark:border-zinc-700 md:block"></div>
 
 									{!laundry.is_open ? (
-										<div class="hidden md:w-[19rem] lg:w-[21rem] border-2 border-[#7F7F7F] dark:border-neutral-500 h-10 bg-[#F4F5FF] dark:bg-neutral-800 rounded-[10px] my-4 md:flex items-center justify-center">
-											<h4 class="text-[#EF4444] text-sm lg:text-base font-semibold font-['Montserrat'] flex flex-row items-center gap-2">
+										<div className="hidden md:w-[19rem] lg:w-[21rem] border-2 border-[#7F7F7F] dark:border-neutral-500 h-10 bg-[#F4F5FF] dark:bg-neutral-800 rounded-[10px] my-4 md:flex items-center justify-center">
+											<h4 className="text-[#EF4444] text-sm lg:text-base font-semibold font-['Montserrat'] flex flex-row items-center gap-2">
 												<img src="/Images/moon.svg" alt="closed" />
 												Sorry, we're closed, come back later!
 											</h4>
 										</div>
 									) : laundry.is_user_in_radius ? (
-										<div class="hidden md:w-[19rem] lg:w-[21rem] h-10 bg-indigo-500 rounded-[10px] my-4 md:flex items-center justify-center">
-											<h4 class="text-white text-base font-semibold font-['Montserrat']">
+										<div className="hidden md:w-[19rem] lg:w-[21rem] h-10 bg-indigo-500 rounded-[10px] my-4 md:flex items-center justify-center">
+											<h4 className="text-white text-base font-semibold font-['Montserrat']">
 												Lihat Detail
 											</h4>
 										</div>
 									) : (
-										<div class="hidden md:w-[19rem] lg:w-[21rem] border border-[#7F7F7F] dark:border-neutral-500 h-10 bg-[#F4F5FF] dark:bg-neutral-800 rounded-[10px] my-4 md:flex items-center justify-center">
-											<h4 class="text-[#EF4444] text-sm lg:text-base font-semibold font-['Montserrat'] flex flex-row items-center gap-2">
+										<div className="hidden md:w-[19rem] lg:w-[21rem] border border-[#7F7F7F] dark:border-neutral-500 h-10 bg-[#F4F5FF] dark:bg-neutral-800 rounded-[10px] my-4 md:flex items-center justify-center">
+											<h4 className="text-[#EF4444] text-sm lg:text-base font-semibold font-['Montserrat'] flex flex-row items-center gap-2">
 												<img src="/Images/too_far.png" alt="too far" />
 												Laundry too far!
 											</h4>

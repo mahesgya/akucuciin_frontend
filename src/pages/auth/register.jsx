@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
+import { setLoading } from "../../redux/auth.slicer";
+import AuthServices from "../../services/auth.services";
 import { errorSwal } from "../../utils/alert.utils";
 import LoadingUtils from "../../utils/loading.utils";
-import { setLoading } from "../../redux/auth.slicer";
 import { validateCustomer } from "../../validator/customer.validator";
-import AuthServices from "../../services/auth.services";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,7 +20,7 @@ const Register = () => {
     password: "",
     confirm_password: "",
     name: "",
-    address: "",
+    address: "-",
     telephone: "",
   });
 
@@ -88,7 +88,7 @@ const Register = () => {
         password: "",
         confirm_password: "",
         name: "",
-        address: "",
+        address: "-",
         telephone: "",
       });
 
@@ -167,19 +167,6 @@ const Register = () => {
                   value={formData.telephone}
                   onChange={handleChange}
                   placeholder="Nomor Whatsapp"
-                  className="fix-autofill w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:shadow-none focus:outline-none focus:border-b-2"
-                />
-              </div>
-
-              <div className="space-x-1 flex flex-row font-['Montserrat'] bg-white dark:bg-dark-card border border-0.2 border-gray-500/30 dark:border-neutral-700 shadow-sm p-[10px] py-[10px] rounded-lg w-[20rem] md:p-[12px] lg:p-[10px] md:w-[60dvw] lg:w-[30rem]">
-                <img src="Images/address.webp" alt="" className="w-[25px]" />
-                <input
-                  required
-                  type="text"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  placeholder="Alamat"
                   className="fix-autofill w-full font-['Montserrat'] bg-white dark:bg-dark-card text-gray-700 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:shadow-none focus:outline-none focus:border-b-2"
                 />
               </div>

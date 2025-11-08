@@ -34,7 +34,7 @@ const GoogleOauthRedirect = () => {
 			const user = await CustomerServices.getProfile(accessToken, dispatch);
 
 			// Find if user has telephone number and address or not, redirect accordingly
-			if (user.data.telephone && user.data.address) {
+			if (user.data.telephone) {
 				// Check if user has any addresses
 				try {
 					const addressResponse = await CustomerServices.getAddresses(accessToken);
