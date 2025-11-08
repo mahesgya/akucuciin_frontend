@@ -293,7 +293,7 @@ const LaundryList = () => {
 								</svg>
 								<div className="text-left">
 									<p className="text-xs text-gray-500 dark:text-gray-400 font-['Montserrat']">
-										Lokasi
+										Lokasi Penjemputan
 									</p>
 									<p className="text-sm font-medium text-gray-700 dark:text-dark-text font-['Montserrat']">
 										{label

@@ -7,6 +7,7 @@ import {
   TileLayer,
   useMap,
   useMapEvents,
+  ZoomControl,
 } from "react-leaflet";
 
 // Fix for default marker icon issue in React-Leaflet
@@ -149,23 +150,34 @@ const LocationPicker = ({
   };
 
   return (
-    <div className={`flex flex-col space-y-2 ${className}`}>
-      <div className="relative" style={{ height, width }}>
+    <div className={`flex flex-col space-y-2 h-full ${className}`}>
+      <style>
+        {`
+          .leaflet-bottom.leaflet-right .leaflet-control-zoom {
+            transform: scale(1.3);
+            transform-origin: bottom right;
+            margin-bottom: 60px !important;
+          }
+        `}
+      </style>
+      <div className="relative flex-1" style={{ width }}>
         <MapContainer
           center={position}
           zoom={initialZoom}
+          zoomControl={false}
           style={{
             height: "100%",
             width: "100%",
-            borderRadius: "12px",
+            borderRadius: "0px",
             zIndex: 0,
           }}
-          className="shadow-sm border border-gray-300/30 dark:border-neutral-700"
+          className="border-0"
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          <ZoomControl position="bottomright" />
           <LocationMarker
             position={position}
             setPosition={setPosition}
@@ -180,16 +192,16 @@ const LocationPicker = ({
             type="button"
             onClick={getCurrentLocation}
             disabled={loadingLocation}
-            className="absolute top-[90px] left-[10px] z-[1000] bg-white dark:bg-dark-card p-2 rounded-md shadow-md border border-gray-300/50 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-[#687EFF] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="absolute bottom-[20px] right-[10px] z-[1000] bg-white dark:bg-dark-card p-2 rounded-md shadow-md border border-gray-300/50 dark:border-neutral-700 hover:bg-gray-50 dark:hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-[#687EFF] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             title="Gunakan Lokasi Sekarang"
           >
             {loadingLocation ? (
-              <svg className="w-5 h-5 text-[#687EFF] animate-spin" fill="none" viewBox="0 0 24 24">
+              <svg className="w-[30px] h-[30px] text-[#687EFF] animate-spin" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
             ) : (
-              <svg className="w-5 h-5 text-[#687EFF]" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-[30px] h-[30px] text-[#687EFF]" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0013 3.06V1h-2v2.06A8.994 8.994 0 003.06 11H1v2h2.06A8.994 8.994 0 0011 20.94V23h2v-2.06A8.994 8.994 0 0020.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
               </svg>
             )}

@@ -144,148 +144,161 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-white dark:bg-dark-card rounded-2xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-hidden flex flex-col">
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-neutral-700">
-          <h2 className="text-2xl font-bold font-['Montserrat'] text-gray-800 dark:text-dark-text">
-            Pilih Lokasi
-          </h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
+    <div className="fixed inset-0 z-50 flex flex-col bg-white dark:bg-dark-card">
+      {/* Header - Fixed at top */}
+      <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-neutral-700 bg-white dark:bg-dark-card shadow-sm">
+        <button
+          type="button"
+          onClick={onClose}
+          className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors"
+        >
+          <svg className="w-6 h-6 text-gray-700 dark:text-dark-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <h2 className="text-lg font-bold font-['Montserrat'] text-gray-800 dark:text-dark-text">
+          Pilih Lokasi Penjemputan
+        </h2>
+        <div className="w-10"></div> {/* Spacer for alignment */}
+      </div>
 
-        {/* Tabs */}
-        <div className="flex border-b border-gray-200 dark:border-neutral-700 px-6 bg-white dark:bg-dark-card">
-          <button
-            type="button"
-            onClick={() => setActiveTab("map")}
-            className={`font-['Montserrat'] px-6 py-3 font-semibold transition-colors ${
-              activeTab === "map"
-                ? "text-[#687EFF] border-b-2 border-[#687EFF]"
-                : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
-            }`}
-          >
-            Pilih di Peta
-          </button>
-          {isLoggedIn && (
+      {/* Map/Content - Takes full remaining height */}
+      <div className="flex-1 relative overflow-hidden">
+        {activeTab === "map" ? (
+          <LocationPicker
+            initialPosition={currentPosition}
+            initialZoom={15}
+            onLocationSelect={handleLocationSelect}
+            height="100%"
+            showCoordinates={false}
+            showSearchButton={true}
+          />
+        ) : (
+          <div className="h-full overflow-y-auto p-4 space-y-3 bg-gray-50 dark:bg-dark-bg">
+            {loadingAddresses ? (
+              <div className="text-center py-8">
+                <p className="font-['Montserrat'] text-gray-600 dark:text-gray-400">
+                  Memuat alamat...
+                </p>
+              </div>
+            ) : addresses.length === 0 ? (
+              <div className="text-center py-8">
+                <p className="font-['Montserrat'] text-gray-600 dark:text-gray-400 mb-4">
+                  Belum ada alamat tersimpan
+                </p>
+                <button
+                  type="button"
+                  onClick={() => window.location.href = "/profile/addresses/new"}
+                  className="font-['Montserrat'] bg-[#687EFF] text-white px-6 py-2 rounded-lg hover:bg-[#5668CC] transition-colors"
+                >
+                  Tambah Alamat
+                </button>
+              </div>
+            ) : (
+              addresses.map((address) => (
+                <button
+                  type="button"
+                  key={address.id}
+                  onClick={() => handleAddressSelect(address)}
+                  className={`w-full text-left p-4 rounded-xl border-2 transition-all bg-white dark:bg-dark-card ${
+                    selectedLocation?.lat === parseFloat(address.latitude) &&
+                    selectedLocation?.lng === parseFloat(address.longitude)
+                      ? "border-[#687EFF] !bg-[#687EFF]/10 dark:!bg-[#687EFF]/20"
+                      : "border-gray-200 dark:border-neutral-700 hover:border-[#687EFF]/50"
+                  }`}
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="font-['Montserrat'] font-bold text-gray-800 dark:text-dark-text">
+                          {address.label}
+                        </h3>
+                        {address.is_default === 1 && (
+                          <span className="bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+                            Utama
+                          </span>
+                        )}
+                      </div>
+                      <p className="font-['Montserrat'] text-sm text-gray-600 dark:text-gray-400 mb-2">
+                        {address.address}
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-500 font-mono">
+                        {parseFloat(address.latitude).toFixed(6)}, {parseFloat(address.longitude).toFixed(6)}
+                      </p>
+                    </div>
+                    {selectedLocation?.lat === parseFloat(address.latitude) &&
+                      selectedLocation?.lng === parseFloat(address.longitude) && (
+                      <svg className="w-6 h-6 text-[#687EFF]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </div>
+                </button>
+              ))
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Bottom Sheet - Fixed at bottom */}
+      <div className="bg-white dark:bg-dark-card border-t border-gray-200 dark:border-neutral-700 shadow-lg">
+        {/* Location Info */}
+        {selectedLocation && (
+          <div className="p-4 border-b border-gray-200 dark:border-neutral-700">
+            <div className="flex items-start gap-3">
+              <div className="p-2 bg-[#687EFF]/10 rounded-full flex-shrink-0">
+                <svg className="w-5 h-5 text-[#687EFF]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-['Montserrat'] text-xs text-gray-500 dark:text-gray-400 mb-1">
+                  Lokasi Dipilih
+                </p>
+                <p className="font-['Montserrat'] font-semibold text-gray-800 dark:text-dark-text text-sm">
+                  {selectedLocation.label || `${selectedLocation.lat.toFixed(6)}, ${selectedLocation.lng.toFixed(6)}`}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Tabs & Confirm Button */}
+        <div className="p-4 space-y-3">
+          {/* Tabs */}
+          <div className="flex gap-2 bg-gray-100 dark:bg-neutral-800 p-1 rounded-lg">
             <button
               type="button"
-              onClick={() => setActiveTab("addresses")}
-              className={`font-['Montserrat'] px-6 py-3 font-semibold transition-colors ${
-                activeTab === "addresses"
-                  ? "text-[#687EFF] border-b-2 border-[#687EFF]"
-                  : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+              onClick={() => setActiveTab("map")}
+              className={`flex-1 font-['Montserrat'] px-4 py-2.5 font-semibold rounded-md transition-all ${
+                activeTab === "map"
+                  ? "bg-white dark:bg-dark-card text-[#687EFF] shadow-sm"
+                  : "text-gray-600 dark:text-gray-400"
               }`}
             >
-              Alamat Tersimpan
+              Pilih di Peta
             </button>
-          )}
-        </div>
+            {isLoggedIn && (
+              <button
+                type="button"
+                onClick={() => setActiveTab("addresses")}
+                className={`flex-1 font-['Montserrat'] px-4 py-2.5 font-semibold rounded-md transition-all ${
+                  activeTab === "addresses"
+                    ? "bg-white dark:bg-dark-card text-[#687EFF] shadow-sm"
+                    : "text-gray-600 dark:text-gray-400"
+                }`}
+              >
+                Alamat Tersimpan
+              </button>
+            )}
+          </div>
 
-        {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6 bg-white dark:bg-dark-card">
-          {activeTab === "map" ? (
-            <div className="space-y-4">
-              <p className="font-['Montserrat'] text-sm text-gray-600 dark:text-gray-400">
-                Klik pada peta untuk memilih lokasi atau gunakan lokasi saat ini
-              </p>
-              <LocationPicker
-                initialPosition={currentPosition}
-                initialZoom={15}
-                onLocationSelect={handleLocationSelect}
-                height="400px"
-                showCoordinates={true}
-                showSearchButton={true}
-              />
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {loadingAddresses ? (
-                <div className="text-center py-8">
-                  <p className="font-['Montserrat'] text-gray-600 dark:text-gray-400">
-                    Memuat alamat...
-                  </p>
-                </div>
-              ) : addresses.length === 0 ? (
-                <div className="text-center py-8">
-                  <p className="font-['Montserrat'] text-gray-600 dark:text-gray-400 mb-4">
-                    Belum ada alamat tersimpan
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => window.location.href = "/profile/addresses/new"}
-                    className="font-['Montserrat'] bg-[#687EFF] text-white px-6 py-2 rounded-lg hover:bg-[#5668CC] transition-colors"
-                  >
-                    Tambah Alamat
-                  </button>
-                </div>
-              ) : (
-                addresses.map((address) => (
-                  <button
-                    type="button"
-                    key={address.id}
-                    onClick={() => handleAddressSelect(address)}
-                    className={`w-full text-left p-4 rounded-xl border-2 transition-all bg-white dark:bg-dark-card ${
-                      selectedLocation?.lat === parseFloat(address.latitude) &&
-                      selectedLocation?.lng === parseFloat(address.longitude)
-                        ? "border-[#687EFF] !bg-[#687EFF]/10 dark:!bg-[#687EFF]/20"
-                        : "border-gray-200 dark:border-neutral-700 hover:border-[#687EFF]/50"
-                    }`}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-['Montserrat'] font-bold text-gray-800 dark:text-dark-text">
-                            {address.label}
-                          </h3>
-                          {address.is_default === 1 && (
-                            <span className="bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
-                              Utama
-                            </span>
-                          )}
-                        </div>
-                        <p className="font-['Montserrat'] text-sm text-gray-600 dark:text-gray-400 mb-2">
-                          {address.address}
-                        </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-500 font-mono">
-                          {parseFloat(address.latitude).toFixed(6)}, {parseFloat(address.longitude).toFixed(6)}
-                        </p>
-                      </div>
-                      {selectedLocation?.lat === parseFloat(address.latitude) &&
-                        selectedLocation?.lng === parseFloat(address.longitude) && (
-                        <svg className="w-6 h-6 text-[#687EFF]" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                      )}
-                    </div>
-                  </button>
-                ))
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Footer */}
-        <div className="flex gap-3 p-6 border-t border-gray-200 dark:border-neutral-700">
-          <button
-            type="button"
-            onClick={onClose}
-            className="flex-1 font-['Montserrat'] bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-3 rounded-xl hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors"
-          >
-            Batal
-          </button>
+          {/* Confirm Button */}
           <button
             type="button"
             onClick={handleConfirm}
-            className="flex-1 font-['Montserrat'] bg-[#687EFF] text-white font-semibold py-3 rounded-xl hover:bg-[#5668CC] transition-colors"
+            disabled={!selectedLocation}
+            className="w-full font-['Montserrat'] bg-[#687EFF] text-white font-semibold py-4 rounded-xl hover:bg-[#5668CC] transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed disabled:text-gray-500"
           >
             Konfirmasi Lokasi
           </button>
