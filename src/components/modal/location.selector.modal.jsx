@@ -277,14 +277,14 @@ const LocationSelectorModal = ({ isOpen, onClose }) => {
         <div className="flex gap-3 p-6 border-t border-gray-200 dark:border-neutral-700">
           <button
             type="button"
-            onClick={() => onClose}
+            onClick={onClose}
             className="flex-1 font-['Montserrat'] bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-3 rounded-xl hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors"
           >
             Batal
           </button>
           <button
             type="button"
-            onClick={() => handleConfirm()}
+            onClick={handleConfirm}
             className="flex-1 font-['Montserrat'] bg-[#687EFF] text-white font-semibold py-3 rounded-xl hover:bg-[#5668CC] transition-colors"
           >
             Konfirmasi Lokasi

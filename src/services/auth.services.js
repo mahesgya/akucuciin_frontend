@@ -56,7 +56,9 @@ const AuthServices = {
       navigate(redirectTo, { replace: true , state: { activePaket: activePaket }});
       return response.data;
     } catch (error) {
-      errorSwal(error.response?.data?.errors);
+      const errorMessage = error.response?.data?.errors || error.response?.data?.message || "Login gagal. Silakan coba lagi.";
+      errorSwal(errorMessage);
+      throw error;
     } finally {
       setLoading(false);
     }

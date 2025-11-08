@@ -1,12 +1,12 @@
 import ReactDOM from "react-dom/client";
+import ScrollToTop from "./hooks/scroll.top";
 import "./index.css";
 import Routess from "./routes/routes";
-import ScrollToTop from "./hooks/scroll.top";
 
-import { BrowserRouter, useRoutes } from "react-router-dom";
-import { store, persistor } from "./redux/store";
 import { Provider } from "react-redux";
+import { BrowserRouter, useRoutes } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store } from "./redux/store";
 import { register as registerServiceWorker } from "./serviceWorkerRegistration";
 
 import axios from "axios";
@@ -46,12 +46,13 @@ axios.interceptors.response.use(
     const original = error.config || {};
 
     if (error.response?.status !== 401) return Promise.reject(error);
-    const isRefreshCall = original.url?.includes("/api/auth");
+    
+    // Skip interceptor for login and auth endpoints
+    const isAuthCall = original.url?.includes("/api/customer/login") || 
+                       original.url?.includes("/api/customer") ||
+                       original.url?.includes("/api/auth");
 
-    if (isRefreshCall) {
-      await store.dispatch(setLogout());
-      Cookies.remove("accessToken");
-      Cookies.remove("refreshToken");
+    if (isAuthCall) {
       return Promise.reject(error);
     }
 
@@ -70,6 +71,9 @@ axios.interceptors.response.use(
 
       return axios.request(original);
     } catch (e) {
+      await store.dispatch(setLogout());
+      Cookies.remove("accessToken");
+      Cookies.remove("refreshToken");
       return Promise.reject(e);
     }
   }
