@@ -21,6 +21,9 @@ const VoucherReferralSwal = (formData, setFormData, accessToken, packageId, onVa
                     placeholder:text-gray-400 dark:placeholder:text-dark-text/60"
               placeholder="Ex: REF12345"
             />
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 font-['Montserrat']">
+              Anda akan mendapat diskon 5% jika menggunakan kode referral dari teman anda
+            </p>
           </div>
           
           <div class="text-left">
