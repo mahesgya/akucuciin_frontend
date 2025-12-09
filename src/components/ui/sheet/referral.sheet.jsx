@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Sheet } from "react-modal-sheet";
 import customerServices from "../../../services/customer.services";
 
-const VoucherReferralSheet = ({ formData, onClose, isOpen, accessToken, onValidationResponse }) => {
+const VoucherReferralSheet = ({ formData, onClose, isOpen, accessToken, packageId, onValidationResponse }) => {
   const [localFormData, setLocalFormData] = useState({
     referral_code: formData.referral_code || "",
     coupon_code: formData.coupon_code || "",
@@ -38,7 +38,7 @@ const VoucherReferralSheet = ({ formData, onClose, isOpen, accessToken, onValida
       }
 
       if (localFormData.coupon_code) {
-        couponResponse = await customerServices.checkCouponCode(accessToken, localFormData.coupon_code);
+        couponResponse = await customerServices.checkCouponCode(accessToken, localFormData.coupon_code, packageId);
       }
 
       if (onValidationResponse) {

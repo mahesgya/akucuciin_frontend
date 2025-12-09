@@ -229,10 +229,10 @@ const CustomerServices = {
 			);
 		}
 	},
-	checkCouponCode: async (accessToken, couponCode) => {
+	checkCouponCode: async (accessToken, couponCode, packageId) => {
 		try {
 			const response = await axios.get(
-				`${process.env.REACT_APP_BASE_BACKEND_URL}/api/coupon/${couponCode}`,
+				`${process.env.REACT_APP_BASE_BACKEND_URL}/api/coupon/${couponCode}/${packageId}`,
 				{
 					headers: {
 						Authorization: `Bearer ${accessToken}`,

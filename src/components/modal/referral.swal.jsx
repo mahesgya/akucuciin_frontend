@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 import customerServices from "../../services/customer.services";
 import "../../style/SectionHome.css";
 
-const VoucherReferralSwal = (formData, setFormData, accessToken, onValidationResponse) => {
+const VoucherReferralSwal = (formData, setFormData, accessToken, packageId, onValidationResponse) => {
   Swal.fire({
 		title: "Voucher / Referral",
 		html: `
@@ -94,7 +94,8 @@ const VoucherReferralSwal = (formData, setFormData, accessToken, onValidationRes
 			if (result.value.coupon_code) {
 				couponResponse = await customerServices.checkCouponCode(
 					accessToken,
-					result.value.coupon_code
+					result.value.coupon_code,
+					packageId
 				);
 			}
 

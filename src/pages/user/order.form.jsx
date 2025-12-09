@@ -15,17 +15,17 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 
+import LocationSelectorModal from "../../components/modal/location.selector.modal";
 import OrderConfirmationSwal from "../../components/modal/order-confirmation.swal";
 import VoucherReferralSwal from "../../components/modal/referral.swal";
 import VoucherReferralSheet from "../../components/ui/sheet/referral.sheet";
 import customerServices from "../../services/customer.services";
+import LaundryServices from "../../services/laundry.service";
 import { errorSwal, successSwal } from "../../utils/alert.utils";
 import useIsMobileScreen from "../../utils/isMobileScreen.utils";
 import isSpecialVoucher from "../../utils/IsSpecialVoucher.utils";
 import transformPhoneNumber from "../../utils/phone.number.utils";
 import { toastError, toastSuccess } from "../../utils/toast.utils";
-import LocationSelectorModal from "../../components/modal/location.selector.modal";
-import LaundryServices from "../../services/laundry.service";
 
 const OrderForm = () => {
   dayjs.extend(utc);
@@ -233,7 +233,7 @@ const OrderForm = () => {
     if (isMobile) {
       setShowVoucherReferralSheet(true);
     } else {
-      VoucherReferralSwal(formData, setFormData, accessToken, handleValidationResponse);
+      VoucherReferralSwal(formData, setFormData, accessToken, idpaket, handleValidationResponse);
     }
   };
 
@@ -294,6 +294,7 @@ const OrderForm = () => {
 					isOpen={showVoucherReferralSheet}
 					onClose={() => setShowVoucherReferralSheet(false)}
 					accessToken={accessToken}
+					packageId={idpaket}
 					onValidationResponse={handleValidationResponse}
 				/>
 			)}
