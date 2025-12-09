@@ -91,6 +91,7 @@ const VoucherReferralSheet = ({ formData, onClose, isOpen, accessToken, packageI
                 placeholder="Ex: REF12345"
                 disabled={isSubmitting}
               />
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 font-['Montserrat']">Anda akan mendapat diskon 5% jika menggunakan kode referral dari teman anda</p>
             </div>
 
             <div className="text-left">
